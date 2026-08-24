@@ -239,8 +239,17 @@ test fails.
 
 ## Running this for free
 
-The whole stack runs on free tiers, but two of Render's free limits have to be
-designed around rather than accepted.
+Nothing here requires a paid plan. Every piece sits on a permanent free tier:
+
+| Piece | Provider | Free allowance | Enough? |
+| --- | --- | --- | --- |
+| Web service | Render `plan: free` | 750 instance-hours/month | Yes — one service uses ~730 |
+| Database | Neon | 0.5 GB, permanent, commercial use allowed | Yes — the content is well under 5 MB |
+| CV storage | Cloudflare R2 | 10 GB | Yes — a CV is ~1 MB |
+| Email | your existing mailbox | — | Any SMTP account works, e.g. the one behind `info@saccgroup.net` |
+
+Two of Render's free limits have to be designed around rather than accepted,
+which is what the next two sections do.
 
 ### The database is not on Render
 
