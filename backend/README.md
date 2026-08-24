@@ -237,12 +237,71 @@ test fails.
 
 ---
 
+## Running this for free
+
+The whole stack runs on free tiers, but two of Render's free limits have to be
+designed around rather than accepted.
+
+### The database is not on Render
+
+**Render's free PostgreSQL is deleted 30 days after creation** (plus a 14-day
+grace period). That would take the site's content and every stored enquiry with
+it, so `render.yaml` deliberately has no `databases:` block.
+
+Use [Neon](https://neon.tech) instead — its free tier is permanent, allows
+commercial use, and gives 0.5 GB, which is far more than this site needs. Create
+a project, copy the connection string, and set it as `DATABASE_URL` in the
+Render dashboard.
+
+Any external PostgreSQL works the same way; only `DATABASE_URL` changes.
+
+### Content is served statically, not from the API
+
+A free web service sleeps after inactivity, so the first request following a
+quiet spell waits out a cold start of roughly a minute. That is acceptable when
+someone has just clicked *Submit* — they expect a pause. It is not acceptable
+for painting the page.
+
+So the site keeps loading `site-data.js` as a static file, and the API is
+reached only when a form is actually submitted:
+
+```bash
+python manage.py export_site_data      # regenerate site-data.js from the database
+git commit site-data.js                # and ship it
+```
+
+Edit content in the admin, run the export, commit the result. The output is
+shape-compatible with the file the page already parses, so nothing in the
+frontend changes. `--check` exits non-zero when the committed file has drifted
+from the database, which is worth running in CI.
+
+If you would rather fetch live — on a paid plan, or behind a CDN that caches the
+bundle — `backend/frontend/sacc-api.js` does that instead; see *Connecting the
+frontend* above.
+
+### Uploaded files
+
+Render's filesystem is wiped on every deploy, so a CV uploaded by a candidate is
+destroyed the next time you ship. The database rows survive; the files do not.
+
+Set `AWS_STORAGE_BUCKET_NAME` (plus `AWS_ACCESS_KEY_ID`,
+`AWS_SECRET_ACCESS_KEY`, and `AWS_S3_ENDPOINT_URL` for a non-AWS provider) and
+uploads move to object storage automatically. [Cloudflare
+R2](https://developers.cloudflare.com/r2/) has a free tier that covers this
+comfortably. The bucket is used privately — no public ACL, and the admin's
+download links are signed URLs that expire after an hour, because CVs contain
+personal data.
+
+Until that is configured, treat uploads as temporary and rely on the CV *link*
+field.
+
+---
+
 ## Deploying to Render
 
 `render.yaml` is a Blueprint: push this repository to GitHub, then in Render
-choose **New > Blueprint** and point it at the repo. Render reads the file,
-creates the managed PostgreSQL, injects `DATABASE_URL`, generates `SECRET_KEY`,
-and runs `build.sh` (install, `collectstatic`, `migrate`).
+choose **New > Blueprint** and point it at the repo. Render reads the file and
+runs `build.sh` (install, `collectstatic`, `migrate`).
 
 `rootDir: backend` is set because the Django project is not at the repository
 root.
@@ -263,36 +322,15 @@ deploy and overwrite edits made in the admin.
 These are marked `sync: false` in the Blueprint, so Render prompts for them
 rather than storing them in the repository:
 
-`EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`,
-`LEAD_NOTIFICATION_RECIPIENTS`, and the `AWS_*` bucket credentials below.
+`DATABASE_URL`, `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`,
+`LEAD_NOTIFICATION_RECIPIENTS`, and the `AWS_*` bucket credentials.
 
-`ALLOWED_HOSTS` and the CORS/CSRF origins are in the Blueprint and default to
-`sanasacc.com`. The `.onrender.com` hostname is added automatically from
+`SECRET_KEY` uses `generateValue: true`, so Render generates it and it never
+exists in source control at all.
+
+`ALLOWED_HOSTS` and the CORS/CSRF origins are in the Blueprint and point at
+`saccgroup.net`. The `.onrender.com` hostname is added automatically from
 `RENDER_EXTERNAL_HOSTNAME`, so the preview URL works before DNS is pointed.
-
-### Uploaded files on Render
-
-**Render's filesystem is ephemeral — it is wiped on every deploy.** With the
-default local-disk storage, every CV a candidate uploaded is destroyed the next
-time you ship. The database rows survive; the files do not.
-
-Set `AWS_STORAGE_BUCKET_NAME` (plus `AWS_ACCESS_KEY_ID`,
-`AWS_SECRET_ACCESS_KEY`, and `AWS_S3_ENDPOINT_URL` for a non-AWS provider such
-as Cloudflare R2 or Backblaze B2) and uploads move to object storage
-automatically. The bucket is used privately: no public ACL, and the admin's
-download links are signed URLs that expire after an hour, because CVs contain
-personal data.
-
-Until that is configured, treat CV uploads as temporary and rely on the CV
-*link* field.
-
-### Free-tier caveats
-
-The Blueprint uses `plan: free` for both the service and the database so you
-can try it at no cost. Two things to know before launch: a free PostgreSQL
-instance **expires after 30 days**, and a free web service sleeps after
-inactivity, so the first request wakes it with a delay of a few seconds. Move
-both to a paid plan before the site goes live.
 
 ### Running elsewhere
 

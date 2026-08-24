@@ -1,5 +1,6 @@
 """Tests for the seed command and the translation fallback helpers."""
 import json
+import tempfile
 from io import StringIO
 from pathlib import Path
 
@@ -145,3 +146,46 @@ class CheckTranslationsCommandTests(TestCase):
         with self.assertRaises(CommandError):
             call_command("check_translations", "--lang", "ar", "--fail-on-missing", stdout=out)
         self.assertIn("missing Arabic", out.getvalue())
+
+
+class ExportSiteDataCommandTests(TestCase):
+    """The static frontend keeps loading site-data.js, so the export has to stay
+    shape-compatible with the file the page already parses."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("seed_content", verbosity=0)
+
+    def test_export_writes_the_window_assignment(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "site-data.js"
+            call_command("export_site_data", "--output", str(target), verbosity=0)
+
+            content = target.read_text(encoding="utf-8")
+            self.assertTrue(content.lstrip().startswith("/*"))
+            self.assertIn("window.SACC_SITE = {", content)
+            self.assertTrue(content.rstrip().endswith("};"))
+
+    def test_exported_payload_matches_the_api_bundle(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "site-data.json"
+            call_command("export_site_data", "--output", str(target), "--json", verbosity=0)
+            exported = json.loads(target.read_text(encoding="utf-8"))
+
+        self.assertEqual(exported, build_site_bundle())
+        self.assertEqual(exported["company"]["email"], "info@saccgroup.net")
+        self.assertEqual(exported["ar"]["dir"], "rtl")
+        self.assertEqual(exported["en"]["dir"], "ltr")
+
+    def test_check_mode_detects_a_stale_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "site-data.js"
+            call_command("export_site_data", "--output", str(target), verbosity=0)
+
+            # Up to date: passes.
+            call_command("export_site_data", "--output", str(target), "--check", verbosity=0)
+
+            # Content edited in the admin but never re-exported: fails.
+            Service.objects.filter(order=0).update(title_en="Renamed service")
+            with self.assertRaises(SystemExit):
+                call_command("export_site_data", "--output", str(target), "--check", verbosity=0)

@@ -57,9 +57,21 @@ Full policy, and what to do if something leaks: **[SECURITY.md](SECURITY.md)**.
 
 ## Deployment
 
-Hosted on [Render](https://render.com). `backend/render.yaml` is a Blueprint
-that provisions the web service and its managed PostgreSQL together.
+Hosted on [Render](https://render.com) — entirely on free tiers.
+`backend/render.yaml` is a Blueprint for the web service.
 
-Two things to settle before launch, both documented in the backend README:
-uploaded CVs need object storage (Render's filesystem is wiped on every
-deploy), and the free database plan expires after 30 days.
+The database is **not** on Render: its free PostgreSQL is deleted after 30 days,
+which would take the content and every stored enquiry with it. It lives on
+[Neon](https://neon.tech), whose free tier is permanent. Set `DATABASE_URL` in
+the Render dashboard.
+
+A free web service also sleeps when idle, so the page keeps loading
+`site-data.js` as a static file rather than waiting on a cold start. Content is
+edited in the admin and exported back out:
+
+```bash
+cd backend && python manage.py export_site_data
+```
+
+The API is reached only when a form is submitted, where a brief wait is fine.
+Details, plus object storage for uploaded CVs: **[backend/README.md](backend/README.md)**.
