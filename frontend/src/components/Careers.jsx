@@ -6,8 +6,12 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { useSite } from '../SiteContext.jsx';
 import { submitApplication } from '../api.js';
+import Icon from './Icon.jsx';
+import { Reveal } from './Motion.jsx';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_CV_MB = 5;
@@ -28,7 +32,7 @@ const FIELD_BY_API = {
   note: 'note',
 };
 
-export default function Careers({ onBack }) {
+export default function Careers() {
   const { t, lang, images } = useSite();
   const [values, setValues] = useState(EMPTY);
   const [cvFile, setCvFile] = useState(null);
@@ -129,21 +133,16 @@ export default function Careers({ onBack }) {
 
   return (
     <>
-      <section className="hero" style={{ paddingBlock: '72px 60px' }}>
+      <section className="hero" style={{ minHeight: 440, paddingBlock: '72px 60px' }}>
         <div
           className="hero-bg"
           style={{ backgroundImage: `url(${images.careers || './assets/photos/public-realm.jpg'})` }}
           aria-hidden="true"
         />
         <div className="container">
-          <button
-            type="button"
-            className="btn btn-ghost"
-            style={{ marginBottom: 24 }}
-            onClick={onBack}
-          >
+          <Link viewTransition className="btn btn-ghost" style={{ marginBottom: 24 }} to="/">
             {t.backHome}
-          </button>
+          </Link>
           <span className="eyebrow">{t.careers.badge}</span>
           <h1>{t.careers.title}</h1>
           <p className="hero-lead">{t.careers.lead}</p>
@@ -154,11 +153,12 @@ export default function Careers({ onBack }) {
         <div className="container">
           <h2 className="section-title" style={{ marginTop: 0 }}>{t.careers.whyTitle}</h2>
           <div className="grid grid-4">
-            {t.careers.why.map((item) => (
-              <article className="card" key={item.title}>
+            {t.careers.why.map((item, index) => (
+              <Reveal as="article" className="card" key={item.title} index={index}>
+                <Icon name={item.icon} />
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -170,8 +170,8 @@ export default function Careers({ onBack }) {
           <p className="section-lead" style={{ marginBottom: 32 }}>{t.careers.rolesLead}</p>
 
           <div className="grid grid-3">
-            {t.careers.roles.map((role) => (
-              <article className="card" key={role.slug || role.title}>
+            {t.careers.roles.map((role, index) => (
+              <Reveal as="article" className="card" key={role.slug || role.title} index={index}>
                 <h3>{role.title}</h3>
                 <ul className="tag-list">
                   <li>{role.dept}</li>
@@ -186,7 +186,7 @@ export default function Careers({ onBack }) {
                 >
                   {t.careers.cta} ←
                 </button>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>

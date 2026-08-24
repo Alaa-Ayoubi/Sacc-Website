@@ -5,10 +5,18 @@
  * bundle points at a CDN URL that is unreachable.
  */
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useSite } from '../SiteContext.jsx';
+import useInquire from '../useInquire.js';
+import Icon from './Icon.jsx';
+import SafeImage from './SafeImage.jsx';
+import { Reveal } from './Motion.jsx';
 
-function SectionHead({ eyebrow, title, lead }) {
+/* `headless` is set when the surrounding page already shows this heading in
+   its banner, so the section renders its body only. */
+function SectionHead({ eyebrow, title, lead, hidden }) {
+  if (hidden) return null;
   return (
     <div className="section-head">
       {eyebrow && <span className="eyebrow">{eyebrow}</span>}
@@ -18,7 +26,7 @@ function SectionHead({ eyebrow, title, lead }) {
   );
 }
 
-export function Hero({ onNavigate }) {
+export function Hero() {
   const { t, images } = useSite();
   const bg = images.hero || './assets/photos/hero-infrastructure.jpg';
 
@@ -30,26 +38,8 @@ export function Hero({ onNavigate }) {
         <h1>{t.hero.title}</h1>
         <p className="hero-lead">{t.hero.lead}</p>
         <div className="hero-actions">
-          <a
-            className="btn btn-primary"
-            href="#services"
-            onClick={(event) => {
-              event.preventDefault();
-              onNavigate('services');
-            }}
-          >
-            {t.hero.cta1}
-          </a>
-          <a
-            className="btn btn-ghost"
-            href="#contact"
-            onClick={(event) => {
-              event.preventDefault();
-              onNavigate('contact');
-            }}
-          >
-            {t.hero.cta2}
-          </a>
+          <Link viewTransition className="btn btn-primary" to="/services">{t.hero.cta1}</Link>
+          <Link viewTransition className="btn btn-ghost" to="/contact">{t.hero.cta2}</Link>
         </div>
       </div>
     </section>
@@ -72,12 +62,12 @@ export function Stats() {
   );
 }
 
-export function About() {
+export function About({ headless }) {
   const { t } = useSite();
   return (
     <section id="about" className="section">
       <div className="container">
-        <SectionHead eyebrow={t.intro.eyebrow} title={t.intro.title} />
+        <SectionHead hidden={headless} eyebrow={t.intro.eyebrow} title={t.intro.title} />
         <div className="grid grid-3 prose">
           <p>{t.intro.p1}</p>
           <p>{t.intro.p2}</p>
@@ -91,12 +81,21 @@ export function About() {
 export function Why() {
   const { t } = useSite();
   return (
-    <section className="section section-alt">
+    <section className="why-band">
       <div className="container">
-        <SectionHead title={t.why.title} lead={t.why.lead} />
-        <ul className="check-list grid grid-2">
-          {t.why.items.map((item) => (
-            <li key={item}>{item}</li>
+        <Reveal>
+          <h2 className="section-title" style={{ color: '#fff', marginTop: 0 }}>
+            {t.why.title}
+          </h2>
+          <p className="section-lead" style={{ color: 'rgb(255 255 255 / 72%)', marginBottom: 34 }}>
+            {t.why.lead}
+          </p>
+        </Reveal>
+        <ul className="check-list grid grid-4">
+          {t.why.items.map((item, index) => (
+            <Reveal as="li" key={item} index={index}>
+              {item}
+            </Reveal>
           ))}
         </ul>
       </div>
@@ -104,15 +103,17 @@ export function Why() {
   );
 }
 
-export function Services({ onInquire }) {
+export function Services({ headless }) {
   const { t } = useSite();
+  const onInquire = useInquire();
   return (
     <section id="services" className="section">
       <div className="container">
-        <SectionHead eyebrow={t.services.eyebrow} title={t.services.title} lead={t.services.lead} />
+        <SectionHead hidden={headless} eyebrow={t.services.eyebrow} title={t.services.title} lead={t.services.lead} />
         <div className="grid grid-3">
           {t.services.items.map((service, index) => (
-            <article className="card" key={service.title}>
+            <Reveal as="article" className="card" key={service.title} index={index}>
+              <Icon name={service.icon} />
               <span className="card-num">{String(index + 1).padStart(2, '0')}</span>
               <h3>{service.title}</h3>
               <p>{service.desc}</p>
@@ -133,7 +134,7 @@ export function Services({ onInquire }) {
               >
                 {t.services.inquireCta} ←
               </button>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -141,8 +142,9 @@ export function Services({ onInquire }) {
   );
 }
 
-export function Projects({ onInquire }) {
+export function Projects({ headless }) {
   const { t } = useSite();
+  const onInquire = useInquire();
   const [category, setCategory] = useState('all');
   const [expanded, setExpanded] = useState(null);
 
@@ -158,7 +160,7 @@ export function Projects({ onInquire }) {
   return (
     <section id="projects" className="section section-alt">
       <div className="container">
-        <SectionHead eyebrow={t.projects.eyebrow} title={t.projects.title} lead={t.projects.lead} />
+        <SectionHead hidden={headless} eyebrow={t.projects.eyebrow} title={t.projects.title} lead={t.projects.lead} />
 
         <div className="chips" role="group" aria-label={t.projects.title}>
           {t.projects.categories.map((chip) => (
@@ -178,8 +180,8 @@ export function Projects({ onInquire }) {
           <p className="section-lead">{t.projects.empty}</p>
         ) : (
           <div className="grid grid-3">
-            {items.map((project) => (
-              <article className="card project" key={project.id}>
+            {items.map((project, index) => (
+              <Reveal as="article" className="card project" key={project.id} index={index}>
                 {project.image && (
                   <div
                     className="project-media"
@@ -236,7 +238,7 @@ export function Projects({ onInquire }) {
                     </>
                   )}
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
         )}
@@ -254,12 +256,13 @@ export function Projects({ onInquire }) {
   );
 }
 
-export function Equipment({ onInquire }) {
+export function Equipment({ headless }) {
   const { t, images } = useSite();
+  const onInquire = useInquire();
   return (
     <section id="equipment" className="section">
       <div className="container">
-        <SectionHead eyebrow={t.equipment.eyebrow} title={t.equipment.title} lead={t.equipment.lead} />
+        <SectionHead hidden={headless} eyebrow={t.equipment.eyebrow} title={t.equipment.title} lead={t.equipment.lead} />
 
         <div className="contact-grid">
           <div className="prose">
@@ -270,11 +273,10 @@ export function Equipment({ onInquire }) {
             </button>
           </div>
           <div>
-            <img
+            <SafeImage
               src={images.equipment || './assets/photos/equipment-fleet.jpg'}
               alt={t.equipment.title}
-              style={{ width: '100%', borderRadius: 'var(--radius-lg)' }}
-              loading="lazy"
+              style={{ width: '100%', borderRadius: 'var(--radius-panel)' }}
             />
           </div>
         </div>
@@ -288,11 +290,12 @@ export function Equipment({ onInquire }) {
 
         <h3 style={{ margin: '48px 0 18px' }}>{t.equipment.supportHeading}</h3>
         <div className="grid grid-4">
-          {t.equipment.features.map((feature) => (
-            <article className="card" key={feature.title}>
+          {t.equipment.features.map((feature, index) => (
+            <Reveal as="article" className="card" key={feature.title} index={index}>
+              <Icon name={feature.icon} />
               <h3>{feature.title}</h3>
               <p>{feature.desc}</p>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -300,12 +303,14 @@ export function Equipment({ onInquire }) {
   );
 }
 
-export function Certifications({ onInquire }) {
+export function Certifications({ headless }) {
   const { t } = useSite();
+  const onInquire = useInquire();
   return (
     <section id="certifications" className="section section-alt">
       <div className="container">
         <SectionHead
+          hidden={headless}
           eyebrow={t.certifications.eyebrow}
           title={t.certifications.title}
           lead={t.certifications.lead}
@@ -313,11 +318,11 @@ export function Certifications({ onInquire }) {
 
         <h3 style={{ marginBottom: 18 }}>{t.certifications.isoHeading}</h3>
         <div className="grid grid-3">
-          {t.certifications.iso.map((cert) => (
-            <article className="card" key={cert.title}>
+          {t.certifications.iso.map((cert, index) => (
+            <Reveal as="article" className="card" key={cert.title} index={index}>
               <h3>{cert.title}</h3>
               <p>{cert.desc}</p>
-            </article>
+            </Reveal>
           ))}
         </div>
 
@@ -345,12 +350,12 @@ export function Certifications({ onInquire }) {
   );
 }
 
-export function Journey() {
+export function Journey({ headless }) {
   const { t } = useSite();
   return (
     <section id="journey" className="section section-dark">
       <div className="container">
-        <SectionHead eyebrow={t.journey.eyebrow} title={t.journey.title} lead={t.journey.lead} />
+        <SectionHead hidden={headless} eyebrow={t.journey.eyebrow} title={t.journey.title} lead={t.journey.lead} />
 
         <div className="contact-grid">
           <ol className="timeline">
@@ -384,12 +389,13 @@ export function Journey() {
   );
 }
 
-export function Leadership() {
+export function Leadership({ headless }) {
   const { t } = useSite();
   return (
     <section id="leadership" className="section">
       <div className="container">
         <SectionHead
+          hidden={headless}
           eyebrow={t.leadership.eyebrow}
           title={t.leadership.title}
           lead={t.leadership.lead}
@@ -398,11 +404,12 @@ export function Leadership() {
         <div className="grid grid-2">
           {t.leadership.leaders.map((leader) => (
             <article className="card leader" key={leader.name}>
-              {leader.photo ? (
-                <img className="leader-photo" src={leader.photo} alt={leader.name} loading="lazy" />
-              ) : (
-                <div className="leader-photo" aria-hidden="true" />
-              )}
+              <SafeImage
+                className="leader-photo"
+                src={leader.photo}
+                alt={leader.name}
+                fallback={<div className="leader-photo" aria-hidden="true" />}
+              />
               <div>
                 <h3 style={{ marginBottom: 2 }}>{leader.name}</h3>
                 <p style={{ color: 'var(--teal-link)', fontWeight: 600, margin: '0 0 10px' }}>
@@ -435,7 +442,7 @@ export function Leadership() {
   );
 }
 
-export function Footer({ onNavigate }) {
+export function Footer() {
   const { t, company } = useSite();
   return (
     <footer className="footer">
@@ -455,15 +462,7 @@ export function Footer({ onNavigate }) {
             <ul>
               {t.nav.map((item) => (
                 <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      onNavigate(item.id);
-                    }}
-                  >
-                    {item.label}
-                  </a>
+                  <Link viewTransition to={`/${item.id}`}>{item.label}</Link>
                 </li>
               ))}
             </ul>

@@ -31,7 +31,9 @@
 
   --container: 1320px;
   --radius: 4px;
-  --radius-lg: 10px;
+  --radius-control: 6px;
+  --radius-lg: 12px;
+  --radius-panel: 16px;
 
   --font-sans: 'Tajawal', 'Outfit', system-ui, -apple-system, sans-serif;
   --font-display: 'Almarai', 'Outfit', system-ui, sans-serif;
@@ -79,8 +81,8 @@ input, textarea, select, button { font: inherit; }
 .skip:focus { inset-inline-start: 0; }
 
 :where(a, button, input, textarea, select):focus-visible {
-  outline: 2px solid var(--teal);
-  outline-offset: 2px;
+  outline: 1px solid var(--teal);
+  outline-offset: 3px;
 }
 
 /* ---------- top bar ---------- */
@@ -101,10 +103,13 @@ input, textarea, select, button { font: inherit; }
 /* ---------- header ---------- */
 .header {
   position: sticky; top: 0; z-index: 60;
-  background: rgb(15 38 55 / 95%);
-  backdrop-filter: blur(14px);
+  background: rgb(15 38 55 / 97%);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid rgb(255 255 255 / 9%);
+  transition: box-shadow 0.3s ease;
 }
+/* Once the page has moved, the header lifts off the content beneath it. */
+.header.is-scrolled { box-shadow: 0 10px 30px -20px rgb(0 0 0 / 60%); }
 .header .container {
   display: flex; align-items: center; gap: 26px; padding-block: 13px;
 }
@@ -113,17 +118,20 @@ input, textarea, select, button { font: inherit; }
 
 .nav { display: flex; align-items: center; flex: 1; min-width: 0; }
 .nav a {
-  padding: 10px 14px; font-size: 14px; font-weight: 500;
+  padding: 9px 14px; font-size: 14px; font-weight: 500;
   color: rgb(255 255 255 / 70%); white-space: nowrap;
-  border-bottom: 2px solid transparent;
+  border-radius: var(--radius-control);
+  transition: background 0.2s ease, color 0.2s ease;
 }
-.nav a:hover, .nav a[aria-current='true'] { color: #fff; border-bottom-color: var(--teal); }
+.nav a:hover { color: #fff; }
+/* The current page is marked with a soft pill rather than an underline. */
+.nav a.is-active { color: #fff; background: rgb(255 255 255 / 10%); }
 
 .header-actions { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 20px; border-radius: var(--radius); border: 0;
+  padding: 11px 22px; border-radius: var(--radius-control); border: 0;
   font-size: 14px; font-weight: 700; white-space: nowrap; cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
@@ -165,6 +173,7 @@ input, textarea, select, button { font: inherit; }
 /* ---------- hero ---------- */
 .hero {
   position: relative; background: var(--navy); color: #fff;
+  min-height: 620px; display: flex; align-items: center;
   padding-block: 96px 84px; overflow: hidden;
 }
 .hero-bg {
@@ -210,7 +219,7 @@ input, textarea, select, button { font: inherit; }
 @media (max-width: 860px) { .stats .container { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- sections ---------- */
-.section { padding-block: 88px; }
+.section { padding-block: 124px; }
 .section-alt { background: var(--surface-muted); }
 .section-dark { background: var(--navy); color: #fff; }
 .section-dark .section-title { color: #fff; }
@@ -237,9 +246,14 @@ input, textarea, select, button { font: inherit; }
 .card {
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius-lg); padding: 26px;
-  transition: border-color 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 14px 32px -22px rgb(15 38 55 / 40%);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.card:hover { border-color: var(--teal); }
+.card:hover {
+  border-color: var(--teal);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -24px rgb(15 38 55 / 45%);
+}
 .card h3 {
   margin: 0 0 10px; font-size: 18px; font-weight: 700; color: var(--ink);
   font-family: var(--font-display);
@@ -349,7 +363,7 @@ input, textarea, select, button { font: inherit; }
   color: var(--ink); margin-bottom: 7px;
 }
 .field input, .field textarea, .field select {
-  width: 100%; padding: 12px 14px; border-radius: var(--radius);
+  width: 100%; padding: 12px 14px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   font-size: 15px;
 }
@@ -422,4 +436,167 @@ input, textarea, select, button { font: inherit; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;
+}
+
+
+/* ---------- credential ticker ---------- */
+/* A continuous band of approvals and client names. It slows rather than stops
+   on hover, so a name can be read without the motion jarring to a halt. */
+.ticker {
+  background: var(--navy);
+  border-block: 1px solid rgb(255 255 255 / 9%);
+  overflow: hidden;
+  padding-block: 14px;
+}
+.ticker-track {
+  display: flex; align-items: center; width: max-content;
+  will-change: transform;
+  animation: ticker-roll 52s linear infinite;
+}
+.ticker:hover .ticker-track { animation-duration: 340s; }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 22px;
+  padding-inline: 22px; font-size: 14px; font-weight: 500;
+  color: rgb(255 255 255 / 68%); white-space: nowrap;
+}
+.ticker-item::after {
+  content: ''; width: 4px; height: 4px; background: var(--teal); flex-shrink: 0;
+}
+@keyframes ticker-roll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* The track is doubled, so RTL needs the mirrored direction to loop seamlessly. */
+[dir='rtl'] .ticker-track { animation-name: ticker-roll-rtl; }
+@keyframes ticker-roll-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .ticker { overflow-x: auto; }
+}
+
+/* ---------- reveal on scroll ---------- */
+/* Applied from JS only, never from the initial render — see Motion.jsx. */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- chairman band ---------- */
+/* Full-width navy panel: the portrait is desaturated and blended into the
+   ground so it reads as part of the panel rather than pasted onto it. */
+.chairman {
+  background: var(--navy); color: #fff; padding-block: 108px;
+  position: relative; overflow: hidden;
+}
+.chairman::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    90deg, rgb(255 255 255 / 6%) 0 1px, transparent 1px 64px);
+}
+.chairman .container { position: relative; }
+.chairman-grid {
+  display: grid; grid-template-columns: 300px 1fr; gap: 52px; align-items: center;
+}
+.chairman-photo {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border-radius: var(--radius-panel);
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: luminosity;
+}
+.chairman blockquote {
+  margin: 0; font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 29px); line-height: 1.62; font-weight: 400;
+  text-wrap: balance;
+}
+.chairman .role {
+  margin-top: 22px; font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal-bright);
+}
+.chairman .who { margin-top: 6px; font-size: 17px; font-weight: 700; }
+.chairman-grid.is-solo { grid-template-columns: 1fr; }
+@media (max-width: 800px) { .chairman-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ---------- icon tile ---------- */
+/* Accent-tinted square that fills on hover, matching the card's lift. */
+.icon-tile {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: var(--radius-control);
+  background: rgb(98 167 162 / 10%); color: var(--teal-link);
+  margin-bottom: 16px; transition: background 0.3s ease, color 0.3s ease;
+}
+.card:hover .icon-tile { background: var(--teal); color: var(--navy); }
+
+/* ---------- why band ---------- */
+/* The one dark interruption between the white sections above and below. */
+.why-band { background: var(--navy-soft); color: #fff; padding-block: 64px; }
+.why-band .check-list li { color: rgb(255 255 255 / 88%); }
+.why-band .check-list li::before { color: var(--teal-bright); }
+
+/* Project imagery zooms slightly as its card lifts. */
+.project-media { transition: transform 0.5s ease; }
+.project:hover .project-media { transform: scale(1.05); }
+.project { overflow: hidden; }
+
+
+/* ---------- inner page banner ---------- */
+/* Every route opens on navy, so the header's white text always has ground
+   under it and the pages read as one family. */
+.page-hero {
+  position: relative; background: var(--navy); color: #fff;
+  padding-block: 76px 68px; overflow: hidden;
+}
+.page-hero .container { position: relative; }
+.page-hero h1 {
+  margin: 16px 0 14px; font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.28;
+  text-wrap: balance;
+}
+.page-hero .hero-lead { margin: 0; font-size: 17px; }
+
+/* ---------- closing call to action ---------- */
+/* Inner pages end with an invitation rather than simply stopping. */
+.cta-band {
+  background: var(--surface-muted);
+  border-top: 1px solid var(--line);
+  padding-block: 76px; text-align: center;
+}
+.cta-band h2 {
+  margin: 0 0 12px; font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--ink);
+}
+.cta-band p {
+  margin: 0 auto 26px; max-width: 60ch;
+  font-size: 16px; line-height: 1.8; color: var(--ink-soft);
+}
+
+
+/* ---------- page transitions ---------- */
+/* Native cross-fade where the browser supports it. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 160ms ease-in both fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 260ms 60ms ease-out both fade-in-up;
+  }
+}
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Fallback for browsers without view transitions: fade the incoming page. */
+.page { transition: opacity 0.26s ease-out, transform 0.26s ease-out; }
+.page-enter { opacity: 0; transform: translateY(10px); }
+.page-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .page { transition: none; opacity: 1; transform: none; }
 }

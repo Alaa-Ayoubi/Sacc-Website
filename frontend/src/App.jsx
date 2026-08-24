@@ -1,137 +1,88 @@
-/* The one-page site, plus a careers view.
+/* Routes.
  *
- * Two views rather than a router: the site is a single page with in-page
- * anchors, and careers is the one place that leaves it. Adding a router for
- * that would be more machinery than the structure earns.
+ * The site was one scrolling page; it is now a page per section, matching how
+ * saccgroup.net is organised. Anchors from the old structure still work —
+ * /#services and similar redirect to the matching route, so any link already
+ * shared keeps landing in the right place.
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import Header, { TopBar } from './components/Header.jsx';
-import Contact from './components/Contact.jsx';
+import PageTransition from './components/PageTransition.jsx';
 import Careers from './components/Careers.jsx';
+import { Footer } from './components/Sections.jsx';
 import {
-  About,
-  Certifications,
-  Equipment,
-  Footer,
-  Hero,
-  Journey,
-  Leadership,
-  Projects,
-  Services,
-  Stats,
-  Why,
-} from './components/Sections.jsx';
+  AboutPage,
+  CertificationsPage,
+  ContactPage,
+  EquipmentPage,
+  HomePage,
+  JourneyPage,
+  LeadershipPage,
+  NotFoundPage,
+  ProjectsPage,
+  ServicesPage,
+} from './pages/Pages.jsx';
 import { useSite } from './SiteContext.jsx';
 
-const HEADER_OFFSET = 84;
+/* A route change should start at the top of the new page, not wherever the
+   previous one was scrolled to. */
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    // Instant, not smooth: the cross-fade already carries the change, and
+    // scrolling the outgoing page as it fades reads as two things at once.
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [pathname]);
+  return null;
+}
+
+/* The single-page build used #anchors. Carry those over so shared links and
+   search results do not break. */
+function LegacyHashRedirect() {
+  const location = useLocation();
+  const hash = location.hash.slice(1);
+  const known = [
+    'about', 'services', 'projects', 'equipment',
+    'certifications', 'journey', 'leadership', 'contact', 'careers',
+  ];
+  if (location.pathname === '/' && known.includes(hash)) {
+    return <Navigate to={`/${hash}`} replace />;
+  }
+  return null;
+}
 
 export default function App() {
   const { t } = useSite();
-  const [view, setView] = useState('home');
-  const [prefill, setPrefill] = useState('');
-
-  const scrollTo = useCallback((id, behavior = 'smooth') => {
-    if (id === 'top') {
-      window.scrollTo({ top: 0, behavior });
-      return;
-    }
-    const target = document.getElementById(id);
-    if (!target) return;
-    const top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-    window.scrollTo({ top: Math.max(top, 0), behavior });
-  }, []);
-
-  const navigate = useCallback(
-    (id) => {
-      if (id === 'careers') {
-        setView('careers');
-        return;
-      }
-      if (view !== 'home') {
-        setView('home');
-        // Wait for the home view to mount before looking for the anchor.
-        requestAnimationFrame(() => requestAnimationFrame(() => scrollTo(id)));
-        return;
-      }
-      scrollTo(id);
-    },
-    [view, scrollTo],
-  );
-
-  /* React renders after the document loads, so the browser's own anchor jump
-     finds nothing. Honour the incoming hash once the sections exist, which is
-     what makes a shared link like /#contact land in the right place. */
-  useEffect(() => {
-    const id = window.location.hash.slice(1);
-    if (!id) return undefined;
-    if (id === 'careers') {
-      setView('careers');
-      return undefined;
-    }
-
-    // Instant, not smooth: someone who followed a deep link asked for that
-    // section, not for a tour of everything above it.
-    //
-    // Scrolling once is not enough — images above the target are still
-    // loading, and every one that arrives pushes the target further down,
-    // leaving the visitor short of it. Re-align as the layout settles.
-    let frame = 0;
-    const align = () => scrollTo(id, 'auto');
-    align();
-
-    const settle = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(align);
-    };
-    window.addEventListener('load', settle);
-    const timers = [80, 400, 1200].map((delay) => setTimeout(settle, delay));
-
-    return () => {
-      window.removeEventListener('load', settle);
-      cancelAnimationFrame(frame);
-      timers.forEach(clearTimeout);
-    };
-  }, [scrollTo]);
-
-  /* An "enquire about X" button anywhere on the page fills in the contact
-     form and jumps to it, so the visitor never retypes what they clicked. */
-  const inquire = useCallback(
-    (subject) => {
-      if (view !== 'home') setView('home');
-      setPrefill(subject);
-      requestAnimationFrame(() => requestAnimationFrame(() => scrollTo('contact')));
-    },
-    [view, scrollTo],
-  );
 
   return (
     <>
       <a className="skip" href="#main">{t.nav[0]?.label}</a>
+      <ScrollToTop />
+      <LegacyHashRedirect />
       <TopBar />
-      <Header onNavigate={navigate} view={view} />
+      <Header />
 
       <main id="main">
-        {view === 'careers' ? (
-          <Careers onBack={() => setView('home')} />
-        ) : (
-          <>
-            <Hero onNavigate={navigate} />
-            <Stats />
-            <About />
-            <Why />
-            <Services onInquire={inquire} />
-            <Projects onInquire={inquire} />
-            <Equipment onInquire={inquire} />
-            <Certifications onInquire={inquire} />
-            <Journey />
-            <Leadership />
-            <Contact prefill={prefill} onPrefillUsed={() => setPrefill('')} />
-          </>
-        )}
+        <PageTransition>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/equipment" element={<EquipmentPage />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/journey" element={<JourneyPage />} />
+          <Route path="/leadership" element={<LeadershipPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        </PageTransition>
       </main>
 
-      <Footer onNavigate={navigate} />
+      <Footer />
     </>
   );
 }
