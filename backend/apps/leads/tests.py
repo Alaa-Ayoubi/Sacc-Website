@@ -78,12 +78,17 @@ class QuoteRequestTests(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("email", response.json()["errors"])
 
-    def test_project_type_is_required_in_one_form_or_the_other(self):
+    def test_project_type_is_optional(self):
+        # This is a general contact form: making someone categorise their
+        # enquiry before they can send it turns a message into paperwork.
         payload = self.payload()
         payload.pop("project_type")
         response = self.client.post(self.url, payload, content_type="application/json")
-        self.assertEqual(response.status_code, 400)
-        self.assertIn("project_type", response.json()["errors"])
+
+        self.assertEqual(response.status_code, 201)
+        quote = QuoteRequest.objects.get()
+        self.assertIsNone(quote.project_type)
+        self.assertEqual(quote.project_type_display, "Unspecified")
 
     def test_free_text_project_type_is_accepted(self):
         payload = self.payload()

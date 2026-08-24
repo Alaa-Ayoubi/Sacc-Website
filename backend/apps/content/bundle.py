@@ -273,6 +273,9 @@ def _language_block(lang: str, data: dict) -> dict:
             "success": labels["contact"]["success"],
             "failure": labels["contact"]["failure"],
             "errors": labels["contact"]["errors"],
+            # Emailing is offered as an equal alternative to the form.
+            "orEmail": labels["contact"]["orEmail"],
+            "emailCta": labels["contact"]["emailCta"],
         },
         "careers": {
             "badge": careers.tr("eyebrow", lang),

@@ -24,10 +24,12 @@ class ProjectType(OrderedModel, TranslatableModel):
 
 
 class QuoteRequest(TimeStampedModel):
-    """One enquiry from the "Request a Quote" form.
+    """One message from the contact form.
 
-    ``project_type`` is a foreign key so the dropdown stays editable, with
-    ``project_type_other`` covering the "Other" option.
+    Named for the original "Request a Quote" form; it now backs general
+    enquiries, which is why ``project_type`` is optional. The class name is
+    kept so the table and its stored messages are not disturbed — the admin
+    presents it as a contact message.
     """
 
     class Status(models.TextChoices):
@@ -75,7 +77,7 @@ class QuoteRequest(TimeStampedModel):
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = "quote request"
+        verbose_name = "contact message"
         indexes = [models.Index(fields=["status", "-created_at"])]
 
     def __str__(self):

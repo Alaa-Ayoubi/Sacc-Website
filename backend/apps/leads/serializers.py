@@ -1,8 +1,9 @@
-"""Quote-request intake.
+"""Contact-form intake.
 
-Validation deliberately mirrors what the form already enforces in the browser
-(``submitQuote`` in the page script) so a visitor never gets past client-side
-validation only to be rejected by the server.
+Validation deliberately mirrors what the form enforces in the browser, so a
+visitor never gets past client-side validation only to be rejected by the
+server. Only the essentials are required — name, email, company and a message;
+the project type is a convenience, not a gate.
 """
 from rest_framework import serializers
 
@@ -71,8 +72,7 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         if attrs.pop("website", ""):
             # Silently accepted by the view, then flagged as spam.
             self.context["honeypot_tripped"] = True
-        if not attrs.get("project_type") and not attrs.get("project_type_other", "").strip():
-            raise serializers.ValidationError(
-                {"project_type": "Select a project type."}
-            )
+        # The project type is optional: this is a general contact form, and
+        # asking someone to categorise their enquiry before they can send it
+        # turns a message into a form to be filled in.
         return attrs

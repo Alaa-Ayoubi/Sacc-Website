@@ -531,8 +531,8 @@
     },
     "contact": {
       "eyebrow": "تواصل معنا",
-      "title": "اطلب عرض سعر",
-      "lead": "أخبرنا بتفاصيل مشروعك. نردّ على استفسارات الجهات والشركات خلال 24 ساعة.",
+      "title": "تواصل معنا",
+      "lead": "أخبرنا كيف نساعدك. نردّ على استفسارات الجهات والشركات خلال 24 ساعة عمل.",
       "officeHeading": "المكتب الرئيسي",
       "address": "المدينة المنورة، المملكة العربية السعودية",
       "hoursHeading": "ساعات العمل",
@@ -1208,8 +1208,8 @@
     },
     "contact": {
       "eyebrow": "Contact",
-      "title": "Request a Quote",
-      "lead": "Tell us about your project. Enterprise and government enquiries receive a response within 24 hours.",
+      "title": "Get in Touch",
+      "lead": "Tell us how we can help. Enterprise and government enquiries receive a response within 24 business hours.",
       "officeHeading": "Head Office",
       "address": "Al Madinah Al Munawwarah, Kingdom of Saudi Arabia",
       "hoursHeading": "Working Hours",

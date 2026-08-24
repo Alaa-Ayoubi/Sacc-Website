@@ -1,4 +1,8 @@
-/* The quote-request form.
+/* The contact form.
+ *
+ * Reaching the company is the point, so there are two equal routes: fill this
+ * in, or use the mailto link above it. Only name, email, organization and a
+ * message are required — the project type is a convenience.
  *
  * Validation mirrors the backend's rules so a visitor is corrected before a
  * round trip, and field errors coming back from the API are merged into the
@@ -35,6 +39,11 @@ export default function Contact({ prefill, onPrefillUsed }) {
   const [failure, setFailure] = useState('');
   const messageRef = useRef(null);
 
+  // Pre-fill the subject so an emailed enquiry arrives already labelled.
+  const mailto = `mailto:${company.email}?subject=${encodeURIComponent(
+    `${t.contact.title} — ${t.brandLine}`,
+  )}`;
+
   // A "enquire about X" button elsewhere on the page drops its subject in here.
   useEffect(() => {
     if (!prefill) return;
@@ -56,7 +65,6 @@ export default function Contact({ prefill, onPrefillUsed }) {
     if (!values.name.trim()) found.name = t.contact.errors.name;
     if (!EMAIL.test(values.email)) found.email = t.contact.errors.email;
     if (!values.company.trim()) found.company = t.contact.errors.company;
-    if (!values.type) found.type = t.contact.errors.type;
     if (values.message.trim().length < 10) found.message = t.contact.errors.message;
     return found;
   };
@@ -163,65 +171,74 @@ export default function Contact({ prefill, onPrefillUsed }) {
             </div>
           </div>
 
-          <form className="card" onSubmit={onSubmit} noValidate>
-            <div className="form-grid">
-              {field('name', t.contact.fields.name, { autoComplete: 'name' })}
-              {field('email', t.contact.fields.email, { type: 'email', autoComplete: 'email' })}
-              {field('company', t.contact.fields.company, { autoComplete: 'organization' })}
+          <div>
+            {company.email && (
+              <p className="or-email">
+                {t.contact.orEmail}{' '}
+                <a href={mailto}>{company.email}</a>
+              </p>
+            )}
 
-              <div className="field">
-                <label htmlFor="q-type">{t.contact.fields.type}</label>
-                <select
-                  id="q-type"
-                  value={values.type}
-                  onChange={set('type')}
-                  aria-invalid={errors.type ? 'true' : undefined}
-                >
-                  <option value="">{t.contact.placeholders.type}</option>
-                  {t.contact.types.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                {errors.type && <span className="error" role="alert">{errors.type}</span>}
-              </div>
+            <form className="card" onSubmit={onSubmit} noValidate>
+              <div className="form-grid">
+                {field('name', t.contact.fields.name, { autoComplete: 'name' })}
+                {field('email', t.contact.fields.email, { type: 'email', autoComplete: 'email' })}
+                {field('company', t.contact.fields.company, { autoComplete: 'organization' })}
 
-              <div className="field full">
-                <label htmlFor="q-message">{t.contact.fields.message}</label>
-                <textarea
-                  id="q-message"
-                  ref={messageRef}
-                  value={values.message}
-                  onChange={set('message')}
-                  placeholder={t.contact.placeholders.message}
-                  aria-invalid={errors.message ? 'true' : undefined}
-                />
-                {errors.message && <span className="error" role="alert">{errors.message}</span>}
-              </div>
+                <div className="field">
+                  <label htmlFor="q-type">{t.contact.fields.type}</label>
+                  <select
+                    id="q-type"
+                    value={values.type}
+                    onChange={set('type')}
+                    aria-invalid={errors.type ? 'true' : undefined}
+                  >
+                    <option value="">{t.contact.placeholders.type}</option>
+                    {t.contact.types.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  {errors.type && <span className="error" role="alert">{errors.type}</span>}
+                </div>
 
-              {/* Hidden from people, tempting to bots. */}
-              <div className="honeypot" aria-hidden="true">
-                <label htmlFor="q-website">Website</label>
-                <input
-                  id="q-website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={values.website}
-                  onChange={set('website')}
-                />
-              </div>
+                <div className="field full">
+                  <label htmlFor="q-message">{t.contact.fields.message}</label>
+                  <textarea
+                    id="q-message"
+                    ref={messageRef}
+                    value={values.message}
+                    onChange={set('message')}
+                    placeholder={t.contact.placeholders.message}
+                    aria-invalid={errors.message ? 'true' : undefined}
+                  />
+                  {errors.message && <span className="error" role="alert">{errors.message}</span>}
+                </div>
 
-              <div className="full">
-                <button type="submit" className="btn btn-primary" disabled={state === 'sending'}>
-                  {state === 'sending' ? t.contact.submitting : t.contact.submit}
-                </button>
-              </div>
+                {/* Hidden from people, tempting to bots. */}
+                <div className="honeypot" aria-hidden="true">
+                  <label htmlFor="q-website">Website</label>
+                  <input
+                    id="q-website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={values.website}
+                    onChange={set('website')}
+                  />
+                </div>
 
-              <div className="full" aria-live="polite">
-                {state === 'sent' && <p className="alert alert-ok">{t.contact.success}</p>}
-                {state === 'failed' && failure && <p className="alert alert-bad">{failure}</p>}
-              </div>
-            </div>
-          </form>
+                <div className="full">
+                  <button type="submit" className="btn btn-primary" disabled={state === 'sending'}>
+                    {state === 'sending' ? t.contact.submitting : t.contact.submit}
+                  </button>
+                </div>
+
+                <div className="full" aria-live="polite">
+                  {state === 'sent' && <p className="alert alert-ok">{t.contact.success}</p>}
+                  {state === 'failed' && failure && <p className="alert alert-bad">{failure}</p>}
+                </div>
+                </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>

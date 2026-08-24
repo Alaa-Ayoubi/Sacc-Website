@@ -375,6 +375,19 @@ input, textarea, select, button { font: inherit; }
 .file-name { font-size: 13.5px; color: var(--ink-muted); }
 .hint { font-size: 12.5px; color: var(--ink-muted); margin-top: 6px; }
 
+/* The email route sits above the form with equal weight, because for many
+   visitors sending a message is easier than filling in fields. */
+.or-email {
+  margin: 0 0 16px;
+  padding: 14px 18px;
+  background: var(--surface-muted);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.or-email a { font-weight: 700; }
+
 /* ---------- contact panel ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 42px; align-items: start; }
 @media (max-width: 940px) { .contact-grid { grid-template-columns: 1fr; } }
