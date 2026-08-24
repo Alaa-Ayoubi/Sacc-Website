@@ -195,6 +195,30 @@ is already saved.
 
 ---
 
+## Arabic
+
+Arabic is live, not a placeholder: all 228 translatable values are populated in
+both languages, verified by `manage.py check_translations`.
+
+Because the API falls back to the other language when one side is blank, an
+untranslated row still renders — which means Arabic can rot silently as content
+is edited. Two things make that visible:
+
+```bash
+python manage.py check_translations                    # report gaps
+python manage.py check_translations --fail-on-missing   # exit non-zero, for CI
+```
+
+and every content list in the admin carries a **Translated** column showing
+`AR + EN` or which fields are missing.
+
+`GET /api/v1/site/` returns both languages so the one-page site can toggle
+without refetching. `?lang=ar` returns only Arabic (`dir: rtl`), `?lang=en` only
+English — useful for a single-language consumer. An unrecognised value returns
+both rather than erroring.
+
+---
+
 ## Tests
 
 ```bash
