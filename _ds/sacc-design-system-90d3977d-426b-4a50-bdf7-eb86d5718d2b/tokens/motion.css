@@ -1,0 +1,17 @@
+/* Motion. Everything is a fade-and-rise on scroll plus short colour/transform
+   transitions on hover. No bounces, no easing curves beyond Tailwind's. */
+:root {
+  --dur-fast: 200ms; /* @kind other */    /* accordion */
+  --dur-base: 300ms; /* @kind other */    /* colour, border, shadow, header state */
+  --dur-slow: 500ms; /* @kind other */    /* image zoom, expanding panels */
+  --dur-enter: 800ms; /* @kind other */   /* hero entrance */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --rise-distance: 20px;   /* y offset of the standard scroll-in */
+  --rise-stagger: 100ms; /* @kind other */   /* delay: index * 0.1s */
+  --hover-lift: -4px;      /* hover:-translate-y-1 on cards */
+  --hover-scale: 1.05; /* @kind other */     /* logo + image zoom */
+  --press-scale: 0.98; /* @kind other */     /* active:scale-[0.98] on the submit button */
+  --spring-nav: 300; /* @kind other */       /* framer spring stiffness, active-nav underline */
+  --spring-damping: 30; /* @kind other */
+}

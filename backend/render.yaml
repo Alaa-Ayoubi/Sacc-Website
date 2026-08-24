@@ -1,0 +1,75 @@
+# Render Blueprint — provisions the web service and its PostgreSQL together.
+#
+# Deploy: push this repository to GitHub, then in Render choose
+# "New > Blueprint" and point it at the repo. Render reads this file, creates
+# the database, injects DATABASE_URL, and builds the service.
+#
+# rootDir is set because the Django project lives in backend/ rather than at
+# the repository root.
+
+databases:
+  - name: sacc-db
+    databaseName: sacc
+    user: sacc
+    plan: free # upgrade before launch: the free tier expires after 30 days
+
+services:
+  - type: web
+    name: sacc-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application --workers 2 --timeout 60
+    healthCheckPath: /api/v1/health/
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sacc-db
+          property: connectionString
+
+      # Generated once by Render and kept across deploys.
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      - key: DEBUG
+        value: "False"
+
+      # ALLOWED_HOSTS picks up the .onrender.com hostname automatically;
+      # add the live domain here once the DNS is pointed at Render.
+      - key: ALLOWED_HOSTS
+        value: saccgroup.net,www.saccgroup.net
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://saccgroup.net,https://www.saccgroup.net
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://saccgroup.net,https://www.saccgroup.net
+
+      # Set in the Render dashboard, not here — these are secrets.
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: EMAIL_BACKEND
+        value: django.core.mail.backends.smtp.EmailBackend
+      - key: DEFAULT_FROM_EMAIL
+        value: SACC Website <no-reply@saccgroup.net>
+      - key: LEAD_NOTIFICATION_RECIPIENTS
+        sync: false
+
+      # Uploaded CVs must not live on the container filesystem — it is wiped on
+      # every deploy. Set these to an S3-compatible bucket before going live.
+      # See README, "Uploaded files on Render".
+      - key: AWS_STORAGE_BUCKET_NAME
+        sync: false
+      - key: AWS_S3_ENDPOINT_URL
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false

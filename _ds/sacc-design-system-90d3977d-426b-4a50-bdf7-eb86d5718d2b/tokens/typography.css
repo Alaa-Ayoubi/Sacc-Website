@@ -1,0 +1,44 @@
+/* Type system. Two pairings, one per script.
+   Headings are always the display serif; everything else is the UI sans. */
+:root {
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Outfit", sans-serif;
+  --font-display-ar: "Almarai", "Tajawal", system-ui, sans-serif;
+  --font-sans-ar: "Tajawal", "Outfit", system-ui, sans-serif;
+
+  /* Sizes as rendered by the site (mobile / md / lg where it scales) */
+  --text-h1: 2.25rem;      /* 36px */
+  --text-h1-md: 3rem;      /* 48px */
+  --text-h1-lg: 3.75rem;   /* 60px */
+  --text-h2: 1.875rem;     /* 30px */
+  --text-h2-md: 2.25rem;   /* 36px */
+  --text-h2-lg: 3rem;      /* 48px */
+  --text-h3: 1.5rem;       /* 24px */
+  --text-h3-md: 1.875rem;  /* 30px */
+  --text-lead: 1.25rem;    /* 20px hero lead */
+  --text-lead-md: 1.5rem;  /* 24px */
+  --text-body: 1rem;
+  --text-body-lg: 1.125rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-stat: 2.25rem;    /* display serif, bold */
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-arabic-display: 800;
+
+  --leading-tight: 1.25;   /* h1, h2 */
+  --leading-snug: 1.375;   /* h3 */
+  --leading-relaxed: 1.625;/* body */
+  --leading-arabic: 1.85;  /* [dir=rtl] body */
+  --leading-arabic-heading: 1.4;
+
+  --tracking-h1: -0.02em;
+  --tracking-h2: -0.01em;
+  --tracking-eyebrow: 0.05em; /* tracking-wider on badges + role labels */
+
+  --measure-body: 65ch;    /* every <p> is capped at this */
+}

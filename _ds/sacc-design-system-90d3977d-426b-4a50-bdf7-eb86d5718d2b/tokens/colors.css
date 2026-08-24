@@ -1,0 +1,103 @@
+/* Colour system.
+   The site is built on shadcn/ui, so every colour exists twice:
+   - the raw HSL triplet the Tailwind theme consumes, e.g. hsl(var(--primary))
+   - a resolved hex alias for hand-written CSS and prototypes
+   Values are copied verbatim from apps/web/src/index.css. */
+:root {
+  /* --- shadcn triplets (space-separated H S% L%) --- */
+  --background: 0 0% 98%; /* @kind color */
+  --foreground: 206 52% 21%; /* @kind color */
+  --primary: 206 52% 21%; /* @kind color */
+  --primary-foreground: 0 0% 100%; /* @kind color */
+  --secondary: 218 17% 35%; /* @kind color */
+  --secondary-foreground: 0 0% 100%; /* @kind color */
+  --accent: 46 65% 52%; /* @kind color */
+  --accent-foreground: 206 52% 21%; /* @kind color */
+  --muted: 210 40% 96%; /* @kind color */
+  --muted-foreground: 218 17% 35%; /* @kind color */
+  --card: 0 0% 100%; /* @kind color */
+  --card-foreground: 206 52% 21%; /* @kind color */
+  --popover: 0 0% 100%; /* @kind color */
+  --popover-foreground: 206 52% 21%; /* @kind color */
+  --border: 214 32% 91%; /* @kind color */
+  --input: 214 32% 91%; /* @kind color */
+  --ring: 46 65% 52%; /* @kind color */
+  --destructive: 0 84% 60%; /* @kind color */
+  --destructive-foreground: 0 0% 100%; /* @kind color */
+
+  /* --- button tokens (light) --- */
+  --button-primary-bg: 206 52% 21%; /* @kind color */
+  --button-primary-text: 0 0% 100%; /* @kind color */
+  --button-secondary-bg: 218 17% 92%; /* @kind color */
+  --button-secondary-text: 206 52% 21%; /* @kind color */
+  --button-outline-bg: 0 0% 100%; /* @kind color */
+  --button-outline-text: 206 52% 21%; /* @kind color */
+
+  /* --- resolved hex aliases --- */
+  --color-navy: #1a3951;          /* primary — headings, header, footer, hero overlay */
+  --color-slate: #4a5568;         /* secondary — "why choose us" band, body text */
+  --color-gold: #d4af35;          /* accent — icons, rules, active nav, badges */
+  --color-page: #fafafa;          /* page background */
+  --color-surface: #ffffff;       /* card background */
+  --color-muted: #f1f5f9;         /* muted section background */
+  --color-border: #e2e8f0;        /* hairline borders + input borders */
+  --color-button-secondary: #e7eaef;
+  --color-danger: #ef4343;
+  --color-navy-dark-primary: #2b5f88; /* primary in dark mode */
+
+  /* --- semantic aliases --- */
+  --text-heading: var(--color-navy);
+  --text-body: var(--color-slate);
+  --text-inverse: #ffffff;
+  --text-accent: var(--color-gold);
+  --surface-page: var(--color-page);
+  --surface-card: var(--color-surface);
+  --surface-muted: var(--color-muted);
+  --surface-band: var(--color-slate);
+  --surface-inverse: var(--color-navy);
+  --border-hairline: var(--color-border);
+  --border-hover: var(--color-gold);
+  --focus-ring: var(--color-gold);
+
+  /* --- brand mark colours, sampled from assets/logo-full.webp --- */
+  --logo-teal: #62a7a2;
+  --logo-yellow: #fcb61c;
+  --logo-orange: #e38b30;
+  --logo-green: #80c894;
+
+  /* --- overlays used on imagery --- */
+  --overlay-hero: hsl(206 52% 21% / 0.8);   /* + mix-blend-multiply */
+  --overlay-image: hsl(206 52% 21% / 0.1);  /* + mix-blend-multiply */
+  --overlay-portrait: hsl(206 52% 21% / 0.4);
+  --surface-glass: rgb(255 255 255 / 0.9);  /* + backdrop-blur */
+  --surface-on-dark: rgb(255 255 255 / 0.05);
+  --border-on-dark: rgb(255 255 255 / 0.1);
+}
+
+.dark {
+  --background: 206 52% 10%; /* @kind color */
+  --foreground: 0 0% 98%; /* @kind color */
+  --primary: 206 52% 21%; /* @kind color */
+  --primary-foreground: 0 0% 100%; /* @kind color */
+  --secondary: 218 17% 25%; /* @kind color */
+  --secondary-foreground: 0 0% 100%; /* @kind color */
+  --accent: 46 65% 52%; /* @kind color */
+  --accent-foreground: 206 52% 21%; /* @kind color */
+  --muted: 206 40% 15%; /* @kind color */
+  --muted-foreground: 210 40% 80%; /* @kind color */
+  --card: 206 40% 12%; /* @kind color */
+  --card-foreground: 0 0% 98%; /* @kind color */
+  --popover: 206 40% 12%; /* @kind color */
+  --popover-foreground: 0 0% 98%; /* @kind color */
+  --border: 206 30% 20%; /* @kind color */
+  --input: 206 30% 20%; /* @kind color */
+  --ring: 46 65% 52%; /* @kind color */
+  --destructive: 0 84% 60%; /* @kind color */
+  --destructive-foreground: 0 0% 100%; /* @kind color */
+  --button-primary-bg: 206 52% 35%; /* @kind color */
+  --button-primary-text: 0 0% 100%; /* @kind color */
+  --button-secondary-bg: 218 17% 20%; /* @kind color */
+  --button-secondary-text: 0 0% 98%; /* @kind color */
+  --button-outline-bg: transparent; /* @kind color */
+  --button-outline-text: 0 0% 98%; /* @kind color */
+}

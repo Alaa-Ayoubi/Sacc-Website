@@ -1,0 +1,248 @@
+"""Fixed interface strings for the public site.
+
+Button captions, field labels, placeholders and validation messages are part of
+the design, not editorial content — putting them in the database would bury the
+copy an editor actually wants to change under a hundred rows of microcopy. They
+live here, are merged into the ``/api/v1/site/`` bundle so the frontend still
+receives one complete payload, and change with a deploy.
+
+Anything an editor should be able to change on their own belongs in a model
+instead: see :mod:`apps.content.models`.
+"""
+
+UI_LABELS = {
+    "ar": {
+        "dir": "rtl",
+        "langBtn": "EN",
+        "navCta": "طلب عرض سعر",
+        "navCareers": "انضم إلينا",
+        "backHome": "← عودة إلى الصفحة الرئيسية",
+        "services": {
+            "capabilitiesHeading": "القدرات الفنية:",
+            "inquireCta": "استفسر عن",
+        },
+        "projects": {
+            "labels": {
+                "client": "الجهة المالكة",
+                "location": "الموقع",
+                "status": "الحالة",
+                "scope": "نطاق الأعمال",
+            },
+            "expand": "عرض التفاصيل",
+            "collapse": "إغلاق",
+            "detailsCta": "استفسر عن هذا المشروع",
+            "empty": "لا توجد مشاريع في هذا التصنيف بعد.",
+            "allLabel": "الكل",
+            "statLabels": {
+                "projects": "مشروعًا منفّذًا",
+                "clients": "جهة حكومية وشبه حكومية",
+                "regions": "مدنًا ومناطق",
+                "completed": "مكتملة",
+            },
+        },
+        "equipment": {
+            "supportHeading": "إدارة الأسطول والدعم",
+        },
+        "certifications": {
+            "isoHeading": "شهادات الأيزو",
+        },
+        "journey": {"valuesTitle": "قيمنا الأساسية"},
+        "leadership": {
+            "expertiseHeading": "مجالات الخبرة",
+            "quoteTitle": "إرث من القيادة",
+        },
+        "contact": {
+            "officeHeading": "المكتب الرئيسي",
+            "crLabel": "س.ت",
+            "fields": {
+                "name": "الاسم الكامل *",
+                "email": "البريد الإلكتروني *",
+                "company": "الجهة / الشركة *",
+                "type": "نوع المشروع *",
+                "message": "تفاصيل المشروع *",
+            },
+            "placeholders": {
+                "name": "اكتب اسمك الكامل",
+                "email": "your.email@company.com",
+                "company": "اسم الجهة أو الشركة",
+                "type": "اختر نوع المشروع",
+                "message": "أخبرنا عن نطاق المشروع والموقع والجدول الزمني المتوقع...",
+            },
+            "submit": "إرسال الطلب",
+            "submitting": "جارٍ الإرسال...",
+            "success": "تم استلام طلبك. سنردّ عليك خلال 24 ساعة عمل.",
+            "failure": "تعذّر إرسال الطلب. يرجى المحاولة مرة أخرى أو الاتصال بنا هاتفيًا.",
+            "errors": {
+                "name": "الاسم مطلوب",
+                "email": "البريد الإلكتروني غير صحيح",
+                "company": "اسم الجهة مطلوب",
+                "type": "اختر نوع المشروع",
+                "message": "اكتب 10 أحرف على الأقل",
+            },
+        },
+        "careers": {
+            "applyTitle": "نموذج التقديم",
+            "applyLead": "املأ البيانات وأرفق رابط سيرتك الذاتية. جميع الطلبات تُراجع من إدارة الموارد البشرية.",
+            "rolesTitle": "الوظائف المتاحة",
+            "rolesLead": "لم تجد وظيفتك؟ أرسل طلبك على أي حال وسنحفظه للفرص القادمة.",
+            "whyTitle": "لماذا العمل معنا",
+            "fields": {
+                "name": "الاسم الكامل *",
+                "email": "البريد الإلكتروني *",
+                "phone": "رقم الجوال *",
+                "role": "الوظيفة المتقدم لها *",
+                "exp": "سنوات الخبرة *",
+                "cv": "السيرة الذاتية *",
+                "note": "نبذة عنك",
+            },
+            "cvLink": "رابط السيرة الذاتية",
+            "cvUpload": "أو ارفع الملف",
+            "cvUploadBtn": "اختر ملفاً",
+            "cvHint": "PDF أو DOC — بحد أقصى 5 ميجابايت. يكفي أحد الخيارين.",
+            "cvNone": "لم يتم اختيار ملف",
+            "placeholders": {
+                "name": "اكتب اسمك الكامل",
+                "email": "your.email@company.com",
+                "phone": "05XXXXXXXX",
+                "role": "اختر الوظيفة",
+                "exp": "مثال: 6",
+                "cv": "رابط Google Drive أو LinkedIn",
+                "note": "اذكر أبرز المشاريع التي عملت عليها...",
+            },
+            "submit": "إرسال الطلب",
+            "submitting": "جارٍ الإرسال...",
+            "success": "تم استلام طلبك. سيتواصل معك فريق الموارد البشرية إذا كان ملفك مطابقًا للوظيفة.",
+            "failure": "تعذّر إرسال الطلب. يرجى المحاولة مرة أخرى.",
+            "errors": {
+                "name": "الاسم مطلوب",
+                "email": "البريد الإلكتروني غير صحيح",
+                "phone": "رقم الجوال مطلوب",
+                "role": "اختر الوظيفة",
+                "exp": "عدد سنوات الخبرة مطلوب",
+                "cv": "أضف رابط السيرة الذاتية أو ارفع الملف",
+            },
+            "otherRole": "وظيفة أخرى / تقديم عام",
+        },
+        "footer": {
+            "quickLinks": "روابط سريعة",
+            "contactHeading": "اتصل بنا",
+        },
+    },
+    "en": {
+        "dir": "ltr",
+        "langBtn": "ع",
+        "navCta": "Request a Quote",
+        "navCareers": "Join Us",
+        "backHome": "← Back to homepage",
+        "services": {
+            "capabilitiesHeading": "Key Capabilities:",
+            "inquireCta": "Inquire about",
+        },
+        "projects": {
+            "labels": {
+                "client": "Client",
+                "location": "Location",
+                "status": "Status",
+                "scope": "Scope of work",
+            },
+            "expand": "View details",
+            "collapse": "Close",
+            "detailsCta": "Inquire about this project",
+            "empty": "No projects in this category yet.",
+            "allLabel": "All",
+            "statLabels": {
+                "projects": "Projects delivered",
+                "clients": "Government & semi-government clients",
+                "regions": "Cities and regions",
+                "completed": "Completed",
+            },
+        },
+        "equipment": {
+            "supportHeading": "Fleet Management & Support",
+        },
+        "certifications": {
+            "isoHeading": "ISO Certifications",
+        },
+        "journey": {"valuesTitle": "Our Core Values"},
+        "leadership": {
+            "expertiseHeading": "Areas of Expertise",
+            "quoteTitle": "A Legacy of Leadership",
+        },
+        "contact": {
+            "officeHeading": "Head Office",
+            "crLabel": "CR",
+            "fields": {
+                "name": "Full Name *",
+                "email": "Email Address *",
+                "company": "Organization / Company *",
+                "type": "Project Type *",
+                "message": "Project Details *",
+            },
+            "placeholders": {
+                "name": "Enter your full name",
+                "email": "your.email@company.com",
+                "company": "Your organization name",
+                "type": "Select project type",
+                "message": "Tell us about your project scope, location, and expected timeline...",
+            },
+            "submit": "Submit Request",
+            "submitting": "Submitting...",
+            "success": "Request received. We will respond within 24 business hours.",
+            "failure": "We could not send your request. Please try again or call us.",
+            "errors": {
+                "name": "Name is required",
+                "email": "Enter a valid email address",
+                "company": "Organization name is required",
+                "type": "Select a project type",
+                "message": "Write at least 10 characters",
+            },
+        },
+        "careers": {
+            "applyTitle": "Application Form",
+            "applyLead": "Fill in your details and attach a link to your CV. Every application is reviewed by HR.",
+            "rolesTitle": "Open Roles",
+            "rolesLead": "Do not see your role? Send your application anyway and we will keep it on file.",
+            "whyTitle": "Why Work With Us",
+            "fields": {
+                "name": "Full Name *",
+                "email": "Email Address *",
+                "phone": "Mobile Number *",
+                "role": "Role Applied For *",
+                "exp": "Years of Experience *",
+                "cv": "CV / Resume *",
+                "note": "About You",
+            },
+            "cvLink": "CV link",
+            "cvUpload": "Or upload a file",
+            "cvUploadBtn": "Choose a file",
+            "cvHint": "PDF or DOC — 5 MB maximum. Either option is enough.",
+            "cvNone": "No file selected",
+            "placeholders": {
+                "name": "Enter your full name",
+                "email": "your.email@company.com",
+                "phone": "05XXXXXXXX",
+                "role": "Select a role",
+                "exp": "e.g. 6",
+                "cv": "Google Drive or LinkedIn link",
+                "note": "Tell us about the projects you have worked on...",
+            },
+            "submit": "Submit Application",
+            "submitting": "Submitting...",
+            "success": "Application received. HR will be in touch if your profile matches the role.",
+            "failure": "We could not send your application. Please try again.",
+            "errors": {
+                "name": "Name is required",
+                "email": "Enter a valid email address",
+                "phone": "Mobile number is required",
+                "role": "Select a role",
+                "exp": "Years of experience is required",
+                "cv": "Add a CV link or upload a file",
+            },
+            "otherRole": "Other role / general application",
+        },
+        "footer": {
+            "quickLinks": "Quick Links",
+            "contactHeading": "Contact",
+        },
+    },
+}

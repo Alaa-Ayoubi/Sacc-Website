@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="SACC one-page site" description="موقع سنا الأوائل بصفحة واحدة بطابع هندسي احترافي: هوية من ألوان اللوجو، تنقل داخلي، صفحة توظيف، عربي/إنجليزي." -->
+<helmet><script src="./ds-base.js"></script><script src="./site-data.js"></script>
+<script src="./vendor/gsap.min.js"></script>
+<script src="./vendor/ScrollTrigger.min.js"></script>
+<script src="./vendor/lenis.min.js"></script>
+<script src="./vendor/three.min.js"></script>
+<style>*{box-sizing:border-box}body{margin:0;background:#fff;color:#0f2637;font-family:"Tajawal","Outfit",system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#2f7d78;text-decoration:none}a:hover{color:#0f2637}input,textarea,button{font-family:inherit}</style>
+</helmet>
+<div dir="{{ dir }}" style="min-height:100vh;background:#fff">
+
+<div style="background:#0a1b28;border-bottom:1px solid rgba(255,255,255,.07)">
+<div style="max-width:1320px;margin:0 auto;padding:9px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:12.5px;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden">
+<div style="display:flex;align-items:center;gap:22px"><span>{{ crLine }}</span><span>{{ phone }}</span><span>{{ email }}</span></div>
+<div>{{ topbarNote }}</div>
+</div>
+</div>
+
+<header style="position:sticky;top:0;z-index:60;background:rgba(15,38,55,.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.09)">
+<div style="max-width:1320px;margin:0 auto;padding:13px 32px;display:flex;align-items:center;gap:26px">
+<a href="#top" onClick="{{ goHome }}" style="display:flex;align-items:center;flex-shrink:0"><img src="{{ logo }}" alt="SACC" style="height:42px;width:auto;object-fit:contain"></a>
+<nav style="display:flex;align-items:center;gap:0;flex:1;min-width:0;overflow:hidden">
+<sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+<a href="{{ item.href }}" onClick="{{ item.onSelect }}" style="padding:10px 14px;font-size:14px;font-weight:500;color:rgba(255,255,255,.7);white-space:nowrap;border-bottom:2px solid transparent" style-hover="color:#fff;border-bottom-color:#62a7a2">{{ item.label }}</a>
+</sc-for>
+</nav>
+<div style="display:flex;align-items:center;gap:9px;flex-shrink:0">
+<button onClick="{{ toggleLang }}" style="padding:8px 12px;border-radius:4px;border:1px solid rgba(255,255,255,.22);background:transparent;color:rgba(255,255,255,.8);font-size:13px;font-weight:600;cursor:pointer" style-hover="border-color:#62a7a2;color:#62a7a2">{{ langBtn }}</button>
+<button onClick="{{ goCareers }}" style="padding:9px 16px;border-radius:4px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="border-color:#62a7a2;color:#62a7a2">{{ navCareers }}</button>
+<a href="#contact" style="padding:10px 20px;border-radius:4px;background:#62a7a2;color:#0f2637;font-size:14px;font-weight:700;white-space:nowrap" style-hover="background:#fff;color:#0f2637">{{ navCta }}</a>
+</div>
+</div>
+<div style="display:flex;height:2px"><div style="flex:1;background:#62a7a2"></div><div style="flex:1;background:#80c894"></div><div style="flex:1;background:#fcb61c"></div><div style="flex:1;background:#e38b30"></div></div>
+</header>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main id="top">
+
+<section style="position:relative;min-height:620px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.09)">
+<img src="{{ heroImage }}" data-parallax="0.24" alt="" style="position:absolute;inset:0;width:100%;height:118%;object-fit:cover;will-change:transform">
+<canvas data-webgl="hero" style="position:absolute;inset:0;width:100%;height:100%;opacity:.55;mix-blend-mode:screen;pointer-events:none"></canvas>
+<div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.055) 1px,transparent 1px);background-size:112px 112px"></div>
+<div style="position:absolute;inset-inline-start:0;inset-inline-end:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent)"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,27,40,.97) 0%,rgba(15,38,55,.9) 50%,rgba(15,38,55,.6) 100%)"></div>
+<div style="position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:110px 32px;width:100%">
+<div data-hero="1" data-parallax="-0.08" data-fade="1" style="max-width:840px;will-change:transform">
+<div style="display:inline-flex;align-items:center;gap:11px;padding:7px 14px;border-inline-start:2px solid #62a7a2;background:rgba(98,167,162,.1);margin-bottom:30px">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#8fc9c4;white-space:nowrap">{{ heroBadge }}</span>
+</div>
+<h1 style="margin:0 0 24px;font-family:'Almarai','Outfit',sans-serif;font-size:50px;font-weight:700;line-height:1.28;color:#fff;text-wrap:balance">{{ heroTitle }}</h1>
+<p style="margin:0 0 38px;font-size:18px;font-weight:300;line-height:1.95;color:rgba(255,255,255,.78);max-width:60ch">{{ heroLead }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<a href="#services" style="padding:15px 30px;border-radius:4px;background:#62a7a2;color:#0f2637;font-size:15.5px;font-weight:700" style-hover="background:#fff;color:#0f2637">{{ heroCta1 }}</a>
+<a href="#contact" style="padding:15px 30px;border-radius:4px;border:1px solid rgba(255,255,255,.3);color:#fff;font-size:15.5px;font-weight:500" style-hover="background:rgba(255,255,255,.08);color:#fff">{{ heroCta2 }}</a>
+</div>
+</div>
+</div>
+</section>
+
+<section style="background:#0a1b28;border-bottom:1px solid rgba(255,255,255,.09)">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr)">
+<sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+<div data-reveal="1" style="padding:44px 26px;border-inline-start:1px solid rgba(255,255,255,.08)">
+<div style="width:26px;height:2px;background:#62a7a2;margin-bottom:16px"></div>
+<div data-count="1" style="font-family:'Outfit',sans-serif;font-size:38px;font-weight:600;line-height:1;color:#fff">{{ s.value }}</div>
+<div style="margin-top:10px;font-size:13.5px;color:rgba(255,255,255,.58)">{{ s.label }}</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="background:#0f2637;border-bottom:1px solid rgba(255,255,255,.09);overflow:hidden">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:26px">
+<div style="flex-shrink:0;display:flex;align-items:center;gap:12px;padding:20px 0"><span style="width:22px;height:1px;background:#62a7a2"></span><span style="font-size:11.5px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,.5);white-space:nowrap">{{ clientsLabel }}</span></div>
+<div style="flex:1;overflow:hidden;position:relative;min-width:0">
+<div data-ticker="1" style="display:flex;align-items:center;gap:0;width:max-content;will-change:transform">
+<sc-for list="{{ clientsLoop }}" as="c" hint-placeholder-count="14">
+<span style="display:inline-flex;align-items:center;gap:22px;padding:0 22px;font-size:14px;font-weight:500;color:rgba(255,255,255,.68);white-space:nowrap">{{ c.label }}<span style="width:4px;height:4px;background:#62a7a2;flex-shrink:0"></span></span>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+<section id="about" style="padding:124px 0;background:#fff">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:start">
+<div data-reveal="1">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">01</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#7a8798">{{ introEyebrow }}</span></div>
+<h2 style="margin:0 0 26px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ introTitle }}</h2>
+<p style="margin:0 0 18px;font-size:16.5px;line-height:1.95;color:#4a5568">{{ introP1 }}</p>
+<p style="margin:0 0 18px;font-size:16.5px;line-height:1.95;color:#4a5568">{{ introP2 }}</p>
+<p style="margin:0;font-size:16.5px;line-height:1.95;color:#4a5568">{{ introP3 }}</p>
+</div>
+<div data-reveal="1" style="border:1px solid #dfe6ec;border-radius:6px;background:#fff">
+<div style="padding:26px 28px;border-bottom:1px solid #dfe6ec">
+<h3 style="margin:0 0 7px;font-family:'Almarai','Outfit',sans-serif;font-size:19px;font-weight:700;color:#0f2637">{{ whyTitle }}</h3>
+<p style="margin:0;font-size:14px;line-height:1.75;color:#4a5568">{{ whyLead }}</p>
+</div>
+<div>
+<sc-for list="{{ whyItems }}" as="w" hint-placeholder-count="8">
+<div style="display:flex;align-items:flex-start;gap:13px;padding:15px 28px;border-bottom:1px solid #eef2f5;line-height:1.7" style-hover="background:#f8fafb">
+<span style="width:6px;height:6px;margin-top:8px;flex-shrink:0;background:#62a7a2"></span>
+<span style="font-size:14.5px;font-weight:500;color:#0f2637;line-height:1.6">{{ w.label }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="services" style="padding:124px 0;background:#f4f7f9;border-top:1px solid #dfe6ec">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="max-width:720px;margin-bottom:50px">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">02</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#7a8798">{{ servicesEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ servicesTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.9;color:#4a5568">{{ servicesLead }}</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+<sc-for list="{{ services }}" as="sv" hint-placeholder-count="9">
+<div data-reveal="1" data-tilt="5" style="display:flex;flex-direction:column;padding:30px;border-radius:6px;background:#fff;border:1px solid #dfe6ec;transform-style:preserve-3d;transition:background .3s,border-color .3s" style-hover="background:#f8fafb;border-color:#2f7d78">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+<div style="width:50px;height:50px;border-radius:5px;display:flex;align-items:center;justify-content:center;background:#f2f5f7;color:#2f7d78">
+<x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="{{ sv.icon }}" size="24" hint-size="24px,24px"></x-import>
+</div>
+<span style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:#b9c6d2">{{ sv.num }}</span>
+</div>
+<h3 style="margin:0 0 13px;font-family:'Almarai','Outfit',sans-serif;font-size:18px;font-weight:700;line-height:1.55;color:#0f2637">{{ sv.title }}</h3>
+<p style="margin:0 0 20px;font-size:14.5px;line-height:1.85;color:#4a5568;flex-grow:1">{{ sv.desc }}</p>
+<div style="padding-top:18px;border-top:1px solid #dfe6ec">
+<div style="font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:11px;color:#7a8798">{{ capsHeading }}</div>
+<div style="display:grid;gap:7px">
+<sc-for list="{{ sv.capabilities }}" as="cap" hint-placeholder-count="4">
+<div style="display:flex;align-items:flex-start;gap:9px;font-size:13.5px;line-height:1.75;color:#4a5568"><span style="width:5px;height:5px;flex-shrink:0;margin-top:9px;background:#62a7a2"></span>{{ cap }}</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="projects" style="padding:124px 0;background:#f2f5f7;color:#0f2637">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:40px">
+<div style="max-width:700px">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">03</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#64748b">{{ projectsEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ projectsTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.9;color:#4a5568">{{ projectsLead }}</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,auto);gap:16px 40px">
+<sc-for list="{{ projStats }}" as="ps" hint-placeholder-count="4">
+<div style="padding-inline-start:14px;border-inline-start:2px solid #62a7a2"><div data-count="1" style="font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;line-height:1;color:#0f2637">{{ ps.value }}</div><div style="margin-top:6px;font-size:13px;color:#4a5568">{{ ps.label }}</div></div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px">
+<sc-for list="{{ projectCategories }}" as="cat" hint-placeholder-count="5">
+<sc-if value="{{ cat.on }}"><button onClick="{{ cat.onSelect }}" style="padding:10px 18px;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid #0f2637;background:#0f2637;color:#fff">{{ cat.label }}</button></sc-if>
+<sc-if value="{{ cat.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ cat.onSelect }}" style="padding:10px 18px;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;border:1px solid #cfd9e2;background:#fff;color:#4a5568" style-hover="border-color:#62a7a2;color:#0f2637">{{ cat.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="6">
+<div data-reveal="1" data-tilt="4" style="border-radius:6px;overflow:hidden;background:#fff;border:1px solid #dfe6ec;transform-style:preserve-3d;transition:box-shadow .3s,border-color .3s" style-hover="box-shadow:0 18px 40px -24px rgba(15,38,55,.45);border-color:#62a7a2">
+<div style="position:relative;height:208px;overflow:hidden">
+<img src="{{ p.image }}" alt="{{ p.title }}" style="width:100%;height:100%;object-fit:cover">
+<div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,38,55,.62),transparent 55%)"></div>
+<span style="position:absolute;top:14px;inset-inline-end:14px;padding:5px 11px;border-radius:3px;background:rgba(255,255,255,.94);font-size:11.5px;font-weight:700;color:#0f2637">{{ p.category }}</span>
+<span style="position:absolute;bottom:14px;inset-inline-start:14px;display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:3px;background:rgba(15,38,55,.85);font-size:11.5px;font-weight:600;color:#fff"><span style="width:7px;height:7px;border-radius:99px;background:#80c894"></span>{{ p.status }}</span>
+</div>
+<div style="padding:24px">
+<h3 style="margin:0 0 12px;font-family:'Almarai','Outfit',sans-serif;font-size:17px;font-weight:700;line-height:1.6;color:#0f2637">{{ p.title }}</h3>
+<p style="margin:0 0 18px;font-size:14px;line-height:1.85;color:#4a5568">{{ p.desc }}</p>
+<div style="border-top:1px solid #e6ecf1">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f8;font-size:13.5px"><span style="color:#7a8798">{{ clientLabel }}</span><span style="font-weight:600;color:#0f2637;text-align:end">{{ p.client }}</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;font-size:13.5px"><span style="color:#7a8798">{{ locationLabel }}</span><span style="font-weight:600;color:#0f2637;text-align:end">{{ p.location }}</span></div>
+</div>
+<sc-if value="{{ p.expanded }}">
+<div style="margin-top:16px;padding:20px;border-radius:5px;background:#f2f5f7;border:1px solid #e2e8f0">
+<div style="font-size:12.5px;font-weight:800;letter-spacing:.06em;color:#0f2637;margin-bottom:12px">{{ scopeLabel }}</div>
+<div style="display:grid;gap:9px">
+<sc-for list="{{ p.scope }}" as="sc" hint-placeholder-count="3">
+<div style="display:flex;align-items:flex-start;gap:9px;font-size:14px;color:#4a5568"><span style="width:5px;height:5px;background:#62a7a2;margin-top:8px;flex-shrink:0"></span>{{ sc }}</div>
+</sc-for>
+</div>
+<a href="#contact" style="display:inline-block;margin-top:18px;padding:11px 20px;border-radius:4px;background:#0f2637;color:#fff;font-size:14px;font-weight:600" style-hover="background:#62a7a2;color:#0f2637">{{ projectsDetailsCta }}</a>
+</div>
+</sc-if>
+<button onClick="{{ p.onToggle }}" style="margin-top:18px;width:100%;padding:12px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;color:#0f2637;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#62a7a2;color:#2f7d78">{{ p.toggleLabel }}</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="equipment" style="padding:124px 0;background:#fff;color:#0f2637">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:56px">
+<div data-reveal="1">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">04</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#64748b">{{ equipmentEyebrow }}</span></div>
+<h2 style="margin:0 0 20px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ equipmentTitle }}</h2>
+<p style="margin:0 0 16px;font-size:16.5px;line-height:1.95;color:#4a5568">{{ equipmentP1 }}</p>
+<p style="margin:0 0 26px;font-size:16.5px;line-height:1.95;color:#4a5568">{{ equipmentP2 }}</p>
+<a href="#contact" style="display:inline-block;padding:14px 26px;border-radius:4px;background:#0f2637;color:#fff;font-size:15px;font-weight:700" style-hover="background:#62a7a2;color:#0f2637">{{ equipmentCta }}</a>
+</div>
+<div data-reveal="1" style="position:relative;border-radius:6px;overflow:hidden;border:1px solid #dfe6ec">
+<img src="{{ equipmentImage }}" alt="" style="width:100%;height:400px;object-fit:cover;display:block">
+
+</div>
+</div>
+<div data-reveal="1" style="border:1px solid #dfe6ec;border-radius:6px;margin-bottom:26px">
+<div style="padding:22px 26px;border-bottom:1px solid #dfe6ec;background:#f8fafb"><h3 style="margin:0;font-family:'Almarai','Outfit',sans-serif;font-size:19px;font-weight:700;color:#0f2637">{{ equipmentCategoriesHeading }}</h3></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr)">
+<sc-for list="{{ equipmentCategories }}" as="ec" hint-placeholder-count="9">
+<div style="display:flex;align-items:flex-start;gap:12px;padding:17px 22px;border-inline-start:1px solid #eef2f5;border-bottom:1px solid #eef2f5;font-size:14.5px;font-weight:500;line-height:1.7;color:#0f2637" style-hover="background:#f8fafb">
+<span style="width:6px;height:6px;flex-shrink:0;margin-top:8px;background:#62a7a2"></span>{{ ec.label }}
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+<sc-for list="{{ equipmentFeatures }}" as="ef" hint-placeholder-count="4">
+<div data-reveal="1" data-tilt="6" style="padding:24px;border-radius:6px;background:#0f2637;color:#fff;border:1px solid rgba(255,255,255,.1);transform-style:preserve-3d">
+<div style="width:42px;height:42px;border-radius:5px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;background:rgba(255,255,255,.07);color:#62a7a2">
+<x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="{{ ef.icon }}" size="21" hint-size="21px,21px"></x-import>
+</div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:15.5px;font-weight:700;margin-bottom:8px">{{ ef.title }}</div>
+<div style="font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.64)">{{ ef.desc }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="position:relative;padding:104px 0;background:#0f2637;overflow:hidden">
+<div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px);background-size:96px 100%"></div>
+<div style="position:relative;max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center">
+<div data-reveal="1" style="padding-inline-end:56px;border-inline-end:1px solid rgba(255,255,255,.14)">
+<div style="font-family:'Outfit',sans-serif;font-size:112px;font-weight:600;line-height:.9;letter-spacing:-.03em;color:#fff">{{ figureValue }}</div>
+<div style="margin-top:14px;font-size:13px;font-weight:600;letter-spacing:.14em;color:#62a7a2">{{ figureLabel }}</div>
+</div>
+<div data-reveal="1">
+<p style="margin:0 0 26px;font-family:'Almarai','Outfit',sans-serif;font-size:26px;font-weight:400;line-height:1.85;color:rgba(255,255,255,.92);max-width:46ch">{{ figureStatement }}</p>
+<div style="display:flex;gap:14px;flex-wrap:wrap">
+<a href="#equipment" style="padding:14px 26px;border-radius:4px;background:#62a7a2;color:#0f2637;font-size:14.5px;font-weight:700" style-hover="background:#fff;color:#0f2637">{{ figureCta }}</a>
+<a href="#contact" style="padding:14px 26px;border-radius:4px;border:1px solid rgba(255,255,255,.28);color:#fff;font-size:14.5px;font-weight:500" style-hover="background:rgba(255,255,255,.08);color:#fff">{{ navCta }}</a>
+</div>
+</div>
+</div>
+</section>
+<section id="certifications" style="padding:124px 0;background:#f4f7f9;border-top:1px solid #dfe6ec">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="max-width:820px;margin-bottom:46px">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">05</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#7a8798">{{ certsEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ certsTitle }}</h2>
+<p style="margin:0 0 12px;font-size:17px;line-height:1.9;color:#4a5568">{{ certsLead }}</p>
+<p style="margin:0;font-size:15.5px;line-height:1.95;color:#4a5568">{{ certsCommitment }}</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1.25fr;gap:22px">
+<div data-reveal="1" style="border-radius:6px;background:#fff;border:1px solid #dfe6ec">
+<div style="padding:22px 26px;border-bottom:1px solid #dfe6ec"><h3 style="margin:0;font-family:'Almarai','Outfit',sans-serif;font-size:18px;font-weight:700;color:#0f2637">{{ isoHeading }}</h3></div>
+<div>
+<sc-for list="{{ isoItems }}" as="iso" hint-placeholder-count="3">
+<div style="display:flex;gap:16px;padding:20px 26px;border-bottom:1px solid #eef2f5">
+<div style="width:48px;height:48px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;background:#f2f5f7;color:#2f7d78">ISO</div>
+<div><div style="font-family:'Outfit',sans-serif;font-size:16.5px;font-weight:600;line-height:1.45;color:#0f2637;margin-bottom:4px">{{ iso.title }}</div><div style="font-size:13.5px;line-height:1.7;color:#4a5568">{{ iso.desc }}</div></div>
+</div>
+</sc-for>
+</div>
+</div>
+<div data-reveal="1" style="border-radius:6px;background:#fff;border:1px solid #dfe6ec;display:flex;flex-direction:column">
+<div style="padding:22px 26px;border-bottom:1px solid #dfe6ec"><h3 style="margin:0;font-family:'Almarai','Outfit',sans-serif;font-size:18px;font-weight:700;color:#0f2637">{{ approvalsHeading }}</h3></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;flex-grow:1">
+<sc-for list="{{ approvals }}" as="ap" hint-placeholder-count="7">
+<div style="display:flex;align-items:flex-start;gap:11px;padding:16px 22px;border-inline-start:1px solid #eef2f5;border-bottom:1px solid #eef2f5;font-size:14px;font-weight:500;line-height:1.7;color:#0f2637" style-hover="background:#f8fafb">
+<span style="width:6px;height:6px;flex-shrink:0;margin-top:8px;background:#62a7a2"></span>{{ ap.label }}
+</div>
+</sc-for>
+</div>
+<div style="padding:22px 26px"><a href="#contact" style="display:inline-block;padding:13px 24px;border-radius:4px;background:#62a7a2;color:#0f2637;font-size:14.5px;font-weight:700" style-hover="background:#0f2637;color:#fff">{{ certsCta }}</a></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="journey" style="padding:124px 0;background:#f2f5f7;color:#0f2637">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="max-width:700px;margin-bottom:48px">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">06</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#64748b">{{ journeyEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ journeyTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.9;color:#4a5568">{{ journeyLead }}</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:56px">
+<sc-for list="{{ milestones }}" as="m" hint-placeholder-count="6">
+<div data-reveal="1" data-tilt="5" style="padding:26px;border-radius:6px;background:#fff;border:1px solid #dfe6ec;transform-style:preserve-3d" style-hover="box-shadow:0 14px 32px -22px rgba(15,38,55,.4)">
+<div style="font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;line-height:1;color:#0f2637">{{ m.year }}</div>
+<div style="margin-top:13px;font-family:'Almarai','Outfit',sans-serif;font-size:16.5px;font-weight:700;color:#0f2637">{{ m.title }}</div>
+<div style="margin-top:9px;font-size:14px;line-height:1.85;color:#4a5568">{{ m.desc }}</div>
+</div>
+</sc-for>
+</div>
+<h3 data-reveal="1" style="margin:0 0 22px;font-family:'Almarai','Outfit',sans-serif;font-size:26px;font-weight:800;color:#0f2637">{{ valuesTitle }}</h3>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+<sc-for list="{{ values }}" as="v" hint-placeholder-count="7">
+<div data-reveal="1" style="padding:20px;border-radius:6px;background:#fff;border:1px solid #dfe6ec">
+<div style="width:24px;height:2px;margin-bottom:14px;background:#62a7a2"></div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:15.5px;font-weight:700;color:#0f2637;margin-bottom:7px">{{ v.title }}</div>
+<div style="font-size:13px;line-height:1.8;color:#4a5568">{{ v.desc }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="leadership" style="padding:124px 0;background:#fff;border-top:1px solid #dfe6ec">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="max-width:700px;margin-bottom:44px">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">07</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#7a8798">{{ leadershipEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ leadershipTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.9;color:#4a5568">{{ leadershipLead }}</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:30px">
+<sc-for list="{{ leaders }}" as="l" hint-placeholder-count="2">
+<div data-reveal="1" style="display:flex;gap:24px;padding:28px;border-radius:6px;background:#fff;border:1px solid #dfe6ec">
+<div style="width:104px;height:126px;border-radius:5px;overflow:hidden;flex-shrink:0;background:#f2f5f7">
+<img src="{{ l.image }}" alt="{{ l.name }}" style="width:100%;height:100%;object-fit:cover">
+</div>
+<div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:18px;font-weight:700;color:#0f2637">{{ l.name }}</div>
+<div style="margin-top:5px;font-size:13.5px;font-weight:600;letter-spacing:.06em;color:#2f7d78">{{ l.title }}</div>
+<p style="margin:13px 0 15px;font-size:14px;line-height:1.9;color:#4a5568">{{ l.bio }}</p>
+<div style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#7a8798;margin-bottom:9px">{{ expertiseHeading }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px">
+<sc-for list="{{ l.expertise }}" as="ex" hint-placeholder-count="4">
+<span style="padding:6px 10px;border-radius:3px;background:#f2f5f7;border:1px solid #dfe6ec;font-size:12.5px;color:#334155">{{ ex }}</span>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div data-reveal="1" style="position:relative;padding:48px;border-radius:6px;background:#122c42;border:1px solid rgba(255,255,255,.11)">
+<div style="max-width:920px">
+<div style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#62a7a2;margin-bottom:18px">{{ quoteTitle }}</div>
+<blockquote style="margin:0 0 22px;font-family:'Almarai','Outfit',sans-serif;font-size:22px;font-weight:400;line-height:1.95;color:#fff">{{ quote }}</blockquote>
+<div style="font-size:15.5px;font-weight:700;color:#fff">{{ chairmanName }}</div>
+<div style="margin-top:4px;font-size:13px;font-weight:600;letter-spacing:.06em;color:#62a7a2">{{ chairmanRole }}</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact" style="padding:124px 0;background:#fff;color:#0f2637">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+<div data-reveal="1">
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px"><span style="font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;color:#94a3b8">08</span><span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#64748b">{{ contactEyebrow }}</span></div>
+<h2 style="margin:0 0 16px;font-family:'Almarai','Outfit',sans-serif;font-size:33px;font-weight:700;line-height:1.4;color:#0f2637">{{ contactTitle }}</h2>
+<p style="margin:0 0 30px;font-size:17px;line-height:1.9;color:#4a5568">{{ contactLead }}</p>
+<div style="border:1px solid #dfe6ec;border-radius:6px">
+<div style="display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:1px solid #eef2f5"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="MapPin" size="19" color="#62a7a2" hint-size="19px,19px"></x-import><div><div style="font-size:12.5px;font-weight:700;color:#7a8798;margin-bottom:4px">{{ officeHeading }}</div><div style="font-size:14.5px;color:#0f2637">{{ address }}</div></div></div>
+<div style="display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:1px solid #eef2f5"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="Phone" size="19" color="#62a7a2" hint-size="19px,19px"></x-import><div><div style="font-size:14.5px;color:#0f2637">{{ phone }}</div><div style="font-size:14.5px;color:#0f2637">{{ mobile }}</div></div></div>
+<div style="display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:1px solid #eef2f5"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="Mail" size="19" color="#62a7a2" hint-size="19px,19px"></x-import><div style="font-size:14.5px;color:#0f2637">{{ email }}</div></div>
+<div style="display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:1px solid #eef2f5"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="Clock" size="19" color="#62a7a2" hint-size="19px,19px"></x-import><div><div style="font-size:12.5px;font-weight:700;color:#7a8798;margin-bottom:4px">{{ hoursHeading }}</div><div style="font-size:14.5px;color:#0f2637">{{ hours1 }}</div><div style="font-size:14.5px;color:#0f2637">{{ hours2 }}</div></div></div>
+<div style="display:flex;align-items:flex-start;gap:14px;padding:18px 22px"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="ShieldCheck" size="19" color="#62a7a2" hint-size="19px,19px"></x-import><div style="font-size:14.5px;color:#0f2637">{{ crLine }}</div></div>
+</div>
+</div>
+<div data-reveal="1" style="padding:32px;border-radius:6px;background:#f8fafb;border:1px solid #dfe6ec">
+<div style="display:grid;gap:16px">
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;color:#0f2637;margin-bottom:7px">{{ fName }}</label>
+<input value="{{ qName }}" onChange="{{ onQName }}" placeholder="{{ phName }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ eName }}</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;color:#0f2637;margin-bottom:7px">{{ fEmail }}</label>
+<input value="{{ qEmail }}" onChange="{{ onQEmail }}" placeholder="{{ phEmail }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ eEmail }}</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;color:#0f2637;margin-bottom:7px">{{ fCompany }}</label>
+<input value="{{ qCompany }}" onChange="{{ onQCompany }}" placeholder="{{ phCompany }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ eCompany }}</div>
+</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;color:#0f2637;margin-bottom:7px">{{ fType }}</label>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ projectTypes }}" as="pt" hint-placeholder-count="6">
+<sc-if value="{{ pt.on }}"><button onClick="{{ pt.onSelect }}" style="padding:9px 15px;border-radius:4px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #62a7a2;background:#62a7a2;color:#0f2637">{{ pt.label }}</button></sc-if>
+<sc-if value="{{ pt.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ pt.onSelect }}" style="padding:9px 15px;border-radius:4px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #cfd9e2;background:#fff;color:#4a5568" style-hover="border-color:#62a7a2;color:#0f2637">{{ pt.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ eType }}</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;color:#0f2637;margin-bottom:7px">{{ fMessage }}</label>
+<textarea value="{{ qMessage }}" onChange="{{ onQMessage }}" placeholder="{{ phMessage }}" style="width:100%;min-height:128px;padding:12px 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;line-height:1.8;color:#0f2637;outline:none;resize:vertical"></textarea>
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ eMessage }}</div>
+</div>
+<button onClick="{{ submitQuote }}" style="width:100%;padding:15px;border-radius:4px;border:none;background:#0f2637;color:#fff;font-size:15.5px;font-weight:700;cursor:pointer" style-hover="background:#62a7a2;color:#0f2637">{{ submitLabel }}</button>
+<div style="font-size:13.5px;line-height:1.8;color:#2f7d78;font-weight:600">{{ quoteSuccess }}</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+</sc-if>
+
+<sc-if value="{{ isCareers }}">
+<main id="top">
+<section style="position:relative;min-height:440px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.09)">
+<img src="{{ careersImage }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,27,40,.97),rgba(15,38,55,.68))"></div>
+<div style="position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:92px 32px;width:100%">
+<div style="max-width:760px">
+<div style="display:inline-flex;align-items:center;padding:7px 14px;border-inline-start:2px solid #80c894;background:rgba(128,200,148,.12);margin-bottom:26px">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.14em;color:#a5d9b6">{{ careersBadge }}</span>
+</div>
+<h1 style="margin:0 0 20px;font-family:'Almarai','Outfit',sans-serif;font-size:42px;font-weight:700;line-height:1.32;color:#fff">{{ careersTitle }}</h1>
+<p style="margin:0 0 30px;font-size:19px;font-weight:300;line-height:1.85;color:rgba(255,255,255,.78);max-width:58ch">{{ careersLead }}</p>
+<a href="#apply" style="display:inline-block;padding:15px 30px;border-radius:4px;background:#80c894;color:#0f2637;font-size:15.5px;font-weight:700" style-hover="background:#fff;color:#0f2637">{{ careersCta }}</a>
+</div>
+</div>
+</section>
+
+<section style="padding:108px 0;background:#fff">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<h2 data-reveal="1" style="margin:0 0 36px;font-family:'Almarai','Outfit',sans-serif;font-size:29px;font-weight:700;color:#0f2637">{{ whyJoinTitle }}</h2>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+<sc-for list="{{ careersWhy }}" as="w" hint-placeholder-count="4">
+<div data-reveal="1" data-tilt="5" style="padding:26px;border-radius:6px;background:#fff;border:1px solid #dfe6ec;transform-style:preserve-3d">
+<div style="width:46px;height:46px;border-radius:5px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:#f2f5f7;color:#80c894">
+<x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="{{ w.icon }}" size="22" hint-size="22px,22px"></x-import>
+</div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:16.5px;font-weight:700;color:#0f2637;margin-bottom:9px">{{ w.title }}</div>
+<div style="font-size:14px;line-height:1.85;color:#4a5568">{{ w.desc }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="padding:108px 0;background:#f2f5f7;color:#0f2637">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="margin-bottom:30px">
+<h2 style="margin:0 0 10px;font-family:'Almarai','Outfit',sans-serif;font-size:29px;font-weight:700;color:#0f2637">{{ rolesTitle }}</h2>
+<p style="margin:0;font-size:16.5px;color:#4a5568">{{ rolesLead }}</p>
+</div>
+<div style="border:1px solid #dfe6ec;border-radius:6px;overflow:hidden;background:#fff">
+<sc-for list="{{ roles }}" as="r" hint-placeholder-count="6">
+<div data-reveal="1" style="display:flex;align-items:center;gap:22px;padding:22px 26px;border-bottom:1px solid #eef2f5" style-hover="background:#f8fafb">
+<div style="width:4px;height:40px;flex-shrink:0;background:#62a7a2"></div>
+<div style="flex:1">
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:16.5px;font-weight:700;color:#0f2637">{{ r.title }}</div>
+<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:#7a8798">
+<span>{{ r.dept }}</span><span>{{ r.location }}</span><span>{{ r.type }}</span><span>{{ r.exp }}</span>
+</div>
+</div>
+<button onClick="{{ r.onApply }}" style="padding:11px 20px;border-radius:4px;border:1px solid #0f2637;background:transparent;color:#0f2637;font-size:13.5px;font-weight:600;cursor:pointer;flex-shrink:0" style-hover="background:#0f2637;color:#fff">{{ careersCta }}</button>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="apply" style="padding:108px 0;background:#fff;color:#0f2637">
+<div style="max-width:920px;margin:0 auto;padding:0 32px">
+<div data-reveal="1" style="margin-bottom:30px">
+<h2 style="margin:0 0 10px;font-family:'Almarai','Outfit',sans-serif;font-size:29px;font-weight:700;color:#0f2637">{{ applyTitle }}</h2>
+<p style="margin:0;font-size:16.5px;line-height:1.9;color:#4a5568">{{ applyLead }}</p>
+</div>
+<div data-reveal="1" style="padding:34px;border-radius:6px;background:#f8fafb;border:1px solid #dfe6ec">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afName }}</label>
+<input value="{{ aName }}" onChange="{{ onAName }}" placeholder="{{ aphName }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aeName }}</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afEmail }}</label>
+<input value="{{ aEmail }}" onChange="{{ onAEmail }}" placeholder="{{ aphEmail }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aeEmail }}</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afPhone }}</label>
+<input value="{{ aPhone }}" onChange="{{ onAPhone }}" placeholder="{{ aphPhone }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aePhone }}</div>
+</div>
+<div>
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afExp }}</label>
+<input value="{{ aExp }}" onChange="{{ onAExp }}" placeholder="{{ aphExp }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aeExp }}</div>
+</div>
+</div>
+<div style="margin-top:18px">
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afRole }}</label>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ roleOptions }}" as="ro" hint-placeholder-count="7">
+<sc-if value="{{ ro.on }}"><button onClick="{{ ro.onSelect }}" style="padding:9px 15px;border-radius:4px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #0f2637;background:#0f2637;color:#fff">{{ ro.label }}</button></sc-if>
+<sc-if value="{{ ro.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ ro.onSelect }}" style="padding:9px 15px;border-radius:4px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #cfd9e2;background:#fff;color:#4a5568" style-hover="border-color:#62a7a2;color:#0f2637">{{ ro.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aeRole }}</div>
+</div>
+<div style="margin-top:18px">
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afCv }}</label>
+<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center">
+<div>
+<div style="font-size:12.5px;color:#7a8798;margin-bottom:6px">{{ afCvLink }}</div>
+<input value="{{ aCv }}" onChange="{{ onACv }}" placeholder="{{ aphCv }}" style="width:100%;height:44px;padding:0 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;color:#0f2637;outline:none">
+</div>
+<div style="font-size:12.5px;font-weight:600;color:#7a8798;padding-top:20px">—</div>
+<div>
+<div style="font-size:12.5px;color:#7a8798;margin-bottom:6px">{{ afCvUpload }}</div>
+<label style="display:flex;align-items:center;gap:11px;height:44px;padding:0 13px;border-radius:4px;border:1px dashed #b9c6d2;background:#fff;cursor:pointer" style-hover="border-color:#62a7a2">
+<span style="display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:#0f2637;white-space:nowrap"><x-import component-from-global-scope="SACCDesignSystem_90d397.Icon" name="Upload" size="16" color="#62a7a2" hint-size="16px,16px"></x-import>{{ afCvBtn }}</span>
+<span style="font-size:13px;color:#7a8798;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ aCvFileName }}</span>
+<input type="file" accept=".pdf,.doc,.docx" onChange="{{ onACvFile }}" style="display:none">
+</label>
+</div>
+</div>
+<div style="font-size:12.5px;color:#7a8798;margin-top:7px">{{ afCvHint }}</div>
+<div style="font-size:12.5px;color:#d92d20;margin-top:5px">{{ aeCv }}</div>
+</div>
+<div style="margin-top:18px">
+<label style="display:block;font-size:13.5px;font-weight:600;margin-bottom:7px">{{ afNote }}</label>
+<textarea value="{{ aNote }}" onChange="{{ onANote }}" placeholder="{{ aphNote }}" style="width:100%;min-height:116px;padding:12px 13px;border-radius:4px;border:1px solid #cfd9e2;background:#fff;font-size:14.5px;line-height:1.8;color:#0f2637;outline:none;resize:vertical"></textarea>
+</div>
+<button onClick="{{ submitApp }}" style="margin-top:24px;width:100%;padding:15px;border-radius:4px;border:none;background:#0f2637;color:#fff;font-size:15.5px;font-weight:700;cursor:pointer" style-hover="background:#80c894;color:#0f2637">{{ appSubmitLabel }}</button>
+<div style="margin-top:12px;font-size:13.5px;line-height:1.8;color:#2f7d78;font-weight:600">{{ appSuccess }}</div>
+</div>
+<div style="margin-top:28px"><button onClick="{{ goHome }}" style="background:none;border:none;color:#2f7d78;font-size:14.5px;font-weight:600;cursor:pointer;padding:0">{{ backHome }}</button></div>
+</div>
+</section>
+</main>
+</sc-if>
+
+<footer style="background:#0a1b28;border-top:1px solid rgba(255,255,255,.09);padding:64px 0 28px">
+<div style="max-width:1320px;margin:0 auto;padding:0 32px">
+<div style="display:grid;grid-template-columns:1.5fr 1fr 1.2fr 1fr;gap:44px;margin-bottom:46px">
+<div>
+<img src="{{ logo }}" alt="SACC" style="height:46px;width:auto;object-fit:contain;margin-bottom:20px">
+<p style="margin:0 0 16px;font-size:14px;line-height:1.9;color:rgba(255,255,255,.6)">{{ footerTagline }}</p>
+<div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8)">{{ crLine }}</div>
+</div>
+<div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:18px">{{ footerQuickLinks }}</div>
+<div style="display:grid;gap:10px">
+<sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+<a href="{{ item.href }}" onClick="{{ item.onSelect }}" style="font-size:14px;color:rgba(255,255,255,.6)" style-hover="color:#62a7a2">{{ item.label }}</a>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:18px">{{ footerCertsHeading }}</div>
+<div style="display:grid;gap:10px">
+<sc-for list="{{ footerCerts }}" as="fc" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.6)"><span style="width:5px;height:5px;flex-shrink:0;background:#62a7a2"></span>{{ fc.label }}</div>
+</sc-for>
+</div>
+</div>
+<div>
+<div style="font-family:'Almarai','Outfit',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:18px">{{ footerContactHeading }}</div>
+<div style="display:grid;gap:11px;font-size:14px;color:rgba(255,255,255,.6)">
+<div>{{ address }}</div><div>{{ phone }}</div><div>{{ mobile }}</div><div>{{ email }}</div>
+</div>
+</div>
+</div>
+<div style="padding-top:24px;border-top:1px solid rgba(255,255,255,.09);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px">
+<div style="font-size:13px;color:rgba(255,255,255,.42)">{{ footerRights }}</div>
+<div style="height:1px;width:160px;background:rgba(255,255,255,.18)"></div>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PAL = ['#62a7a2', '#80c894', '#fcb61c', '#e38b30'];
+
+class Component extends DCLogic {
+  state = {
+    lang: 'ar', page: 'home', filter: 'all', open: null,
+    q: { name: '', email: '', company: '', type: '', message: '' }, qErr: {}, qBusy: false, qSent: false,
+    a: { name: '', email: '', phone: '', exp: '', role: '', cv: '', cvFile: '', note: '' }, aErr: {}, aBusy: false, aSent: false,
+    ready: !!window.SACC_SITE,
+  };
+
+  componentDidMount() {
+    // Data and the icon set both arrive as plain scripts; re-render once both land.
+    if (!window.SACC_SITE || !window.lucide) {
+      this._poll = setInterval(() => {
+        if (window.SACC_SITE && window.lucide) { clearInterval(this._poll); this.setState({ ready: true }); }
+      }, 60);
+    }
+    this._boot = setTimeout(() => this.initMotion(), 160);
+    // Nothing may stay invisible if a library fails to load or frames are throttled.
+    this._safety = setTimeout(() => {
+      document.querySelectorAll('[data-reveal="1"], [data-hero="1"] > *').forEach((el) => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.99) {
+          el.style.opacity = '1';
+          el.style.visibility = 'visible';
+          el.style.transform = 'none';
+          el.style.filter = 'none';
+        }
+      });
+    }, 3000);
+  }
+
+  // Motion stack: Lenis for inertial scrolling, GSAP + ScrollTrigger for every
+  // scroll-linked animation, three.js for the hero's depth layer.
+  initMotion() {
+    const gsap = window.gsap;
+    const ST = window.ScrollTrigger;
+    const Lenis = window.Lenis || (window.lenis && window.lenis.default);
+
+    if (Lenis && !this._lenis) {
+      this._lenis = new Lenis({ duration: 1.15, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
+      if (gsap) {
+        this._lenis.on('scroll', () => { if (ST) ST.update(); });
+        gsap.ticker.add((t) => this._lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+      } else {
+        const loop = (t) => { this._lenis.raf(t); this._loop = requestAnimationFrame(loop); };
+        this._loop = requestAnimationFrame(loop);
+      }
+    }
+
+    // Pointer tilt: cards pick up a slight 3D attitude toward the cursor.
+    if (!this._tiltMove) {
+      this._tiltMove = (ev) => {
+        const card = ev.target.closest && ev.target.closest('[data-tilt]');
+        if (this._tilted && this._tilted !== card) {
+          this._tilted.style.transform = '';
+          this._tilted.style.boxShadow = '';
+          this._tilted = null;
+        }
+        if (!card) return;
+        const max = parseFloat(card.getAttribute('data-tilt')) || 5;
+        const b = card.getBoundingClientRect();
+        const clamp = (n) => Math.max(-0.5, Math.min(0.5, n));
+        const px = clamp((ev.clientX - b.left) / b.width - 0.5);
+        const py = clamp((ev.clientY - b.top) / b.height - 0.5);
+        card.style.transition = 'transform .2s ease-out, box-shadow .3s ease-out, border-color .3s';
+        card.style.transform = 'perspective(900px) rotateY(' + (px * max).toFixed(2) + 'deg) rotateX(' + (-py * max).toFixed(2) + 'deg) translate3d(0,-5px,0)';
+        card.style.boxShadow = '0 26px 48px -26px rgba(15,38,55,.42)';
+        this._tilted = card;
+      };
+      this._tiltOut = () => {
+        if (!this._tilted) return;
+        this._tilted.style.transform = '';
+        this._tilted.style.boxShadow = '';
+        this._tilted = null;
+      };
+      document.addEventListener('pointermove', this._tiltMove, true);
+      document.addEventListener('pointerleave', this._tiltOut, true);
+    }
+
+    // Every in-page anchor scrolls through the same inertial path.
+    if (!this._onClick) {
+      this._onClick = (ev) => {
+        const a = ev.target.closest && ev.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        ev.preventDefault();
+        this.jump(id);
+      };
+      document.addEventListener('click', this._onClick, true);
+    }
+
+    if (!gsap) return;
+    if (ST) gsap.registerPlugin(ST);
+
+    // Some hosts throttle requestAnimationFrame in a background frame, which
+    // freezes GSAP mid-tween and would leave content invisible. Watch the frame
+    // clock and drive the ticker from a timer whenever frames stop arriving.
+    if (!this._kick) {
+      let lastFrame = Date.now();
+      const mark = () => { lastFrame = Date.now(); this._markFrame = requestAnimationFrame(mark); };
+      this._markFrame = requestAnimationFrame(mark);
+      this._kick = setInterval(() => {
+        if (Date.now() - lastFrame < 260) return;
+        gsap.ticker.tick();
+        if (this._lenis) this._lenis.raf(Date.now());
+        if (ST) ST.update();
+        if (this._render3D) this._render3D();
+      }, 32);
+    }
+    this.buildScrollAnimations();
+    this.introHero();
+    this.initHero3D();
+  }
+
+  // Opening statement: the hero copy assembles once, on load.
+  introHero() {
+    const gsap = window.gsap;
+    const hero = document.querySelector('[data-hero="1"]');
+    if (!gsap || !hero || this._introDone) return;
+    this._introDone = true;
+    const parts = hero.children;
+    gsap.set(hero, { autoAlpha: 1 });
+    gsap.fromTo(parts,
+      { autoAlpha: 0, y: 30, filter: 'blur(6px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.15, ease: 'power3.out', stagger: 0.13, delay: 0.15 });
+  }
+
+  buildScrollAnimations() {
+    const gsap = window.gsap;
+    const ST = window.ScrollTrigger;
+    if (!gsap) return;
+    if (this._triggers) this._triggers.forEach((t) => t.kill && t.kill());
+    this._triggers = [];
+
+    // Group reveals by their section so each band staggers as one composition.
+    document.querySelectorAll('section, footer').forEach((band) => {
+      const items = band.querySelectorAll('[data-reveal="1"]:not([data-gsap])');
+      if (!items.length) return;
+      items.forEach((el) => el.setAttribute('data-gsap', '1'));
+      const tw = gsap.fromTo(items,
+        { autoAlpha: 0, y: 34 },
+        {
+          autoAlpha: 1, y: 0, duration: 1.05, ease: 'power3.out', stagger: 0.09, overwrite: 'auto',
+          scrollTrigger: ST ? { trigger: band, start: 'top 82%', once: true } : undefined,
+        });
+      this._triggers.push(tw);
+    });
+
+    // Hero depth: photo drifts slower than the copy, which also fades out.
+    if (ST) {
+      document.querySelectorAll('[data-parallax]').forEach((el) => {
+        const rate = parseFloat(el.getAttribute('data-parallax')) || 0;
+        const band = el.closest('section') || el.parentElement;
+        const t = gsap.to(el, {
+          yPercent: rate * 42,
+          opacity: el.hasAttribute('data-fade') ? 0.15 : 1,
+          ease: 'none',
+          scrollTrigger: { trigger: band, start: 'top top', end: 'bottom top', scrub: true },
+        });
+        this._triggers.push(t);
+      });
+
+      // Figures count up once, in place, preserving their suffix.
+      document.querySelectorAll('[data-count="1"]').forEach((el) => {
+        const raw = (el.textContent || '').trim();
+        const num = parseFloat(raw.replace(/[^\d.]/g, ''));
+        if (!isFinite(num)) return;
+        const suffix = raw.replace(/[\d.,]/g, '');
+        el.setAttribute('data-count', 'bound');
+        const obj = { v: 0 };
+        const t = gsap.to(obj, {
+          v: num, duration: 1.6, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+          onUpdate: () => { el.textContent = Math.round(obj.v) + suffix; },
+          onComplete: () => { el.textContent = raw; },
+        });
+        this._triggers.push(t);
+      });
+
+      // Section headings lift a little further than their body copy.
+      gsap.utils.toArray('h2').forEach((h) => {
+        const t = gsap.fromTo(h, { y: 18 }, {
+          y: -18, ease: 'none',
+          scrollTrigger: { trigger: h.closest('section') || h, start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+        this._triggers.push(t);
+      });
+
+      // Credential marquee: continuous, paused on hover so a name can be read.
+      const track = document.querySelector('[data-ticker="1"]');
+      if (track && !track.hasAttribute('data-running')) {
+        track.setAttribute('data-running', '1');
+        const roll = gsap.to(track, { xPercent: -50, duration: 52, ease: 'none', repeat: -1 });
+        track.addEventListener('pointerenter', () => roll.timeScale(0.15));
+        track.addEventListener('pointerleave', () => roll.timeScale(1));
+        this._triggers.push(roll);
+      }
+
+      ST.refresh();
+    }
+  }
+
+  // Hero 3D: a wireframe ground plane that swells like surveyed terrain, drawn
+  // in the brand teal and drifting with the pointer. Geometry only — no assets.
+  initHero3D() {
+    const THREE = window.THREE;
+    const canvas = document.querySelector('canvas[data-webgl="hero"]');
+    if (!THREE || !canvas || this._three) return;
+    const w = canvas.clientWidth || 1280;
+    const h = canvas.clientHeight || 620;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(w, h, false);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(46, w / h, 0.1, 100);
+    camera.position.set(0, 3.1, 8.4);
+    camera.lookAt(0, 0.2, 0);
+
+    const geo = new THREE.PlaneGeometry(26, 16, 46, 30);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x62a7a2, wireframe: true, transparent: true, opacity: 0.34 });
+    const grid = new THREE.Mesh(geo, mat);
+    grid.rotation.x = -Math.PI / 2.32;
+    grid.position.y = -1.4;
+    scene.add(grid);
+
+    const base = geo.attributes.position.array.slice();
+    const pointer = { x: 0, y: 0 };
+    this._pointer3D = (ev) => {
+      pointer.x = (ev.clientX / window.innerWidth - 0.5) * 2;
+      pointer.y = (ev.clientY / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener('pointermove', this._pointer3D);
+
+    const clock = new THREE.Clock();
+    this._render3D = () => {
+      const t = clock.getElapsedTime();
+      const pos = geo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const x = base[i * 3];
+        const y = base[i * 3 + 1];
+        pos.array[i * 3 + 2] = Math.sin(x * 0.36 + t * 0.55) * 0.5 + Math.cos(y * 0.42 + t * 0.4) * 0.42;
+      }
+      pos.needsUpdate = true;
+      grid.rotation.z = Math.sin(t * 0.08) * 0.05 + pointer.x * 0.05;
+      camera.position.x += (pointer.x * 0.7 - camera.position.x) * 0.04;
+      camera.position.y += (3.1 - pointer.y * 0.4 - camera.position.y) * 0.04;
+      camera.lookAt(0, 0.2, 0);
+      renderer.render(scene, camera);
+    };
+    const frame = () => { this._render3D(); this._frame = requestAnimationFrame(frame); };
+    this._three = { renderer, scene, camera, geo };
+    this._resize3D = () => {
+      const nw = canvas.clientWidth || w;
+      const nh = canvas.clientHeight || h;
+      camera.aspect = nw / nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh, false);
+    };
+    window.addEventListener('resize', this._resize3D);
+    frame();
+  }
+
+  componentDidUpdate() {
+    clearTimeout(this._rebuild);
+    this._rebuild = setTimeout(() => {
+      this.buildScrollAnimations();
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    }, 90);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._poll);
+    clearTimeout(this._boot);
+    clearTimeout(this._safety);
+    clearTimeout(this._rebuild);
+    clearInterval(this._tween);
+    clearInterval(this._kick);
+    if (this._markFrame) cancelAnimationFrame(this._markFrame);
+    if (this._frame) cancelAnimationFrame(this._frame);
+    if (this._loop) cancelAnimationFrame(this._loop);
+    if (this._pointer3D) window.removeEventListener('pointermove', this._pointer3D);
+    if (this._resize3D) window.removeEventListener('resize', this._resize3D);
+    if (this._tiltMove) { document.removeEventListener('pointermove', this._tiltMove, true); document.removeEventListener('pointerleave', this._tiltOut, true); }
+    if (this._onClick) document.removeEventListener('click', this._onClick, true);
+    if (this._triggers) this._triggers.forEach((t) => t.kill && t.kill());
+    if (this._three) this._three.renderer.dispose();
+    if (this._lenis) this._lenis.destroy();
+  }
+
+  // Section navigation, routed through Lenis so the travel keeps the same
+  // inertia as ordinary scrolling.
+  jump(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const header = document.querySelector('header');
+    const offset = (header ? header.getBoundingClientRect().height : 0) + 12;
+    if (this._lenis) { this._lenis.scrollTo(target, { offset: -offset, duration: 1.25 }); return; }
+    const doc = document.scrollingElement || document.documentElement;
+    const prev = doc.style.scrollBehavior;
+    doc.style.scrollBehavior = 'auto';
+    const to = Math.max(target.getBoundingClientRect().top + doc.scrollTop - offset, 0);
+    const from = doc.scrollTop;
+    const dur = Math.min(1600, 700 + Math.abs(to - from) * 0.2);
+    const t0 = Date.now();
+    if (this._tween) clearInterval(this._tween);
+    const step = () => {
+      const k = Math.min(1, (Date.now() - t0) / dur);
+      doc.scrollTop = from + (to - from) * (1 - Math.pow(1 - k, 4));
+      if (k >= 1) { clearInterval(this._tween); this._tween = 0; doc.style.scrollBehavior = prev; }
+    };
+    this._tween = setInterval(step, 12);
+    step();
+  }
+
+  setQ(k, v) { this.setState((s) => ({ q: { ...s.q, [k]: v }, qErr: { ...s.qErr, [k]: '' }, qSent: false })); }
+
+  setA(k, v) { this.setState((s) => ({ a: { ...s.a, [k]: v }, aErr: { ...s.aErr, [k]: '' }, aSent: false })); }
+
+  submitQuote(t) {
+    const q = this.state.q, e = {};
+    if (!q.name.trim()) e.name = t.contact.errors.name;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(q.email)) e.email = t.contact.errors.email;
+    if (!q.company.trim()) e.company = t.contact.errors.company;
+    if (!q.type) e.type = t.contact.errors.type;
+    if (q.message.trim().length < 10) e.message = t.contact.errors.message;
+    this.setState({ qErr: e });
+    if (Object.keys(e).length) return;
+    this.setState({ qBusy: true });
+    setTimeout(() => this.setState({ qBusy: false, qSent: true, q: { name: '', email: '', company: '', type: '', message: '' } }), 700);
+  }
+
+  submitApp(t) {
+    const a = this.state.a, e = {};
+    if (!a.name.trim()) e.name = t.careers.errors.name;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a.email)) e.email = t.careers.errors.email;
+    if (!a.phone.trim()) e.phone = t.careers.errors.phone;
+    if (!a.exp.trim()) e.exp = t.careers.errors.exp;
+    if (!a.role) e.role = t.careers.errors.role;
+    // Either a link or an uploaded document satisfies the CV requirement.
+    if (!a.cv.trim() && !a.cvFile) e.cv = t.careers.errors.cv;
+    this.setState({ aErr: e });
+    if (Object.keys(e).length) return;
+    this.setState({ aBusy: true });
+    setTimeout(() => this.setState({ aBusy: false, aSent: true, a: { name: '', email: '', phone: '', exp: '', role: '', cv: '', cvFile: '', note: '' } }), 700);
+  }
+
+  chip(active) {
+    return { on: active, off: !active };
+  }
+
+  renderVals() {
+    const D = window.SACC_SITE;
+    if (!D) return {};
+    const s = this.state;
+    const t = D[s.lang];
+    const home = s.page === 'home';
+    const all = t.projects.items;
+    const filtered = s.filter === 'all' ? all : all.filter((p) => p.key === s.filter);
+    const done = ['Completed', 'مكتمل'];
+    const pad = (n) => (n < 10 ? '0' + n : String(n));
+
+    return {
+      dir: t.dir,
+      isHome: home,
+      isCareers: !home,
+      logo: D.company.logo,
+      langBtn: t.langBtn,
+      navCta: t.navCta,
+      navCareers: t.navCareers,
+      backHome: t.backHome,
+      topbarNote: t.brandLine,
+      navItems: t.nav.map((n) => ({
+        label: n.label,
+        href: '#' + n.id,
+        onSelect: (ev) => {
+          if (ev && ev.preventDefault) ev.preventDefault();
+          const go = () => this.jump(n.id);
+          if (home) { go(); return; }
+          this.setState({ page: 'home' });
+          setTimeout(go, 140);
+        },
+      })),
+      toggleLang: () => this.setState({ lang: s.lang === 'ar' ? 'en' : 'ar' }),
+      goHome: () => { this.setState({ page: 'home' }); window.scrollTo({ top: 0 }); },
+      goCareers: () => { this.setState({ page: 'careers' }); window.scrollTo({ top: 0 }); },
+
+      heroImage: D.images.hero,
+      heroBadge: t.hero.badge,
+      heroTitle: t.hero.title,
+      heroLead: t.hero.lead,
+      heroCta1: t.hero.cta1,
+      heroCta2: t.hero.cta2,
+      stats: t.stats.map((x, i) => ({ ...x, color: PAL[i % 4] })),
+
+      // Credential band: approvals plus the actual project owners, listed twice
+      // so the marquee can loop without a visible seam.
+      clientsLabel: s.lang === 'ar' ? 'جهات معتمِدة ومالكة للمشاريع' : 'APPROVALS & PROJECT OWNERS',
+      clientsLoop: (() => {
+        const names = t.certifications.approvals.concat(
+          t.projects.items.map((p) => p.client).filter((c, i, a) => a.indexOf(c) === i)
+        );
+        return names.concat(names).map((label, i) => ({ label, key: label + i }));
+      })(),
+
+      figureValue: t.stats[2].value,
+      figureLabel: t.stats[2].label,
+      figureStatement: t.equipment.p1,
+      figureCta: s.lang === 'ar' ? 'استعرض الأسطول' : 'See the fleet',
+
+      introEyebrow: t.intro.eyebrow,
+      introTitle: t.intro.title,
+      introP1: t.intro.p1,
+      introP2: t.intro.p2,
+      introP3: t.intro.p3,
+      whyTitle: t.why.title,
+      whyLead: t.why.lead,
+      whyItems: t.why.items.map((label, i) => ({ label, color: PAL[i % 4] })),
+
+      servicesEyebrow: t.services.eyebrow,
+      servicesTitle: t.services.title,
+      servicesLead: t.services.lead,
+      capsHeading: t.services.capabilitiesHeading,
+      services: t.services.items.map((x, i) => ({ ...x, num: pad(i + 1), color: PAL[i % 4] })),
+
+      projectsEyebrow: t.projects.eyebrow,
+      projectsTitle: t.projects.title,
+      projectsLead: t.projects.lead,
+      projectsDetailsCta: t.projects.detailsCta,
+      scopeLabel: t.projects.labels.scope,
+      clientLabel: t.projects.labels.client,
+      locationLabel: t.projects.labels.location,
+      projStats: [
+        { value: all.length, label: t.projects.statLabels.projects, color: PAL[0] },
+        { value: new Set(all.map((p) => p.client)).size, label: t.projects.statLabels.clients, color: PAL[1] },
+        { value: new Set(all.map((p) => p.location)).size, label: t.projects.statLabels.regions, color: PAL[2] },
+        { value: all.filter((p) => done.includes(p.status)).length, label: t.projects.statLabels.completed, color: PAL[3] },
+      ],
+      projectCategories: t.projects.categories.map((c) => ({
+        label: c.label,
+        ...this.chip(s.filter === c.key),
+        onSelect: () => this.setState({ filter: c.key, open: null }),
+      })),
+      projects: filtered.map((p) => ({
+        ...p,
+        image: D.images.projects[(p.id - 1) % D.images.projects.length],
+        statusColor: done.includes(p.status) ? '#80c894' : '#fcb61c',
+        expanded: s.open === p.id,
+        toggleLabel: s.open === p.id ? t.projects.collapse : t.projects.expand,
+        onToggle: () => this.setState({ open: s.open === p.id ? null : p.id }),
+      })),
+
+      equipmentEyebrow: t.equipment.eyebrow,
+      equipmentTitle: t.equipment.title,
+      equipmentP1: t.equipment.p1,
+      equipmentP2: t.equipment.p2,
+      equipmentCta: t.equipment.cta,
+      equipmentImage: D.images.equipment,
+      equipmentCategoriesHeading: t.equipment.categoriesHeading,
+      equipmentCategories: t.equipment.categories.map((label, i) => ({ label, color: PAL[i % 4] })),
+      equipmentFeatures: t.equipment.features.map((f, i) => ({ ...f, color: PAL[i % 4] })),
+
+      certsEyebrow: t.certifications.eyebrow,
+      certsTitle: t.certifications.title,
+      certsLead: t.certifications.lead,
+      certsCommitment: t.certifications.commitmentBody,
+      isoHeading: t.certifications.isoHeading,
+      isoItems: t.certifications.iso.map((x, i) => ({ ...x, color: PAL[i % 4] })),
+      approvalsHeading: t.certifications.approvalsHeading,
+      approvals: t.certifications.approvals.map((label, i) => ({ label, color: PAL[i % 4] })),
+      certsCta: t.certifications.cta,
+
+      journeyEyebrow: t.journey.eyebrow,
+      journeyTitle: t.journey.title,
+      journeyLead: t.journey.lead,
+      milestones: t.journey.milestones.map((m, i) => ({ ...m, color: PAL[i % 4] })),
+      valuesTitle: t.journey.valuesTitle,
+      values: t.journey.values.map((v, i) => ({ ...v, color: PAL[i % 4] })),
+
+      leadershipEyebrow: t.leadership.eyebrow,
+      leadershipTitle: t.leadership.title,
+      leadershipLead: t.leadership.lead,
+      expertiseHeading: t.leadership.expertiseHeading,
+      leaders: t.leadership.leaders.map((l, i) => ({ ...l, image: i === 0 ? D.images.chairman : D.images.gm })),
+      quoteTitle: t.leadership.quoteTitle,
+      quote: t.leadership.quote,
+      chairmanName: t.leadership.leaders[0].name,
+      chairmanRole: t.leadership.leaders[0].title,
+
+      contactEyebrow: t.contact.eyebrow,
+      contactTitle: t.contact.title,
+      contactLead: t.contact.lead,
+      officeHeading: t.contact.officeHeading,
+      address: t.contact.address,
+      phone: D.company.phone,
+      mobile: D.company.mobile,
+      email: D.company.email,
+      hoursHeading: t.contact.hoursHeading,
+      hours1: t.contact.hours[0],
+      hours2: t.contact.hours[1],
+      crLine: t.contact.crLabel + ' ' + D.company.cr,
+      fName: t.contact.fields.name,
+      fEmail: t.contact.fields.email,
+      fCompany: t.contact.fields.company,
+      fType: t.contact.fields.type,
+      fMessage: t.contact.fields.message,
+      phName: t.contact.placeholders.name,
+      phEmail: t.contact.placeholders.email,
+      phCompany: t.contact.placeholders.company,
+      phMessage: t.contact.placeholders.message,
+      qName: s.q.name,
+      qEmail: s.q.email,
+      qCompany: s.q.company,
+      qMessage: s.q.message,
+      eName: s.qErr.name || '',
+      eEmail: s.qErr.email || '',
+      eCompany: s.qErr.company || '',
+      eType: s.qErr.type || '',
+      eMessage: s.qErr.message || '',
+      onQName: (ev) => this.setQ('name', ev.target.value),
+      onQEmail: (ev) => this.setQ('email', ev.target.value),
+      onQCompany: (ev) => this.setQ('company', ev.target.value),
+      onQMessage: (ev) => this.setQ('message', ev.target.value),
+      projectTypes: t.contact.types.map((label) => ({
+        label,
+        ...this.chip(s.q.type === label),
+        onSelect: () => this.setQ('type', label),
+      })),
+      submitLabel: s.qBusy ? t.contact.submitting : t.contact.submit,
+      submitQuote: () => this.submitQuote(t),
+      quoteSuccess: s.qSent ? t.contact.success : '',
+
+      careersImage: D.images.careers,
+      careersBadge: t.careers.badge,
+      careersTitle: t.careers.title,
+      careersLead: t.careers.lead,
+      careersCta: t.careers.cta,
+      whyJoinTitle: t.careers.whyTitle,
+      careersWhy: t.careers.why.map((w, i) => ({ ...w, color: PAL[i % 4] })),
+      rolesTitle: t.careers.rolesTitle,
+      rolesLead: t.careers.rolesLead,
+      roles: t.careers.roles.map((r, i) => ({
+        ...r,
+        color: PAL[i % 4],
+        onApply: () => {
+          this.setA('role', r.title);
+          setTimeout(() => this.jump('apply'), 40);
+        },
+      })),
+      applyTitle: t.careers.applyTitle,
+      applyLead: t.careers.applyLead,
+      afName: t.careers.fields.name,
+      afEmail: t.careers.fields.email,
+      afPhone: t.careers.fields.phone,
+      afExp: t.careers.fields.exp,
+      afRole: t.careers.fields.role,
+      afCv: t.careers.fields.cv,
+      afCvLink: t.careers.cvLink,
+      afCvUpload: t.careers.cvUpload,
+      afCvBtn: t.careers.cvUploadBtn,
+      afCvHint: t.careers.cvHint,
+      aCvFileName: s.a.cvFile || t.careers.cvNone,
+      onACvFile: (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        this.setA('cvFile', file ? file.name : '');
+      },
+      afNote: t.careers.fields.note,
+      aphName: t.careers.placeholders.name,
+      aphEmail: t.careers.placeholders.email,
+      aphPhone: t.careers.placeholders.phone,
+      aphExp: t.careers.placeholders.exp,
+      aphCv: t.careers.placeholders.cv,
+      aphNote: t.careers.placeholders.note,
+      aName: s.a.name,
+      aEmail: s.a.email,
+      aPhone: s.a.phone,
+      aExp: s.a.exp,
+      aCv: s.a.cv,
+      aNote: s.a.note,
+      aeName: s.aErr.name || '',
+      aeEmail: s.aErr.email || '',
+      aePhone: s.aErr.phone || '',
+      aeExp: s.aErr.exp || '',
+      aeRole: s.aErr.role || '',
+      aeCv: s.aErr.cv || '',
+      onAName: (ev) => this.setA('name', ev.target.value),
+      onAEmail: (ev) => this.setA('email', ev.target.value),
+      onAPhone: (ev) => this.setA('phone', ev.target.value),
+      onAExp: (ev) => this.setA('exp', ev.target.value),
+      onACv: (ev) => this.setA('cv', ev.target.value),
+      onANote: (ev) => this.setA('note', ev.target.value),
+      roleOptions: t.careers.roles.map((r) => r.title).concat([t.careers.otherRole]).map((label) => ({
+        label,
+        ...this.chip(s.a.role === label),
+        onSelect: () => this.setA('role', label),
+      })),
+      appSubmitLabel: s.aBusy ? t.careers.submitting : t.careers.submit,
+      submitApp: () => this.submitApp(t),
+      appSuccess: s.aSent ? t.careers.success : '',
+
+      footerTagline: t.footer.tagline,
+      footerQuickLinks: t.footer.quickLinks,
+      footerCertsHeading: t.footer.certsHeading,
+      footerCerts: t.footer.certs.map((label, i) => ({ label, color: PAL[i % 4] })),
+      footerContactHeading: t.footer.contactHeading,
+      footerRights: t.footer.rights,
+    };
+  }
+}
+</script>
+</body>
+</html>
