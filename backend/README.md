@@ -67,8 +67,12 @@ point `DATABASE_URL` at it accordingly.
 .venv/Scripts/python manage.py runserver
 ```
 
-The admin is at http://localhost:8000/admin/ and the API at
-http://localhost:8000/api/v1/.
+Opening http://localhost:8000/ shows an index of the service. The admin is at
+http://localhost:8000/admin/ and the API at http://localhost:8000/api/v1/.
+
+The deployed service is the **backend only** — admin and API. The public
+website is a separate static site; visiting the backend's URL shows the index
+page, not the website.
 
 ---
 
@@ -315,24 +319,34 @@ runs `build.sh` (install, `collectstatic`, `migrate`).
 `rootDir: backend` is set because the Django project is not at the repository
 root.
 
-After the first successful deploy, load the site copy once from the Render
-shell:
+### There is no manual step after deploying
 
-```bash
-python manage.py seed_content
-python manage.py createsuperuser
-```
+Render's **Shell and One-Off Jobs are paid features**, so on the free plan there
+is no way to run a command against the live service. `build.sh` therefore ends
+with `bootstrap_site`, which seeds the content and creates the admin account
+during the build.
 
-Seeding is deliberately not part of `build.sh` — it would re-run on every
-deploy and overwrite edits made in the admin.
+It is safe on every deploy because both halves are guarded:
+
+- content is seeded **only into an empty database**, so a redeploy never
+  overwrites edits made in the admin;
+- the superuser is created **only if none exists**, from
+  `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL` and
+  `DJANGO_SUPERUSER_PASSWORD` in the dashboard. Change the password from the
+  admin afterwards; the variables are ignored once the account exists.
+
+To deliberately reload the seed over existing content, use
+`bootstrap_site --force-seed`.
 
 ### Secrets to set in the dashboard
 
 These are marked `sync: false` in the Blueprint, so Render prompts for them
 rather than storing them in the repository:
 
-`DATABASE_URL`, `EMAIL_HOST`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`,
-`LEAD_NOTIFICATION_RECIPIENTS`, and the `AWS_*` bucket credentials.
+`DATABASE_URL`, `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`,
+`DJANGO_SUPERUSER_PASSWORD`, `EMAIL_HOST`, `EMAIL_HOST_USER`,
+`EMAIL_HOST_PASSWORD`, `LEAD_NOTIFICATION_RECIPIENTS`, and the `AWS_*` bucket
+credentials.
 
 `SECRET_KEY` uses `generateValue: true`, so Render generates it and it never
 exists in source control at all.

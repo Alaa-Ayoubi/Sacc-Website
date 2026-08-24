@@ -7,6 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 
 from apps.careers.views import JobApplicationViewSet, JobOpeningViewSet
@@ -29,6 +30,9 @@ api_v1 = [
 ]
 
 urlpatterns = [
+    # Opening the service in a browser should explain what it is rather than
+    # returning a bare 404 that reads like a broken deployment.
+    path("", TemplateView.as_view(template_name="index.html"), name="index"),
     path("admin/", admin.site.urls),
     path("api/v1/", include((api_v1, "api"), namespace="v1")),
 ]

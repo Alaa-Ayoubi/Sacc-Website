@@ -186,3 +186,23 @@ class SiteBundleTests(TestCase):
         payload = self.client.get(reverse("v1:site-bundle"), {"lang": "fr"}).json()
         self.assertIn("ar", payload)
         self.assertIn("en", payload)
+
+
+class IndexPageTests(TestCase):
+    """Opening the service in a browser must explain what it is, not 404."""
+
+    def test_root_serves_an_index_page(self):
+        response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "SACC Backend")
+        self.assertContains(response, "not the public website")
+
+    def test_index_links_to_the_admin_and_the_api(self):
+        response = self.client.get("/")
+        self.assertContains(response, reverse("admin:index"))
+        self.assertContains(response, reverse("v1:site-bundle"))
+        self.assertContains(response, reverse("v1:health"))
+
+    def test_index_is_not_indexable(self):
+        # An internal service should not turn up in search results.
+        self.assertContains(self.client.get("/"), "noindex")

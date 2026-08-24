@@ -53,6 +53,17 @@ services:
       - key: CSRF_TRUSTED_ORIGINS
         value: https://saccgroup.net,https://www.saccgroup.net
 
+      # The admin account, created on first deploy by bootstrap_site. Render's
+      # Shell is a paid feature, so createsuperuser cannot be run by hand on the
+      # free plan — set these in the dashboard instead. Once the account exists
+      # they are ignored, and the password can be changed from the admin.
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+
       # Set in the Render dashboard, not here — these are secrets.
       - key: EMAIL_HOST
         sync: false
