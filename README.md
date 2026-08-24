@@ -43,6 +43,18 @@ cp .env.example .env                                      # then set DATABASE_UR
 Full setup, API reference, content model and deployment notes:
 **[backend/README.md](backend/README.md)**.
 
+## Security
+
+**This repository is public — never commit secrets.** `.env`, `SECRET_KEY`,
+database passwords, mail credentials, API keys and uploaded CVs all stay out of
+git. A pre-commit hook enforces it; install it once per clone:
+
+```bash
+./scripts/check-no-secrets.sh --install
+```
+
+Full policy, and what to do if something leaks: **[SECURITY.md](SECURITY.md)**.
+
 ## Deployment
 
 Hosted on [Render](https://render.com). `backend/render.yaml` is a Blueprint

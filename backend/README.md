@@ -42,18 +42,21 @@ python -c "from django.core.management.utils import get_random_secret_key as k; 
 Either use your local PostgreSQL:
 
 ```sql
-CREATE ROLE sacc LOGIN PASSWORD 'choose-a-password';
+CREATE ROLE sacc LOGIN PASSWORD '<pick-a-password>';
 CREATE DATABASE sacc OWNER sacc ENCODING 'UTF8';
 ```
 
-…and set `DATABASE_URL=postgres://sacc:choose-a-password@localhost:5432/sacc`.
+…then set `DATABASE_URL` in `.env` to
+`postgres://sacc:<that-password>@localhost:5432/sacc`.
 
 Or start the bundled throwaway instance:
 
 ```bash
 docker compose up -d db
-# DATABASE_URL=postgres://sacc:sacc@localhost:5433/sacc
 ```
+
+It listens on port 5433 with the throwaway credentials in `docker-compose.yml`;
+point `DATABASE_URL` at it accordingly.
 
 ### Migrate, seed, run
 
