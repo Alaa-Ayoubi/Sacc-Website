@@ -1,4 +1,8 @@
-# Render Blueprint — web service only.
+# Render Blueprint — the Django API and the React site.
+#
+# The site is a Static Site rather than a web service: static sites are free
+# and, unlike free web services, never sleep. So the public page is always
+# fast, and only a form submission can meet a cold start.
 #
 # There is deliberately no `databases:` block. Render's free PostgreSQL is
 # deleted 30 days after creation (plus a 14-day grace period), which would take
@@ -9,8 +13,8 @@
 # See README, "Running this for free", for the full setup.
 #
 # Deploy: push to GitHub, then in Render choose "New > Blueprint" and point it
-# at the repo. rootDir is set because the Django project is not at the
-# repository root.
+# at the repo. rootDir is set because neither project sits at the repository
+# root.
 
 services:
   - type: web
@@ -89,3 +93,29 @@ services:
         sync: false
       - key: AWS_SECRET_ACCESS_KEY
         sync: false
+
+  - type: web
+    name: sacc-site
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://sacc-backend-894t.onrender.com
+    routes:
+      # Single-page app: unknown paths serve index.html rather than 404.
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Vite fingerprints these filenames, so they can be cached forever.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin

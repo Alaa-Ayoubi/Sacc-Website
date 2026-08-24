@@ -8,25 +8,37 @@ Al Madinah Al Munawwarah, Saudi Arabia.
 
 | Path | What it is |
 | --- | --- |
-| [`backend/`](backend/) | Django + PostgreSQL backend — owns the site content and handles form submissions. See [backend/README.md](backend/README.md). |
-| `SaccSite.dc.html`, `site-data.js` | The one-page site design and its content file. |
+| [`frontend/`](frontend/) | The public site — React + Vite, bilingual. See [frontend/README.md](frontend/README.md). |
+| [`backend/`](backend/) | Django + PostgreSQL — owns the content and handles form submissions. See [backend/README.md](backend/README.md). |
+| `SaccSite.dc.html`, `site-data.js` | The original design prototype the frontend was built from. Kept for reference. |
 | `_ds/` | Design system — tokens, fonts, styles. |
-| `assets/`, `templates/` | Images and vendored frontend libraries. |
+| `assets/`, `templates/` | Images and vendored libraries used by the prototype. |
 
-## The backend in one paragraph
+## What changed
 
 The site started out fully static: every string lived in `site-data.js`, and
 both forms — the quote request and the job application — faked a submission
-with `setTimeout`. Nothing was sent, nothing was stored. The backend fixes
-both: the content now lives in PostgreSQL and is editable in both languages
-from the Django admin, and the forms persist real submissions, notify staff by
-email, and accept CV uploads.
+with `setTimeout`. Nothing was sent, nothing was stored; every enquiry the site
+ever received was discarded.
 
-`GET /api/v1/site/` returns one payload keyed exactly like the old
-`window.SACC_SITE` object, so the frontend swaps a script tag and keeps
-working.
+Now the content lives in PostgreSQL and is editable in both languages from the
+Django admin, and both forms persist real submissions, notify staff at
+`info@saccgroup.net`, and accept CV uploads.
+
+The React frontend carries the approved design over unchanged and reads its
+content from `GET /api/v1/site/`.
 
 ## Quick start
+
+The site:
+
+```bash
+cd frontend
+npm install
+npm run dev            # http://localhost:5173
+```
+
+The backend:
 
 ```bash
 cd backend
