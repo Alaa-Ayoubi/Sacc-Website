@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import { useSite } from '../SiteContext.jsx';
 
 /* Top contact strip and the sticky navigation.
  *
  * Nav items come from the API, so a section added in the admin appears here
- * without a code change. The mobile menu closes on navigation — leaving it open
- * over the page you just opened is disorienting.
- */
+ * without a code change. The mobile menu closes on selection — leaving it open
+ * over the anchor you just jumped to is disorienting. */
 export function TopBar() {
   const { t, company } = useSite();
   const crLabel = t.contact?.crLabel || 'CR';
@@ -29,29 +27,50 @@ export function TopBar() {
   );
 }
 
-export default function Header() {
+export default function Header({ onNavigate, view }) {
   const { t, company, toggleLang, lang } = useSite();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const [active, setActive] = useState('');
 
-  // The header lifts off the content once the page has moved.
+  // Highlight the section currently in view. IntersectionObserver keeps this
+  // off the scroll event, so it costs nothing while scrolling.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    if (view !== 'home') return undefined;
+    const sections = t.nav
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
+    if (!sections.length) return undefined;
 
-  // Close the mobile menu whenever the route changes.
-  useEffect(() => setOpen(false), [location.pathname]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [t.nav, view]);
+
+  const go = (event, id) => {
+    event.preventDefault();
+    setOpen(false);
+    onNavigate(id);
+  };
 
   return (
-    <header className={`header${scrolled ? ' is-scrolled' : ''}`}>
+    <header className="header">
       <div className="container">
-        <Link viewTransition className="brand" to="/" aria-label={t.brandLine}>
+        <a
+          className="brand"
+          href="#top"
+          onClick={(event) => go(event, 'top')}
+          aria-label={t.brandLine}
+        >
           <img src={company.logo || './assets/logo-full.webp'} alt={t.brandLine} />
-        </Link>
+        </a>
 
         <button
           type="button"
@@ -66,14 +85,14 @@ export default function Header() {
 
         <nav id="primary-nav" className={`nav${open ? ' open' : ''}`}>
           {t.nav.map((item) => (
-            <NavLink viewTransition
+            <a
               key={item.id}
-              to={`/${item.id}`}
-              // NavLink sets aria-current itself; the pill styling keys off it.
-              className={({ isActive }) => (isActive ? 'is-active' : undefined)}
+              href={`#${item.id}`}
+              onClick={(event) => go(event, item.id)}
+              aria-current={view === 'home' && active === item.id ? 'true' : undefined}
             >
               {item.label}
-            </NavLink>
+            </a>
           ))}
         </nav>
 
@@ -86,12 +105,20 @@ export default function Header() {
           >
             {t.langBtn}
           </button>
-          <Link viewTransition className="btn btn-ghost btn-label-long" to="/careers">
+          <button
+            type="button"
+            className="btn btn-ghost btn-label-long"
+            onClick={() => onNavigate('careers')}
+          >
             {t.navCareers}
-          </Link>
-          <Link viewTransition className="btn btn-primary" to="/contact">
+          </button>
+          <a
+            className="btn btn-primary"
+            href="#contact"
+            onClick={(event) => go(event, 'contact')}
+          >
             {t.navCta}
-          </Link>
+          </a>
         </div>
       </div>
     </header>

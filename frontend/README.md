@@ -8,19 +8,15 @@ Built from the handoff in `../design_handoff_sacc_website/`: the same navy
 shell, teal accent, 1320px container, 124px section rhythm, and the
 Almarai/Tajawal + Outfit/Playfair type pairing.
 
-## Routes
+## Pages
 
-`/` · `/about` · `/services` · `/projects` · `/equipment` · `/certifications` ·
-`/journey` · `/leadership` · `/contact` · `/careers`
+Home, about, services, projects, equipment, certifications, journey,
+leadership, contact, careers — switched in the app rather than fetched. The
+current page is mirrored in the URL hash (`#services`), so a link can be
+shared and reopens on the right page.
 
-Each inner page opens with a navy banner carrying its title — that band is what
-the translucent header sits on, and it keeps the pages a family. Old
-single-page anchors (`/#services`) redirect to the matching route, so links
-already shared keep working.
-
-Navigation cross-fades using the View Transitions API where the browser has it,
-and falls back to a fade on the incoming page where it does not. Only one runs,
-so a page never animates twice.
+There is no router package: with ten flat pages and no nested or dynamic
+routes, a `hash → view` map is the whole requirement.
 
 ## Running it
 
@@ -100,27 +96,24 @@ directions rather than a mirrored copy.
 
 | Path | What it holds |
 | --- | --- |
-| `src/App.jsx` | Routes, scroll reset, legacy anchor redirects |
-| `src/pages/Pages.jsx` | One component per route |
+| `src/App.jsx` | Page switching, hash sync, scroll reset |
+| `src/main.jsx` | Entry point — mounts the app and loads the stylesheets |
 | `src/SiteContext.jsx` | Content loading, language, direction |
 | `src/api.js` | The backend client and its error type |
-| `src/components/Sections.jsx` | Hero, stats, about, services, projects, equipment, certifications, journey, leadership, footer |
+| `src/components/Sections.jsx` | Every content section, plus the footer |
+| `src/components/Motion.jsx` | Reveal-on-scroll and the credential ticker |
+| `src/components/Icon.jsx` | Lucide icons, looked up by the name stored with each row |
 | `src/components/Contact.jsx` | Quote-request form |
 | `src/components/Careers.jsx` | Careers page and application form |
 | `src/styles/app.css` | Design tokens and layout |
 | `src/data/site-content.json` | Bundled content snapshot |
 
-### Two notes on the build
+### Known issue in the content
 
-**Entrance animations never hide content.** The `Reveal` wrapper only applies
-its hidden state from an effect, so a JS failure or an observer that never
-fires cannot leave a section permanently blank.
-
-**Remote images degrade quietly.** Several URLs in the content still point at
-the client's old CDN and do not always resolve — the chairman portrait among
-them. `SafeImage` removes a failed image rather than showing a broken icon, and
-the chairman panel reflows to a single column. Replacing those URLs with owned
-assets makes this moot; the handoff flags the same thing.
+Several image URLs still point at the client's old Hostinger CDN and do not
+reliably resolve — the chairman and GM portraits among them. Replace them with
+owned assets from the Django admin, under *Site & branding → Site images*. The
+design handoff flags the same URLs.
 
 ## Deploying
 

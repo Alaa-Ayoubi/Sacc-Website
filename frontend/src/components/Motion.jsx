@@ -7,16 +7,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useSite } from '../SiteContext.jsx';
-import SafeImage from './SafeImage.jsx';
 
 /** Wrap anything that should fade up on entry. `index` drives the stagger. */
 export function Reveal({ children, index = 0, as: Tag = 'div', className = '', ...rest }) {
   const ref = useRef(null);
-  // `armed` is what hides the content, and it is only ever set from an effect.
-  // Rendering hidden-by-default would mean that a JS failure, or an observer
-  // that never fires, leaves the section permanently blank — the animation
-  // must not be able to cost anyone the content.
-  const [armed, setArmed] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,19 +18,10 @@ export function Reveal({ children, index = 0, as: Tag = 'div', className = '', .
     if (!node) return undefined;
 
     // Someone who asked for less motion should get the content, not the effect.
-    if (
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      typeof IntersectionObserver === 'undefined'
-    ) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true);
       return undefined;
     }
-
-    // Already on screen at mount: show it without animating in.
-    const box = node.getBoundingClientRect();
-    if (box.top < window.innerHeight && box.bottom > 0) {
-      return undefined;
-    }
-    setArmed(true);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -51,15 +36,11 @@ export function Reveal({ children, index = 0, as: Tag = 'div', className = '', .
     return () => observer.disconnect();
   }, []);
 
-  const classes = [armed && 'reveal', armed && visible && 'is-visible', className]
-    .filter(Boolean)
-    .join(' ');
-
   return (
     <Tag
       ref={ref}
-      className={classes || undefined}
-      style={armed ? { transitionDelay: `${Math.min(index, 6) * 100}ms` } : undefined}
+      className={`reveal${visible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`}
+      style={{ transitionDelay: visible ? `${Math.min(index, 6) * 100}ms` : '0ms' }}
       {...rest}
     >
       {children}
@@ -100,24 +81,17 @@ export function Ticker() {
  * explicitly asks for one shared source. */
 export function ChairmanQuote() {
   const { t, images } = useSite();
-  const [hasPortrait, setHasPortrait] = useState(true);
   const chairman = t.leadership.leaders?.[0];
   if (!t.leadership.quote || !chairman) return null;
 
   const portrait = chairman.photo || images.chairman;
-  const showPortrait = Boolean(portrait) && hasPortrait;
 
   return (
     <section className="chairman">
       <div className="container">
-        <div className={`chairman-grid${showPortrait ? '' : ' is-solo'}`}>
-          {showPortrait && (
-            <SafeImage
-              className="chairman-photo"
-              src={portrait}
-              alt={chairman.name}
-              onFail={() => setHasPortrait(false)}
-            />
+        <div className="chairman-grid">
+          {portrait && (
+            <img className="chairman-photo" src={portrait} alt={chairman.name} loading="lazy" />
           )}
           <Reveal>
             <blockquote>{t.leadership.quote}</blockquote>

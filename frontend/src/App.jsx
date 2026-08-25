@@ -1,88 +1,102 @@
-/* Routes.
+/* Multi-page site, plus a careers view.
  *
- * The site was one scrolling page; it is now a page per section, matching how
- * saccgroup.net is organised. Anchors from the old structure still work —
- * /#services and similar redirect to the matching route, so any link already
- * shared keeps landing in the right place.
+ * Each nav item is its own page — a real view switch, not a scroll to an
+ * anchor on one long document. The hash mirrors the current page so a link
+ * can be shared and reopened on the right page.
  */
-import { useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 
 import Header, { TopBar } from './components/Header.jsx';
-import PageTransition from './components/PageTransition.jsx';
+import Contact from './components/Contact.jsx';
 import Careers from './components/Careers.jsx';
-import { Footer } from './components/Sections.jsx';
 import {
-  AboutPage,
-  CertificationsPage,
-  ContactPage,
-  EquipmentPage,
-  HomePage,
-  JourneyPage,
-  LeadershipPage,
-  NotFoundPage,
-  ProjectsPage,
-  ServicesPage,
-} from './pages/Pages.jsx';
+  About,
+  Certifications,
+  Equipment,
+  Explore,
+  Footer,
+  Hero,
+  Journey,
+  Leadership,
+  Projects,
+  Services,
+  Stats,
+  Why,
+} from './components/Sections.jsx';
 import { useSite } from './SiteContext.jsx';
 
-/* A route change should start at the top of the new page, not wherever the
-   previous one was scrolled to. */
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    // Instant, not smooth: the cross-fade already carries the change, and
-    // scrolling the outgoing page as it fades reads as two things at once.
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [pathname]);
-  return null;
-}
+const PAGES = [
+  'home', 'about', 'services', 'projects', 'equipment',
+  'certifications', 'journey', 'leadership', 'contact', 'careers',
+];
 
-/* The single-page build used #anchors. Carry those over so shared links and
-   search results do not break. */
-function LegacyHashRedirect() {
-  const location = useLocation();
-  const hash = location.hash.slice(1);
-  const known = [
-    'about', 'services', 'projects', 'equipment',
-    'certifications', 'journey', 'leadership', 'contact', 'careers',
-  ];
-  if (location.pathname === '/' && known.includes(hash)) {
-    return <Navigate to={`/${hash}`} replace />;
-  }
-  return null;
+function pageFromHash() {
+  const id = window.location.hash.slice(1);
+  return PAGES.includes(id) ? id : 'home';
 }
 
 export default function App() {
   const { t } = useSite();
+  const [view, setView] = useState(pageFromHash);
+  const [prefill, setPrefill] = useState('');
+
+  const navigate = useCallback((id) => {
+    setView(PAGES.includes(id) ? id : 'home');
+  }, []);
+
+  // A page switch is a fresh screen, not a continuation of scroll position.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    const hash = view === 'home' ? '#' : `#${view}`;
+    if (window.location.hash !== hash) window.history.replaceState(null, '', hash);
+  }, [view]);
+
+  useEffect(() => {
+    const onHashChange = () => setView(pageFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  /* An "enquire about X" button on any page fills in the contact form and
+     switches to it, so the visitor never retypes what they clicked. */
+  const inquire = useCallback((subject) => {
+    setPrefill(subject);
+    setView('contact');
+  }, []);
 
   return (
     <>
       <a className="skip" href="#main">{t.nav[0]?.label}</a>
-      <ScrollToTop />
-      <LegacyHashRedirect />
       <TopBar />
-      <Header />
+      <Header onNavigate={navigate} view={view} />
 
       <main id="main">
-        <PageTransition>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/equipment" element={<EquipmentPage />} />
-          <Route path="/certifications" element={<CertificationsPage />} />
-          <Route path="/journey" element={<JourneyPage />} />
-          <Route path="/leadership" element={<LeadershipPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        </PageTransition>
+        {view === 'careers' && <Careers onBack={() => navigate('home')} />}
+        {view === 'home' && (
+          <>
+            <Hero onNavigate={navigate} />
+            <Stats />
+            <Explore onNavigate={navigate} />
+          </>
+        )}
+        {view === 'about' && (
+          <>
+            <About />
+            <Why />
+          </>
+        )}
+        {view === 'services' && <Services onInquire={inquire} />}
+        {view === 'projects' && <Projects onInquire={inquire} />}
+        {view === 'equipment' && <Equipment onInquire={inquire} />}
+        {view === 'certifications' && <Certifications onInquire={inquire} />}
+        {view === 'journey' && <Journey />}
+        {view === 'leadership' && <Leadership />}
+        {view === 'contact' && (
+          <Contact prefill={prefill} onPrefillUsed={() => setPrefill('')} />
+        )}
       </main>
 
-      <Footer />
+      <Footer onNavigate={navigate} />
     </>
   );
 }

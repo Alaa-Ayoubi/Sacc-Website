@@ -103,13 +103,10 @@ input, textarea, select, button { font: inherit; }
 /* ---------- header ---------- */
 .header {
   position: sticky; top: 0; z-index: 60;
-  background: rgb(15 38 55 / 97%);
-  backdrop-filter: blur(12px);
+  background: rgb(15 38 55 / 95%);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid rgb(255 255 255 / 9%);
-  transition: box-shadow 0.3s ease;
 }
-/* Once the page has moved, the header lifts off the content beneath it. */
-.header.is-scrolled { box-shadow: 0 10px 30px -20px rgb(0 0 0 / 60%); }
 .header .container {
   display: flex; align-items: center; gap: 26px; padding-block: 13px;
 }
@@ -118,14 +115,11 @@ input, textarea, select, button { font: inherit; }
 
 .nav { display: flex; align-items: center; flex: 1; min-width: 0; }
 .nav a {
-  padding: 9px 14px; font-size: 14px; font-weight: 500;
+  padding: 10px 14px; font-size: 14px; font-weight: 500;
   color: rgb(255 255 255 / 70%); white-space: nowrap;
-  border-radius: var(--radius-control);
-  transition: background 0.2s ease, color 0.2s ease;
+  border-bottom: 2px solid transparent;
 }
-.nav a:hover { color: #fff; }
-/* The current page is marked with a soft pill rather than an underline. */
-.nav a.is-active { color: #fff; background: rgb(255 255 255 / 10%); }
+.nav a:hover, .nav a[aria-current='true'] { color: #fff; border-bottom-color: var(--teal); }
 
 .header-actions { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
 
@@ -339,6 +333,12 @@ input, textarea, select, button { font: inherit; }
 .timeline p { margin: 0; font-size: 14.5px; line-height: 1.8; color: rgb(255 255 255 / 70%); }
 
 /* ---------- leadership ---------- */
+.disclosure-card {
+  display: block; width: 100%; text-align: start; font: inherit;
+  color: inherit; cursor: pointer;
+}
+.disclosure-card h3 { color: var(--teal-link); }
+
 .leader { display: grid; grid-template-columns: 132px 1fr; gap: 22px; }
 .leader-photo {
   width: 132px; height: 132px; border-radius: var(--radius-lg);
@@ -478,7 +478,6 @@ input, textarea, select, button { font: inherit; }
 }
 
 /* ---------- reveal on scroll ---------- */
-/* Applied from JS only, never from the initial render — see Motion.jsx. */
 .reveal {
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -520,7 +519,6 @@ input, textarea, select, button { font: inherit; }
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal-bright);
 }
 .chairman .who { margin-top: 6px; font-size: 17px; font-weight: 700; }
-.chairman-grid.is-solo { grid-template-columns: 1fr; }
 @media (max-width: 800px) { .chairman-grid { grid-template-columns: 1fr; gap: 32px; } }
 
 /* ---------- icon tile ---------- */
@@ -543,60 +541,3 @@ input, textarea, select, button { font: inherit; }
 .project-media { transition: transform 0.5s ease; }
 .project:hover .project-media { transform: scale(1.05); }
 .project { overflow: hidden; }
-
-
-/* ---------- inner page banner ---------- */
-/* Every route opens on navy, so the header's white text always has ground
-   under it and the pages read as one family. */
-.page-hero {
-  position: relative; background: var(--navy); color: #fff;
-  padding-block: 76px 68px; overflow: hidden;
-}
-.page-hero .container { position: relative; }
-.page-hero h1 {
-  margin: 16px 0 14px; font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.28;
-  text-wrap: balance;
-}
-.page-hero .hero-lead { margin: 0; font-size: 17px; }
-
-/* ---------- closing call to action ---------- */
-/* Inner pages end with an invitation rather than simply stopping. */
-.cta-band {
-  background: var(--surface-muted);
-  border-top: 1px solid var(--line);
-  padding-block: 76px; text-align: center;
-}
-.cta-band h2 {
-  margin: 0 0 12px; font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: var(--ink);
-}
-.cta-band p {
-  margin: 0 auto 26px; max-width: 60ch;
-  font-size: 16px; line-height: 1.8; color: var(--ink-soft);
-}
-
-
-/* ---------- page transitions ---------- */
-/* Native cross-fade where the browser supports it. */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root) {
-    animation: 160ms ease-in both fade-out;
-  }
-  ::view-transition-new(root) {
-    animation: 260ms 60ms ease-out both fade-in-up;
-  }
-}
-@keyframes fade-out { to { opacity: 0; } }
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
-}
-
-/* Fallback for browsers without view transitions: fade the incoming page. */
-.page { transition: opacity 0.26s ease-out, transform 0.26s ease-out; }
-.page-enter { opacity: 0; transform: translateY(10px); }
-.page-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .page { transition: none; opacity: 1; transform: none; }
-}

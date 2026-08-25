@@ -12,7 +12,6 @@
  * a minute, so the button reports progress rather than appearing stuck.
  */
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSite } from '../SiteContext.jsx';
 import { submitQuote } from '../api.js';
@@ -32,10 +31,8 @@ const FIELD_BY_API = {
   message: 'message',
 };
 
-export default function Contact({ headless }) {
+export default function Contact({ prefill, onPrefillUsed }) {
   const { t, lang, company } = useSite();
-  const location = useLocation();
-  const navigate = useNavigate();
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [state, setState] = useState('idle'); // idle | sending | sent | failed
@@ -47,16 +44,14 @@ export default function Contact({ headless }) {
     `${t.contact.title} — ${t.brandLine}`,
   )}`;
 
-  // An "enquire about X" button on another page sends its subject here in
-  // router state. Consume it once and clear it, so a refresh starts blank.
-  const subject = location.state?.subject;
+  // A "enquire about X" button elsewhere on the page drops its subject in here.
   useEffect(() => {
-    if (!subject) return;
-    setValues((current) => ({ ...current, message: subject }));
+    if (!prefill) return;
+    setValues((current) => ({ ...current, message: prefill }));
     setState('idle');
     messageRef.current?.focus();
-    navigate(location.pathname, { replace: true, state: null });
-  }, [subject, navigate, location.pathname]);
+    onPrefillUsed?.();
+  }, [prefill, onPrefillUsed]);
 
   const set = (key) => (event) => {
     const { value } = event.target;
@@ -124,15 +119,13 @@ export default function Contact({ headless }) {
   );
 
   return (
-    <section id="contact" className="section">
+    <section className="section">
       <div className="container">
-        {!headless && (
-          <div className="section-head">
-            <span className="eyebrow">{t.contact.eyebrow}</span>
-            <h2 className="section-title">{t.contact.title}</h2>
-            <p className="section-lead">{t.contact.lead}</p>
-          </div>
-        )}
+        <div className="section-head">
+          <span className="eyebrow">{t.contact.eyebrow}</span>
+          <h2 className="section-title">{t.contact.title}</h2>
+          <p className="section-lead">{t.contact.lead}</p>
+        </div>
 
         <div className="contact-grid">
           <div className="card">
