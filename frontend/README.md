@@ -1,126 +1,69 @@
-# SACC Frontend
+# SACC Website — React Frontend
 
-The public site — a bilingual (Arabic / English) multi-page site for Sana
-Al-Awael Contracting, built with React and Vite, talking to the Django backend
-in [`../backend`](../backend).
-
-Built from the handoff in `../design_handoff_sacc_website/`: the same navy
-shell, teal accent, 1320px container, 124px section rhythm, and the
-Almarai/Tajawal + Outfit/Playfair type pairing.
+Bilingual (Arabic / English) multi-page marketing site for Sana Al-Awael
+Contracting Company (SACC), built with React + Vite.
 
 ## Pages
 
-Home, about, services, projects, equipment, certifications, journey,
-leadership, contact, careers — switched in the app rather than fetched. The
-current page is mirrored in the URL hash (`#services`), so a link can be
-shared and reopens on the right page.
+Home, About, Services, Projects, Equipment, Certifications, Journey,
+Leadership, Contact, and Careers — each a real page switch (not a scroll
+anchor), synced to the URL hash so any page can be linked and reopened
+directly (e.g. `/#services`).
 
-There is no router package: with ten flat pages and no nested or dynamic
-routes, a `hash → view` map is the whole requirement.
-
-## Running it
+## Getting started
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
+npm run dev
 ```
 
-`npm run dev` proxies `/api` to the deployed backend, so requests are
-same-origin and CORS never enters into it. The alternative — adding `localhost`
-to the backend's allowlist — would loosen production config for a local
-convenience, so it is deliberately not done.
+Open the printed local URL. The app renders from the bundled content
+snapshot (`src/data/site-content.json`) immediately, then quietly upgrades
+to live content from the backend API if `/api/v1/site/` answers.
 
-Point the proxy somewhere else by setting `VITE_API_URL` (see
-`.env.example`). No `.env` is committed: production gets `VITE_API_URL`
-from `backend/render.yaml`, and a local `.env` is gitignored — the repository
-is public, so no environment file belongs in it.
+## Connecting the backend
+
+Copy `.env.example` to `.env.local` and set `VITE_API_URL` to your Django
+backend's URL (leave empty to use the local dev proxy at `/api`, configured
+in `vite.config.js`). The backend contract:
+
+- `GET /api/v1/site/` — bilingual content bundle (same shape as
+  `src/data/site-content.json`)
+- `POST /api/v1/leads/quote-requests/` — contact form submissions
+- `POST /api/v1/careers/applications/` — careers application submissions
+  (multipart when a CV file is attached)
+
+## Build
 
 ```bash
-npm run build        # dist/
-npm run preview      # serve the build
+npm run build
 ```
 
-## How content reaches the page
+Outputs a static bundle to `dist/`, ready for any static host. Set
+`VITE_API_URL` at build time to point the production build at your deployed
+backend.
 
-Two paths, and the split matters:
+## Structure
 
-**Content is bundled at build time.** `src/data/site-content.json` is a snapshot
-of the API's `/api/v1/site/` response, imported directly into the bundle. The
-first paint never waits on the network.
-
-**Fresh content is fetched in the background** and swapped in if it arrives. If
-the backend is asleep, slow, or unreachable, the visitor sees the snapshot and
-nothing appears broken.
-
-This exists because the backend runs on a free instance that sleeps after
-inactivity — the first request following a quiet spell can take close to a
-minute. That is fine when someone has just pressed *Submit* and is expecting a
-result; it is not fine for rendering a page.
-
-After editing content in the Django admin, refresh the snapshot and commit it:
-
-```bash
-npm run sync-content
+```
+src/
+  App.jsx              Page routing (view state + hash sync)
+  SiteContext.jsx       Language state, content snapshot + live fetch
+  api.js                Backend requests
+  components/
+    Header.jsx          Top bar + sticky nav
+    Sections.jsx         Hero, Explore, About, Why, Services, Projects,
+                        Equipment, Certifications, Journey, Leadership, Footer
+    Contact.jsx           Contact page + form
+    Careers.jsx          Careers page + application form
+    Icon.jsx             Lucide icon lookup by name
+    Motion.jsx           Scroll-reveal, credential ticker, chairman quote
+  data/site-content.json Bilingual content snapshot (AR + EN)
+  styles/app.css        All styling (design tokens, layout, components)
+public/assets/          Logo, favicons, OG image, local photos
 ```
 
-The script refuses to overwrite a good snapshot with an empty one, so a
-misconfigured backend cannot blank the site.
+## Design tokens
 
-## Forms
-
-Both forms post to the backend for real — this is the whole point of the
-rebuild. The prototype faked submission with `setTimeout`, so every enquiry it
-ever received was discarded.
-
-- **Quote request** (`Contact.jsx`) → `POST /api/v1/leads/quote-requests/`
-- **Job application** (`Careers.jsx`) → `POST /api/v1/careers/applications/`,
-  multipart when a CV file is attached
-
-Client-side validation mirrors the backend's rules so a visitor is corrected
-before a round trip, and field errors returned by the API are merged into the
-same display — the server stays the authority. Each form carries a hidden
-`website` honeypot that must stay empty.
-
-## Language
-
-Arabic and English arrive together in one payload, so switching is a state
-change rather than a refetch. The choice is remembered in `localStorage`, and
-`?lang=ar` / `?lang=en` forces one — useful for sharing a link in a known
-language.
-
-`dir` flips to `rtl` for Arabic. Spacing uses logical properties
-(`margin-inline`, `padding-inline`) throughout, so one stylesheet serves both
-directions rather than a mirrored copy.
-
-## Layout of the source
-
-| Path | What it holds |
-| --- | --- |
-| `src/App.jsx` | Page switching, hash sync, scroll reset |
-| `src/main.jsx` | Entry point — mounts the app and loads the stylesheets |
-| `src/SiteContext.jsx` | Content loading, language, direction |
-| `src/api.js` | The backend client and its error type |
-| `src/components/Sections.jsx` | Every content section, plus the footer |
-| `src/components/Motion.jsx` | Reveal-on-scroll and the credential ticker |
-| `src/components/Icon.jsx` | Lucide icons, looked up by the name stored with each row |
-| `src/components/Contact.jsx` | Quote-request form |
-| `src/components/Careers.jsx` | Careers page and application form |
-| `src/styles/app.css` | Design tokens and layout |
-| `src/data/site-content.json` | Bundled content snapshot |
-
-### Known issue in the content
-
-Several image URLs still point at the client's old Hostinger CDN and do not
-reliably resolve — the chairman and GM portraits among them. Replace them with
-owned assets from the Django admin, under *Site & branding → Site images*. The
-design handoff flags the same URLs.
-
-## Deploying
-
-`../backend/render.yaml` declares this as a Render **Static Site**. Static sites
-are free and never sleep, so the page is always fast — only form submissions can
-meet the backend's cold start.
-
-When the site gets its own hostname, add that origin to `CORS_ALLOWED_ORIGINS`
-and `CSRF_TRUSTED_ORIGINS` in the same file, or the browser will block form
-posts.
+Navy `#0f2637`, teal accent `#62a7a2`, Playfair Display / Outfit (English),
+Almarai / Tajawal (Arabic). Full token list in `src/styles/app.css`.

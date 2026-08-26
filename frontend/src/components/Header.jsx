@@ -21,7 +21,7 @@ export function TopBar() {
           )}
           {company.email && <a href={`mailto:${company.email}`}>{company.email}</a>}
         </div>
-        <div>{t.contact?.address}</div>
+        <div>{t.brandLine}</div>
       </div>
     </div>
   );
@@ -69,7 +69,7 @@ export default function Header({ onNavigate, view }) {
           onClick={(event) => go(event, 'top')}
           aria-label={t.brandLine}
         >
-          <img src={company.logo || './assets/logo-full.webp'} alt={t.brandLine} />
+          <img src={company.logo || '/assets/logo-full.webp'} alt={t.brandLine} />
         </a>
 
         <button
@@ -120,6 +120,9 @@ export default function Header({ onNavigate, view }) {
             {t.navCta}
           </a>
         </div>
+      </div>
+      <div className="accent-stripe" aria-hidden="true">
+        <span /><span /><span /><span />
       </div>
     </header>
   );

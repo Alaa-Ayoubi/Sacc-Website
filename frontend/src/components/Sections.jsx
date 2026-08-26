@@ -6,6 +6,7 @@
  */
 import { useState } from 'react';
 
+import HeroGrid from './HeroGrid.jsx';
 import { useSite } from '../SiteContext.jsx';
 import Icon from './Icon.jsx';
 import { Reveal } from './Motion.jsx';
@@ -22,11 +23,12 @@ function SectionHead({ eyebrow, title, lead }) {
 
 export function Hero({ onNavigate }) {
   const { t, images } = useSite();
-  const bg = images.hero || './assets/photos/hero-infrastructure.jpg';
+  const bg = images.hero || '/assets/photos/hero-infrastructure.jpg';
 
   return (
     <section className="hero">
       <div className="hero-bg" style={{ backgroundImage: `url(${bg})` }} aria-hidden="true" />
+      <HeroGrid />
       <div className="container">
         <span className="eyebrow">{t.hero.badge}</span>
         <h1>{t.hero.title}</h1>
@@ -319,7 +321,7 @@ export function Equipment({ onInquire }) {
           </div>
           <div>
             <img
-              src={images.equipment || './assets/photos/equipment-fleet.jpg'}
+              src={images.equipment || '/assets/photos/equipment-fleet.jpg'}
               alt={t.equipment.title}
               style={{ width: '100%', borderRadius: 'var(--radius-lg)' }}
               loading="lazy"
@@ -492,7 +494,7 @@ export function Footer({ onNavigate }) {
         <div className="grid grid-4">
           <div>
             <img
-              src={company.logo || './assets/logo-full.webp'}
+              src={company.logo || '/assets/logo-full.webp'}
               alt={t.brandLine}
               style={{ height: 44, marginBottom: 16 }}
             />

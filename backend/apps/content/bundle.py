@@ -102,6 +102,8 @@ def _language_block(lang: str, data: dict) -> dict:
             for item in data["nav_items"]
         ],
         "navCta": labels["navCta"],
+        # Heading for the scrolling band of approvals and clients.
+        "tickerLabel": labels["tickerLabel"],
         "navCareers": labels["navCareers"],
         "backHome": labels["backHome"],
         "hero": {

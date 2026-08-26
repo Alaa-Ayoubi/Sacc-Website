@@ -30,6 +30,10 @@
     "brandLine": "شركة سنا الأوائل للمقاولات",
     "nav": [
       {
+        "id": "about",
+        "label": "من نحن"
+      },
+      {
         "id": "services",
         "label": "الخدمات"
       },
@@ -59,6 +63,7 @@
       }
     ],
     "navCta": "تواصل معنا",
+    "tickerLabel": "جهات معتمِدة ومالكة للمشاريع",
     "navCareers": "انضم إلينا",
     "backHome": "← عودة إلى الصفحة الرئيسية",
     "hero": {
@@ -750,6 +755,10 @@
     "brandLine": "Sana Al-Awael Contracting Company",
     "nav": [
       {
+        "id": "about",
+        "label": "About Us"
+      },
+      {
         "id": "services",
         "label": "Services"
       },
@@ -779,6 +788,7 @@
       }
     ],
     "navCta": "Contact Us",
+    "tickerLabel": "Approved by and delivering for",
     "navCareers": "Join Us",
     "backHome": "← Back to homepage",
     "hero": {

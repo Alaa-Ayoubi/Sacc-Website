@@ -30,6 +30,10 @@
     "brandLine": "شركة سنا الأوائل للمقاولات",
     "nav": [
       {
+        "id": "about",
+        "label": "من نحن"
+      },
+      {
         "id": "services",
         "label": "الخدمات"
       },
@@ -706,6 +710,10 @@
     "langBtn": "العربية",
     "brandLine": "Sana Al-Awael Contracting Company",
     "nav": [
+      {
+        "id": "about",
+        "label": "About Us"
+      },
       {
         "id": "services",
         "label": "Services"

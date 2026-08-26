@@ -23,6 +23,7 @@ import {
   Stats,
   Why,
 } from './components/Sections.jsx';
+import { Ticker } from './components/Motion.jsx';
 import { useSite } from './SiteContext.jsx';
 
 const PAGES = [
@@ -76,6 +77,7 @@ export default function App() {
           <>
             <Hero onNavigate={navigate} />
             <Stats />
+            <Ticker />
             <Explore onNavigate={navigate} />
           </>
         )}

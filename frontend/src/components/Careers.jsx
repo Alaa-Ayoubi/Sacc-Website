@@ -132,7 +132,7 @@ export default function Careers({ onBack }) {
       <section className="hero" style={{ paddingBlock: '72px 60px' }}>
         <div
           className="hero-bg"
-          style={{ backgroundImage: `url(${images.careers || './assets/photos/public-realm.jpg'})` }}
+          style={{ backgroundImage: `url(${images.careers || '/assets/photos/public-realm.jpg'})` }}
           aria-hidden="true"
         />
         <div className="container">

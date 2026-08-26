@@ -62,13 +62,18 @@ export function Ticker() {
   const loop = [...names, ...names];
 
   return (
-    <div className="ticker" aria-hidden="true">
-      <div className="ticker-track">
-        {loop.map((name, index) => (
-          <span className="ticker-item" key={`${name}-${index}`}>
-            {name}
-          </span>
-        ))}
+    <div className="ticker">
+      <div className="ticker-inner">
+        {t.tickerLabel && <span className="ticker-label">{t.tickerLabel}</span>}
+        <div className="ticker-viewport" aria-hidden="true">
+          <div className="ticker-track">
+            {loop.map((name, index) => (
+              <span className="ticker-item" key={`${name}-${index}`}>
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

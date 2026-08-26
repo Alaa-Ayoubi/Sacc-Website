@@ -15,6 +15,7 @@ UI_LABELS = {
         "dir": "rtl",
         "langBtn": "EN",
         "navCta": "تواصل معنا",
+        "tickerLabel": "جهات معتمِدة ومالكة للمشاريع",
         "navCareers": "انضم إلينا",
         "backHome": "← عودة إلى الصفحة الرئيسية",
         "services": {
@@ -133,6 +134,7 @@ UI_LABELS = {
         "dir": "ltr",
         "langBtn": "ع",
         "navCta": "Contact Us",
+        "tickerLabel": "Approved by and delivering for",
         "navCareers": "Join Us",
         "backHome": "← Back to homepage",
         "services": {
