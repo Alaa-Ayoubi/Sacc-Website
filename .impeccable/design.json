@@ -1,0 +1,792 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T12:17:37.318Z",
+  "title": "Design System: SACC — Sana Al-Awael Contracting Company",
+  "extensions": {
+    "referenceImplementation": "prototype/src (styles.css, app.js, template.html), bundled to prototype/dist/sacc-prototype.html; carried into frontend/ on owner approval",
+    "colorMeta": {
+      "asphalt": {
+        "role": "neutral",
+        "displayName": "Asphalt",
+        "canonical": "#17181a",
+        "tonalRamp": [
+          "#0e0f10",
+          "#17181a",
+          "#222326",
+          "#2c2d31",
+          "#3d3e43",
+          "oklch(70% 0.003 264.5)",
+          "oklch(82% 0.002 264.5)",
+          "oklch(95% 0.001 264.5)"
+        ]
+      },
+      "asphalt-2": {
+        "role": "neutral",
+        "displayName": "Asphalt, Section Band",
+        "canonical": "#222326",
+        "tonalRamp": [
+          "#0e0f10",
+          "#17181a",
+          "#222326",
+          "#2c2d31",
+          "#3d3e43",
+          "oklch(70% 0.004 271.2)",
+          "oklch(82% 0.003 271.2)",
+          "oklch(95% 0.001 271.2)"
+        ]
+      },
+      "asphalt-3": {
+        "role": "neutral",
+        "displayName": "Asphalt, Worn",
+        "canonical": "#2c2d31",
+        "tonalRamp": [
+          "#0e0f10",
+          "#17181a",
+          "#222326",
+          "#2c2d31",
+          "#3d3e43",
+          "oklch(70% 0.005 274.7)",
+          "oklch(82% 0.003 274.7)",
+          "oklch(95% 0.002 274.7)"
+        ]
+      },
+      "asphalt-line": {
+        "role": "neutral",
+        "displayName": "Asphalt Joint Line",
+        "canonical": "#3d3e43",
+        "tonalRamp": [
+          "#0e0f10",
+          "#17181a",
+          "#222326",
+          "#2c2d31",
+          "#3d3e43",
+          "oklch(70% 0.006 276.9)",
+          "oklch(82% 0.004 276.9)",
+          "oklch(95% 0.002 276.9)"
+        ]
+      },
+      "official-black": {
+        "role": "neutral",
+        "displayName": "Official Black",
+        "canonical": "#0e0f10",
+        "tonalRamp": [
+          "oklch(15% 0.001 248)",
+          "oklch(26% 0.001 248)",
+          "oklch(37% 0.002 248)",
+          "oklch(48% 0.003 248)",
+          "oklch(59% 0.003 248)",
+          "oklch(70% 0.002 248)",
+          "oklch(82% 0.001 248)",
+          "oklch(95% 0.001 248)"
+        ]
+      },
+      "basalt": {
+        "role": "tertiary",
+        "displayName": "Madinah Basalt",
+        "canonical": "#2e2a27",
+        "tonalRamp": [
+          "oklch(15% 0.002 59.4)",
+          "oklch(26% 0.003 59.4)",
+          "oklch(37% 0.005 59.4)",
+          "oklch(48% 0.008 59.4)",
+          "oklch(59% 0.008 59.4)",
+          "oklch(70% 0.006 59.4)",
+          "oklch(82% 0.004 59.4)",
+          "oklch(95% 0.002 59.4)"
+        ]
+      },
+      "basalt-2": {
+        "role": "tertiary",
+        "displayName": "Basalt Seam",
+        "canonical": "#3a3531",
+        "tonalRamp": [
+          "oklch(15% 0.002 61.2)",
+          "oklch(26% 0.004 61.2)",
+          "oklch(37% 0.007 61.2)",
+          "oklch(48% 0.009 61.2)",
+          "oklch(59% 0.01 61.2)",
+          "oklch(70% 0.007 61.2)",
+          "oklch(82% 0.004 61.2)",
+          "oklch(95% 0.002 61.2)"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Concrete Ground",
+        "canonical": "#e2e4e3",
+        "tonalRamp": [
+          "oklch(15% 0.001 165.1)",
+          "oklch(26% 0.001 165.1)",
+          "oklch(37% 0.002 165.1)",
+          "oklch(48% 0.002 165.1)",
+          "oklch(59% 0.003 165.1)",
+          "oklch(70% 0.002 165.1)",
+          "oklch(82% 0.001 165.1)",
+          "oklch(95% 0.001 165.1)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#f3f4f3",
+        "tonalRamp": [
+          "oklch(15% 0 145.6)",
+          "oklch(26% 0.001 145.6)",
+          "oklch(37% 0.001 145.6)",
+          "oklch(48% 0.002 145.6)",
+          "oklch(59% 0.002 145.6)",
+          "oklch(70% 0.001 145.6)",
+          "oklch(82% 0.001 145.6)",
+          "oklch(95% 0 145.6)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "#c5c8c6",
+        "tonalRamp": [
+          "oklch(15% 0.001 157.2)",
+          "oklch(26% 0.002 157.2)",
+          "oklch(37% 0.003 157.2)",
+          "oklch(48% 0.004 157.2)",
+          "oklch(59% 0.004 157.2)",
+          "oklch(70% 0.003 157.2)",
+          "oklch(82% 0.002 157.2)",
+          "oklch(95% 0.001 157.2)"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Strong Rule",
+        "canonical": "#a2a6a4",
+        "tonalRamp": [
+          "oklch(15% 0.001 164.9)",
+          "oklch(26% 0.002 164.9)",
+          "oklch(37% 0.004 164.9)",
+          "oklch(48% 0.005 164.9)",
+          "oklch(59% 0.005 164.9)",
+          "oklch(70% 0.004 164.9)",
+          "oklch(82% 0.002 164.9)",
+          "oklch(95% 0.001 164.9)"
+        ]
+      },
+      "aggregate": {
+        "role": "neutral",
+        "displayName": "Aggregate",
+        "canonical": "#8b857a",
+        "tonalRamp": [
+          "oklch(15% 0.004 82.8)",
+          "oklch(26% 0.007 82.8)",
+          "oklch(37% 0.012 82.8)",
+          "oklch(48% 0.017 82.8)",
+          "oklch(59% 0.018 82.8)",
+          "oklch(70% 0.013 82.8)",
+          "oklch(82% 0.008 82.8)",
+          "oklch(95% 0.004 82.8)"
+        ]
+      },
+      "sand": {
+        "role": "tertiary",
+        "displayName": "Wadi Sand",
+        "canonical": "#c9a46a",
+        "tonalRamp": [
+          "oklch(15% 0.022 78)",
+          "oklch(26% 0.035 78)",
+          "oklch(37% 0.059 78)",
+          "oklch(48% 0.083 78)",
+          "oklch(59% 0.087 78)",
+          "oklch(70% 0.065 78)",
+          "oklch(82% 0.039 78)",
+          "oklch(95% 0.022 78)"
+        ]
+      },
+      "sand-deep": {
+        "role": "tertiary",
+        "displayName": "Wadi Sand, Deep",
+        "canonical": "#b38d55",
+        "tonalRamp": [
+          "oklch(15% 0.022 76)",
+          "oklch(26% 0.035 76)",
+          "oklch(37% 0.059 76)",
+          "oklch(48% 0.082 76)",
+          "oklch(59% 0.087 76)",
+          "oklch(70% 0.065 76)",
+          "oklch(82% 0.039 76)",
+          "oklch(95% 0.022 76)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#17181a",
+        "tonalRamp": [
+          "oklch(15% 0.001 264.5)",
+          "oklch(26% 0.002 264.5)",
+          "oklch(37% 0.003 264.5)",
+          "oklch(48% 0.004 264.5)",
+          "oklch(59% 0.004 264.5)",
+          "oklch(70% 0.003 264.5)",
+          "oklch(82% 0.002 264.5)",
+          "oklch(95% 0.001 264.5)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink, Secondary",
+        "canonical": "#47443f",
+        "tonalRamp": [
+          "oklch(15% 0.002 80.7)",
+          "oklch(26% 0.004 80.7)",
+          "oklch(37% 0.006 80.7)",
+          "oklch(48% 0.009 80.7)",
+          "oklch(59% 0.009 80.7)",
+          "oklch(70% 0.007 80.7)",
+          "oklch(82% 0.004 80.7)",
+          "oklch(95% 0.002 80.7)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink, Meta",
+        "canonical": "#5f5b54",
+        "tonalRamp": [
+          "oklch(15% 0.003 81.8)",
+          "oklch(26% 0.005 81.8)",
+          "oklch(37% 0.008 81.8)",
+          "oklch(48% 0.012 81.8)",
+          "oklch(59% 0.012 81.8)",
+          "oklch(70% 0.009 81.8)",
+          "oklch(82% 0.005 81.8)",
+          "oklch(95% 0.003 81.8)"
+        ]
+      },
+      "on-dark": {
+        "role": "neutral",
+        "displayName": "On Dark",
+        "canonical": "#f3f2ed",
+        "tonalRamp": [
+          "oklch(15% 0.002 97.4)",
+          "oklch(26% 0.003 97.4)",
+          "oklch(37% 0.005 97.4)",
+          "oklch(48% 0.006 97.4)",
+          "oklch(59% 0.007 97.4)",
+          "oklch(70% 0.005 97.4)",
+          "oklch(82% 0.003 97.4)",
+          "oklch(95% 0.002 97.4)"
+        ]
+      },
+      "on-dark-2": {
+        "role": "neutral",
+        "displayName": "On Dark, Secondary",
+        "canonical": "#bdb9b0",
+        "tonalRamp": [
+          "oklch(15% 0.003 86.8)",
+          "oklch(26% 0.005 86.8)",
+          "oklch(37% 0.009 86.8)",
+          "oklch(48% 0.013 86.8)",
+          "oklch(59% 0.013 86.8)",
+          "oklch(70% 0.01 86.8)",
+          "oklch(82% 0.006 86.8)",
+          "oklch(95% 0.003 86.8)"
+        ]
+      },
+      "on-sand": {
+        "role": "tertiary",
+        "displayName": "On Sand",
+        "canonical": "#261d12",
+        "tonalRamp": [
+          "oklch(15% 0.006 71.9)",
+          "oklch(26% 0.01 71.9)",
+          "oklch(37% 0.016 71.9)",
+          "oklch(48% 0.023 71.9)",
+          "oklch(59% 0.024 71.9)",
+          "oklch(70% 0.018 71.9)",
+          "oklch(82% 0.011 71.9)",
+          "oklch(95% 0.006 71.9)"
+        ]
+      },
+      "on-sand-2": {
+        "role": "tertiary",
+        "displayName": "On Sand, Secondary",
+        "canonical": "#45361f",
+        "tonalRamp": [
+          "oklch(15% 0.01 77.3)",
+          "oklch(26% 0.017 77.3)",
+          "oklch(37% 0.028 77.3)",
+          "oklch(48% 0.04 77.3)",
+          "oklch(59% 0.042 77.3)",
+          "oklch(70% 0.031 77.3)",
+          "oklch(82% 0.019 77.3)",
+          "oklch(95% 0.01 77.3)"
+        ]
+      },
+      "marking": {
+        "role": "primary",
+        "displayName": "Road-Marking Yellow",
+        "canonical": "#f6b81c",
+        "tonalRamp": [
+          "oklch(15% 0.041 83.1)",
+          "oklch(26% 0.065 83.1)",
+          "oklch(37% 0.11 83.1)",
+          "oklch(48% 0.155 83.1)",
+          "oklch(59% 0.163 83.1)",
+          "oklch(70% 0.122 83.1)",
+          "oklch(82% 0.073 83.1)",
+          "oklch(95% 0.041 83.1)"
+        ]
+      },
+      "marking-hover": {
+        "role": "primary",
+        "displayName": "Fresh Paint",
+        "canonical": "#ffc83d",
+        "tonalRamp": [
+          "oklch(15% 0.04 85.8)",
+          "oklch(26% 0.063 85.8)",
+          "oklch(37% 0.107 85.8)",
+          "oklch(48% 0.15 85.8)",
+          "oklch(59% 0.158 85.8)",
+          "oklch(70% 0.119 85.8)",
+          "oklch(82% 0.071 85.8)",
+          "oklch(95% 0.04 85.8)"
+        ]
+      },
+      "lane": {
+        "role": "neutral",
+        "displayName": "Lane White",
+        "canonical": "#e9e7df",
+        "tonalRamp": [
+          "oklch(15% 0.003 95.2)",
+          "oklch(26% 0.004 95.2)",
+          "oklch(37% 0.007 95.2)",
+          "oklch(48% 0.01 95.2)",
+          "oklch(59% 0.011 95.2)",
+          "oklch(70% 0.008 95.2)",
+          "oklch(82% 0.005 95.2)",
+          "oklch(95% 0.003 95.2)"
+        ]
+      },
+      "water": {
+        "role": "secondary",
+        "displayName": "Water Teal",
+        "canonical": "#3fa29b",
+        "tonalRamp": [
+          "oklch(15% 0.023 188.7)",
+          "oklch(26% 0.037 188.7)",
+          "oklch(37% 0.062 188.7)",
+          "oklch(48% 0.087 188.7)",
+          "oklch(59% 0.092 188.7)",
+          "oklch(70% 0.069 188.7)",
+          "oklch(82% 0.041 188.7)",
+          "oklch(95% 0.023 188.7)"
+        ]
+      },
+      "water-ink": {
+        "role": "secondary",
+        "displayName": "Water Teal, Ink",
+        "canonical": "#1e6f69",
+        "tonalRamp": [
+          "oklch(15% 0.019 187.8)",
+          "oklch(26% 0.03 187.8)",
+          "oklch(37% 0.051 187.8)",
+          "oklch(48% 0.072 187.8)",
+          "oklch(59% 0.076 187.8)",
+          "oklch(70% 0.057 187.8)",
+          "oklch(82% 0.034 187.8)",
+          "oklch(95% 0.019 187.8)"
+        ]
+      },
+      "power": {
+        "role": "secondary",
+        "displayName": "Power Orange",
+        "canonical": "#e5862b",
+        "tonalRamp": [
+          "oklch(15% 0.038 58.9)",
+          "oklch(26% 0.061 58.9)",
+          "oklch(37% 0.103 58.9)",
+          "oklch(48% 0.144 58.9)",
+          "oklch(59% 0.152 58.9)",
+          "oklch(70% 0.114 58.9)",
+          "oklch(82% 0.068 58.9)",
+          "oklch(95% 0.038 58.9)"
+        ]
+      },
+      "power-ink": {
+        "role": "secondary",
+        "displayName": "Power Orange, Ink",
+        "canonical": "#a65412",
+        "tonalRamp": [
+          "oklch(15% 0.032 52.5)",
+          "oklch(26% 0.052 52.5)",
+          "oklch(37% 0.087 52.5)",
+          "oklch(48% 0.123 52.5)",
+          "oklch(59% 0.129 52.5)",
+          "oklch(70% 0.097 52.5)",
+          "oklch(82% 0.058 52.5)",
+          "oklch(95% 0.032 52.5)"
+        ]
+      },
+      "sewer": {
+        "role": "secondary",
+        "displayName": "Sewer, Storm and Landscape Green",
+        "canonical": "#6cbf88",
+        "tonalRamp": [
+          "oklch(15% 0.029 153.6)",
+          "oklch(26% 0.046 153.6)",
+          "oklch(37% 0.077 153.6)",
+          "oklch(48% 0.109 153.6)",
+          "oklch(59% 0.115 153.6)",
+          "oklch(70% 0.086 153.6)",
+          "oklch(82% 0.052 153.6)",
+          "oklch(95% 0.029 153.6)"
+        ]
+      },
+      "sewer-ink": {
+        "role": "secondary",
+        "displayName": "Sewer Green, Ink",
+        "canonical": "#2a7446",
+        "tonalRamp": [
+          "oklch(15% 0.026 153)",
+          "oklch(26% 0.041 153)",
+          "oklch(37% 0.07 153)",
+          "oklch(48% 0.099 153)",
+          "oklch(59% 0.104 153)",
+          "oklch(70% 0.078 153)",
+          "oklch(82% 0.047 153)",
+          "oklch(95% 0.026 153)"
+        ]
+      },
+      "road": {
+        "role": "secondary",
+        "displayName": "Road Yellow",
+        "canonical": "#f6b81c",
+        "tonalRamp": [
+          "oklch(15% 0.041 83.1)",
+          "oklch(26% 0.065 83.1)",
+          "oklch(37% 0.11 83.1)",
+          "oklch(48% 0.155 83.1)",
+          "oklch(59% 0.163 83.1)",
+          "oklch(70% 0.122 83.1)",
+          "oklch(82% 0.073 83.1)",
+          "oklch(95% 0.041 83.1)"
+        ]
+      },
+      "road-ink": {
+        "role": "secondary",
+        "displayName": "Road Yellow, Ink",
+        "canonical": "#8a6200",
+        "tonalRamp": [
+          "oklch(15% 0.027 80.6)",
+          "oklch(26% 0.043 80.6)",
+          "oklch(37% 0.073 80.6)",
+          "oklch(48% 0.103 80.6)",
+          "oklch(59% 0.108 80.6)",
+          "oklch(70% 0.081 80.6)",
+          "oklch(82% 0.049 80.6)",
+          "oklch(95% 0.027 80.6)"
+        ]
+      },
+      "concrete": {
+        "role": "secondary",
+        "displayName": "Concrete",
+        "canonical": "#a7a298",
+        "tonalRamp": [
+          "oklch(15% 0.004 84.6)",
+          "oklch(26% 0.006 84.6)",
+          "oklch(37% 0.01 84.6)",
+          "oklch(48% 0.015 84.6)",
+          "oklch(59% 0.015 84.6)",
+          "oklch(70% 0.012 84.6)",
+          "oklch(82% 0.007 84.6)",
+          "oklch(95% 0.004 84.6)"
+        ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Error Red",
+        "canonical": "#b3261e",
+        "tonalRamp": [
+          "oklch(15% 0.045 28.7)",
+          "oklch(26% 0.071 28.7)",
+          "oklch(37% 0.12 28.7)",
+          "oklch(48% 0.169 28.7)",
+          "oklch(59% 0.178 28.7)",
+          "oklch(70% 0.134 28.7)",
+          "oklch(82% 0.08 28.7)",
+          "oklch(95% 0.045 28.7)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home opening headline on asphalt only."
+      },
+      "display-ar": {
+        "displayName": "Display (Arabic)",
+        "purpose": "Arabic opening headline: zero tracking, taller leading."
+      },
+      "page-title": {
+        "displayName": "Page Title",
+        "purpose": "Inner page heads; compact sub-page heads use clamp(2rem, 3.6vw, 3rem)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Band headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Service rows, legend, project-sheet headings."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Record values, years, standards in tabular numerals."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy, max 60-62ch."
+      },
+      "body-ar": {
+        "displayName": "Body (Arabic)",
+        "purpose": "Arabic running copy."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Buttons and text links."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, meta, captions."
+      }
+    },
+    "shadows": [
+      {
+        "name": "kerb-lip",
+        "value": "0 1px 0 rgba(0,0,0,0.22)",
+        "purpose": "Under the yellow primary action only."
+      },
+      {
+        "name": "field-sheet",
+        "value": "0 1px 0 var(--rule), 0 18px 40px -28px rgba(23, 24, 26, 0.45)",
+        "purpose": "The form sheet, the one lifted surface (with a 4px ink top edge)."
+      },
+      {
+        "name": "inset-outline",
+        "value": "inset 0 0 0 1px var(--rule-strong)",
+        "purpose": "How outline buttons, chips, tags and the language toggle draw their border; var(--asphalt-line) on dark."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 3px rgba(246, 184, 28, 0.7)",
+        "purpose": "Focused form field; invalid fields use 0 0 0 3px rgba(179, 38, 30, 0.22)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one easing for every transition and animation."
+      },
+      {
+        "name": "state",
+        "value": "140ms-220ms",
+        "purpose": "Colour, outline and opacity changes on hover, press and selection."
+      },
+      {
+        "name": "settle",
+        "value": "900ms, 70ms stagger per stratum; networks 700ms from 420ms",
+        "purpose": "The street section layers settle downward once on load."
+      },
+      {
+        "name": "swap",
+        "value": "360ms",
+        "purpose": "Discipline reader swap after a network is selected."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce removes all animation and transitions",
+        "purpose": "Required."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "gauge",
+        "value": "1360px"
+      },
+      {
+        "name": "nav-drawer",
+        "value": "1180px"
+      },
+      {
+        "name": "record-under",
+        "value": "1020px"
+      },
+      {
+        "name": "two-col-collapse",
+        "value": "860px-960px"
+      },
+      {
+        "name": "section-scroll",
+        "value": "700px"
+      },
+      {
+        "name": "single-col",
+        "value": "520px-560px"
+      }
+    ],
+    "focus": {
+      "value": "outline: 3px solid var(--marking); outline-offset: 3px; border-radius: 2px",
+      "purpose": "Global focus-visible ring."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Action (Marking)",
+      "kind": "button",
+      "refersTo": "button-mark",
+      "description": "The quote or document request; the only yellow fill in a region.",
+      "html": "<button class=\"ds-btn-mark\">Request a quote</button>",
+      "css": ".ds-btn-mark { display: inline-flex; align-items: center; gap: 0.6em; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: #f6b81c; color: #17181a; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; box-shadow: 0 1px 0 rgba(0,0,0,0.22); cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-mark:hover { background: #ffc83d; } .ds-btn-mark:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Second action on light grounds.",
+      "html": "<button class=\"ds-btn-ink\">Request certification documents</button>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: #17181a; color: #f3f2ed; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-ink:hover { background: #2c2d31; } .ds-btn-ink:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Tertiary action outlined with a 1px inset rule.",
+      "html": "<button class=\"ds-btn-line\">View our services</button>",
+      "css": ".ds-btn-line { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: transparent; color: #17181a; box-shadow: inset 0 0 0 1px #a2a6a4; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; cursor: pointer; transition: box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-line:hover { box-shadow: inset 0 0 0 1px #17181a; } .ds-btn-line:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Form field on the paper sheet; yellow halo on focus.",
+      "html": "<label class=\"ds-field\"><span>Company</span><input placeholder=\"Company name\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font-family: 'Readex Pro', system-ui, sans-serif; color: #17181a; } .ds-field span { font-size: 0.92rem; font-weight: 500; } .ds-field input { min-height: 48px; padding: 10px 14px; background: #fff; border: 1px solid #a2a6a4; border-radius: 2px; font: inherit; font-size: 1rem; transition: border-color 140ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 140ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-field input::placeholder { color: #6e6a62; } .ds-field input:hover { border-color: #5f5b54; } .ds-field input:focus { outline: none; border-color: #17181a; box-shadow: 0 0 0 3px rgba(246, 184, 28, 0.7); }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Project filter; selected turns solid asphalt.",
+      "html": "<div class=\"ds-filters\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\"><i style=\"background:#3fa29b\"></i>Water</button></div>",
+      "css": ".ds-filters { display: flex; gap: 8px; } .ds-chip { min-height: 40px; padding: 0 16px; border: 0; border-radius: 2px; background: transparent; box-shadow: inset 0 0 0 1px #a2a6a4; color: #47443f; font-family: 'Readex Pro', system-ui, sans-serif; font-size: 0.93rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; } .ds-chip i { width: 14px; height: 4px; border-radius: 1px; } .ds-chip:hover { color: #17181a; box-shadow: inset 0 0 0 1px #17181a; } .ds-chip[aria-pressed='true'] { background: #17181a; color: #f3f2ed; box-shadow: none; } .ds-chip:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "masthead",
+      "description": "Sticky asphalt masthead; the current page carries a solid yellow bar.",
+      "html": "<nav class=\"ds-mast\"><a href=\"#\" aria-current=\"page\">Services</a><a href=\"#\">Projects</a><a href=\"#\">Certifications</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-mast { display: flex; gap: 2px; align-items: center; height: 72px; padding-inline: 24px; background: #17181a; border-bottom: 1px solid #3d3e43; font-family: 'Readex Pro', system-ui, sans-serif; } .ds-mast a { position: relative; padding: 10px 11px; color: #bdb9b0; text-decoration: none; font-size: 0.93rem; transition: color 140ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-mast a:hover, .ds-mast a[aria-current='page'] { color: #f3f2ed; } .ds-mast a[aria-current='page']::after { content: ''; position: absolute; inset-inline: 11px; bottom: 2px; height: 2px; background: #f6b81c; } .ds-mast a:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tabs",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "In-page tabs on a 2px ink rule; selected tab gets a 3px solid yellow bar and a count chip.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">ISO <span>3</span></button><button role=\"tab\" aria-selected=\"false\">Approvals <span>7</span></button></div>",
+      "css": ".ds-tabs { display: flex; gap: 28px; border-bottom: 2px solid #17181a; } .ds-tabs [role='tab'] { position: relative; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0; border: 0; background: transparent; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-size: 1.08rem; font-weight: 500; color: #5f5b54; cursor: pointer; } .ds-tabs [role='tab']:hover { color: #17181a; } .ds-tabs [aria-selected='true'] { color: #17181a; font-weight: 650; } .ds-tabs [aria-selected='true']::after { content: ''; position: absolute; inset-inline: 0; bottom: -2px; height: 3px; background: #f6b81c; } .ds-tabs span { font-family: 'Readex Pro', system-ui, sans-serif; font-size: 0.78rem; font-weight: 500; min-width: 26px; height: 22px; padding: 0 7px; display: inline-grid; place-items: center; border-radius: 2px; background: #e2e4e3; color: #47443f; } .ds-tabs [role='tab']:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Qualification Record",
+      "kind": "custom",
+      "description": "Ruled record of figures and labels on paper; the signature record beside the street section.",
+      "html": "<dl class=\"ds-record\"><h2>Qualification record</h2><div><dt>2007</dt><dd>Founded</dd></div><div><dt>NWC</dt><dd>Approved contractor, National Water Company</dd></div><div><dt>150+</dt><dd>Owned fleet</dd></div></dl>",
+      "css": ".ds-record { margin: 0; max-width: 340px; background: #f3f4f3; color: #17181a; font-family: 'Readex Pro', system-ui, sans-serif; } .ds-record h2 { margin: 0; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-size: 1.05rem; font-weight: 600; padding: 16px 20px 12px; border-bottom: 2px solid #17181a; } .ds-record div { display: grid; grid-template-columns: 7.4em 1fr; gap: 12px; align-items: center; padding: 7px 20px; border-bottom: 1px solid #c5c8c6; } .ds-record dt { font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 700; font-size: 1.12rem; line-height: 1.2; font-variant-numeric: tabular-nums lining-nums; } .ds-record dd { margin: 0; font-size: 0.88rem; color: #47443f; line-height: 1.35; }"
+    },
+    {
+      "name": "Road Edge and Seam",
+      "kind": "custom",
+      "description": "Where the asphalt opening ends: the one dashed lane-marking strip; elsewhere a seam of thin strata marks a ground change.",
+      "html": "<div class=\"ds-roadedge\"></div><div class=\"ds-seam\"><i></i><i></i><i></i></div>",
+      "css": ".ds-roadedge { position: relative; height: 28px; background: #17181a; } .ds-roadedge::before { content: ''; position: absolute; inset-inline: 0; top: 9px; height: 4px; background: repeating-linear-gradient(90deg, #f6b81c 0 46px, transparent 46px 82px); opacity: 0.92; } .ds-roadedge::after { content: ''; position: absolute; inset-inline: 0; bottom: 4px; height: 2px; background: #e9e7df; opacity: 0.55; } .ds-seam { display: grid; grid-template-rows: 6px 4px 8px; } .ds-seam i:nth-child(1) { background: #2c2d31; } .ds-seam i:nth-child(2) { background: #6b675f; } .ds-seam i:nth-child(3) { background: #8b857a radial-gradient(circle at 30% 40%, rgba(0,0,0,0.18) 1px, transparent 1.6px) 0 0 / 9px 7px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Street Cross-Section",
+    "overview": "SACC builds what lies under and along a Saudi street, so the site is drawn as a section through one. Every ground is a stratum: asphalt black for the official bar, the masthead, the opening and inner page heads; a concrete-grey reading ground; wadi-sand and Madinah-basalt bands for proof and fleet. The signature is an interactive street section directly under the opening: road layers above pipes and ducts, each network labelled and selectable, with a depth ruler in tabular numerals and the qualification record standing along its inline-end edge. The world refuses the contractor default of a full-bleed site photo, a stat band and a grid of service cards.\n\nThe register is formal and institutional, written for procurement officers. Information is set as records, logs, fact sheets and ruled lists rather than cards: hairline rules (1px) separate rows, and a heavier 2px ink rule opens every list the way a leader line opens an engineering drawing. Display weights stay calm (600 to 650); emphasis comes from the strata and the ruled structure, not from size or effects. Motion is one gesture: the section's layers settle downward once.\n\nThe site is Arabic-first and fully bilingual. Direction is a document-level concern (`lang`/`dir` on `<html>`), and layout is written in logical properties (`inline-start`, `inline-end`, `margin-inline`, `padding-block`) so the whole world mirrors without per-component overrides. The SACC logo is a pre-existing brand asset; it is placed only on dark grounds at 34px height and is never redrawn or recoloured. Its four arcs supply the network colours.",
+    "keyCharacteristics": [
+      "Grounds are strata: asphalt, concrete, sand, basalt, stacked like a street section.",
+      "Road-marking yellow is the action colour; network colours are functional keys.",
+      "Ruled records and logs instead of cards; 2px ink rule opens, 1px hairlines divide.",
+      "Near-square corners (2px) everywhere; flat surfaces.",
+      "Alexandria for display, Readex Pro for text, tabular numerals for every figure and depth.",
+      "Arabic-first, mirrored through logical properties.",
+      "One settling motion; no parallax, no ticker."
+    ],
+    "rules": [
+      {
+        "name": "The Road Marking Rule",
+        "body": "Yellow fills a surface only on the primary action. Everywhere else it appears as a line of 4px or less (active marker, focus ring, underline, leader tick) or a small mark. A yellow panel, band or card is off-world.",
+        "section": "colors"
+      },
+      {
+        "name": "The Network Key Rule",
+        "body": "Teal, orange, green and road yellow mean water, power, sewer/storm/landscape and roads. Use them only where a network is being identified: the section, the legend segments, discipline icons, project logs. Never as general decoration or a second accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Strata Rule",
+        "body": "Grounds change only by stratum: asphalt, concrete ground or paper, sand, basalt. Where the home page moves from one ground to the next, a seam of thin strata bands (asphalt-3, a mid-grey, aggregate texture) marks the join.",
+        "section": "colors"
+      },
+      {
+        "name": "The Calm Weight Rule",
+        "body": "Display never goes above 650 and headings sit at 600 to 650. Size and the strata carry hierarchy; heavy black weights are off-register. Only figures take 700.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every number that is compared or measured (years, counts, depths, standards) is set with tabular lining numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Script Parity Rule",
+        "body": "Negative tracking applies to Latin only; Arabic headings get zero letter-spacing and more line-height (1.32 to 1.35 for headings, 1.8 for body). Never uppercase-transform text; Arabic has no case and the two languages must match.",
+        "section": "typography"
+      },
+      {
+        "name": "The Logical Axis Rule",
+        "body": "Write every offset, border and alignment with logical properties (inline-start/end, block). The few physical padding overrides keyed to `dir='rtl'` in the reference stylesheet are debt, not pattern.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Strata Rule",
+        "body": "Surfaces rest flat on their stratum. Only the form sheet lifts; nothing hovers into shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Solid Marker Rule",
+        "body": "Active markers in nav and tabs are solid bars. Dashes belong to the drawing (lane dashes, leader lines and conduits inside the street section) and to the single lane-marking strip where the road band ends; never to UI state.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do spend road-marking yellow as a fill only on the primary action, and keep exactly one such action per region.",
+      "Do use network colours only to identify water, power, sewer/storm/landscape and roads, with their `-ink` partners for text on light grounds.",
+      "Do set lists as ruled records: a 2px ink rule to open, 1px hairlines between rows.",
+      "Do keep corners at 2px and surfaces flat; the form sheet is the only lifted surface.",
+      "Do write layout in logical properties so Arabic and English mirror from `dir` alone, and give Arabic headings zero tracking and taller leading.",
+      "Do set every compared figure in tabular lining numerals.",
+      "Do place the logo unaltered on dark grounds at 34px height.",
+      "Do wrap all motion in `prefers-reduced-motion: no-preference`; the reduce branch removes animation and transitions."
+    ],
+    "donts": [
+      "Don't build a full-bleed site photo with a stat band and a grid of service cards; that is the contractor default this world refuses.",
+      "Don't use dashed or dotted markers for active nav, tab or selection state; dashes stay inside the street drawing and the single road-edge strip.",
+      "Don't fill panels, bands or cards with yellow, or use a network colour as decoration.",
+      "Don't add parallax, tickers, or repeating entrance animations; the section settles once.",
+      "Don't push display weight above 650 or uppercase-transform any text.",
+      "Don't redraw, recolour or place the logo on a light ground.",
+      "Don't load fonts from a CDN; Alexandria and Readex Pro are self-hosted."
+    ]
+  }
+}
