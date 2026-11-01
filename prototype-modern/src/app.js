@@ -153,7 +153,7 @@
     const T = t(), U = ui();
     const here = state.sub ? `${state.page}/${state.sub}` : state.page;
     const other = state.lang === 'ar' ? 'en' : 'ar';
-    const items = [...T.nav, { id: 'careers', label: T.navCareers }];
+    const items = T.nav; // "Join us" is not a masthead tab (owner); Careers stays reachable from the footer
     const cur = (id) => (state.page === id ? ' aria-current="page"' : '');
     return `
       <div class="masthead-in">
