@@ -172,7 +172,7 @@
     const T = t();
     return `<div class="footer-in">
         <a class="footer-brand" href="${href('')}"><img src="${logo}" alt="${esc(T.brandLine)}" width="128" height="32"></a>
-        <nav class="footer-links" aria-label="${esc(T.footer.quickLinks)}"><ul>${T.nav.map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></nav>
+        <nav class="footer-links" aria-label="${esc(T.footer.quickLinks)}"><ul><li><a href="${href('careers')}"${state.page === 'careers' ? ' aria-current="page"' : ''}>${esc(T.navCareers)}</a></li></ul></nav>
         <p class="footer-rights">${esc(T.footer.rights)}</p>
       </div>`;
   }

@@ -545,6 +545,7 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .footer-links { flex: 1 1 0; min-width: 0; }
 .footer-links ul { column-gap: 18px; font-size: 0.88rem; }
 @media (max-width: 760px) { .footer-links { flex: 1 1 100%; } }
+@media (max-width: 760px) { .footer-links { flex: 1 1 auto; order: 0; } }
 
   </style>
 </head>
@@ -733,7 +734,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
     const T = t();
     return `<div class="footer-in">
         <a class="footer-brand" href="${href('')}"><img src="${logo}" alt="${esc(T.brandLine)}" width="128" height="32"></a>
-        <nav class="footer-links" aria-label="${esc(T.footer.quickLinks)}"><ul>${T.nav.map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></nav>
+        <nav class="footer-links" aria-label="${esc(T.footer.quickLinks)}"><ul><li><a href="${href('careers')}"${state.page === 'careers' ? ' aria-current="page"' : ''}>${esc(T.navCareers)}</a></li></ul></nav>
         <p class="footer-rights">${esc(T.footer.rights)}</p>
       </div>`;
   }

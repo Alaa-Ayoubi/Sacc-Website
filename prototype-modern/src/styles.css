@@ -530,3 +530,4 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .footer-links { flex: 1 1 0; min-width: 0; }
 .footer-links ul { column-gap: 18px; font-size: 0.88rem; }
 @media (max-width: 760px) { .footer-links { flex: 1 1 100%; } }
+@media (max-width: 760px) { .footer-links { flex: 1 1 auto; order: 0; } }
