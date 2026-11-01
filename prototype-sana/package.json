@@ -1,0 +1,13 @@
+{
+  "name": "sacc-prototype-sana",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Proposal 5 (taste-skill direction 'The dark room'): a new design from scratch. Bundles into one self-contained HTML file for review.",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": {
+    "@fontsource-variable/work-sans": "5.3.0",
+    "@fontsource-variable/noto-sans-arabic": "5.3.0",
+    "lucide-static": "^0.469.0"
+  }
+}
