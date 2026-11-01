@@ -205,13 +205,14 @@
       </div>
 
       <section class="sec lead-q wrap" aria-labelledby="chair-h">
-        <div class="grid12">
-          <div class="facts rise"><div>${esc(U.office)}<b>${esc(U.officeShort)}</b></div><div>${esc(U.cr)}<b class="num">${esc(C0.cr)}</b></div><div>${esc(U.phone)}<b class="ltr num">${esc(C0.phone)}</b></div></div>
+        <div class="chair">
           <div class="body">
             <h2 class="sec-h rise" id="chair-h">${esc(U.chairH)}</h2>
-            <blockquote class="rise" style="--d:1"><figure class="portrait">${remote(IMG.chairman) ? `<img src="${esc(IMG.chairman)}" alt="${esc(chair.name)}" loading="lazy" onerror="this.remove()">` : ''}</figure>${esc(L.quote.replace(/^["«]|["»]$/g, ''))}</blockquote>
+            <blockquote class="rise" style="--d:1">${esc(L.quote.replace(/^["«]|["»]$/g, ''))}</blockquote>
             <p class="who rise" style="--d:2"><b>${esc(chair.name)}</b> · ${esc(chair.title)}</p>
+            <div class="facts rise" style="--d:3"><div>${esc(U.office)}<b>${esc(U.officeShort)}</b></div><div>${esc(U.cr)}<b class="num">${esc(C0.cr)}</b></div><div>${esc(U.phone)}<b class="ltr num">${esc(C0.phone)}</b></div></div>
           </div>
+          <figure class="portrait-lg rise" style="--d:1">${remote(IMG.chairman) ? `<img src="${esc(IMG.chairman)}" alt="${esc(chair.name)}" loading="lazy" onerror="this.parentNode.classList.add('broken')">` : ''}</figure>
         </div>
       </section>
 

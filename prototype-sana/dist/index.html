@@ -492,6 +492,34 @@ html[lang='ar'] .foot .name, html[lang='ar'] .entry h2 { letter-spacing: 0; }
 .bar .action { white-space: nowrap; }
 @media (max-width: 460px) { .bar .action { font-size: 0.9rem; padding: 8px 10px; } .bar .tools { gap: 8px; } .bar-in { gap: 12px; } }
 
+/* ---------- Round 1 fixes ---------- */
+/* Chairman: statement beside a large portrait (split), the facts beneath it */
+.chair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; }
+.chair .body { grid-column: 1 / span 7; }
+.chair .portrait-lg { grid-column: 9 / span 4; margin: 0; aspect-ratio: 4 / 5; background: var(--surface); position: relative; overflow: hidden; }
+.chair .portrait-lg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05) brightness(0.92); position: relative; z-index: 1; }
+.chair .portrait-lg.broken img { display: none; }
+.chair .portrait-lg .initial { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: var(--step-display); font-weight: 700; color: var(--surface-2); }
+.chair .facts { display: flex; flex-wrap: wrap; gap: 14px 40px; margin-top: 48px; font-size: var(--step-small); color: var(--muted); }
+.chair .facts b { display: block; color: var(--ink); font-weight: 500; font-size: var(--step-body); }
+@media (max-width: 900px) {
+  .chair { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 32px; }
+  .chair .portrait-lg { width: min(70%, 320px); }
+}
+/* Disciplines carry the screen: names and the description at the lead size */
+.disc li a, .disc .spot { font-size: var(--step-lead); line-height: 1.35; }
+.disc ul { gap: 0.55em; }
+.disc .spot strong { font-weight: 600; }
+/* Office: a card on its photograph, not a whole empty screen */
+.visit { min-height: 80svh; }
+/* Phone: hold the five steps (the fitted name is the only exception) */
+@media (max-width: 560px) {
+  .names a .n { font-size: var(--step-lead); }
+  .hero .mid p { font-size: var(--step-lead); }
+  .bar .action { font-size: var(--step-small); }
+  .fig .big { font-size: var(--step-display); }
+}
+
   </style>
 </head>
 <body>
@@ -710,13 +738,14 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       </div>
 
       <section class="sec lead-q wrap" aria-labelledby="chair-h">
-        <div class="grid12">
-          <div class="facts rise"><div>${esc(U.office)}<b>${esc(U.officeShort)}</b></div><div>${esc(U.cr)}<b class="num">${esc(C0.cr)}</b></div><div>${esc(U.phone)}<b class="ltr num">${esc(C0.phone)}</b></div></div>
+        <div class="chair">
           <div class="body">
             <h2 class="sec-h rise" id="chair-h">${esc(U.chairH)}</h2>
-            <blockquote class="rise" style="--d:1"><figure class="portrait">${remote(IMG.chairman) ? `<img src="${esc(IMG.chairman)}" alt="${esc(chair.name)}" loading="lazy" onerror="this.remove()">` : ''}</figure>${esc(L.quote.replace(/^["«]|["»]$/g, ''))}</blockquote>
+            <blockquote class="rise" style="--d:1">${esc(L.quote.replace(/^["«]|["»]$/g, ''))}</blockquote>
             <p class="who rise" style="--d:2"><b>${esc(chair.name)}</b> · ${esc(chair.title)}</p>
+            <div class="facts rise" style="--d:3"><div>${esc(U.office)}<b>${esc(U.officeShort)}</b></div><div>${esc(U.cr)}<b class="num">${esc(C0.cr)}</b></div><div>${esc(U.phone)}<b class="ltr num">${esc(C0.phone)}</b></div></div>
           </div>
+          <figure class="portrait-lg rise" style="--d:1">${remote(IMG.chairman) ? `<img src="${esc(IMG.chairman)}" alt="${esc(chair.name)}" loading="lazy" onerror="this.parentNode.classList.add('broken')">` : ''}</figure>
         </div>
       </section>
 
