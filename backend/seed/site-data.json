@@ -541,8 +541,8 @@
       "address": "المدينة المنورة، المملكة العربية السعودية",
       "hoursHeading": "ساعات العمل",
       "hours": [
-        "الأحد – الخميس، 08:00 – 17:00",
-        "الجمعة والسبت: مغلق"
+        "السبت – الخميس، 08:00 – 17:00",
+        "الجمعة: مغلق"
       ],
       "crLabel": "س.ت",
       "fields": {
@@ -1222,8 +1222,8 @@
       "address": "Al Madinah Al Munawwarah, Kingdom of Saudi Arabia",
       "hoursHeading": "Working Hours",
       "hours": [
-        "Sunday – Thursday, 08:00 – 17:00",
-        "Friday & Saturday, closed"
+        "Saturday – Thursday, 08:00 – 17:00",
+        "Friday, closed"
       ],
       "crLabel": "CR",
       "fields": {

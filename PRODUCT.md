@@ -37,7 +37,7 @@ The four strengths below were confirmed together. A neighbouring contractor woul
 - **Evaluation:** visitors arrive during prequalification, tender shortlisting or subcontractor sourcing. They scan for approvals, certificates, comparable projects, fleet and leadership, then request documents or a quote.
 - **Conversion paths:** the Contact form sends a quote request (`POST /api/v1/leads/quote-requests/`). The Careers form sends an application, with an optional CV (`POST /api/v1/careers/applications/`). Staff are notified at `info@saccgroup.net`. Enterprise and government enquiries are promised a response within 24 business hours.
 - **Content operations:** all content is bilingual and edited in the Django admin. It is exported to the static `site-data.js` snapshot, so the page loads without waiting on a sleeping free-tier API.
-- **Office:** Head Office in Al Madinah Al Munawwarah, Kingdom of Saudi Arabia. Working hours are Sun–Thu 08:00–17:00; Fri/Sat closed. CR 4650242007. Phone +966 14 848 4014, mobile +966 50 426 6876.
+- **Office:** Head Office in Al Madinah Al Munawwarah, Kingdom of Saudi Arabia. Working hours are Sat–Thu 08:00–17:00; Friday closed (owner correction). CR 4650242007. Phone +966 14 848 4014, mobile +966 50 426 6876.
 
 ## Capabilities and Constraints
 
