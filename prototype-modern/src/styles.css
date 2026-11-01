@@ -205,9 +205,11 @@ html[lang='en'] .hero h1 { line-height: 1.08; }
 
 /* ---------- Drawings (one system: 2px strokes, technical sections) ---------- */
 .drawing { display: block; width: 100%; height: auto; }
-.drawing * { vector-effect: non-scaling-stroke; }
-.anim .drawing:not(.drawn) .ln { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.anim .drawing.drawn .ln { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms var(--ease); }
+/* Draw-on entrance: dash = path length (pathLength=1) slides in once, then the
+   dash pattern is removed so no browser can leave a gap in a finished drawing. */
+.anim .drawing:not(.drawn) .ln { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.anim .drawing.drawn:not(.done) .ln { stroke-dasharray: 1 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms var(--ease); }
+.drawing.done .ln { stroke-dasharray: none; }
 
 /* ---------- Projects ---------- */
 .proj-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
@@ -470,3 +472,12 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 /* services cards: fixed rows so titles and links align across each row */
 .disc-grid a { grid-template-rows: auto auto minmax(1.6em, auto) 1fr; }
 .disc-grid .go { align-self: end; }
+
+/* One on-screen line weight (~2px) wherever a drawing appears; the stroke
+   scales with the drawing, so each context sets its own value. */
+.disc-grid .drawing { stroke-width: 1.5; }
+.disc-list .mark .drawing { stroke-width: 9; }
+.pagehead .drawing { stroke-width: 1.4; }
+.proj .photo .fallback .drawing { stroke-width: 1.3; }
+.proj-hero .fallback .drawing { stroke-width: 0.7; }
+.hero .photo .fallback .drawing { stroke-width: 0.7; }
