@@ -334,7 +334,8 @@ html[lang='ar'] .opening h1 { line-height: 1.32; letter-spacing: 0; font-weight:
 .xsec-figure.picked .net:not(.on) { opacity: 0.38; }
 .xsec-figure.picked .net:not(.on):hover { opacity: 0.75; }
 .tag rect { transition: fill 200ms var(--ease-out); }
-.net.on .tag rect { fill: var(--marking); }
+.tag.on rect { fill: var(--marking); }
+.xsec-figure.picked .tag:not(.on) { opacity: 0.55; }
 
 .record {
   background: var(--paper);
@@ -376,8 +377,9 @@ html[lang='ar'] .opening h1 { line-height: 1.32; letter-spacing: 0; font-weight:
   .record-row:nth-child(odd) { border-inline-end: 1px solid var(--rule); }
 }
 @media (max-width: 700px) {
-  .xsec-figure svg { height: 270px; }
-  .xsec-figure .tag { display: none; }
+  .xsec-scroll { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+  .xsec-figure svg { width: 980px; max-width: none; height: auto; }
+  .xsec-caption .swipe { display: inline; }
   .xsec-caption { font-size: 0.7rem; inset-inline-end: 8px; top: 6px; }
 }
 
@@ -802,8 +804,8 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 /* ---------- Motion: the section settles once ---------- */
 
 @media (prefers-reduced-motion: no-preference) {
-  .settle .stratum { animation: settle 900ms var(--ease-out) both; animation-delay: calc(var(--i) * 70ms); }
-  .settle .net { animation: appear 700ms var(--ease-out) both; animation-delay: calc(420ms + var(--i) * 60ms); }
+  .settle .stratum { animation: settle 900ms var(--ease-out) backwards; animation-delay: calc(var(--i) * 70ms); }
+  .settle .net { animation: appear 700ms var(--ease-out) backwards; animation-delay: calc(420ms + var(--i) * 60ms); }
   @keyframes settle { from { transform: translateY(-14px); opacity: 0.45; } to { transform: none; opacity: 1; } }
   @keyframes appear { from { opacity: 0.35; } to { opacity: 1; } }
 }
@@ -938,3 +940,46 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 .officialbar a:hover { color: var(--on-dark); }
 @media (max-width: 900px) { .officialbar .creds li + li { display: none; } }
 @media (max-width: 560px) { .officialbar .reach li + li { display: none; } }
+
+.xsec-caption .swipe { display: none; }
+.xsec-scroll:focus-visible { outline-offset: -3px; }
+
+/* Sub-pages: a shorter section that names only the page's network */
+.xsec.compact .xsec-grid { grid-template-columns: 1fr; }
+.xsec.compact .xsec-figure { width: 100%; max-width: 780px; margin-inline: auto; }
+.pagehead.compact { padding-block: clamp(28px, 3.4vw, 44px) clamp(22px, 2.6vw, 32px); }
+.pagehead.compact h1 { font-size: clamp(2rem, 3.6vw, 3rem); max-width: 24ch; }
+.pagehead.compact p { margin-top: 10px; }
+.pagehead.compact .actions { margin-top: 18px; }
+
+/* Buttons whose labels wrap keep an even leading */
+.btn { line-height: 1.4; padding-block: 10px; text-wrap: balance; text-align: center; }
+
+/* Quote: stands on scale; a drawing-leader tick above the attribution */
+.quote { grid-template-columns: minmax(0, 1fr); }
+.quote figcaption::before { content: ''; display: block; width: 44px; height: 2px; background: var(--marking); margin-bottom: 14px; }
+
+/* Equipment categories: leader tick from the section's drawing vocabulary */
+.cats .tick { flex: none; width: 14px; height: 2px; background: var(--marking); transform: translateY(-0.3em); }
+
+/* Prototype note: a static strip at the very top, never over content */
+.proto-flag { position: static; display: block; max-width: none; border-radius: 0; box-shadow: none; background: var(--marking); color: var(--ink); text-align: center; font-size: 0.82rem; padding: 6px var(--gutter); inset: auto; }
+
+/* Projects on narrow screens: one stacked column, toggle underneath */
+@media (max-width: 700px) {
+  .log-row, .logs.compact .log-row { grid-template-columns: 1fr; row-gap: 6px; }
+  .log-row > * , .logs.compact .log-row > * { grid-column: 1 !important; grid-row: auto !important; }
+  .log-row .seg { width: 30px; }
+  .log-row .toggle { justify-self: start; margin-top: 6px; }
+  .log-detail { grid-template-columns: 1fr; }
+  .log-detail p, .log-detail .scope { grid-column: 1; }
+}
+
+/* Home: strata seams where one ground meets the next */
+.seam { display: grid; grid-template-rows: 6px 4px 8px; }
+.seam i:nth-child(1) { background: var(--asphalt-3); }
+.seam i:nth-child(2) { background: #6b675f; }
+.seam i:nth-child(3) { background: var(--aggregate) radial-gradient(circle at 30% 40%, rgba(0,0,0,0.18) 1px, transparent 1.6px) 0 0 / 9px 7px; }
+@media (max-width: 700px) { .xsec-caption .swipe { display: inline; } }
+/* The schematic caption sits under the drawing, never over a label */
+.xsec-caption { position: static; display: block; background: transparent; padding: 6px 16px 10px; text-align: end; border-radius: 0; }

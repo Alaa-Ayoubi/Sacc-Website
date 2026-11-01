@@ -61,6 +61,14 @@
       moreProjects: 'مشاريع أخرى في التصنيف نفسه',
       milestonesTab: 'محطات المسيرة',
       fleetNote: 'هذا التخصص فوق الأرض: أسطول تملكه SACC وتؤجّره مع الدعم الفني.',
+      emailRequired: 'البريد الإلكتروني مطلوب',
+      swipe: 'اسحب أفقياً لرؤية المقطع كاملاً',
+      tally: {
+        projects: ['مشروع منفّذ', 'مشروعان منفّذان', 'مشاريع منفّذة', 'مشروعًا منفّذًا'],
+        clients: ['جهة حكومية وشبه حكومية', 'جهتان حكوميتان وشبه حكوميتين', 'جهات حكومية وشبه حكومية', 'جهة حكومية وشبه حكومية'],
+        places: ['مدينة ومنطقة', 'مدينتان ومنطقتان', 'مدن ومناطق', 'مدينة ومنطقة'],
+        completed: ['مكتمل', 'مكتملان', 'مكتملة', 'مكتملًا'],
+      },
       role: 'الوظيفة', dept: 'القسم', loc: 'الموقع', type: 'الدوام', exp: 'الخبرة',
       present: 'حتى اليوم',
       short: {
@@ -111,6 +119,8 @@
       moreProjects: 'More projects in this category',
       milestonesTab: 'Milestones',
       fleetNote: 'This discipline sits above ground: a fleet SACC owns and rents out with technical support.',
+      emailRequired: 'Email is required',
+      swipe: 'Swipe sideways to see the whole section',
       role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
       present: 'Present',
       short: {
@@ -152,6 +162,15 @@
   const $ = (sel, el = document) => el.querySelector(sel);
   const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
   const net = (svc) => NETWORK[svc.icon] || NETWORK.Settings;
+  // Arabic counted nouns: 1 and 2 have their own forms, 3–10 take the plural,
+  // 11 and above the singular accusative. English uses the content labels.
+  const counted = (n, key, fallback) => {
+    const f = ui().tally?.[key];
+    if (!f) return `<strong class="num">${n}</strong> ${esc(fallback)}`;
+    if (n === 1) return `<strong class="num">1</strong> ${esc(f[0])}`;
+    if (n === 2) return esc(f[1]);
+    return `<strong class="num">${n}</strong> ${esc(n <= 10 ? f[2] : f[3])}`;
+  };
   const svcSlug = (svc) => SERVICE_SLUG[net(svc).id];
   const svcBySlug = (slug) => t().services.items.findIndex((x) => svcSlug(x) === slug);
   const projBySlug = (slug) => t().projects.items.find((p) => projectSlug(p.id) === slug);
@@ -237,7 +256,7 @@
     const line = (x1, y1, x2, y2, attrs = '') => `<line x1="${X(x1)}" y1="${y1}" x2="${X(x2)}" y2="${y2}" ${attrs}/>`;
     const svcIndex = Object.fromEntries(t().services.items.map((s, i) => [net(s).id, i]));
     const tag = (id, px, py, lx, ly, a = 'middle') => `
-      <g class="tag" data-anchor="${anchor(a)}">
+      <g class="tag${state.picked && t().services.items[state.svc] && net(t().services.items[state.svc]).id === id ? ' on' : ''}" data-net="${id}" data-anchor="${anchor(a)}">
         ${line(px, py, lx, ly + (ly < py ? 8 : -8), 'stroke="#f3f2ed" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.8"')}
         <circle cx="${X(px)}" cy="${py}" r="3" fill="#f3f2ed"/>
         <rect rx="2" fill="#f3f4f3" x="0" y="0" width="0" height="0"/>
@@ -352,14 +371,14 @@
       </aside>`;
   }
 
-  function streetSection() {
+  function streetSection(compact = false) {
     const U = ui();
     return `
-      <section class="xsec" aria-labelledby="xsec-h">
+      <section class="xsec${compact ? ' compact' : ''}" aria-labelledby="xsec-h">
         <h2 id="xsec-h" class="visually-hidden">${esc(U.sectionHeading)}</h2>
         <div class="xsec-grid">
-          <figure class="xsec-figure settle${state.picked ? ' picked' : ''}" id="xsec">${sectionSVG()}<figcaption class="xsec-caption">${esc(U.schematic)}</figcaption></figure>
-          ${record()}
+          <figure class="xsec-figure settle${state.picked ? ' picked' : ''}" id="xsec"><div class="xsec-scroll" tabindex="0" aria-label="${esc(U.swipe)}">${sectionSVG()}</div><figcaption class="xsec-caption">${esc(U.schematic)}<span class="swipe"> · ${esc(U.swipe)}</span></figcaption></figure>
+          ${compact ? '' : record()}
         </div>
       </section>`;
   }
@@ -397,9 +416,9 @@
   }
 
   // ---------- shared blocks ----------
-  function pagehead(title, lead, extra = '') {
+  function pagehead(title, lead, extra = '', compact = false) {
     return `
-      <section class="pagehead"><div class="wrap"><h1>${esc(title)}</h1>${lead ? `<p>${esc(lead)}</p>` : ''}${extra}</div></section>
+      <section class="pagehead${compact ? ' compact' : ''}"><div class="wrap"><h1>${esc(title)}</h1>${lead ? `<p>${esc(lead)}</p>` : ''}${extra}</div></section>
       <div class="strata" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
   }
 
@@ -439,7 +458,7 @@
       <div class="filters" role="group" aria-label="${esc(P.title)}">
         ${P.categories.map((c) => `<button type="button" data-filter="${c.key}" aria-pressed="${state.filter === c.key}">${c.key !== 'all' ? `<span class="seg" style="--c:${PROJECT_COLOR[c.key]}"></span>` : ''}${esc(c.label)}</button>`).join('')}
       </div>
-      <p class="tally"><strong class="num">${P.items.length}</strong> ${esc(P.statLabels.projects)} · <strong class="num">${clients}</strong> ${esc(P.statLabels.clients)} · <strong class="num">${places}</strong> ${esc(P.statLabels.regions)} · <strong class="num">${done}</strong> ${esc(P.statLabels.completed)}</p>
+      <p class="tally">${counted(P.items.length, 'projects', P.statLabels.projects)} · ${counted(clients, 'clients', P.statLabels.clients)} · ${counted(places, 'places', P.statLabels.regions)} · ${counted(done, 'completed', P.statLabels.completed)}</p>
       ${shown.length ? `<ol class="logs">${shown.map((p) => {
         const open = state.open.has(p.id);
         const live = !/complete|منجز|مكتمل/i.test(p.status);
@@ -469,7 +488,7 @@
           <div class="body"><p>${esc(E.p1)}</p>${full ? `<p>${esc(E.p2)}</p>` : ''}</div>
           <div class="actions" style="margin-top:28px"><button class="btn btn-mark" type="button" data-request="${esc(E.cta)}" data-type="equipment-rental">${esc(E.cta)}</button></div>
         </div>
-        <div><h3>${esc(E.categoriesHeading)}</h3><ul class="cats">${E.categories.map((c) => `<li>${icon('truck')}<span>${esc(c)}</span></li>`).join('')}</ul></div>
+        <div><h3>${esc(E.categoriesHeading)}</h3><ul class="cats">${E.categories.map((c) => `<li><span class="tick" aria-hidden="true"></span><span>${esc(c)}</span></li>`).join('')}</ul></div>
       </div>
       ${full ? `<div class="support">${E.features.map((f) => `<div>${icon({ Wrench: 'wrench', Satellite: 'satellite', HardHat: 'hard-hat', Clock: 'clock' }[f.icon] || 'wrench')}<h4>${esc(f.title)}</h4><p>${esc(f.desc)}</p></div>`).join('')}</div>` : ''}`;
   }
@@ -478,7 +497,7 @@
     const L = t().leadership;
     const chair = L.leaders[0];
     return `
-      <figure class="quote"><span class="rule" aria-hidden="true"></span>
+      <figure class="quote">
         <div><blockquote>${esc(L.quote)}</blockquote><figcaption><strong>${esc(chair.name)}</strong>${esc(chair.title)}</figcaption></div>
       </figure>`;
   }
@@ -524,11 +543,13 @@
       ${streetSection()}
       ${reader()}
       <section class="band band-paper"><div class="wrap">${companyBlock(true)}</div></section>
+      <div class="seam" aria-hidden="true"><i></i><i></i><i></i></div>
       <section class="band band-sand"><div class="wrap">${proofBlock(false)}</div></section>
       <section class="band"><div class="wrap">
         <div class="head"><h2>${esc(T.projects.title)}</h2><p>${esc(T.projects.lead)}</p></div>
         ${logsBlock()}
       </div></section>
+      <div class="seam" aria-hidden="true"><i></i><i></i><i></i></div>
       <section class="band band-basalt"><div class="wrap">${fleetBlock(false)}</div></section>
       <section class="band band-asphalt"><div class="wrap">${quoteBlock()}
         <div class="actions" style="margin-top:36px"><a class="textlink" href="${href('leadership')}">${esc(U.meetLeaders)} ${arrow()}</a><a class="textlink" href="${href('journey')}">${esc(U.ourJourney)} ${arrow()}</a></div>
@@ -575,7 +596,7 @@
       <section class="band band-basalt"><div class="wrap">
         <div class="fleet-intro"><p>${esc(E.p1)}</p><p>${esc(E.p2)}</p></div>
         ${tabs('fleet', E.title, [
-          { key: 'cats', label: E.categoriesHeading, count: E.categories.length, html: `<ul class="cats wide">${E.categories.map((c) => `<li>${icon('truck')}<span>${esc(c)}</span></li>`).join('')}</ul>` },
+          { key: 'cats', label: E.categoriesHeading, count: E.categories.length, html: `<ul class="cats wide">${E.categories.map((c) => `<li><span class="tick" aria-hidden="true"></span><span>${esc(c)}</span></li>`).join('')}</ul>` },
           { key: 'support', label: E.supportHeading, count: E.features.length, html: `<div class="support">${E.features.map((f) => `<div>${icon(icons4[f.icon] || 'wrench')}<h4>${esc(f.title)}</h4><p>${esc(f.desc)}</p></div>`).join('')}</div>` },
         ], 'dark')}
       </div></section>${closeBlock()}`;
@@ -731,8 +752,8 @@
     const scope = `<ul class="caps big" style="--c-ink:${n.ink}">${s.capabilities.map((c) => `<li>${icon('check')}<span>${esc(c)}</span></li>`).join('')}</ul>`;
     const projects = rel.length ? relatedLogs(rel) : `<p class="empty">${esc(U.noProjects)}</p>`;
     return `
-      ${pagehead(s.title, s.desc, `<div class="actions"><a class="btn btn-mark" href="#svc-quote" data-jump="svc-quote">${esc(U.quickQuote)}</a><a class="textlink on-dark" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>`)}
-      ${n.id === 'fleet' ? `<section class="band band-basalt"><div class="wrap"><p class="note-dark">${esc(U.fleetNote)}</p>${fleetBlock(false)}</div></section>` : streetSection()}
+      ${pagehead(s.title, s.desc, `<div class="actions"><a class="btn btn-mark" href="#svc-quote" data-jump="svc-quote">${esc(U.quickQuote)}</a><a class="textlink on-dark" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>`, true)}
+      ${n.id === 'fleet' ? `<section class="band band-basalt"><div class="wrap"><p class="note-dark">${esc(U.fleetNote)}</p>${fleetBlock(false)}</div></section>` : streetSection(true)}
       <section class="band band-paper"><div class="wrap svc-detail" style="--c:${n.c}">
         ${tabs('svc', s.title, [
           { key: 'scope', label: U.scopeTab, count: s.capabilities.length, html: scope },
@@ -757,8 +778,8 @@
     const svc = T.services.items[svcI];
     const more = P.items.filter((x) => x.key === p.key && x.id !== p.id);
     return `
-      ${pagehead(p.title, p.desc, `<div class="actions"><button class="btn btn-mark" type="button" data-inquire-project="${p.id}">${esc(P.detailsCta)}</button><a class="textlink on-dark" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>`)}
-      ${streetSection()}
+      ${pagehead(p.title, p.desc, `<div class="actions"><button class="btn btn-mark" type="button" data-inquire-project="${p.id}">${esc(P.detailsCta)}</button><a class="textlink on-dark" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>`, true)}
+      ${streetSection(true)}
       <section class="band band-paper"><div class="wrap project-sheet">
         <div><h2>${esc(U.projectSheet)}</h2>
           <dl class="facts">
@@ -813,8 +834,7 @@
     $('#main').innerHTML = (page === 'services' && sub) ? pageService() : (page === 'projects' && sub) ? pageProject() : PAGE_FN[page]();
     $('#footer').innerHTML = footer();
     const flag = $('#proto-flag');
-    if (!state.flagClosed) flag.innerHTML = `<span>${esc(ui().proto)}</span><button type="button" data-closeflag aria-label="${esc(ui().close)}">${icon('x')}</button>`;
-    flag.hidden = !!state.flagClosed;
+    flag.innerHTML = `<span>${esc(ui().proto)}</span>`;
     fitTags(document);
     requestAnimationFrame(() => fitTags(document));
     buildGauge();
@@ -830,7 +850,7 @@
       fig.classList.toggle('picked', state.picked);
       fig.classList.remove('settle');
       const id = net(t().services.items[state.svc]).id;
-      $$('.net', fig).forEach((g) => g.classList.toggle('on', state.picked && g.dataset.net === id));
+      $$('.net, .tag', fig).forEach((g) => g.classList.toggle('on', state.picked && g.dataset.net === id));
     });
   }
 
@@ -860,9 +880,10 @@
 
   // ---------- forms ----------
   const validEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-  function setErr(id, bad) {
+  function setErr(id, bad, msg) {
     const input = document.getElementById(id);
     const err = document.getElementById(`${id}-err`);
+    if (err && msg) err.lastChild.textContent = msg;
     input?.setAttribute('aria-invalid', String(bad));
     if (err) err.hidden = !bad;
     return bad;
@@ -893,7 +914,6 @@
       return;
     }
     if (el.matches('.drawer a')) { $('#drawer').classList.remove('open'); }
-    if (el.hasAttribute('data-closeflag')) { state.flagClosed = true; $('#proto-flag').hidden = true; return; }
 
     if (el.matches('.net')) {
       state.svc = Number(el.dataset.svc); state.picked = true; refreshReader();
@@ -973,7 +993,7 @@
       const x = form.dataset.x;
       const bad = [
         setErr(`${x}-name`, !v('name')),
-        setErr(`${x}-email`, !validEmail(v('email'))),
+        setErr(`${x}-email`, !validEmail(v('email')), v('email') ? t().contact.errors.email : ui().emailRequired),
         setErr(`${x}-company`, !v('company')),
         setErr(`${x}-message`, v('message').length < 10),
       ];
@@ -985,7 +1005,7 @@
       const hasFile = !!$('#a-file').files.length;
       const bad = [
         setErr('a-name', !v('name')),
-        setErr('a-email', !validEmail(v('email'))),
+        setErr('a-email', !validEmail(v('email')), v('email') ? t().careers.errors.email : ui().emailRequired),
         setErr('a-phone', !v('phone')),
         setErr('a-exp', v('exp') === ''),
         setErr('a-role', !v('role')),
