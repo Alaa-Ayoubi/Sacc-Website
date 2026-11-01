@@ -21,7 +21,7 @@ OWN-WORLD: White and cool light-grey grounds, deep logo teal for the masthead, f
 
 STORY: The visitor recognises an established infrastructure contractor at a glance, scans its disciplines and real projects, checks its approvals, then requests a quote.
 
-FIRST VIEWPORT: Full-width project photograph under a deep-teal scrim at the inline-start, carrying the H1, the lead and one route to the disciplines; the masthead above holds the single orange quote action; a slim approvals line (ISO, NWC, since 2007) closes the bottom edge of the hero.
+FIRST VIEWPORT: Full-width project photograph under a deep-teal scrim at the inline-start, carrying the H1, the lead and one route to the disciplines; the masthead above holds the single orange quote action; CR and NWC approval sit once in the utility bar; the approvals band further down carries ISO and the approving bodies.
 
 FORM: category standard, institutional (owner-specified after rejecting proposals 2 and 3; the standing exit); seed:420fd965e69e93fb (re-roll 1). Signature interaction: discipline drawings that draw their lines once when they enter, and a project index whose photographs open into full project pages. Motion grammar: one drawn-line entrance per discipline, calm fades; nothing else moves.
 

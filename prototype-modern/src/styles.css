@@ -155,10 +155,6 @@ html[dir='ltr'] .hero::after { background: linear-gradient(to right, rgba(11, 44
 html[lang='en'] .hero h1 { line-height: 1.08; }
 .hero p { margin-top: 18px; font-size: clamp(1.05rem, 1.4vw, 1.22rem); color: var(--on-teal-2); max-width: 46ch; line-height: 1.8; }
 .hero .btn { margin-top: 30px; align-self: flex-start; }
-.hero-strip { position: relative; z-index: 1; margin-top: 56px; border-top: 1px solid rgba(242, 247, 247, 0.22); background: rgba(11, 44, 45, 0.55); backdrop-filter: blur(6px); }
-.hero-strip ul { width: var(--wrap); margin-inline: auto; list-style: none; padding: 16px 0; display: flex; flex-wrap: wrap; gap: 10px 36px; font-size: 0.93rem; color: var(--on-teal); }
-.hero-strip li { display: inline-flex; align-items: center; gap: 8px; }
-.hero-strip .icon { color: var(--orange); }
 /* when the photograph is unavailable, the drawing of the road section stands in */
 .hero .photo .fallback { position: absolute; inset-block: 0; inset-inline-end: 0; width: 58%; color: var(--teal-300); opacity: 0.45; display: none; }
 .hero .photo.nophoto img { display: none; }
@@ -442,3 +438,23 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Review fixes ---------- */
+/* hero text stays on a solid scrim until the layout is wide enough to hold it at the inline-start */
+@media (max-width: 1180px) { .hero::after, html[dir='ltr'] .hero::after { background: rgba(11, 44, 45, 0.86); } }
+.hero-in { padding-block: 64px 72px; }
+/* home disciplines: each row carries its discipline's drawing as a small marker */
+.disc-list a { justify-content: flex-start; }
+.disc-list .mark { width: 46px; flex: none; color: var(--teal-600); }
+.disc-list .name { flex: 1; }
+/* home approvals: one ruled row of names */
+.names { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; border-top: 1px solid rgba(242, 247, 247, 0.25); border-bottom: 1px solid rgba(242, 247, 247, 0.25); }
+.names li { padding: 16px 22px; font-weight: 700; border-inline-end: 1px solid rgba(242, 247, 247, 0.16); }
+.names li:first-child { padding-inline-start: 0; }
+.names li:last-child { border-inline-end: 0; }
+/* equipment support: ruled list */
+.ruled-desc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.ruled-desc li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.ruled-desc .icon { color: var(--teal-600); margin-top: 4px; }
+.ruled-desc h3 { font-size: 1.08rem; }
+.ruled-desc p { color: var(--ink-2); margin-top: 4px; max-width: 70ch; }

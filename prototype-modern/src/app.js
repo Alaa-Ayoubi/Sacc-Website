@@ -31,6 +31,7 @@
       apply: 'تقدّم لهذه الوظيفة', role: 'الوظيفة', dept: 'القسم', loc: 'الموقع', type: 'الدوام', exp: 'الخبرة',
       emailRequired: 'البريد الإلكتروني مطلوب', meetLeaders: 'تعرّف على القيادة', ourJourney: 'مسيرتنا منذ 2007',
       featured: 'مشاريع مختارة', photoMissing: 'صورة المشروع',
+      homeDisc: 'ما ننفّذه', homeAppr: 'معتمدون وحاصلون على الأيزو',
       published: { one: 'مشروع منشور واحد', two: 'مشروعان منشوران', few: 'مشاريع منشورة', none: 'لا مشاريع منشورة بعد' },
     },
     en: {
@@ -47,6 +48,7 @@
       apply: 'Apply for this role', role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
       emailRequired: 'Email is required', meetLeaders: 'Meet the leadership', ourJourney: 'Our journey since 2007',
       featured: 'Selected projects', photoMissing: 'Project photograph',
+      homeDisc: 'What we deliver', homeAppr: 'Approved and ISO certified',
       published: { one: '1 published project', two: '2 published projects', few: 'published projects', none: 'No published projects yet' },
     },
   };
@@ -84,6 +86,9 @@
   const svcIndexBySlug = (slug) => t().services.items.findIndex((s) => svcOf(s).slug === slug);
   const projBySlug = (slug) => t().projects.items.find((p) => projSlug(p.id) === slug);
   const projImage = (p) => { const u = IMG.projects?.[p.id - 1]; return isRemote(u) ? u : ''; };
+  const remoteProjects = () => t().projects.items.filter((p) => projImage(p));
+  const featuredProjects = () => remoteProjects().slice(0, 3);
+  const heroImage = () => { const spare = remoteProjects().find((p) => !featuredProjects().includes(p)); return spare ? projImage(spare) : ''; };
   const isDone = (p) => /complete|مكتمل|منجز/i.test(p.status);
   const relProjects = (s) => t().projects.items.filter((p) => svcOf(s).cat.includes(p.key));
   const published = (n) => {
@@ -209,36 +214,31 @@
 
   // ---------- pages ----------
   function pageHome() {
-    const T = t(), U = ui(), H = T.hero, S = T.stats, C = T.certifications;
-    const featured = T.projects.items.filter((p) => projImage(p)).slice(0, 3);
+    const T = t(), U = ui(), H = T.hero, C = T.certifications;
+    const featured = featuredProjects();
     return `
       <section class="hero" aria-labelledby="h1">
-        ${photo(isRemote(IMG.careers) ? IMG.careers : '', T.brandLine, 'road')}
+        ${photo(heroImage(), T.brandLine, 'road')}
         <div class="hero-in">
           <h1 id="h1">${esc(H.title)}</h1>
           <p>${esc(H.lead)}</p>
           <a class="btn btn-outline-light" href="${href('services')}">${esc(H.cta1)}</a>
         </div>
-        <div class="hero-strip"><ul>${S.map((s) => `<li>${icon('check')}<span><strong class="num ltr">${esc(s.value)}</strong> ${esc(s.label)}</span></li>`).join('')}</ul></div>
       </section>
 
       <section class="band" aria-labelledby="disc-h"><div class="wrap">
-        <div class="head"><div><h2 id="disc-h">${esc(T.services.title)}</h2><p>${esc(T.services.lead)}</p></div><a class="more" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>
-        <ul class="disc-list">${T.services.items.map((s) => `<li><a href="${href(`services/${svcOf(s).slug}`)}"><span>${esc(s.title)}</span>${arrow()}</a></li>`).join('')}</ul>
+        <div class="head"><h2 id="disc-h">${esc(U.homeDisc)}</h2><a class="more" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>
+        <ul class="disc-list">${T.services.items.map((s) => `<li><a href="${href(`services/${svcOf(s).slug}`)}"><span class="mark">${drawing(svcOf(s).d)}</span><span class="name">${esc(s.title)}</span>${arrow()}</a></li>`).join('')}</ul>
       </div></section>
 
       <section class="band mist" aria-labelledby="proj-h"><div class="wrap">
-        <div class="head"><div><h2 id="proj-h">${esc(U.featured)}</h2><p>${esc(T.projects.lead)}</p></div><a class="more" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>
+        <div class="head"><h2 id="proj-h">${esc(U.featured)}</h2><a class="more" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>
         <ul class="proj-grid featured">${featured.map(projItem).join('')}</ul>
       </div></section>
 
       <section class="band teal on-dark" aria-labelledby="appr-h"><div class="wrap">
-        <div class="head"><div><h2 id="appr-h">${esc(C.title)}</h2><p>${esc(C.lead)}</p></div></div>
-        <div class="approvals">
-          <div><h3>${esc(U.isoHead)}</h3><ul class="iso-row">${C.iso.map((i) => `<li><strong class="num ltr">${esc(i.title)}</strong><span>${esc(i.desc)}</span></li>`).join('')}</ul></div>
-          <div><h3>${esc(U.bodiesHead)}</h3><ul class="bodies">${C.approvals.map((a) => `<li>${icon('shield-check')}<span>${esc(a)}</span></li>`).join('')}</ul></div>
-        </div>
-        <div class="approvals-foot"><a class="more" href="${href('certifications')}">${esc(U.certsLink)} ${arrow()}</a></div>
+        <div class="head"><h2 id="appr-h">${esc(U.homeAppr)}</h2><a class="more" href="${href('certifications')}">${esc(U.certsLink)} ${arrow()}</a></div>
+        <ul class="names">${C.iso.map((i) => `<li class="num ltr">${esc(i.title.replace(/:\d+$/, ''))}</li>`).join('')}${C.approvals.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
       </div></section>`;
   }
 
@@ -259,7 +259,7 @@
       <section class="band"><div class="wrap">
         <ul class="disc-grid">${S.items.map((s) => {
           const v = svcOf(s);
-          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2><span class="meta">${published(relProjects(s).length)}</span><span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
+          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2>${relProjects(s).length ? `<span class="meta">${published(relProjects(s).length)}</span>` : ''}<span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
         }).join('')}</ul>
       </div></section>`;
   }
@@ -319,19 +319,19 @@
   function pageEquipment() {
     const E = t().equipment;
     const f4 = { Wrench: 'wrench', Satellite: 'satellite', HardHat: 'hard-hat', Clock: 'clock' };
-    return `${pagehead(E.title, E.lead, `<button class="btn btn-outline-light" type="button" data-request="${esc(E.cta)}" data-type="equipment-rental">${icon('file-text')}${esc(E.cta)}</button>`, 'fleet')}
+    return `${pagehead(E.title, E.lead, '', 'fleet')}
       <section class="band"><div class="wrap">
         <div class="prose" style="margin-bottom:48px"><p class="lead">${esc(E.p1)}</p><p>${esc(E.p2)}</p></div>
         ${tabs('fleet', E.title, [
           { key: 'cats', label: E.categoriesHeading, count: E.categories.length, html: `<ul class="list-ruled">${E.categories.map((c) => `<li><span class="tick" aria-hidden="true"></span><span>${esc(c)}</span></li>`).join('')}</ul>` },
-          { key: 'support', label: E.supportHeading, count: E.features.length, html: `<ul class="features">${E.features.map((f) => `<li>${icon(f4[f.icon] || 'wrench')}<h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p></li>`).join('')}</ul>` },
+          { key: 'support', label: E.supportHeading, count: E.features.length, html: `<ul class="ruled-desc">${E.features.map((f) => `<li>${icon('check')}<div><h3>${esc(f.title)}</h3><p>${esc(f.desc)}</p></div></li>`).join('')}</ul>` },
         ])}
       </div></section>`;
   }
 
   function pageCerts() {
     const C = t().certifications;
-    return `${pagehead(C.title, C.lead, `<button class="btn btn-outline-light" type="button" data-request="${esc(C.cta)}">${icon('file-text')}${esc(C.cta)}</button>`)}
+    return `${pagehead(C.title, C.lead)}
       <section class="band"><div class="wrap">
         ${tabs('certs', C.title, [
           { key: 'iso', label: C.isoHeading, count: C.iso.length, html: `<ul class="features">${C.iso.map((i) => `<li>${icon('award')}<h3 class="num">${esc(i.title)}</h3><p>${esc(i.desc)}</p></li>`).join('')}</ul>` },
@@ -529,6 +529,10 @@
       } else if (state.page === 'projects' && state.sub) {
         const p = projBySlug(state.sub);
         state.prefill = { type: CAT_TYPE[p.key] || 'other', message: `${T.projects.detailsCta}: ${p.title} — ` };
+      } else if (state.page === 'equipment') {
+        state.prefill = { type: 'equipment-rental', message: `${T.equipment.cta}: ` };
+      } else if (state.page === 'certifications') {
+        state.prefill = { type: '', message: `${T.certifications.cta}: ` };
       }
     }
   });
