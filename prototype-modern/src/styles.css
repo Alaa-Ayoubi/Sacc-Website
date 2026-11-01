@@ -511,3 +511,22 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
   .hero-bg .photo .fallback { width: 100%; opacity: 0.18; }
   .hero-in { min-height: calc(100svh - var(--head-h) - 160px); }
 }
+
+/* ---------- Footer: one compact, ordered bar ---------- */
+.footer-in { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; padding-block: 22px; grid-template-columns: none; }
+.footer-brand { flex: none; display: inline-flex; }
+.footer-brand img { height: 32px; }
+.footer-links { flex: 1 1 auto; }
+.footer-links ul { display: flex; flex-wrap: wrap; gap: 6px 22px; grid-template-columns: none; font-size: 0.9rem; }
+.footer-rights { flex: none; font-size: 0.82rem; color: var(--on-teal-2); opacity: 0.85; }
+.footer-base { display: none; }
+@media (max-width: 760px) {
+  .footer-in { gap: 14px 20px; padding-block: 20px 24px; }
+  .footer-links { flex-basis: 100%; order: 2; }
+  .footer-links ul { gap: 8px 18px; }
+  .footer-rights { order: 3; flex-basis: 100%; }
+}
+.footer-in { column-gap: 28px; }
+.footer-links { flex: 1 1 0; min-width: 0; }
+.footer-links ul { column-gap: 18px; font-size: 0.88rem; }
+@media (max-width: 760px) { .footer-links { flex: 1 1 100%; } }

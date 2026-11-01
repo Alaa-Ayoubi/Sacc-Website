@@ -171,10 +171,10 @@
   function footer() {
     const T = t();
     return `<div class="footer-in">
-        <div><img src="${logo}" alt="${esc(T.brandLine)}" width="144" height="36"></div>
-        <div><h2>${esc(T.footer.quickLinks)}</h2><ul>${T.nav.map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></div>
-      </div>
-      <div class="footer-base">${esc(T.footer.rights)}</div>`;
+        <a class="footer-brand" href="${href('')}"><img src="${logo}" alt="${esc(T.brandLine)}" width="128" height="32"></a>
+        <nav class="footer-links" aria-label="${esc(T.footer.quickLinks)}"><ul>${T.nav.map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></nav>
+        <p class="footer-rights">${esc(T.footer.rights)}</p>
+      </div>`;
   }
 
   function pagehead(title, lead, extra = '', drawKey = '') {
