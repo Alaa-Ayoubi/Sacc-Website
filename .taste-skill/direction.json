@@ -2,7 +2,7 @@
  "version": 1,
  "at": "2026-11-01T13:42:20.314Z",
  "seed": 908341578,
- "redraws": 2,
+ "redraws": 3,
  "input": {
   "brief": "Saudi infrastructure contractor in Al Madinah building water, sewerage, roads, power networks for government clients; formal, bilingual Arabic-first",
   "sector": "architecture",
@@ -95,43 +95,44 @@
   ]
  },
  "type": {
-  "id": "work-sans-light",
-  "name": "Work Sans",
-  "class": "grotesk-light",
+  "id": "unbounded-onest",
+  "name": "Unbounded / Onest",
+  "class": "extended-heavy",
   "display": {
-   "family": "Work Sans",
+   "family": "Unbounded",
    "source": "google",
    "weights": [
-    300
+    800
    ],
    "italic": false,
-   "settings": "weight 300 · tracking -0.035em · leading 1.0 · sentence case",
-   "css": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap\" rel=\"stylesheet\">"
+   "settings": "weight 800 · tracking -0.03em · leading 1.0 · uppercase",
+   "css": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Onest:wght@400;500&display=swap\" rel=\"stylesheet\">"
   },
   "text": {
-   "family": "Work Sans",
+   "family": "Onest",
    "source": "google",
    "weights": [
     400,
     500
    ],
    "italic": false,
-   "settings": "400 for body, 500 for emphasis · leading 1.55 · tracking 0",
-   "css": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap\" rel=\"stylesheet\">"
+   "settings": "400 for body, 500 for emphasis · leading 1.5 · tracking 0",
+   "css": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Onest:wght@400;500&display=swap\" rel=\"stylesheet\">"
   },
   "standsInFor": [
-   "ABC Favorit",
-   "Clarkson Light",
-   "PP Mori"
+   "IntraNet",
+   "Nekst",
+   "Owners Wide"
   ],
-  "note": "A light grotesque with open, slightly old-fashioned shapes; large headings look airy and the text weight beneath stays easy to read. Suits AI and research products, fashion houses and calm brand sites.",
+  "note": "A wide display sans built from rounded squares, heavy and a little architectural, beside a clean text grotesk. Suits architecture indexes, watches, mobility and events that want a title with a constructed feel.",
   "seenIn": [
-   "aww-cerebrium",
-   "aww-squarespace-foundations",
-   "aww-boc-studio"
+   "opl-belgrade-architecture",
+   "aww-the-watch",
+   "aww-risk",
+   "aww-house-of-honey-1"
   ],
   "links": [
-   "https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap"
+   "https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Onest:wght@400;500&display=swap"
   ],
   "scale": {
    "step-small": "clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem)",

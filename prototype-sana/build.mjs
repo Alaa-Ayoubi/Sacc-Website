@@ -14,19 +14,25 @@ const root = join(here, '..');
 const read = (p) => readFileSync(join(here, p), 'utf8');
 const b64 = (p) => readFileSync(p).toString('base64');
 
-function faces(pkg, family, wantFiles) {
-  const css = read(`node_modules/${pkg}/wght.css`);
+function faces(pkg, family, cssFile, wantFiles, weight) {
+  const css = read(`node_modules/${pkg}/${cssFile}`);
   return css.split('@font-face').slice(1).map((block) => {
     const file = block.match(/url\(\.\/files\/([^)]+\.woff2)\)/)?.[1];
     const range = block.match(/unicode-range:\s*([^;]+);/)?.[1];
     if (!file || !wantFiles.includes(file)) return '';
-    return `@font-face{font-family:'${family}';font-style:normal;font-display:swap;font-weight:100 900;src:url(data:font/woff2;base64,${b64(join(here, 'node_modules', pkg, 'files', file))}) format('woff2');unicode-range:${range};}`;
+    return `@font-face{font-family:'${family}';font-style:normal;font-display:swap;font-weight:${weight};src:url(data:font/woff2;base64,${b64(join(here, 'node_modules', pkg, 'files', file))}) format('woff2');unicode-range:${range};}`;
   }).filter(Boolean).join('\n');
 }
 
+// Type system drawn by taste-skill: Unbounded (display) and Onest (text) for
+// Latin; their Arabic partners chosen for the same character: Noto Kufi
+// Arabic (constructed, heavy display) and IBM Plex Sans Arabic (clean text).
 const fonts = [
-  faces('@fontsource-variable/work-sans', 'Work Sans', ['work-sans-latin-wght-normal.woff2', 'work-sans-latin-ext-wght-normal.woff2']),
-  faces('@fontsource-variable/noto-sans-arabic', 'Noto Sans Arabic', ['noto-sans-arabic-arabic-wght-normal.woff2']),
+  faces('@fontsource-variable/unbounded', 'Unbounded', 'wght.css', ['unbounded-latin-wght-normal.woff2', 'unbounded-latin-ext-wght-normal.woff2'], '200 900'),
+  faces('@fontsource-variable/onest', 'Onest', 'wght.css', ['onest-latin-wght-normal.woff2', 'onest-latin-ext-wght-normal.woff2'], '100 900'),
+  faces('@fontsource-variable/noto-kufi-arabic', 'Noto Kufi Arabic', 'wght.css', ['noto-kufi-arabic-arabic-wght-normal.woff2'], '100 900'),
+  faces('@fontsource/ibm-plex-sans-arabic', 'IBM Plex Sans Arabic', '400.css', ['ibm-plex-sans-arabic-arabic-400-normal.woff2'], '400'),
+  faces('@fontsource/ibm-plex-sans-arabic', 'IBM Plex Sans Arabic', '500.css', ['ibm-plex-sans-arabic-arabic-500-normal.woff2'], '500'),
 ].join('\n');
 
 const ICONS = ['arrow-left', 'arrow-right', 'arrow-down', 'phone', 'mail', 'menu', 'x', 'languages', 'upload', 'circle-alert', 'check'];

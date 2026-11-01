@@ -18,7 +18,7 @@
       skip: 'تخطَّ إلى المحتوى', menu: 'القائمة', close: 'إغلاق', quote: 'اطلب عرض سعر',
       langName: 'English', langLabel: 'Switch to English',
       nav: { company: 'الشركة', services: 'الخدمات', projects: 'المشاريع', fleet: 'الأسطول', approvals: 'الاعتمادات' },
-      l1: 'سنا', l2: 'الأوائل', seeWork: 'شاهد أعمالنا',
+      name: 'سنا الأوائل للمقاولات', seeWork: 'شاهد أعمالنا',
       discH: 'تخصصاتنا',
       groups: [
         { name: 'الشبكات', icons: ['Droplets', 'CloudRain', 'Zap'], sum: 'مياه وصرف صحي وتصريف أمطار وكهرباء وطاقة شمسية.' },
@@ -44,7 +44,7 @@
       skip: 'Skip to content', menu: 'Menu', close: 'Close', quote: 'Request a Quote',
       langName: 'العربية', langLabel: 'التبديل إلى العربية',
       nav: { company: 'Company', services: 'Services', projects: 'Projects', fleet: 'Fleet', approvals: 'Approvals' },
-      l1: 'Sana', l2: 'Al-Awael', seeWork: 'See our work',
+      name: 'Sana Al-Awael Contracting', seeWork: 'See our work',
       discH: 'Disciplines',
       groups: [
         { name: 'Networks', icons: ['Droplets', 'CloudRain', 'Zap'], sum: 'Water, sewerage, stormwater, electricity and solar.' },
@@ -131,7 +131,7 @@
       <a class="brand" href="${href('')}"><img src="${logo}" alt="${esc(T.brandLine)}" width="120" height="30"></a>
       <nav aria-label="${esc(U.menu)}"><ul>${NAV.map((id) => `<li><a href="${href(id)}"${cur(id)}>${esc(U.nav[id])}</a></li>`).join('')}</ul></nav>
       <div class="tools">
-        <a class="lang" href="${href(here, other)}" hreflang="${other}" lang="${other}" aria-label="${esc(U.langLabel)}">${icon('languages')}<span>${esc(U.langName)}</span></a>
+        <a class="lang" href="${href(here, other)}" hreflang="${other}" lang="${other}" aria-label="${esc(U.langLabel)}">${icon('languages')}<span class="long">${esc(U.langName)}</span><span class="short" aria-hidden="true">${rtl() ? 'EN' : 'ع'}</span></a>
         <a class="action" href="${href('contact')}" data-quote>${esc(U.quote)}</a>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="drawer" aria-label="${esc(U.menu)}">${icon('menu')}</button>
       </div>
@@ -160,8 +160,8 @@
       <section class="hero" aria-labelledby="h1">
         <figure class="pic">${heroImg ? `<img src="${esc(heroImg)}" alt="" fetchpriority="high">` : ''}</figure>
         <div class="hero-grid">
-          <h1 id="h1"><span class="l1"><span class="mask"><span>${esc(U.l1)}</span></span></span><span class="l2"><span class="mask l2m"><span>${esc(U.l2)}</span></span></span></h1>
-          <div class="mid"><p>${esc(T.hero.lead)}</p><a class="link" href="#work">${esc(U.seeWork)} ${icon('arrow-down')}</a></div>
+          <div class="mid"><p>${esc(T.hero.lead)}</p></div>
+          <h1 id="h1"><span class="mask"><span>${esc(U.name)}</span></span></h1>
         </div>
       </section>
 
@@ -422,6 +422,20 @@
     b.classList.toggle('solid', !state.page && !onHero);
   }
 
+  // The name runs from margin to margin on one line: its size is fitted to the width.
+  function fitName() {
+    const h = $('.hero h1'); if (!h) return;
+    const box = h.parentElement, span = $('.mask > span', h);
+    // A long Latin name on a phone sets on two lines at a fixed size instead of shrinking to a caption.
+    const twoLines = !rtl() && innerWidth < 760;
+    h.classList.toggle('two', twoLines);
+    if (twoLines) { h.style.fontSize = ''; return; }
+    const avail = box.clientWidth - parseFloat(getComputedStyle(box).paddingInlineStart) - parseFloat(getComputedStyle(box).paddingInlineEnd);
+    h.style.fontSize = '100px';
+    const w = span.getBoundingClientRect().width;
+    if (w > 0) h.style.fontSize = `${Math.floor((100 * avail / w) * 0.995 * 10) / 10}px`;
+  }
+
   let lastKey = '';
   function render(force = false) {
     const { lang, page, sub } = parseHash();
@@ -440,7 +454,7 @@
     $('#main').innerHTML = (page === 'services' && sub) ? service() : (page === 'projects' && sub) ? project() : PAGE_FN[page]();
     $('#foot').innerHTML = foot();
     if (changed || force) scrollTo({ top: 0, behavior: 'auto' });
-    observe(); startCycle(); barMode();
+    observe(); startCycle(); barMode(); fitName();
     requestAnimationFrame(() => requestAnimationFrame(() => D.classList.add('loaded')));
   }
 
@@ -544,6 +558,13 @@
   });
 
   addEventListener('scroll', barMode, { passive: true });
+  addEventListener('resize', fitName);
+  // Refit once the display faces have really loaded (fonts.ready can settle before a lazily used face arrives).
+  if (document.fonts) {
+    document.fonts.ready.then(fitName);
+    document.fonts.addEventListener?.('loadingdone', fitName);
+    Promise.all([document.fonts.load('800 100px "Unbounded"', 'SANA'), document.fonts.load('800 100px "Noto Kufi Arabic"', 'سنا')]).then(fitName).catch(() => {});
+  }
   addEventListener('hashchange', () => render());
   render(true);
 })();
