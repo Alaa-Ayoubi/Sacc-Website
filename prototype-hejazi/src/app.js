@@ -52,7 +52,6 @@
       emailRequired: 'البريد الإلكتروني مطلوب',
       apply: 'تقدّم لهذه الوظيفة',
       role: 'الوظيفة', dept: 'القسم', loc: 'الموقع', type: 'الدوام', exp: 'الخبرة',
-      portraitPending: 'الصورة غير متاحة',
       tally: {
         projects: ['مشروع منفّذ', 'مشروعان منفّذان', 'مشاريع منفّذة', 'مشروعًا منفّذًا'],
         clients: ['جهة مالكة', 'جهتان مالكتان', 'جهات مالكة', 'جهةً مالكة'],
@@ -98,7 +97,6 @@
       emailRequired: 'Email is required',
       apply: 'Apply for this role',
       role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
-      portraitPending: 'Portrait unavailable',
       tally: {
         projects: ['project delivered', 'projects delivered'],
         clients: ['client', 'clients'],
@@ -313,12 +311,13 @@
 
   // ---------- inner pages ----------
   function pageAbout() {
+    // The NWC approval (why.items[1]) lives once, in the official strip.
     const T = t(), I = T.intro, W = T.why;
     return `
       ${lintel(I.title, I.p1)}
       <section class="band"><div class="wrap split">
         <div class="prose"><p>${esc(I.p2)}</p><p>${esc(I.p3)}</p></div>
-        <div class="why"><h2>${esc(W.title)}</h2><p>${esc(W.lead)}</p><ul class="checks">${W.items.map((w) => `<li>${icon('check')}<span>${esc(w)}</span></li>`).join('')}</ul></div>
+        <div class="why"><h2>${esc(W.title)}</h2><p>${esc(W.lead)}</p><ul class="checks">${W.items.filter((w) => w !== W.items[1]).map((w) => `<li>${icon('check')}<span>${esc(w)}</span></li>`).join('')}</ul></div>
       </div></section>`;
   }
 
