@@ -434,7 +434,11 @@
     const avail = box.clientWidth - parseFloat(getComputedStyle(box).paddingInlineStart) - parseFloat(getComputedStyle(box).paddingInlineEnd);
     h.style.fontSize = '100px';
     const w = span.getBoundingClientRect().width;
-    if (w > 0) h.style.fontSize = `${Math.floor((100 * avail / w) * 0.995 * 10) / 10}px`;
+    // The name never grows past the display step; it only shrinks when the width is short.
+    h.style.fontSize = 'var(--step-display)';
+    const cap = parseFloat(getComputedStyle(h).fontSize);
+    const fit = w > 0 ? Math.floor((100 * avail / w) * 0.995 * 10) / 10 : cap;
+    h.style.fontSize = `${Math.min(cap, fit)}px`;
   }
 
   let lastKey = '';

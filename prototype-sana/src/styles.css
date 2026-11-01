@@ -22,15 +22,15 @@
   --font: 'Onest', 'IBM Plex Sans Arabic', system-ui, sans-serif;
   --display: 'Unbounded', 'Noto Kufi Arabic', system-ui, sans-serif;
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
-  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
-  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
-  --step-display: clamp(4.5rem, 13vw, 12.5rem);
+  --step-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --step-lead: clamp(1.125rem, 1.06rem + 0.25vw, 1.3125rem);
+  --step-head: clamp(1.5rem, 1.25rem + 1vw, 2.25rem);
+  --step-display: clamp(2.25rem, 1.5rem + 3vw, 4rem);
 
   --m: 32px;
   --wrap: calc(100% - 2 * var(--m));
   --bar-h: 72px;
-  --gap-section: clamp(120px, 14vw, 200px);
+  --gap-section: clamp(80px, 9vw, 128px);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   color-scheme: dark;
@@ -142,7 +142,7 @@ html[lang='en'] .hero h1 { font-size: 7.6vw; line-height: 1; letter-spacing: -0.
   .hero { min-height: 560px; }
   .hero h1 { font-size: 9.2vw; }
   html[lang='en'] .hero h1 { font-size: 8.2vw; }
-  .hero .mid p { font-size: 1.125rem; max-width: 34ch; }
+  .hero .mid p { max-width: 34ch; }
 }
 
 /* ---------- Section rhythm ---------- */
@@ -202,7 +202,7 @@ html[lang='ar'] .names a .n { letter-spacing: 0; line-height: 1.3; }
   .work .grid12 { display: block; }
   .frame { display: none; }
   .names a { color: var(--ink); display: block; padding-block: 0 8px; }
-  .names a .n { font-size: 9.5vw; display: block; }
+  .names a .n { font-size: var(--step-head); display: block; }
   .names a .meta { display: block; }
   .names li { margin-bottom: 40px; }
   .work .phone-pic { display: block; aspect-ratio: 16 / 10; margin: 0 0 14px; background: var(--surface); position: relative; overflow: hidden; }
@@ -235,7 +235,7 @@ html[lang='ar'] .names a .n { letter-spacing: 0; line-height: 1.3; }
 .fig-foot { margin-top: 28px; }
 @media (max-width: 760px) {
   .fig { height: 80svh; }
-  .fig .big { font-size: 26vw; }
+  .fig .big { font-size: var(--step-display); }
   .fig .say { inset-inline: var(--m) auto; bottom: auto; top: 30%; text-align: start; }
   .figs { display: grid; grid-template-columns: 1fr; row-gap: 18px; }
 }
@@ -461,8 +461,6 @@ html[lang='ar'] .foot .name, html[lang='ar'] .entry h2 { letter-spacing: 0; }
 .proof p, .lead-q blockquote, .page-head p, .hero .mid p { font-weight: 400; }
 
 /* Kufi sets wider: project names hold two lines on tablet and phone */
-@media (max-width: 900px) { .names a .n { font-size: 5.6vw; } }
-@media (max-width: 560px) { .names a .n { font-size: 7.2vw; } }
 /* Disciplines on a tablet: two columns, so neither half of the screen stands empty */
 @media (max-width: 900px) and (min-width: 561px) {
   .disc .grid12 { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
@@ -471,7 +469,7 @@ html[lang='ar'] .foot .name, html[lang='ar'] .entry h2 { letter-spacing: 0; }
 
 .bar .lang .short { display: none; font-weight: 500; }
 @media (max-width: 460px) { .bar .lang .short { display: inline; } }
-.hero h1.two { white-space: normal; font-size: 8.6vw; line-height: 1.05; }
+.hero h1.two { white-space: normal; font-size: var(--step-display); line-height: 1.1; }
 .hero h1.two .mask > span { display: block; }
 .bar .action { white-space: nowrap; }
 @media (max-width: 460px) { .bar .action { font-size: 0.9rem; padding: 8px 10px; } .bar .tools { gap: 8px; } .bar-in { gap: 12px; } }
@@ -491,7 +489,7 @@ html[lang='ar'] .foot .name, html[lang='ar'] .entry h2 { letter-spacing: 0; }
   .chair .portrait-lg { width: min(70%, 320px); }
 }
 /* Disciplines carry the screen: names and the description at the lead size */
-.disc li a, .disc .spot { font-size: var(--step-lead); line-height: 1.35; }
+.disc li a, .disc .spot { font-size: var(--step-body); line-height: 1.6; }
 .disc ul { gap: 0.55em; }
 .disc .spot strong { font-weight: 600; }
 /* Office: a card on its photograph, not a whole empty screen */
@@ -499,7 +497,7 @@ html[lang='ar'] .foot .name, html[lang='ar'] .entry h2 { letter-spacing: 0; }
 /* Phone: hold the five steps (the fitted name is the only exception) */
 @media (max-width: 560px) {
   .names a .n { font-size: var(--step-lead); }
-  .hero .mid p { font-size: var(--step-lead); }
+  .hero .mid p { font-size: var(--step-body); }
   .bar .action { font-size: var(--step-small); }
   .fig .big { font-size: var(--step-display); }
 }
