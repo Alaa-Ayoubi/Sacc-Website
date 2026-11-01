@@ -25,3 +25,4 @@ frontend/preview*.log
 
 # Impeccable local review captures (regenerated on every inspection)
 .impeccable/review/
+.impeccable/review-*/

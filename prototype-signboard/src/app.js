@@ -71,12 +71,12 @@
       signed: 'رئيس مجلس الإدارة',
       requestRef: 'مرجع الطلب',
       tally: {
-        projects: ['مشروع', 'مشروعان', 'مشاريع', 'مشروعًا'],
-        disciplines: ['تخصص', 'تخصصان', 'تخصصات', 'تخصصًا'],
-        entities: ['جهة', 'جهتان', 'جهات', 'جهة'],
-        certs: ['شهادة', 'شهادتان', 'شهادات', 'شهادة'],
-        places: ['موقع', 'موقعان', 'مواقع', 'موقعًا'],
-        roles: ['وظيفة', 'وظيفتان', 'وظائف', 'وظيفة'],
+        projects: ['مشروع واحد', 'مشروعان', 'مشاريع', 'مشروعًا'],
+        disciplines: ['تخصص واحد', 'تخصصان', 'تخصصات', 'تخصصًا'],
+        entities: ['جهة واحدة', 'جهتان', 'جهات', 'جهة'],
+        certs: ['شهادة واحدة', 'شهادتان', 'شهادات', 'شهادة'],
+        places: ['موقع واحد', 'موقعان', 'مواقع', 'موقعًا'],
+        roles: ['وظيفة واحدة', 'وظيفتان', 'وظائف', 'وظيفة'],
       },
     },
     en: {
@@ -187,14 +187,14 @@
   const no = (n) => String(n).padStart(2, '0');
   const altAttrs = () => `lang="${other()}" dir="${other() === 'ar' ? 'rtl' : 'ltr'}"`;
 
-  // Arabic counted nouns: 1 and 2 have their own forms (the dual stands
-  // without a numeral), 3–10 take the plural, 11 and above the singular
+  // Arabic counted nouns: 1 and 2 have their own forms and stand without
+  // a numeral (مشروع واحد، مشروعان), 3–10 take the plural, 11 and above the singular
   // accusative. English: singular for 1, plural otherwise.
   function counted(n, key) {
     const f = ui().tally[key];
     const fig = (x) => `<span class="fig">${x}</span>`;
     if (state.lang === 'en') return `${fig(n)} <span class="noun">${esc(n === 1 ? f[0] : f[1])}</span>`;
-    if (n === 1) return `${fig(1)} <span class="noun">${esc(f[0])}</span>`;
+    if (n === 1) return `<span class="noun solo">${esc(f[0])}</span>`;
     if (n === 2) return `<span class="noun solo">${esc(f[1])}</span>`;
     return `${fig(n)} <span class="noun">${esc(n <= 10 ? f[2] : f[3])}</span>`;
   }
@@ -204,7 +204,7 @@
 
   // One ruled row of a board. size: full | half | quarter.
   function row(k, v, { size = 'full', id = '', link = '', cls = '' } = {}) {
-    return `<div class="row ${size} ${cls}"${id ? ` data-k="${id}"` : ''}><dt class="key">${k}</dt><dd class="val">${v}${link}</dd></div>`;
+    return `<div class="row ${size} ${cls}"${id ? ` data-k="${id}"` : ''}><dt class="key">${k}</dt><dd class="val"><div class="v">${v}</div>${link}</dd></div>`;
   }
   const onward = (page, label) => `<a class="onward" href="${href(page)}">${esc(label)}${fwd()}</a>`;
   const navLabel = (id) => t().nav.find((n) => n.id === id)?.label || '';
@@ -390,10 +390,10 @@
           ${band(T.brandLine, t(other()).brandLine, '', { level: 1 })}
           <dl class="rows">
             ${row(key((c, u) => u.activity), `<p class="prose">${esc(T.hero.lead)}</p>`, { link: onward('about', navLabel('about')) })}
-            ${row(statKey(0), `<span class="big num">${esc(S[0].value)}</span>`, { size: 'quarter', link: onward('journey', navLabel('journey')) })}
-            ${row(statKey(1), `<span class="big num">${esc(S[1].value)}</span>`, { size: 'quarter', link: onward('leadership', navLabel('leadership')) })}
-            ${row(statKey(2), `<span class="big num">${esc(S[2].value)}</span>`, { size: 'quarter', link: onward('equipment', navLabel('equipment')) })}
-            ${row(statKey(3), `<span class="big num">${esc(S[3].value)}</span>`, { size: 'quarter' })}
+            ${row(statKey(0), `<span class="big num" dir="ltr">${esc(S[0].value)}</span>`, { size: 'quarter', link: onward('journey', navLabel('journey')) })}
+            ${row(statKey(1), `<span class="big num" dir="ltr">${esc(S[1].value)}</span>`, { size: 'quarter', link: onward('leadership', navLabel('leadership')) })}
+            ${row(statKey(2), `<span class="big num" dir="ltr">${esc(S[2].value)}</span>`, { size: 'quarter', link: onward('equipment', navLabel('equipment')) })}
+            ${row(statKey(3), `<span class="big num" dir="ltr">${esc(S[3].value)}</span>`, { size: 'quarter' })}
             ${row(key((c) => c.certifications.isoHeading), `<span class="big">${counted(C.iso.length, 'certs')}</span>`, { size: 'quarter', link: `<a class="onward" href="${href('certifications')}" data-settab="certs:iso">${esc(navLabel('certifications'))}${fwd()}</a>` })}
             ${row(key((c) => c.certifications.approvalsHeading), `<span class="big">${counted(C.approvals.length, 'entities')}</span>`, { size: 'quarter', link: `<a class="onward" href="${href('certifications')}" data-settab="certs:approvals">${esc(navLabel('certifications'))}${fwd()}</a>` })}
             ${row(key((c, u) => u.disciplines), `<span class="big">${counted(T.services.items.length, 'disciplines')}</span>`, { size: 'quarter', link: onward('services', navLabel('services')) })}
@@ -451,7 +451,7 @@
           return `<li>
             <a class="sch-title" href="${href(`services/${svcSlug(s)}`)}"><span class="k1">${esc(s.title)}</span><span class="k2" ${altAttrs()}>${esc(alt.title)}</span></a>
             <div class="sch-body"><p class="prose">${esc(s.desc)}</p><ul class="inline-list">${s.capabilities.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>
-            <div class="sch-count">${n ? counted(n, 'projects') : `<span class="muted">${esc(U.noProjects)}</span>`}</div>
+            <div class="sch-count">${n ? counted(n, 'projects') : `<span class="muted" aria-hidden="true">—</span><span class="vh">${esc(U.noProjects)}</span>`}</div>
             <a class="sch-go" href="${href(`services/${svcSlug(s)}`)}" aria-label="${esc(s.title)}">${fwd()}</a>
           </li>`;
         }).join('')}</ol>
@@ -468,7 +468,7 @@
     const scope = `<dl class="rows">${s.capabilities.map((c, j) => row(`<span class="k1 num">${no(j + 1)}</span>`, esc(c), { cls: 'numbered' })).join('')}</dl>`;
     const projects = rel.length ? register(rel, U.projectsTab) : `<p class="empty">${esc(U.noProjects)}</p>`;
     return `
-      ${crumbs([[S.title, 'services'], [s.title]])}
+      ${crumbs([[navLabel('services'), 'services'], [s.title]])}
       ${head(s.title, t(other()).services.items[i].title, s.desc)}
       <section class="wrap"><div class="board">
         ${tabs('svc', s.title, [
@@ -499,7 +499,7 @@
       <section class="wrap"><div class="board">
         <dl class="rows">
           ${row(key((c, u) => u.projects), `<span class="big">${counted(items.length, 'projects')}</span>`, { size: 'quarter' })}
-          ${row(key((c, u) => u.completed), `<span class="big num">${doneN}</span>`, { size: 'quarter' })}
+          ${row(key((c, u) => u.completed), `<span class="big num" dir="ltr">${doneN}</span>`, { size: 'quarter' })}
           ${row(key((c, u) => u.owners), `<span class="big">${counted(owners, 'entities')}</span>`, { size: 'quarter' })}
           ${row(key((c, u) => u.places), `<span class="big">${counted(places, 'places')}</span>`, { size: 'quarter' })}
         </dl>
@@ -523,7 +523,7 @@
     const prev = list[(k + list.length - 1) % list.length];
     const next = list[(k + 1) % list.length];
     return `
-      ${crumbs([[P.title, 'projects'], [p.title]])}
+      ${crumbs([[navLabel('projects'), 'projects'], [p.title]])}
       <section class="wrap"><article class="board" aria-labelledby="pt">
         <header class="band">
           <p class="band-no num">${no(p.id)}</p>
@@ -607,7 +607,7 @@
       <section class="wrap leaders">${L.leaders.map((p, i) => `
         <article class="board leader" aria-labelledby="ld-${i}">
           <header class="band band-person">
-            <figure class="portrait"><img src="${esc(p.photo)}" alt="${esc(p.name)}" width="240" height="300" loading="lazy" data-portrait /><figcaption class="no-photo">${icon('user-round')}<span>${esc(U.photoMissing)}</span></figcaption></figure>
+            <figure class="portrait"><span class="no-photo">${icon('user-round')}<span>${esc(U.photoMissing)}</span></span><img src="${esc(p.photo)}" alt="${esc(p.name)}" width="240" height="300" data-portrait /></figure>
             <div><h2 class="band-title" id="ld-${i}">${esc(p.name)}</h2><p class="band-alt" ${altAttrs()}>${esc(altL.leaders[i].name)}</p><p class="role">${esc(p.title)}</p></div>
           </header>
           <dl class="rows">
