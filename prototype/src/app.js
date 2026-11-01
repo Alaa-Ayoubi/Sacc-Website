@@ -64,7 +64,7 @@
       emailRequired: 'البريد الإلكتروني مطلوب',
       swipe: 'اسحب أفقياً لرؤية المقطع كاملاً',
       tally: {
-        projects: ['مشروع منفّذ', 'مشروعان منفّذان', 'مشاريع منفّذة', 'مشروعًا منفّذًا'],
+        projects: ['مشروع', 'مشروعان', 'مشاريع', 'مشروعًا'],
         clients: ['جهة حكومية وشبه حكومية', 'جهتان حكوميتان وشبه حكوميتين', 'جهات حكومية وشبه حكومية', 'جهة حكومية وشبه حكومية'],
         places: ['مدينة ومنطقة', 'مدينتان ومنطقتان', 'مدن ومناطق', 'مدينة ومنطقة'],
         completed: ['مكتمل', 'مكتملان', 'مكتملة', 'مكتملًا'],
@@ -121,6 +121,7 @@
       fleetNote: 'This discipline sits above ground: a fleet SACC owns and rents out with technical support.',
       emailRequired: 'Email is required',
       swipe: 'Swipe sideways to see the whole section',
+      projectsCount: 'projects',
       role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
       present: 'Present',
       short: {
@@ -426,7 +427,7 @@
       <div class="filters" role="group" aria-label="${esc(P.title)}">
         ${P.categories.map((c) => `<button type="button" data-filter="${c.key}" aria-pressed="${state.filter === c.key}">${c.key !== 'all' ? `<span class="seg" style="--c:${PROJECT_COLOR[c.key]}"></span>` : ''}${esc(c.label)}</button>`).join('')}
       </div>
-      <p class="tally">${counted(P.items.length, 'projects', P.statLabels.projects)} · ${counted(clients, 'clients', P.statLabels.clients)} · ${counted(places, 'places', P.statLabels.regions)} · ${counted(done, 'completed', P.statLabels.completed)}</p>
+      <p class="tally">${counted(P.items.length, 'projects', ui().projectsCount || P.statLabels.projects)} · ${counted(clients, 'clients', P.statLabels.clients)} · ${counted(places, 'places', P.statLabels.regions)} · ${counted(done, 'completed', P.statLabels.completed)}</p>
       ${shown.length ? `<ol class="logs">${shown.map((p) => {
         const open = state.open.has(p.id);
         const live = !/complete|منجز|مكتمل/i.test(p.status);
