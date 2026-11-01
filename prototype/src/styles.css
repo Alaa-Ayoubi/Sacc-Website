@@ -990,3 +990,14 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 .proto-flag { background: var(--ground); color: var(--ink-2); border-bottom: 2px solid var(--marking); }
 /* An invalid field stays red while focused */
 .field [aria-invalid='true']:focus { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.22); }
+
+/* ---------- One place per fact ---------- */
+.intro-short { max-width: 900px; }
+.intro-short h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.18; font-weight: 600; }
+html[lang='ar'] .intro-short h2 { line-height: 1.35; }
+.intro-short .lead { margin-top: 16px; font-size: clamp(1.15rem, 1.6vw, 1.35rem); line-height: 1.7; }
+.onward { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 28px; }
+.sheet-solo { max-width: 860px; }
+.footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+.footer .sitemap { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+@media (max-width: 520px) { .footer .sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

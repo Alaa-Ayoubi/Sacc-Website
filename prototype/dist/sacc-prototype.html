@@ -1006,6 +1006,17 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 /* An invalid field stays red while focused */
 .field [aria-invalid='true']:focus { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.22); }
 
+/* ---------- One place per fact ---------- */
+.intro-short { max-width: 900px; }
+.intro-short h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.18; font-weight: 600; }
+html[lang='ar'] .intro-short h2 { line-height: 1.35; }
+.intro-short .lead { margin-top: 16px; font-size: clamp(1.15rem, 1.6vw, 1.35rem); line-height: 1.7; }
+.onward { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 28px; }
+.sheet-solo { max-width: 860px; }
+.footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+.footer .sitemap { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+@media (max-width: 520px) { .footer .sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
   </style>
 </head>
 <body>
@@ -1241,7 +1252,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
   function officialBar() {
     const T = t(), U = ui();
     return `<div class="officialbar-in">
-      <ul class="creds"><li>${icon('file-text')}${esc(U.cr)} <span class="num">${esc(CR)}</span></li><li>${icon('shield-check')}${esc(T.why.items[1])}</li><li>${icon('check')}ISO 9001 · 14001 · 45001</li></ul>
+      <ul class="creds"><li>${icon('file-text')}${esc(U.cr)} <span class="num">${esc(CR)}</span></li><li>${icon('shield-check')}${esc(T.why.items[1])}</li></ul>
       <ul class="reach"><li>${icon('phone')}<a href="tel:${PHONE.replace(/\s/g, '')}"><span class="ltr num">${esc(PHONE)}</span></a></li><li>${icon('mail')}<a href="mailto:${EMAIL}">${esc(EMAIL)}</a></li></ul>
     </div>`;
   }
@@ -1252,15 +1263,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <div class="roadedge" aria-hidden="true"></div>
       <div class="footer-grid">
         <div><img src="${logo}" alt="${esc(T.brandLine)}" width="136" height="34" /><p>${esc(F.tagline)}</p></div>
-        <div><h2>${esc(F.quickLinks)}</h2><ul>${T.nav.slice(0, 5).map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></div>
-        <div><h2>${esc(F.certsHeading)}</h2><ul>${F.certs.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>
-        <div><h2>${esc(F.contactHeading)}</h2><ul>
-          <li><a href="tel:${PHONE.replace(/\s/g, '')}"><span class="ltr">${esc(PHONE)}</span></a></li>
-          <li><a href="tel:${MOBILE.replace(/\s/g, '')}"><span class="ltr">${esc(MOBILE)}</span></a></li>
-          <li><a href="mailto:${EMAIL}">${esc(EMAIL)}</a></li>
-          <li>${esc(T.contact.address)}</li>
-          <li>${esc(U.cr)} <span class="num">${esc(CR)}</span></li>
-        </ul></div>
+        <div class="footer-links"><h2>${esc(F.quickLinks)}</h2><ul class="sitemap">${T.nav.map((n) => `<li><a href="${href(n.id)}">${esc(n.label)}</a></li>`).join('')}<li><a href="${href('careers')}">${esc(T.navCareers)}</a></li></ul></div>
       </div>
       <div class="footer-base"><span>${esc(F.rights)}</span><span>${esc(T.brandLine)}</span></div>`;
   }
@@ -1380,7 +1383,6 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
     const T = t(), U = ui(), S = T.stats;
     const rows = [
       [S[0].value, S[0].label],
-      ['NWC', T.why.items[1]],
       ['ISO', `9001 · 14001 · 45001 — ${U.recordIso}`],
       [S[2].value, S[2].label],
       [S[1].value, S[1].label],
@@ -1390,7 +1392,6 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <aside class="record" aria-labelledby="record-h">
         <h2 id="record-h">${esc(U.record)}</h2>
         <dl>${rows.map(([k, v]) => `<div class="record-row"><dt><span class="ltr">${esc(k)}</span></dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
-        <div class="record-cta"><a class="textlink" href="${href('certifications')}">${esc(T.certifications.cta)} ${arrow()}</a></div>
       </aside>`;
   }
 
@@ -1417,7 +1418,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
         <p>${esc(s.desc)}</p>
         <ul class="caps">${s.capabilities.map((c) => `<li>${icon('check')}<span>${esc(c)}</span></li>`).join('')}</ul>
         ${rel.length ? `<div class="related"><h4>${esc(U.related)}</h4><ul>${rel.map((p) => `<li><a class="textlink" href="${href(`projects/${projectSlug(p.id)}`)}">${esc(p.title)}</a><span>${esc(p.client)} · ${esc(p.location)}</span></li>`).join('')}</ul></div>` : ''}
-        <div class="actions"><button class="btn btn-mark" type="button" data-inquire="${state.svc}">${esc(T.services.inquireCta)} ${esc(s.title)}</button><a class="textlink" href="${href(`services/${svcSlug(s)}`)}">${esc(U.details)} ${arrow()}</a></div>
+        <div class="actions"><a class="textlink" href="${href(`services/${svcSlug(s)}`)}">${esc(U.details)} ${arrow()}</a></div>
       </div>`;
   }
 
@@ -1445,30 +1446,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <div class="strata" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
   }
 
-  function companyBlock(withWhy = true) {
-    const T = t(), I = T.intro, Y = T.why;
-    return `
-      <div class="head"><h2>${esc(I.title)}</h2></div>
-      <div class="company">
-        <p class="lead">${esc(I.p1)}</p>
-        <div class="cols"><p>${esc(I.p2)}</p><p>${esc(I.p3)}</p></div>
-      </div>
-      ${withWhy ? `<div class="why"><h3>${esc(Y.title)}</h3><p>${esc(Y.lead)}</p><ul class="checks">${Y.items.map((w) => `<li>${icon('check')}<span>${esc(w)}</span></li>`).join('')}</ul></div>` : ''}`;
-  }
 
-  function proofBlock(full = false) {
-    const C = t().certifications;
-    return `
-      <div class="head"><h2>${esc(C.title)}</h2><p>${esc(C.lead)}</p></div>
-      <div class="proof">
-        <div><h3>${esc(C.isoHeading)}</h3><ul class="iso">${C.iso.map((i) => `<li><strong class="num">${esc(i.title)}</strong><span>${esc(i.desc)}</span></li>`).join('')}</ul></div>
-        <div><h3>${esc(C.approvalsHeading)}</h3><ul class="approvals">${C.approvals.map((a) => `<li>${icon('shield-check')}<span>${esc(a)}</span></li>`).join('')}</ul></div>
-      </div>
-      <div class="proof-foot">
-        ${full ? `<p><strong>${esc(C.commitmentTitle)}.</strong> ${esc(C.commitmentBody)}</p>` : ''}
-        <button class="btn btn-ink" type="button" data-request="${esc(C.cta)}">${icon('file-text')}${esc(C.cta)}</button>
-      </div>`;
-  }
 
   function logsBlock(limit) {
     const P = t().projects;
@@ -1497,7 +1475,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
             <div class="log-detail" id="pd-${p.id}"${open ? '' : ' hidden'}>
               <p>${esc(p.desc)}</p>
               <div class="scope"><h4>${esc(P.labels.scope)}</h4><ul>${(p.scope || []).map((s) => `<li>${esc(s)}</li>`).join('')}</ul>
-                <button class="btn btn-line" type="button" data-inquire-project="${p.id}">${esc(P.detailsCta)} ${arrow()}</button></div>
+                </div>
             </div>
           </li>`;
       }).join('')}</ol>` : `<p class="empty">${esc(P.empty)}</p>`}`;
@@ -1538,13 +1516,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
   }
 
   function closeBlock() {
-    const T = t(), U = ui();
-    return `
-      <section class="band"><div class="wrap close-grid">
-        <div><h2>${esc(T.contact.title)}</h2><p>${esc(T.contact.lead)}</p>
-          <div class="actions" style="margin-top:28px"><a class="btn btn-mark" href="${href('contact')}" data-quote>${esc(U.quote)}</a></div></div>
-        ${channels()}
-      </div></section>`;
+    return '';
   }
 
   // ---------- pages ----------
@@ -1557,7 +1529,6 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
           <div class="opening-side">
             <p>${esc(Hh.lead)}</p>
             <div class="actions">
-              <a class="btn btn-mark" href="${href('contact')}" data-quote>${esc(U.quote)}</a>
               <a class="btn btn-line-dark" href="${href('services')}">${esc(Hh.cta1)}</a>
             </div>
           </div>
@@ -1565,43 +1536,39 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       </section>
       ${streetSection()}
       ${reader()}
-      <section class="band band-paper"><div class="wrap">${companyBlock(true)}</div></section>
-      <div class="seam" aria-hidden="true"><i></i><i></i><i></i></div>
-      <section class="band band-sand"><div class="wrap">${proofBlock(false)}</div></section>
-      <section class="band"><div class="wrap">
-        <div class="head"><h2>${esc(T.projects.title)}</h2><p>${esc(T.projects.lead)}</p></div>
-        ${logsBlock()}
-      </div></section>
-      <div class="seam" aria-hidden="true"><i></i><i></i><i></i></div>
-      <section class="band band-basalt"><div class="wrap">${fleetBlock(false)}</div></section>
-      <section class="band band-asphalt"><div class="wrap">${quoteBlock()}
-        <div class="actions" style="margin-top:36px"><a class="textlink" href="${href('leadership')}">${esc(U.meetLeaders)} ${arrow()}</a><a class="textlink" href="${href('journey')}">${esc(U.ourJourney)} ${arrow()}</a></div>
-      </div></section>
-      ${closeBlock()}`;
+      <section class="band band-paper"><div class="wrap intro-short">
+        <h2>${esc(T.intro.title)}</h2>
+        <p class="lead">${esc(T.intro.p1)}</p>
+        <nav class="onward" aria-label="${esc(T.intro.title)}">
+          <a class="textlink" href="${href('about')}">${esc(T.nav.find((n) => n.id === 'about').label)} ${arrow()}</a>
+          <a class="textlink" href="${href('projects')}">${esc(T.projects.title)} ${arrow()}</a>
+          <a class="textlink" href="${href('equipment')}">${esc(T.equipment.title)} ${arrow()}</a>
+          <a class="textlink" href="${href('certifications')}">${esc(T.certifications.title)} ${arrow()}</a>
+        </nav>
+      </div></section>`;
   }
 
   function pageAbout() {
     const T = t(), U = ui();
     return `
-      ${pagehead(T.intro.title, T.hero.lead)}
-      <section class="band band-paper"><div class="wrap">${companyBlock(true)}</div></section>
-      <section class="band band-asphalt"><div class="wrap">${quoteBlock()}
-        <div class="actions" style="margin-top:36px"><a class="textlink" href="${href('leadership')}">${esc(U.meetLeaders)} ${arrow()}</a><a class="textlink" href="${href('journey')}">${esc(U.ourJourney)} ${arrow()}</a></div></div></section>
-      ${closeBlock()}`;
+      ${pagehead(T.intro.title, T.intro.p1)}
+      <section class="band band-paper"><div class="wrap">
+        <div class="company"><p class="lead">${esc(T.intro.p2)}</p><div class="cols"><p>${esc(T.intro.p3)}</p></div></div>
+        <div class="why"><h3>${esc(T.why.title)}</h3><p>${esc(T.why.lead)}</p><ul class="checks">${T.why.items.map((w) => `<li>${icon('check')}<span>${esc(w)}</span></li>`).join('')}</ul></div>
+        <nav class="onward" aria-label="${esc(T.intro.title)}"><a class="textlink" href="${href('leadership')}">${esc(U.meetLeaders)} ${arrow()}</a><a class="textlink" href="${href('journey')}">${esc(U.ourJourney)} ${arrow()}</a></nav>
+      </div></section>`;
   }
 
   function pageServices() {
     const T = t(), S = T.services;
     return `
       ${pagehead(S.title, S.lead)}
-      ${streetSection()}
-      ${reader()}
       <section class="band band-paper"><div class="wrap">
         <ol class="svc-list">${S.items.map((s, i) => {
           const n = net(s);
           return `<li class="svc" style="--c:${n.c}">${icon(n.icon)}<div><h3><a href="${href(`services/${svcSlug(s)}`)}">${esc(s.title)}</a></h3><p>${esc(s.desc)}</p><a class="textlink svc-more" href="${href(`services/${svcSlug(s)}`)}">${esc(ui().details)} ${arrow()}</a></div>
             <ul aria-label="${esc(S.capabilitiesHeading)}">${s.capabilities.map((c) => `<li><span class="seg" style="--c:${n.c}"></span>${esc(c)}</li>`).join('')}</ul>
-            <button class="btn btn-line" type="button" data-inquire="${i}">${esc(S.inquireCta)} ${arrow()}</button></li>`;
+            </li>`;
         }).join('')}</ol>
       </div></section>
       ${closeBlock()}`;
@@ -1683,7 +1650,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
             ${field(`${x}-type`, C.fields.type, `<select id="${x}-type" name="type"><option value="">${esc(C.placeholders.type)}</option>${C.typeOptions.map((o) => `<option value="${o.key}"${pf.type === o.key ? ' selected' : ''}>${esc(o.label)}</option>`).join('')}</select>`, '')}
             ${field(`${x}-message`, C.fields.message, `<textarea id="${x}-message" name="message" placeholder="${esc(C.placeholders.message)}" aria-describedby="${x}-message-err">${esc(pf.message || '')}</textarea>`, C.errors.message, true)}
           </div>
-          <div class="form-foot"><button class="btn btn-mark" type="submit">${icon('send', 'flip')}${esc(C.submit)}</button><span class="form-note">${esc(C.orEmail)} <a href="mailto:${EMAIL}">${esc(EMAIL)}</a></span></div>
+          <div class="form-foot"><button class="btn btn-mark" type="submit">${icon('send', 'flip')}${esc(C.submit)}</button></div>
           <div id="${x}-status" aria-live="polite"></div>
         </form>`;
   }
@@ -1695,8 +1662,11 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <section class="band"><div class="wrap sheet-grid">
         ${quoteForm('f', U.quote, state.prefill || {})}
         <aside class="aside">
-          <div class="block"><h3>${esc(C.officeHeading)}</h3>${channels()}</div>
-          <div class="block"><h3>${esc(U.cr)}</h3><p class="num">${esc(CR)}</p></div>
+          <div class="block"><h3>${esc(C.officeHeading)}</h3><ul class="channels">
+            <li>${icon('map-pin')}<span class="k">${esc(U.office)}</span><span>${esc(C.address)}</span></li>
+            <li>${icon('phone')}<span class="k">${esc(U.mobile)}</span><a href="tel:${MOBILE.replace(/\s/g, '')}"><span class="ltr num">${esc(MOBILE)}</span></a></li>
+            <li>${icon('clock')}<span class="k">${esc(C.hoursHeading)}</span><span>${C.hours.map(esc).join('<br>')}</span></li>
+          </ul></div>
         </aside>
       </div></section>`;
   }
@@ -1711,7 +1681,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
         <table class="roles"><thead><tr><th scope="col">${esc(U.role)}</th><th scope="col">${esc(U.dept)}</th><th scope="col">${esc(U.loc)}</th><th scope="col">${esc(U.type)}</th><th scope="col">${esc(U.exp)}</th><th scope="col"><span class="visually-hidden">${esc(U.apply)}</span></th></tr></thead>
         <tbody>${K.roles.map((r) => `<tr><td class="t">${esc(r.title)}</td><td class="k" data-k="${esc(U.dept)}">${esc(r.dept)}</td><td class="k" data-k="${esc(U.loc)}">${esc(r.location)}</td><td class="k" data-k="${esc(U.type)}">${esc(r.type)}</td><td class="k" data-k="${esc(U.exp)}">${esc(r.exp)}</td><td><button class="btn btn-line" type="button" data-role="${r.slug}">${esc(U.apply)}</button></td></tr>`).join('')}</tbody></table>
       </div></section>
-      <section class="band" id="apply"><div class="wrap sheet-grid">
+      <section class="band" id="apply"><div class="wrap sheet-solo">
         <form class="sheet" id="apply-form" novalidate>
           <h2>${esc(K.applyTitle)}</h2><p>${esc(K.applyLead)}</p>
           <div class="fields">
@@ -1731,7 +1701,6 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
           <div class="form-foot"><button class="btn btn-mark" type="submit">${icon('send', 'flip')}${esc(K.submit)}</button></div>
           <div id="apply-status" aria-live="polite"></div>
         </form>
-        <aside class="aside"><div class="block"><h3>${esc(T.contact.officeHeading)}</h3>${channels()}</div></aside>
       </div></section>`;
   }
 
@@ -1775,17 +1744,13 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
     const scope = `<ul class="caps big" style="--c-ink:${n.ink}">${s.capabilities.map((c) => `<li>${icon('check')}<span>${esc(c)}</span></li>`).join('')}</ul>`;
     const projects = rel.length ? relatedLogs(rel) : `<p class="empty">${esc(U.noProjects)}</p>`;
     return `
-      ${pagehead(s.title, s.desc, `<div class="actions"><a class="btn btn-mark" href="#svc-quote" data-jump="svc-quote">${esc(U.quickQuote)}</a><a class="textlink on-dark" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>`, true)}
+      ${pagehead(s.title, s.desc, `<div class="actions"><a class="textlink on-dark" href="${href('services')}">${esc(U.allDisciplines)} ${arrow()}</a></div>`, true)}
       ${n.id === 'fleet' ? `<section class="band band-basalt"><div class="wrap"><p class="note-dark">${esc(U.fleetNote)}</p>${fleetBlock(false)}</div></section>` : streetSection(true)}
       <section class="band band-paper"><div class="wrap svc-detail" style="--c:${n.c}">
         ${tabs('svc', s.title, [
           { key: 'scope', label: U.scopeTab, count: s.capabilities.length, html: scope },
           { key: 'projects', label: U.projectsTab, count: rel.length, html: projects },
         ])}
-      </div></section>
-      <section class="band" id="svc-quote"><div class="wrap sheet-grid">
-        ${quoteForm('q', U.quickQuote, { type: n.type, message: `${S.inquireCta} ${s.title}: ` })}
-        <aside class="aside"><div class="block"><h3>${esc(T.contact.officeHeading)}</h3>${channels()}</div></aside>
       </div></section>
       <nav class="pager wrap" aria-label="${esc(U.allDisciplines)}">
         <a href="${href(`services/${svcSlug(prev)}`)}" rel="prev"><span class="k">${esc(U.prevDiscipline)}</span><span class="v"><span class="seg" style="--c:${net(prev).c}"></span>${esc(prev.title)}</span></a>
@@ -1801,7 +1766,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
     const svc = T.services.items[svcI];
     const more = P.items.filter((x) => x.key === p.key && x.id !== p.id);
     return `
-      ${pagehead(p.title, p.desc, `<div class="actions"><button class="btn btn-mark" type="button" data-inquire-project="${p.id}">${esc(P.detailsCta)}</button><a class="textlink on-dark" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>`, true)}
+      ${pagehead(p.title, p.desc, `<div class="actions"><a class="textlink on-dark" href="${href('projects')}">${esc(U.allProjects)} ${arrow()}</a></div>`, true)}
       ${streetSection(true)}
       <section class="band band-paper"><div class="wrap project-sheet">
         <div><h2>${esc(U.projectSheet)}</h2>
@@ -1985,7 +1950,16 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       return;
     }
     if (el.dataset.jump) { e.preventDefault(); document.getElementById(el.dataset.jump)?.scrollIntoView({ behavior: 'smooth' }); return; }
-    if (el.hasAttribute('data-quote')) { state.prefill = null; }
+    if (el.hasAttribute('data-quote')) {
+      state.prefill = null;
+      if (state.page === 'services' && state.sub) {
+        const s = T.services.items[svcBySlug(state.sub)];
+        state.prefill = { type: net(s).type, message: `${T.services.inquireCta} ${s.title}: ` };
+      } else if (state.page === 'projects' && state.sub) {
+        const p = projBySlug(state.sub);
+        state.prefill = { type: { water: 'water-sewerage', roads: 'roads-asphalt', urban: 'urban-development' }[p.key] || 'other', message: `${T.projects.detailsCta}: ${p.title} — ` };
+      }
+    }
   });
 
   document.addEventListener('keydown', (e) => {

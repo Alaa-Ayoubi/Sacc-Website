@@ -31,3 +31,4 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 - Pages expand inward: a sub-page per discipline and per project, plus in-page tabs (equipment, certifications, journey). Further copy comes from the live site saccgroup.net once it is reachable; nothing is invented.
 - Register: more formal and institutional. Official bar with CR number and approvals above the masthead; solid (not dashed) active markers in nav and tabs; calmer display weights; lane dashes kept only at road edges.
+- No repetition: every fact lives in one place. Official bar = CR, NWC approval, phone, email. One quote action (masthead), pre-filled from the service/project page it is pressed on; no quote buttons or forms elsewhere except the single contact form. Home = opening, section + record, disciplines reader, short intro with onward links. Services page = the full list (section + reader live on home). Chairman quote on Leadership only. Footer = brand + sitemap.
