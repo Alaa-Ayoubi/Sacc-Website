@@ -474,6 +474,18 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .ruled-desc h3 { font-size: 1.08rem; }
 .ruled-desc p { color: var(--ink-2); margin-top: 4px; max-width: 70ch; }
 
+/* approvals on a fixed grid: ISO codes in one row of three, bodies in a ruled grid */
+.names { display: grid; flex-wrap: nowrap; border-bottom: 0; }
+.names li { padding: 16px 0; border-inline-end: 0; border-bottom: 1px solid rgba(242, 247, 247, 0.16); }
+.names li:first-child { padding-inline-start: 0; }
+.names.iso { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; font-size: 1.15rem; }
+.names.bodies-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; border-top: 0; }
+@media (max-width: 1020px) { .names.bodies-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .names.bodies-grid { grid-template-columns: 1fr; } .names.iso { grid-template-columns: 1fr; } }
+/* services cards: fixed rows so titles and links align across each row */
+.disc-grid a { grid-template-rows: auto auto minmax(1.6em, auto) 1fr; }
+.disc-grid .go { align-self: end; }
+
   </style>
 </head>
 <body>
@@ -727,7 +739,8 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
 
       <section class="band teal on-dark" aria-labelledby="appr-h"><div class="wrap">
         <div class="head"><h2 id="appr-h">${esc(U.homeAppr)}</h2><a class="more" href="${href('certifications')}">${esc(U.certsLink)} ${arrow()}</a></div>
-        <ul class="names">${C.iso.map((i) => `<li class="num ltr">${esc(i.title.replace(/:\d+$/, ''))}</li>`).join('')}${C.approvals.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+        <ul class="names iso">${C.iso.map((i) => `<li><span class="num ltr">${esc(i.title)}</span></li>`).join('')}</ul>
+        <ul class="names bodies-grid">${C.approvals.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
       </div></section>`;
   }
 
@@ -748,7 +761,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <section class="band"><div class="wrap">
         <ul class="disc-grid">${S.items.map((s) => {
           const v = svcOf(s);
-          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2>${relProjects(s).length ? `<span class="meta">${published(relProjects(s).length)}</span>` : ''}<span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
+          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2><span class="meta"${relProjects(s).length ? '' : ' aria-hidden="true"'}>${relProjects(s).length ? published(relProjects(s).length) : ''}</span><span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
         }).join('')}</ul>
       </div></section>`;
   }

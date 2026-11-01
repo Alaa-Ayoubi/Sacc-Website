@@ -238,7 +238,8 @@
 
       <section class="band teal on-dark" aria-labelledby="appr-h"><div class="wrap">
         <div class="head"><h2 id="appr-h">${esc(U.homeAppr)}</h2><a class="more" href="${href('certifications')}">${esc(U.certsLink)} ${arrow()}</a></div>
-        <ul class="names">${C.iso.map((i) => `<li class="num ltr">${esc(i.title.replace(/:\d+$/, ''))}</li>`).join('')}${C.approvals.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
+        <ul class="names iso">${C.iso.map((i) => `<li><span class="num ltr">${esc(i.title)}</span></li>`).join('')}</ul>
+        <ul class="names bodies-grid">${C.approvals.map((a) => `<li>${esc(a)}</li>`).join('')}</ul>
       </div></section>`;
   }
 
@@ -259,7 +260,7 @@
       <section class="band"><div class="wrap">
         <ul class="disc-grid">${S.items.map((s) => {
           const v = svcOf(s);
-          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2>${relProjects(s).length ? `<span class="meta">${published(relProjects(s).length)}</span>` : ''}<span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
+          return `<li><a href="${href(`services/${v.slug}`)}">${drawing(v.d)}<h2>${esc(s.title)}</h2><span class="meta"${relProjects(s).length ? '' : ' aria-hidden="true"'}>${relProjects(s).length ? published(relProjects(s).length) : ''}</span><span class="go">${esc(ui().details)} ${arrow()}</span></a></li>`;
         }).join('')}</ul>
       </div></section>`;
   }
