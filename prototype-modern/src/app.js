@@ -217,8 +217,8 @@
     const T = t(), U = ui(), H = T.hero, C = T.certifications;
     const featured = featuredProjects();
     return `
+      <div class="hero-bg" aria-hidden="true">${photo(heroImage(), '', 'road')}</div>
       <section class="hero" aria-labelledby="h1">
-        ${photo(heroImage(), T.brandLine, 'road')}
         <div class="hero-in">
           <h1 id="h1">${esc(H.title)}</h1>
           <p>${esc(H.lead)}</p>

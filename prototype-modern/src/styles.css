@@ -481,3 +481,33 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .proj .photo .fallback .drawing { stroke-width: 1.3; }
 .proj-hero .fallback .drawing { stroke-width: 0.7; }
 .hero .photo .fallback .drawing { stroke-width: 0.7; }
+
+/* ---------- Fixed hero photograph: the page slides over it ----------
+   The photograph is a sticky layer pinned under the masthead for the whole
+   page; the hero copy scrolls away and every following section (opaque)
+   slides over the photograph until it is covered. Sticky rather than
+   background-attachment: fixed, which iOS Safari does not honour. */
+.hero-bg {
+  position: sticky;
+  top: var(--head-h);
+  z-index: 0;
+  height: calc(100svh - var(--head-h));
+  margin-bottom: calc(-1 * (100svh - var(--head-h)));
+  background: var(--teal-900);
+  overflow: hidden;
+}
+.hero-bg .photo { position: absolute; inset: 0; margin: 0; }
+.hero-bg .photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg .photo .fallback { position: absolute; inset-block: 0; inset-inline-end: 0; width: 58%; color: var(--teal-300); opacity: 0.45; display: none; }
+.hero-bg .photo.nophoto img { display: none; }
+.hero-bg .photo.nophoto .fallback { display: block; }
+.hero-bg .photo .fallback .drawing { stroke-width: 0.7; }
+.hero { background: transparent; position: relative; z-index: 1; overflow: visible; }
+.hero-in { min-height: calc(100svh - var(--head-h) - 120px); }
+#main > section:not(.hero) { position: relative; z-index: 1; background-color: var(--white); }
+#main > section.mist { background-color: var(--mist); }
+#main > section.teal { background-color: var(--teal-900); }
+@media (max-width: 760px) {
+  .hero-bg .photo .fallback { width: 100%; opacity: 0.18; }
+  .hero-in { min-height: calc(100svh - var(--head-h) - 160px); }
+}
