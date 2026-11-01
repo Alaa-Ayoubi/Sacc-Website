@@ -983,3 +983,10 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 @media (max-width: 700px) { .xsec-caption .swipe { display: inline; } }
 /* The schematic caption sits under the drawing, never over a label */
 .xsec-caption { position: static; display: block; background: transparent; padding: 6px 16px 10px; text-align: end; border-radius: 0; }
+
+/* Sub-pages: the content starts right under the compact section */
+.xsec.compact + .band { padding-top: clamp(24px, 3vw, 36px); }
+/* Prototype note: neutral strip, the marking yellow stays reserved for actions */
+.proto-flag { background: var(--ground); color: var(--ink-2); border-bottom: 2px solid var(--marking); }
+/* An invalid field stays red while focused */
+.field [aria-invalid='true']:focus { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.22); }

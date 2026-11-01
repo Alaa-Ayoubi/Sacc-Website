@@ -999,6 +999,13 @@ html[dir='rtl'] .perks li { padding: 22px 0 0 22px; }
 /* The schematic caption sits under the drawing, never over a label */
 .xsec-caption { position: static; display: block; background: transparent; padding: 6px 16px 10px; text-align: end; border-radius: 0; }
 
+/* Sub-pages: the content starts right under the compact section */
+.xsec.compact + .band { padding-top: clamp(24px, 3vw, 36px); }
+/* Prototype note: neutral strip, the marking yellow stays reserved for actions */
+.proto-flag { background: var(--ground); color: var(--ink-2); border-bottom: 2px solid var(--marking); }
+/* An invalid field stays red while focused */
+.field [aria-invalid='true']:focus { border-color: #b3261e; box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.22); }
+
   </style>
 </head>
 <body>
@@ -1260,8 +1267,9 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
 
   // ---------- the street section ----------
   const W = 1200, H = 470, TOP = 34, SURF = 70, M = 80;
-  function sectionSVG() {
+  function sectionSVG(compact = false) {
     const U = ui(), short = U.short;
+    const sc = compact ? 1.4 : 1; // label scale
     const R = rtl();
     const X = (x) => (R ? W - x : x);
     const rx = (x, w) => (R ? W - x - w : x); // rect x after mirroring
@@ -1275,7 +1283,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
         ${line(px, py, lx, ly + (ly < py ? 8 : -8), 'stroke="#f3f2ed" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.8"')}
         <circle cx="${X(px)}" cy="${py}" r="3" fill="#f3f2ed"/>
         <rect rx="2" fill="#f3f4f3" x="0" y="0" width="0" height="0"/>
-        <text x="${X(lx)}" y="${ly}" text-anchor="${anchor(a)}" dominant-baseline="middle" font-size="15" font-family="Readex Pro, system-ui, sans-serif" font-weight="500" fill="#17181a">${esc(short[id])}</text>
+        <text x="${X(lx)}" y="${ly}" text-anchor="${anchor(a)}" dominant-baseline="middle" font-size="${15 * sc}" font-family="Readex Pro, system-ui, sans-serif" font-weight="500" fill="#17181a">${esc(short[id])}</text>
       </g>`;
     const group = (id, i, body, glow) => `<g class="net${state.picked && t().services.items[state.svc] && net(t().services.items[state.svc]).id === id ? ' on' : ''}" data-net="${id}" data-svc="${svcIndex[id]}" style="--i:${i}" role="button" tabindex="-1" aria-label="${esc(t().services.items[svcIndex[id]].title)}">${glow ? `<g class="hitarea">${glow.replace(/fill="none"/g, 'fill="transparent"')}</g><g class="glow">${glow}</g>` : ''}${body}</g>`;
 
@@ -1303,7 +1311,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
     for (let k = 0; k <= 4; k += 1) {
       const y = SURF + k * M;
       ruler += line(0, y, 12, y, 'stroke="#f3f2ed" stroke-width="1.5" opacity="0.85"');
-      ruler += `${rect(14, y + 4, 50, 20, 'rx="2" fill="rgba(23,24,26,0.78)"')}<text x="${X(39)}" y="${y + 14.5}" text-anchor="middle" dominant-baseline="middle" font-size="12" font-family="Readex Pro, system-ui, sans-serif" fill="#f3f2ed">${k === 0 ? '0.0' : `−${k}.0`} ${U.depthUnit}</text>`;
+      ruler += `${rect(14, y + 4, 50 * sc, 20 * sc, 'rx="2" fill="rgba(23,24,26,0.78)"')}<text x="${X(14 + 25 * sc)}" y="${y + 4 + 10.5 * sc}" text-anchor="middle" dominant-baseline="middle" font-size="${12 * sc}" font-family="Readex Pro, system-ui, sans-serif" fill="#f3f2ed">${k === 0 ? '0.0' : `−${k}.0`} ${U.depthUnit}</text>`;
     }
     ruler = `<g aria-hidden="true">${line(4, SURF, 4, SURF + 4 * M, 'stroke="#f3f2ed" stroke-width="1" opacity="0.5"')}${ruler}</g>`;
 
@@ -1344,9 +1352,9 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
 
     const tags = [
       tag('landscape', 120, 22, 150, 30, 'start'),
-      tag('road', 420, SURF + 6, 420, 30),
-      tag('om', 640, 64, 700, 30, 'start'),
-      tag('power', 1082, 10, 1040, 30, 'end'),
+      tag('road', 500, SURF + 6, 500, 30),
+      tag('om', 640, 64, 680, 30, 'start'),
+      tag('power', 1082, 10, 1046, 30, 'end'),
       tag('qc', 481, 172, 481, 208),
       tag('water', 330, 251, 330, 300),
       tag('storm', 882, 344, 882, 392),
@@ -1392,7 +1400,7 @@ window.SACC={"content":{"company":{"phone":"+966 14 848 4014","mobile":"+966 50 
       <section class="xsec${compact ? ' compact' : ''}" aria-labelledby="xsec-h">
         <h2 id="xsec-h" class="visually-hidden">${esc(U.sectionHeading)}</h2>
         <div class="xsec-grid">
-          <figure class="xsec-figure settle${state.picked ? ' picked' : ''}" id="xsec"><div class="xsec-scroll" tabindex="0" aria-label="${esc(U.swipe)}">${sectionSVG()}</div><figcaption class="xsec-caption">${esc(U.schematic)}<span class="swipe"> · ${esc(U.swipe)}</span></figcaption></figure>
+          <figure class="xsec-figure settle${state.picked ? ' picked' : ''}" id="xsec"><div class="xsec-scroll" tabindex="0" aria-label="${esc(U.swipe)}">${sectionSVG(compact)}</div><figcaption class="xsec-caption">${esc(U.schematic)}<span class="swipe"> · ${esc(U.swipe)}</span></figcaption></figure>
           ${compact ? '' : record()}
         </div>
       </section>`;
