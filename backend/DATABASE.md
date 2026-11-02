@@ -31,14 +31,13 @@ docker compose up -d
 
 ### 2. ملف الإعدادات
 
-انسخي `.env.example` إلى ملف جديد اسمه `.env` داخل `backend`، وعدّلي فيه هذه
-الأسطر:
+انسخي `.env.example` إلى ملف جديد اسمه `.env` داخل `backend`، وعدّلي فيه ثلاث
+قيم:
 
-```ini
-DEBUG=True
-SECRET_KEY=اكتبي-هنا-أي-نص-طويل-عشوائي
-DATABASE_URL=postgres://sacc:sacc@localhost:5433/sacc
-```
+- **DEBUG**: اجعليها `True`.
+- **SECRET_KEY**: أي نص طويل عشوائي من اختيارك.
+- **DATABASE_URL**: العنوان المكتوب في أول ملف `docker-compose.yml`، وهو عنوان
+  قاعدة Docker المحلية.
 
 ملف `.env` لا يُرفع إلى GitHub أبدًا، فالمستودع يتجاهله تلقائيًا.
 
