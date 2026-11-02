@@ -243,8 +243,8 @@ html[dir='rtl'] .band figure:nth-child(3) { clip-path: polygon(0 0, 86% 0, 100% 
 /* ---------- leadership ---------- */
 .lead-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
 .chair-card { grid-column: span 8; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); border-radius: var(--r); overflow: hidden; background: var(--teal); }
-.chair-card figure { min-height: 100%; aspect-ratio: 4 / 5; background: var(--surface); overflow: hidden; }
-.chair-card figure img { width: 100%; height: 100%; object-fit: cover; }
+.chair-card figure { position: relative; min-width: 0; min-height: 360px; background: var(--surface); overflow: hidden; }
+.chair-card figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
 .chair-card .body { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: clamp(24px, 3vw, 40px); }
 .chair-card blockquote { font-size: var(--fs-lead); line-height: 1.75; font-weight: 300; }
 .chair-card .sig { font-size: var(--fs-small); color: var(--ink-2); }
@@ -256,7 +256,7 @@ html[dir='rtl'] .band figure:nth-child(3) { clip-path: polygon(0 0, 86% 0, 100% 
 .person-card .cap b { font-weight: 500; }
 .person-card .cap span { font-size: var(--fs-small); color: var(--ink-2); }
 @media (max-width: 960px) { .chair-card, .person-card { grid-column: 1 / -1; } .person-card { flex-direction: row; } .person-card figure { width: 40%; flex: none; } }
-@media (max-width: 560px) { .chair-card { grid-template-columns: 1fr; } .chair-card figure { aspect-ratio: 4 / 3; } .chair-card figure img { object-position: center 20%; } }
+@media (max-width: 560px) { .chair-card { grid-template-columns: 1fr; } .chair-card figure { min-height: 0; aspect-ratio: 4 / 3; } }
 
 /* ---------- closing band ---------- */
 .close { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
