@@ -1,18 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+
+import '@fontsource-variable/onest/wght.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-300.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-500.css';
+import './styles/site.css';
 
 import App from './App.jsx';
 import { SiteProvider } from './SiteContext.jsx';
-// app.css asks for Almarai, Tajawal, Outfit and Playfair Display, but nothing
-// was loading them — the page fell back to system fonts. These are the
-// self-hosted faces from the design system.
-import './styles/fonts.css';
-import './styles/app.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const root = document.getElementById('root');
+const tree = (
+  <StrictMode>
     <SiteProvider>
       <App />
     </SiteProvider>
-  </React.StrictMode>,
+  </StrictMode>
 );
+
+// Prerendered pages arrive with their HTML already in place; take it over
+// rather than repaint it. The dev server serves an empty shell.
+if (root.firstElementChild) hydrateRoot(root, tree);
+else createRoot(root).render(tree);

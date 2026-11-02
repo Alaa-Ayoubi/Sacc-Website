@@ -35,6 +35,15 @@ class Command(BaseCommand):
             help="Where to write the file. Defaults to the site-data.js beside the page.",
         )
         parser.add_argument(
+            "--frontend",
+            action="store_true",
+            help=(
+                "Write the React site's content snapshot "
+                "(frontend/src/data/site-content.json), which every page is "
+                "prerendered from. Implies --json."
+            ),
+        )
+        parser.add_argument(
             "--json",
             action="store_true",
             help="Write plain JSON instead of the window.SACC_SITE assignment.",
@@ -51,14 +60,19 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         bundle = build_site_bundle()
 
+        repo = Path(__file__).resolve().parents[5]
+        if options["frontend"]:
+            options["json"] = True
         if options["output"]:
             target = Path(options["output"])
+        elif options["frontend"]:
+            target = repo / "frontend" / "src" / "data" / "site-content.json"
         else:
             # backend/ -> repository root, where the page and its data file live.
-            target = Path(__file__).resolve().parents[5] / "site-data.js"
+            target = repo / "site-data.js"
 
         payload = json.dumps(bundle, ensure_ascii=False, indent=2)
-        content = payload if options["json"] else f"{HEADER}window.SACC_SITE = {payload};\n"
+        content = f"{payload}\n" if options["json"] else f"{HEADER}window.SACC_SITE = {payload};\n"
 
         if options["check"]:
             self._check(target, content)

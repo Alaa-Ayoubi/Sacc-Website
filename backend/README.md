@@ -279,14 +279,19 @@ So the site keeps loading `site-data.js` as a static file, and the API is
 reached only when a form is actually submitted:
 
 ```bash
-python manage.py export_site_data      # regenerate site-data.js from the database
-git commit site-data.js                # and ship it
+python manage.py export_site_data --frontend   # rewrite frontend/src/data/site-content.json
+git commit ../frontend/src/data/site-content.json
 ```
 
-Edit content in the admin, run the export, commit the result. The output is
-shape-compatible with the file the page already parses, so nothing in the
-frontend changes. `--check` exits non-zero when the committed file has drifted
-from the database, which is worth running in CI.
+Edit content in the admin, run the export, commit the result. The React site
+prerenders every page from that snapshot at build time, so the next deploy
+ships the new content as real HTML. If a project was added or renamed, also
+run `npm run routes` in `frontend/` and commit `backend/render.yaml`. Add
+`--check` to exit non-zero when the committed snapshot has drifted from the
+database, which is worth running in CI.
+
+Without `--frontend` the command still writes the legacy `site-data.js` for the
+original static prototype.
 
 If you would rather fetch live — on a paid plan, or behind a CDN that caches the
 bundle — `backend/frontend/sacc-api.js` does that instead; see *Connecting the

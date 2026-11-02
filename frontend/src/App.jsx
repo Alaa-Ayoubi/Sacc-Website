@@ -1,104 +1,51 @@
-/* Multi-page site, plus a careers view.
- *
- * Each nav item is its own page — a real view switch, not a scroll to an
- * anchor on one long document. The hash mirrors the current page so a link
- * can be shared and reopened on the right page.
- */
-import { useCallback, useEffect, useState } from 'react';
+/* Layout and page switch. Every page has its own address — Arabic at the root,
+ * English under /en — and its own prerendered HTML file, so search engines
+ * and shared links land on the real page. */
+import { useEffect } from 'react';
 
-import Header, { TopBar } from './components/Header.jsx';
-import Contact from './components/Contact.jsx';
-import Careers from './components/Careers.jsx';
-import {
-  About,
-  Certifications,
-  Equipment,
-  Explore,
-  Footer,
-  Hero,
-  Journey,
-  Leadership,
-  Projects,
-  Services,
-  Stats,
-  Why,
-} from './components/Sections.jsx';
-import { Ticker } from './components/Motion.jsx';
 import { useSite } from './SiteContext.jsx';
+import { OLD_PAGES, pathFor } from './lib/site.js';
+import { Bar, Footer } from './components/Chrome.jsx';
+import { useReveal } from './components/ui.jsx';
+import Home from './pages/Home.jsx';
+import { Approvals, Company, Fleet, NotFound, Project, Projects, Service, Services } from './pages/Inner.jsx';
+import { Careers, Contact } from './pages/Forms.jsx';
 
-const PAGES = [
-  'home', 'about', 'services', 'projects', 'equipment',
-  'certifications', 'journey', 'leadership', 'contact', 'careers',
-];
+const PAGE = { '': Home, company: Company, services: Services, projects: Projects, fleet: Fleet, approvals: Approvals, contact: Contact, careers: Careers };
 
-function pageFromHash() {
-  const id = window.location.hash.slice(1);
-  return PAGES.includes(id) ? id : 'home';
+/** Links from the previous site (#about, #equipment, ?lang=en …) go to their new addresses. */
+function useOldLinks(navigate) {
+  useEffect(() => {
+    const { pathname, hash, search } = window.location;
+    const id = hash.slice(1);
+    const lang = new URLSearchParams(search).get('lang') === 'en' || pathname.startsWith('/en') ? 'en' : 'ar';
+    const atHome = pathname === '/' || pathname === '/en' || pathname === '/en/';
+    if (atHome && id in OLD_PAGES) {
+      const tab = { journey: '#journey', leadership: '#people' }[id] || '';
+      navigate(pathFor(OLD_PAGES[id], lang) + tab, { replace: true });
+    } else if (search.includes('lang=en') && !pathname.startsWith('/en')) {
+      navigate(pathFor(pathname.replace(/^\/+|\/+$/g, ''), 'en'), { replace: true });
+    }
+  }, [navigate]);
 }
 
 export default function App() {
-  const { t } = useSite();
-  const [view, setView] = useState(pageFromHash);
-  const [prefill, setPrefill] = useState('');
+  const { route, ui, navigate } = useSite();
+  useOldLinks(navigate);
+  const key = `${route.lang}/${route.page}/${route.sub}/${route.notFound}`;
+  useReveal(key);
 
-  const navigate = useCallback((id) => {
-    setView(PAGES.includes(id) ? id : 'home');
-  }, []);
-
-  // A page switch is a fresh screen, not a continuation of scroll position.
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    const hash = view === 'home' ? '#' : `#${view}`;
-    if (window.location.hash !== hash) window.history.replaceState(null, '', hash);
-  }, [view]);
-
-  useEffect(() => {
-    const onHashChange = () => setView(pageFromHash());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
-  /* An "enquire about X" button on any page fills in the contact form and
-     switches to it, so the visitor never retypes what they clicked. */
-  const inquire = useCallback((subject) => {
-    setPrefill(subject);
-    setView('contact');
-  }, []);
+  let Page = PAGE[route.page] || Home;
+  if (route.notFound) Page = NotFound;
+  else if (route.page === 'services' && route.sub) Page = Service;
+  else if (route.page === 'projects' && route.sub) Page = Project;
 
   return (
     <>
-      <a className="skip" href="#main">{t.nav[0]?.label}</a>
-      <TopBar />
-      <Header onNavigate={navigate} view={view} />
-
-      <main id="main">
-        {view === 'careers' && <Careers onBack={() => navigate('home')} />}
-        {view === 'home' && (
-          <>
-            <Hero onNavigate={navigate} />
-            <Stats />
-            <Ticker />
-            <Explore onNavigate={navigate} />
-          </>
-        )}
-        {view === 'about' && (
-          <>
-            <About />
-            <Why />
-          </>
-        )}
-        {view === 'services' && <Services onInquire={inquire} />}
-        {view === 'projects' && <Projects onInquire={inquire} />}
-        {view === 'equipment' && <Equipment onInquire={inquire} />}
-        {view === 'certifications' && <Certifications onInquire={inquire} />}
-        {view === 'journey' && <Journey />}
-        {view === 'leadership' && <Leadership />}
-        {view === 'contact' && (
-          <Contact prefill={prefill} onPrefillUsed={() => setPrefill('')} />
-        )}
-      </main>
-
-      <Footer onNavigate={navigate} />
+      <a className="skip" href="#main">{ui.skip}</a>
+      <Bar />
+      <main id="main" tabIndex={-1}><Page key={key} /></main>
+      <Footer />
     </>
   );
 }

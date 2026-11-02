@@ -28,3 +28,4 @@ frontend/preview*.log
 .impeccable/review-*/
 .taste-skill/inspect/
 .taste-skill/pages/
+frontend/dist-ssr/
