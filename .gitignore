@@ -22,3 +22,6 @@ frontend/node_modules/
 frontend/dist/
 frontend/.env
 frontend/preview*.log
+
+# Figma export: regenerated snapshots
+figma-export/build/
