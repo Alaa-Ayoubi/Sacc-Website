@@ -29,3 +29,6 @@ frontend/preview*.log
 .taste-skill/inspect/
 .taste-skill/pages/
 frontend/dist-ssr/
+
+# Database dumps hold enquiries, CVs metadata and the admin account
+*.dump
