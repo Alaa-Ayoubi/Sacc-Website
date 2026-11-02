@@ -89,4 +89,4 @@ All of the following is confirmed real by the owner:
 
 - Full right-to-left support for Arabic, mirrored through logical properties, with the correct `lang` and `dir` on the document.
 - `prefers-reduced-motion` is already honoured by the scroll-reveal, the ticker and the hero grid (`Motion.jsx`, `HeroGrid.jsx`, `app.css`), and must stay that way.
-- No product-specific accessibility standard has been set by the owner yet (open decision).
+- **Standard: WCAG 2.2 level AA** (owner decision). Text contrast of at least 4.5:1 (3:1 for large text and UI parts), full keyboard use with visible focus, alt text on every photo, labelled form fields, and target sizes of at least 24×24 px.
