@@ -243,15 +243,16 @@ html[dir='rtl'] .band figure:nth-child(3) { clip-path: polygon(0 0, 86% 0, 100% 
 /* ---------- leadership ---------- */
 .lead-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); }
 .chair-card { grid-column: span 8; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); border-radius: var(--r); overflow: hidden; background: var(--teal); }
-.chair-card figure { position: relative; min-width: 0; min-height: 360px; background: var(--surface); overflow: hidden; }
+.chair-card figure { position: relative; min-width: 0; min-height: 300px; background: var(--surface); overflow: hidden; }
 .chair-card figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
-.chair-card .body { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: clamp(24px, 3vw, 40px); }
-.chair-card blockquote { font-size: var(--fs-lead); line-height: 1.75; font-weight: 300; }
+.chair-card .body { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(24px, 3vw, 40px); }
+/* the quote sits a step above the lead so it balances the portrait beside it */
+.chair-card blockquote { font-size: clamp(1.25rem, 1.05rem + 0.75vw, 1.75rem); line-height: 1.6; font-weight: 300; }
 .chair-card .sig { font-size: var(--fs-small); color: var(--ink-2); }
 .chair-card .sig b { display: block; color: var(--ink); font-weight: 500; font-size: var(--fs-body); }
 .person-card { grid-column: span 4; text-decoration: none; display: flex; flex-direction: column; border-radius: var(--r); overflow: hidden; background: var(--teal); }
-.person-card figure { aspect-ratio: 4 / 5; background: var(--surface); overflow: hidden; }
-.person-card figure img { width: 100%; height: 100%; object-fit: cover; }
+.person-card figure { aspect-ratio: 5 / 4; background: var(--surface); overflow: hidden; }
+.person-card figure img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
 .person-card .cap { padding: 18px 20px 22px; display: grid; gap: 2px; }
 .person-card .cap b { font-weight: 500; }
 .person-card .cap span { font-size: var(--fs-small); color: var(--ink-2); }
