@@ -57,6 +57,8 @@ cp .env.example .env                                      # then set DATABASE_UR
 .venv/Scripts/python manage.py runserver
 ```
 
+Step-by-step database guide in Arabic — a local PostgreSQL on your computer, then moving it to Neon, plus backups: **[backend/DATABASE.md](backend/DATABASE.md)**.
+
 Full setup, API reference, content model and deployment notes:
 **[backend/README.md](backend/README.md)**.
 
