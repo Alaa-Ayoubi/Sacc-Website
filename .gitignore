@@ -32,3 +32,7 @@ frontend/dist-ssr/
 
 # Database dumps hold enquiries, CVs metadata and the admin account
 *.dump
+# Neon CLI: local project link, and the env vars `neon env pull` writes
+.neon
+.env
+.env.local

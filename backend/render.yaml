@@ -26,9 +26,14 @@ services:
     startCommand: gunicorn config.wsgi:application --workers 2 --timeout 60
     healthCheckPath: /api/v1/health/
     envVars:
-      # From Neon (or any external PostgreSQL). Set in the dashboard — it
-      # contains a password, so it must never be committed here.
+      # From Neon (or any external PostgreSQL). Set in the dashboard — they
+      # contain a password, so they must never be committed here.
+      # DATABASE_URL is Neon's pooled string (host ends in -pooler) for the
+      # app's traffic; DATABASE_URL_UNPOOLED is the direct one, which build.sh
+      # uses for migrations. `neon env pull` prints both.
       - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_UNPOOLED
         sync: false
 
       # Generated once by Render and kept across deploys, so the key never

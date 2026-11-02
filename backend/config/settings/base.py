@@ -23,6 +23,10 @@ env = environ.Env(
     MAX_CV_UPLOAD_MB=(int, 5),
 )
 environ.Env.read_env(BASE_DIR / ".env")
+# `neon deploy` / `neon env pull` write the Neon branch's connection strings to
+# .env.local at the repository root. Read it after backend/.env, so a value set
+# explicitly in backend/.env (or in the real environment) still wins.
+environ.Env.read_env(BASE_DIR.parent / ".env.local")
 
 SECRET_KEY = env("SECRET_KEY", default="dev-only-insecure-key-change-me")
 DEBUG = env("DEBUG")
@@ -80,14 +84,29 @@ WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
 # --- PostgreSQL -----------------------------------------------------------
+# Neon gives two connection strings for the same database (see DATABASE.md):
+#   DATABASE_URL           pooled (PgBouncer, transaction mode): the app's traffic
+#   DATABASE_URL_UNPOOLED  direct: migrations, tests, dumps, anything needing a session
+# DB_USE_DIRECT=True connects over the direct one; build.sh sets it for migrate.
+_use_direct = env.bool("DB_USE_DIRECT", default=False) and bool(env("DATABASE_URL_UNPOOLED", default=""))
 DATABASES = {
     "default": env.db_url(
-        "DATABASE_URL",
+        "DATABASE_URL_UNPOOLED" if _use_direct else "DATABASE_URL",
         default="postgres://postgres:postgres@localhost:5432/sacc",
     )
 }
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("DB_CONN_MAX_AGE", default=60)
 DATABASES["default"]["ATOMIC_REQUESTS"] = False
+
+# Behind a transaction pooler,
+# server-side cursors cannot outlive their transaction, so Django must not use
+# them (psycopg 3 prepared statements are already off: Django passes
+# prepare_threshold=None unless told otherwise). Detected from Neon's "-pooler"
+# hostname; DB_TRANSACTION_POOLING overrides the detection.
+DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = (not _use_direct) and env.bool(
+    "DB_TRANSACTION_POOLING",
+    default="-pooler." in (DATABASES["default"].get("HOST") or ""),
+)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
