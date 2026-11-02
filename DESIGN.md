@@ -1,340 +1,283 @@
 ---
 name: SACC — Sana Al-Awael Contracting Company
-description: The street cross-section. A bilingual, Arabic-first contractor site whose grounds are the strata under a Saudi street.
+description: A calm, Arabic-first contractor site on a deep blue-green night ground, where rounded teal and lavender plates carry thin engineering line drawings and every claim is proof.
 colors:
-  asphalt: "#17181a"
-  asphalt-2: "#222326"
-  asphalt-3: "#2c2d31"
-  asphalt-line: "#3d3e43"
-  official-black: "#0e0f10"
-  basalt: "#2e2a27"
-  basalt-2: "#3a3531"
-  ground: "#e2e4e3"
-  paper: "#f3f4f3"
-  rule: "#c5c8c6"
-  rule-strong: "#a2a6a4"
-  aggregate: "#8b857a"
-  sand: "#c9a46a"
-  sand-deep: "#b38d55"
-  ink: "#17181a"
-  ink-2: "#47443f"
-  ink-3: "#5f5b54"
-  on-dark: "#f3f2ed"
-  on-dark-2: "#bdb9b0"
-  on-sand: "#261d12"
-  on-sand-2: "#45361f"
-  marking: "#f6b81c"
-  marking-hover: "#ffc83d"
-  lane: "#e9e7df"
-  water: "#3fa29b"
-  water-ink: "#1e6f69"
-  power: "#e5862b"
-  power-ink: "#a65412"
-  sewer: "#6cbf88"
-  sewer-ink: "#2a7446"
-  road: "#f6b81c"
-  road-ink: "#8a6200"
-  concrete: "#a7a298"
-  error: "#b3261e"
+  page-night: "#0C1926"
+  bar-night: "#0D1B22"
+  deep-teal: "#0F393C"
+  slate-surface: "#182F3D"
+  lavender: "#DDDFFC"
+  lavender-mist: "#BEC6E9"
+  periwinkle-line: "#AFB5F9"
+  action-violet: "#9662A8"
+  survey-grey: "#70787A"
+  earth: "#6E4A3B"
+  white: "#FFFFFF"
 typography:
   display:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "clamp(2.4rem, 5vw, 4.4rem)"
-    fontWeight: 650
-    lineHeight: 1.06
-    letterSpacing: "-0.03em"
-  display-ar:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 5vw, 4.4rem)"
-    fontWeight: 650
-    lineHeight: 1.32
-    letterSpacing: "0em"
-  page-title:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "clamp(2.2rem, 4.6vw, 3.8rem)"
-    fontWeight: 650
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(2.125rem, 1.5rem + 2.6vw, 3.5rem)"
+    fontWeight: 300
     lineHeight: 1.12
-    letterSpacing: "-0.025em"
+    letterSpacing: "-0.01em"
   headline:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "clamp(1.9rem, 3.6vw, 2.9rem)"
-    fontWeight: 600
-    lineHeight: 1.18
-    letterSpacing: "-0.012em"
-  title:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "1.3rem"
-    fontWeight: 600
-    lineHeight: 1.3
-    letterSpacing: "-0.012em"
-  figure:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "1.12rem"
-    fontWeight: 700
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem)"
+    fontWeight: 300
     lineHeight: 1.2
-    fontFeature: "tnum, lnum"
-  body:
-    fontFamily: "Readex Pro, system-ui, sans-serif"
-    fontSize: "1.0625rem"
-    fontWeight: 350
-    lineHeight: 1.65
-  body-ar:
-    fontFamily: "Readex Pro, system-ui, sans-serif"
-    fontSize: "1.09rem"
-    fontWeight: 350
-    lineHeight: 1.8
-  button:
-    fontFamily: "Alexandria, Readex Pro, system-ui, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 600
-    lineHeight: 1.4
-  label:
-    fontFamily: "Readex Pro, system-ui, sans-serif"
-    fontSize: "0.93rem"
+    letterSpacing: "-0.01em"
+  quote:
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(1.25rem, 1.05rem + 0.75vw, 1.75rem)"
+    fontWeight: 300
+    lineHeight: 1.6
+  title:
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem)"
     fontWeight: 400
     lineHeight: 1.4
+  lead:
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem)"
+    fontWeight: 400
+    lineHeight: 1.6
+  body:
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "clamp(1rem, 0.97rem + 0.12vw, 1.0625rem)"
+    fontWeight: 400
+    lineHeight: 1.65
+  label:
+    fontFamily: "Onest Variable, IBM Plex Sans Arabic, system-ui, Segoe UI, Tahoma, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 500
+    lineHeight: 1.5
 rounded:
-  hairline: "1px"
-  sm: "2px"
-  full: "50%"
+  inset: "4px"
+  field: "10px"
+  plate: "14px"
+  pill: "999px"
 spacing:
-  gutter: "clamp(20px, 4vw, 48px)"
-  wrap: "1240px"
-  head: "72px"
-  band: "clamp(56px, 8vw, 112px)"
-  reader: "clamp(36px, 5vw, 64px)"
-  column-gap: "clamp(28px, 5vw, 80px)"
+  gap: "16px"
+  gutter: "24px"
+  margin: "clamp(16px, 4vw, 48px)"
+  section: "clamp(72px, 8vw, 120px)"
+  bar: "72px"
+  max: "1344px"
 components:
-  button-mark:
-    backgroundColor: "{colors.marking}"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.sm}"
-    padding: "10px 1.35em"
-    height: "48px"
-  button-mark-hover:
-    backgroundColor: "{colors.marking-hover}"
-    textColor: "{colors.ink}"
-  button-ink:
-    backgroundColor: "{colors.asphalt}"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.button}"
-    rounded: "{rounded.sm}"
-    padding: "10px 1.35em"
-    height: "48px"
-  button-ink-hover:
-    backgroundColor: "{colors.asphalt-3}"
-    textColor: "{colors.on-dark}"
-  button-line:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink}"
-    typography: "{typography.button}"
-    rounded: "{rounded.sm}"
-    padding: "10px 1.35em"
-    height: "48px"
-  button-line-dark:
-    backgroundColor: "transparent"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.button}"
-    rounded: "{rounded.sm}"
-    padding: "10px 1.35em"
-    height: "48px"
-  input-field:
-    backgroundColor: "#ffffff"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.sm}"
-    padding: "10px 14px"
-    height: "48px"
-  filter-chip:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink-2}"
+  button-primary:
+    backgroundColor: "{colors.action-violet}"
+    textColor: "{colors.white}"
     typography: "{typography.label}"
-    rounded: "{rounded.sm}"
-    padding: "0 16px"
+    rounded: "{rounded.pill}"
+    padding: "10px 22px"
+    height: "44px"
+  button-ghost:
+    backgroundColor: "{colors.page-night}"
+    textColor: "{colors.lavender}"
+    rounded: "{rounded.pill}"
+    padding: "10px 22px"
+    height: "44px"
+  button-ghost-hover:
+    backgroundColor: "{colors.slate-surface}"
+  filter-chip:
+    textColor: "{colors.lavender-mist}"
+    rounded: "{rounded.pill}"
+    padding: "8px 18px"
     height: "40px"
-  filter-chip-active:
-    backgroundColor: "{colors.asphalt}"
-    textColor: "{colors.on-dark}"
-  tab:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink-3}"
-    height: "52px"
-  tab-active:
-    textColor: "{colors.ink}"
-  masthead:
-    backgroundColor: "{colors.asphalt}"
-    textColor: "{colors.on-dark}"
-    height: "72px"
-  official-bar:
-    backgroundColor: "{colors.official-black}"
-    textColor: "{colors.on-dark-2}"
-    height: "36px"
+  filter-chip-selected:
+    backgroundColor: "{colors.lavender}"
+    textColor: "{colors.page-night}"
+  tab-selected:
+    backgroundColor: "{colors.lavender}"
+    textColor: "{colors.page-night}"
+    rounded: "{rounded.pill}"
+    padding: "8px 18px"
+  tablist:
+    backgroundColor: "{colors.slate-surface}"
+    rounded: "{rounded.pill}"
+    padding: "4px"
+  tile-teal:
+    backgroundColor: "{colors.deep-teal}"
+    textColor: "{colors.lavender}"
+    rounded: "{rounded.plate}"
+    padding: "28px"
+  tile-lavender:
+    backgroundColor: "{colors.lavender}"
+    textColor: "{colors.page-night}"
+    rounded: "{rounded.plate}"
+    padding: "28px"
+  card-surface:
+    backgroundColor: "{colors.slate-surface}"
+    textColor: "{colors.lavender}"
+    rounded: "{rounded.plate}"
+    padding: "24px"
+  project-row:
+    backgroundColor: "{colors.slate-surface}"
+    textColor: "{colors.lavender}"
+    rounded: "{rounded.plate}"
+    padding: "24px 28px"
+  project-row-hover:
+    backgroundColor: "{colors.deep-teal}"
+  input:
+    backgroundColor: "{colors.page-night}"
+    textColor: "{colors.lavender}"
+    rounded: "{rounded.field}"
+    padding: "12px 14px"
+    height: "48px"
+  bar:
+    backgroundColor: "{colors.bar-night}"
+    textColor: "{colors.lavender-mist}"
+    height: "{spacing.bar}"
 ---
 
 # Design System: SACC — Sana Al-Awael Contracting Company
 
-<!-- Reference implementation today: prototype/src/{template.html,styles.css,app.js}, bundled by prototype/build.mjs into prototype/dist/sacc-prototype.html. This is a standalone review prototype awaiting the owner's approval; on approval, integration carries this system into the React frontend (frontend/). Until then, frontend/ still renders the previous design and is not evidence for this file. -->
-
 ## Overview
 
-**Creative North Star: "The Street Cross-Section"**
+**Creative North Star: "The Utility Network Plan"**
 
-SACC builds what lies under and along a Saudi street, so the site is drawn as a section through one. Every ground is a stratum: asphalt black for the official bar, the masthead, the opening and inner page heads; a concrete-grey reading ground; wadi-sand and Madinah-basalt bands for proof and fleet. The signature is an interactive street section directly under the opening: road layers above pipes and ducts, each network labelled and selectable, with a depth ruler in tabular numerals and the qualification record standing along its inline-end edge. The world refuses the contractor default of a full-bleed site photo, a stat band and a grid of service cards.
+The site reads as a calm engineering sheet laid over a night-blue ground. A faint site-plan grid (96px squares in thin slate lines) sits fixed behind every page. On it rest solid, rounded plates in two alternating tones, deep teal and pale lavender. The discipline plates carry thin periwinkle or teal line drawings of pipes, culverts, road sections, bridges and lab specimens, with small round nodes like a utility network diagram. The register is institutional and airy: light-weight sentence-case headings at moderate sizes, generous section spacing, and real field photographs in full natural colour.
 
-The register is formal and institutional, written for procurement officers. Information is set as records, logs, fact sheets and ruled lists rather than cards: hairline rules (1px) separate rows, and a heavier 2px ink rule opens every list the way a leader line opens an engineering drawing. Display weights stay calm (600 to 650); emphasis comes from the strata and the ruled structure, not from size or effects. Motion is one gesture: the section's layers settle downward once.
+The character comes from the owner's reference (Sirion): a deep blue-green ground, alternating lavender and teal feature cards, one saturated accent kept for the single action, bento discipline tiles, a recognition band, portrait cards and a split closing band. Colours come only from the owner's ten-colour palette, always solid at full strength. Proof carries the page: ISO seals, named approvals, figures and named clients. Decoration never stands in for it.
 
-The site is Arabic-first and fully bilingual. Direction is a document-level concern (`lang`/`dir` on `<html>`), and layout is written in logical properties (`inline-start`, `inline-end`, `margin-inline`, `padding-block`) so the whole world mirrors without per-component overrides. The SACC logo is a pre-existing brand asset; it is placed only on dark grounds at 34px height and is never redrawn or recoloured. Its four arcs supply the network colours.
+Arabic is the root language and the layout is built with logical properties, so the English page under /en mirrors it without overrides. Everything that has a direction follows the reading direction: line-drawing reveals, arrows, band clip shapes and tab arrow keys.
 
 **Key Characteristics:**
-- Grounds are strata: asphalt, concrete, sand, basalt, stacked like a street section.
-- Road-marking yellow is the action colour; network colours are functional keys.
-- Ruled records and logs instead of cards; 2px ink rule opens, 1px hairlines divide.
-- Near-square corners (2px) everywhere; flat surfaces.
-- Alexandria for display, Readex Pro for text, tabular numerals for every figure and depth.
-- Arabic-first, mirrored through logical properties.
-- One settling motion; no parallax, no ticker.
+- Night-blue ground with a fixed site-plan grid; flat solid plates, no shadows.
+- Teal and lavender plates alternate; violet fills only the primary action.
+- Thin 1.5px engineering line drawings with round nodes on the discipline tiles.
+- Light (300) sentence-case headings, moderate sizes, one sans family per script.
+- Arabic-first RTL, logical properties throughout, full-colour photography.
 
 ## Colors
 
-A dark-and-mineral palette of real street materials, lit by one road-marking yellow and keyed by the four network colours of the logo.
+The owner's palette, used solid at full strength: a deep blue-green ground, two plate tones, one violet accent and pale lavender text.
 
 ### Primary
-- **Road-Marking Yellow** (`marking`): the primary action fill (every quote and document request), and the system's only state colour: active nav and tab markers, the 3px focus ring, link underlines, drawing-leader ticks, the depth-gauge mark, text selection. Hover lifts to **Fresh Paint** (`marking-hover`).
+- **Action Violet** (#9662A8): fills the single primary action, "اطلب عرض سعر" / "Request a quote", and the submit button on the two forms. White text on it measures 4.56:1. It is never text and never a background for anything else.
 
 ### Secondary
-- **Network keys**, taken from the logo's arcs and used only to identify a network, never as decoration: **Water Teal** (`water`), **Power Orange** (`power`), **Sewer, Storm and Landscape Green** (`sewer`), **Road Yellow** (`road`, the same value as the marking), and **Concrete** (`concrete`) for structures. Each has an `-ink` partner (`water-ink`, `power-ink`, `sewer-ink`, `road-ink`) for text and small icons on light grounds, where the bright key would fail contrast. Status reuses them: completed projects in `sewer-ink`, in-progress in `power-ink`.
+- **Deep Teal** (#0F393C): the dark plate. Alternates with lavender in the bento and value cards, and backs project cards, leadership cards, the hover state of project rows and the contact aside. It also serves as the line-drawing and seal colour on lavender plates (9.6:1).
+- **Lavender** (#DDDFFC): the light plate (bento tiles, the recognition band, notices, selected tabs and filters). The same value is the primary text colour on every dark surface (13.56:1 on the page).
 
 ### Tertiary
-- **Wadi Sand** (`sand`, deeper `sand-deep`): the proof band (certifications and approvals), with its own ink pair `on-sand` / `on-sand-2`.
-- **Madinah Basalt** (`basalt`, `basalt-2`): the fleet and values band.
+- **Periwinkle Line** (#AFB5F9): the engineering line drawings on teal, the hero band's rails and nodes, the journey timeline, link underlines, hover outlines and the global focus ring (9.13:1 on the page).
+- **Earth** (#6E4A3B): reserved for a sparing site-plan detail. It is defined as a token but no shipped surface uses it yet.
 
 ### Neutral
-- **Asphalt** (`asphalt`): masthead, opening, inner page heads, footer, the ink button and selected filter. Its ramp `asphalt-2` (the section and dark bands), `asphalt-3` (hover) and `asphalt-line` (borders on dark) are the dark strata.
-- **Official Black** (`official-black`): the registration and approvals bar above the masthead, one step deeper than asphalt.
-- **Concrete Ground** (`ground`): the default reading ground of the page body.
-- **Paper** (`paper`): raised reading surfaces: the qualification record, the form sheet, the paper band, hovered and selected legend rows.
-- **Rules** (`rule`, `rule-strong`): 1px row hairlines; `rule-strong` for control outlines and table heads.
-- **Aggregate** (`aggregate`): the crushed-stone stratum, the gauge ticks, the scrollbar thumb.
-- **Ink** (`ink`, `ink-2`, `ink-3`): primary text and 2px opening rules; secondary copy; meta and labels. On dark grounds, `on-dark` and `on-dark-2`.
-- **Lane White** (`lane`): the solid edge line of the road.
-- **Error Red** (`error`): invalid field borders. It is a literal in the stylesheet, not yet a custom property.
+- **Page Night** (#0C1926): the page ground and form-field fill. It is also the text colour on lavender plates.
+- **Bar Night** (#0D1B22): the sticky header bar, the mobile drawer and the footer.
+- **Slate Surface** (#182F3D): the secondary plate (project rows, figures, the office panel, forms, facts, pager, tab track), the bar's bottom edge, the grid lines and photo placeholders. On lavender it is the secondary text (10.6:1).
+- **Lavender Mist** (#BEC6E9): secondary text on dark (10.52:1 on the page, 7.45:1 on teal): leads, meta, labels and nav links at rest.
+- **Survey Grey** (#70787A): the 1px border of form fields only (3.94:1 on the page, so it passes as a non-text boundary). It is never text.
+- **White** (#FFFFFF): text on Action Violet only.
 
 ### Named Rules
-**The Road Marking Rule.** Yellow fills a surface only on the primary action. Everywhere else it appears as a line of 4px or less (active marker, focus ring, underline, leader tick) or a small mark. A yellow panel, band or card is off-world.
+**The Full-Strength Rule.** Every colour is a solid fill at full strength. There are no gradients, no transparency washes, no glass or blur, and no scrims, greyscale or desaturation on photographs.
 
-**The Network Key Rule.** Teal, orange, green and road yellow mean water, power, sewer/storm/landscape and roads. Use them only where a network is being identified: the section, the legend segments, discipline icons, project logs. Never as general decoration or a second accent.
+**The One Violet Rule.** Violet fills the primary action and nothing else. Neither Action Violet (3.90:1) nor Survey Grey (3.94:1) is ever used as text on a dark background.
 
-**The Strata Rule.** Grounds change only by stratum: asphalt, concrete ground or paper, sand, basalt. Where the home page moves from one ground to the next, a seam of thin strata bands (asphalt-3, a mid-grey, aggregate texture) marks the join.
+**The Untouched Logo Rule.** The SACC lockup appears in its own colours, only resized. It is never recoloured, redrawn or placed on a tinted chip.
 
 ## Typography
 
-**Display Font:** Alexandria (with Readex Pro, system-ui, sans-serif)
-**Body Font:** Readex Pro (with system-ui, sans-serif)
+**Latin Font:** Onest Variable (self-hosted via @fontsource-variable/onest)
+**Arabic Font:** IBM Plex Sans Arabic 300 / 400 / 500 (self-hosted via @fontsource, Arabic subset)
+**Fallback:** system-ui, Segoe UI, Tahoma, sans-serif
 
-Both are self-hosted variable fonts (Arabic and Latin subsets), never loaded from a font CDN.
-
-**Character:** Alexandria is a geometric Arabic-and-Latin display face with an engineered, signage-like build; Readex Pro is its quieter, highly legible text partner with matching proportions in both scripts, so Arabic and English read as one voice.
+**Character:** One quiet humanist-geometric sans for each script, sharing a single stack, so Arabic and English pages carry the same light, even voice.
 
 ### Hierarchy
-- **Display** (650, clamp(2.4rem, 5vw, 4.4rem), 1.06, -0.03em): the home opening headline on asphalt only. In Arabic: clamp(2.5rem, 5vw, 4.4rem), line-height 1.32, no tracking.
-- **Page Title** (650, clamp(2.2rem, 4.6vw, 3.8rem), 1.12, -0.025em, max 18ch): inner page heads; compact sub-page heads drop to clamp(2rem, 3.6vw, 3rem). Arabic line-height 1.35.
-- **Headline** (600, clamp(1.9rem, 3.6vw, 2.9rem), 1.18): band headings; lead paragraph under it at 1.12rem, max 62ch. Arabic line-height 1.35.
-- **Title** (600, 1.3rem, 1.3): service rows, legend and project-sheet headings; list headings at 1.05rem 600 sit on a 2px rule.
-- **Figure** (Alexandria 700, 1.12rem up to 1.6rem for years, tabular lining numerals): record values, journey years, ISO standards.
-- **Body** (Readex Pro 350, 1.0625rem, 1.65; Arabic 1.09rem, 1.8): running copy, max 60 to 62ch.
-- **Button** (Alexandria 600, 1rem, 1.4): every button and text link.
-- **Label** (Readex Pro 400, 0.85 to 0.93rem): nav, meta, captions, form labels (500).
+- **Display** (300, clamp 2.125–3.5rem, 1.12; Arabic 1.35): the page H1 only (the company name on the home page, the page title elsewhere). On phones under 560px the Arabic home H1 shrinks to stay on one line. Figure numerals use display size at line-height 1.
+- **Headline** (300, clamp 1.625–2.25rem, 1.2; Arabic 1.4): section H2s.
+- **Quote** (300, clamp 1.25–1.75rem, 1.6): the Chairman's quote only, sized to balance the portrait beside it.
+- **Title** (400, clamp 1.125–1.25rem, 1.35–1.4): H3 on tiles, cards, rows and people; drawer links.
+- **Lead** (400, same size as title, 1.6): the supporting line beside H1 and H2, in Lavender Mist (Lavender in the hero).
+- **Body** (400, clamp 1–1.0625rem, 1.65; Arabic 1.8): running text, at most 44ch inside tiles.
+- **Label** (400–500, 0.875rem): nav links, meta, chips, status pills, field labels, the footer. Names inside cards and seals use 500.
 
 ### Named Rules
-**The Calm Weight Rule.** Display never goes above 650 and headings sit at 600 to 650. Size and the strata carry hierarchy; heavy black weights are off-register. Only figures take 700.
+**The Light Voice Rule.** Headings are weight 300, sentence case, never uppercase, and stop at 3.5rem. The owner rejected large display text. Emphasis comes from size and position, never weight.
 
-**The Tabular Figures Rule.** Every number that is compared or measured (years, counts, depths, standards) is set with tabular lining numerals.
-
-**The Script Parity Rule.** Negative tracking applies to Latin only; Arabic headings get zero letter-spacing and more line-height (1.32 to 1.35 for headings, 1.8 for body). Never uppercase-transform text; Arabic has no case and the two languages must match.
+**The Arabic Leading Rule.** Arabic gets taller line-heights (body 1.8, display 1.35, headline 1.4) and zero letter-spacing. Latin headings take -0.01em. Numerals use lining tabular figures, and phone numbers are isolated LTR.
 
 ## Layout
 
-Content sits in a single centred column of `min(1240px, 100% - 2 × gutter)` with a fluid gutter (clamp(20px, 4vw, 48px)). Pages are vertical stacks of full-width bands, each band padded clamp(56px, 8vw, 112px) on the block axis. Inside a band, layouts are asymmetric two-column grids (ratios around 1.1:1 to 1.55:1) with gaps of clamp(28px, 5vw, 80px), collapsing to one column between 860px and 960px.
+A centred column up to 1344px with fluid side margins (clamp 16–48px). Sections are separated by fluid top padding (clamp 72–120px). Composition runs on a 12-column grid with 24px column gaps; plate grids use a 16px gap.
 
-The home first viewport is fixed in order: official bar (36px), sticky masthead (72px), the asphalt opening with the headline at inline-start and the lead plus actions at inline-end, then the street section full width with the record (280 to 340px) along its inline-end edge. Below 1020px the record drops under the section as a two-column grid; below 700px the section drawing keeps a 980px width and scrolls horizontally.
+- **Hero:** H1 across columns 1–7, lead and actions in columns 9–12, aligned to the bottom. Below sits a band of three field photographs (0.7 / 2.6 / 0.7 fr), slanted against each other with mirrored clip-paths in RTL, between two periwinkle rails with end nodes. The band stays pinned under the 72px bar while the disciplines section slides over it.
+- **Section head:** H2 across columns 1–6, lead in columns 8–12, aligned to the bottom.
+- **Bento:** nine tiles in fixed spans and tones (7 lav, 5 teal / 5 teal, 7 lav / 4 lav, 4 teal, 4 lav / 6 teal, 6 lav). At 960px it becomes two columns (a trailing odd tile spans full width). At 640px it is one column.
+- **Projects:** a two-column list of rows, one column under 760px. Project cards sit three across, then two, then one.
+- **Closing band:** office panel (5 columns) beside a photo (7 columns).
+- **Breakpoints:** 960px (nav moves into the drawer; bento goes to two columns), 860px (head and hero grids stack), 640px (single column), 520 / 420 / 380px (the bar compacts; at 380px the quote action moves into the drawer).
 
-Lists are ruled grids, not card grids: service rows (icon, title, copy, capability list), project logs (network segment, title, client, status, toggle), fact sheets (9em key column), journey columns (a coloured layer stripe, year, text). Navigation collapses to a full-height asphalt drawer below 1180px. A depth gauge rides the inline-start edge only above 1360px.
-
-**The Logical Axis Rule.** Write every offset, border and alignment with logical properties (inline-start/end, block). The few physical padding overrides keyed to `dir='rtl'` in the reference stylesheet are debt, not pattern.
+**The Logical Properties Rule.** Inline layout uses only `inline-start/end`, `margin-inline` and `padding-inline`. Anything with a physical direction (clip-paths, reveal direction, arrows, tab keys) is mirrored explicitly for RTL.
 
 ## Elevation & Depth
 
-The world is flat. Depth is told by stratification, ground changes and ruled structure, not by shadows. Three restrained exceptions exist.
+The system is flat. There are no box-shadows anywhere. Depth comes from tonal plates: Slate, Teal and Lavender sit on Page Night. Interactive plates respond with a 2px periwinkle outline and, on tiles and project cards, a 3px lift. The one spatial effect is structural: the pinned hero photo band, with the next section scrolling over it on its own opaque grid ground.
 
-### Shadow Vocabulary
-- **Kerb lip** (`box-shadow: 0 1px 0 rgba(0,0,0,0.22)`): under the yellow action button only, a 1px edge like a painted kerb.
-- **Field sheet** (`box-shadow: 0 1px 0 var(--rule), 0 18px 40px -28px rgba(23, 24, 26, 0.45)`): the quote and application form sheet, which also carries a 4px ink top edge. The one lifted surface.
-- **Inset outlines** (`box-shadow: inset 0 0 0 1px var(--rule-strong)`, `--asphalt-line` on dark): how outline buttons, chips, the language toggle and tags draw their 1px border.
-
-### Named Rules
-**The Flat Strata Rule.** Surfaces rest flat on their stratum. Only the form sheet lifts; nothing hovers into shadow.
+**The Flat Plate Rule.** Plates are solid and shadowless. State shows as an outline colour, a tone swap (row: Slate to Teal) or a small lift, never as a shadow or glow.
 
 ## Shapes
 
-Corners are near-square: 2px on buttons, fields, chips, tags, tabs' counts, portraits and icon tiles; 1px on network segments; full circles only for status dots, check badges and the gauge mark. Borders are drawing lines: 1px hairlines between rows, a 2px ink (or on-dark / on-sand) rule opening each list, table, tab list and pager, a 3px yellow bar under the selected tab, a 2px yellow bar under the current nav item. Discipline icons sit in 44px asphalt tiles tinted with their network colour.
-
-**The Solid Marker Rule.** Active markers in nav and tabs are solid bars. Dashes belong to the drawing (lane dashes, leader lines and conduits inside the street section) and to the single lane-marking strip where the road band ends; never to UI state.
+Plates, photos and panels share one gently rounded corner (14px). Every control is a full pill (999px): actions, ghost buttons, filters, tabs, chips, status pills and the menu button. Form fields and notices use 10px, and photo windows inside line drawings use 4px. Line drawings use 1.5px round-capped strokes with non-scaling width and 4.5px-radius nodes filled with the tile colour. Hollow 9–10px ring nodes recur on the band rails, the timeline and card headers. ISO seals are drawn as typographic double rings, with no imitation certificate artwork.
 
 ## Components
 
 ### Buttons
-Signage-plain and decisive.
-- **Shape:** near-square (2px), min-height 48px (40px in the masthead and tables), padding 10px 1.35em, label wraps balanced and centred.
-- **Primary (marking):** road-marking yellow with ink text and the kerb lip. One per view region: the quote or document request.
-- **Ink:** asphalt with on-dark text, for the second action on light grounds.
-- **Line / Line-dark:** transparent with a 1px inset outline in `rule-strong` (light) or `asphalt-line` (dark); the outline darkens to ink or `on-dark-2` on hover.
-- **Hover / Focus:** 160ms colour or outline shift on `--ease-out`; focus is the global 3px yellow outline at 3px offset. Busy and disabled drop to 0.6 opacity.
-- **Text link:** Alexandria 600 with a 2px yellow underline at 0.4em offset that turns currentColor on hover. Directional arrows flip in RTL.
+- **Primary (the quote action):** Action Violet pill, white 500 label, 44px minimum height. On hover a 2px periwinkle outline appears at a 2px offset, and on press it moves down 1px. It sits in the bar, in the hero and, at 380px and under, in the drawer.
+- **Ghost:** transparent pill with a 1px Lavender Mist border and Lavender text. On hover the border turns periwinkle and the fill Slate. Used for secondary routes (all disciplines, call the office, apply to a role).
+- **Text link:** Lavender text with a 1px periwinkle underline at a 5px offset, thickening to 2px on hover. On lavender plates it uses Page Night text with a Slate underline. It carries a reading-direction arrow.
 
-### Chips (filters and tags)
-- **Filter:** 40px, transparent, 1px inset `rule-strong`, ink-2 label with a short network segment; selected becomes solid asphalt with on-dark text and no outline.
-- **Tag:** 0.85rem, 4px 10px, 1px inset outline, 2px corners; static.
+### Chips
+- **Filter:** outlined pill (1px Slate) with Lavender Mist text. On hover the border turns periwinkle. When selected (`aria-pressed`) it fills with Lavender and Page Night text.
+- **Approval chip:** a static outlined pill (1px Slate) on the lavender recognition band.
+- **Status pill:** outlined in Lavender Mist for completed work. Work in progress fills with Lavender.
 
 ### Cards / Containers
-There are no cards. Containers are grounds and ruled records.
-- **Record:** paper on the section's edge, a 2px ink rule under its heading, rows of figure plus label on 1px hairlines.
-- **Field sheet:** paper, 4px ink top edge, padding clamp(22px, 3vw, 40px), the only shadowed surface.
-- **Notices:** 2px corners; success `#e3f1e7` on `#1d5233`, failure `#f8e3e1` on `#7d1d17`.
+- **Corner Style:** 14px.
+- **Background:** Teal or Lavender for feature plates (tiles, value cards). Slate for information plates (rows, figures, facts, forms, panels). Teal for photo cards (projects, leadership).
+- **Shadow Strategy:** none (see Elevation & Depth).
+- **Internal Padding:** 24–28px, with fluid padding up to 40–48px on the recognition band, office panel and forms.
+- **Photo cards:** photo on top (4:3 projects, 5:4 leadership), caption below, Slate placeholder behind every image.
 
 ### Inputs / Fields
-- **Style:** white fill, 1px `rule-strong` border, 2px corners, 48px min-height, 10px 14px padding; textareas 140px. Labels above at 0.92rem 500; hints in ink-3.
-- **Hover / Focus:** border to ink-3 on hover; on focus border to ink plus a 3px yellow halo (`rgba(246, 184, 28, 0.7)`).
-- **Error:** border in Error Red, which stays red with a red halo while focused; the message sits below with an alert icon.
+- **Style:** Page Night fill, 1px Survey Grey border, 10px radius, 48px minimum height (textarea 150px). Labels sit above in label size.
+- **Hover / Focus:** on hover the border turns Lavender Mist. On focus the border and a 2px outline turn periwinkle.
+- **Error:** border and outline in Lavender, with a message (icon and text) in Lavender. There is no red; the message carries the error. Success and failure notices are 10px plates (Lavender, or Slate with a lavender outline).
 
 ### Navigation
-- **Official bar:** official black, 0.82rem on-dark-2, CR number and approvals with small yellow icons; contact links at inline-end. Items shed progressively below 900px and 560px.
-- **Masthead:** sticky asphalt, 72px, logo at inline-start, nav at inline-end in Readex Pro 0.93rem on-dark-2; current page in on-dark with a solid 2px yellow bar. Language toggle and the quote button follow.
-- **Mobile:** below 1180px a 44px menu button opens a full-height asphalt drawer of 1.3rem Alexandria links on hairlines, the current page in yellow, the quote button full width.
-- **Tabs:** Alexandria 1.08rem 500 (650 when selected), 52px, on a 2px ink rule; selected tab carries a 3px solid yellow bar (asphalt on the sand band) and a small count chip.
+- **Bar:** sticky, 72px, Bar Night with a 1px Slate bottom edge. Logo, then label-size links in Lavender Mist (hover and current: Lavender with a 2px periwinkle underline), then the language switch, the quote action and the menu button. Under 960px the links move into a drawer that fades down from the bar, with the first link focused and Escape to close. The footer is one compact Bar Night row: logo, Careers link and rights line, with no repeat of the nav.
+- **Tabs:** pill tabs in a Slate pill track. The selected tab is Lavender with Page Night text. Arrow keys follow the reading direction, and Home and End are supported.
 
-### Street Section (signature)
-A full-width SVG section on asphalt-2: textured strata (asphalt, aggregate, sub-base, sand, basalt), the networks drawn in their key colours, white label tags on dashed leader lines and a depth ruler in metres. Selecting a network (or its legend row) outlines it, dims the others to 0.38, fills its tag yellow and swaps the discipline reader below with a 360ms fade. On sub-pages a compact section (no record, labels scaled 1.4x, max 780px) sits under a compact page head. Strata settle downward once on load (900ms, 70ms stagger); networks fade in after.
+### Discipline Tile (signature)
+A Teal or Lavender plate with a title, a short description and, at the foot, a line drawing (640 or 420 × 200 viewBox), periwinkle on teal and teal on lavender. Tiles with a photo frame the real photo in a drawn window with side modules and connectors. The drawing draws in once, in the reading direction (1100ms clip-path, 200ms delay). On hover the tile lifts 3px and gains a periwinkle outline.
 
-### Depth Gauge
-A fixed 1px aggregate line with ticks on the inline-start edge, a 13px yellow mark tracking scroll; shown only above 1360px and faded out while the street section itself is in view.
+### Recognition Band (signature)
+A single Lavender plate: text in columns 1–4, three ISO double-ring seals in Teal in columns 6–12, then a full-width row of approval chips and a link. On phones the seals become a list with the seal beside its label.
+
+### Motion
+Entrances fade up 16px over 700ms with an 80ms stagger. State changes take 160–220ms on one ease-out curve. Content already on screen at load is never hidden. With `prefers-reduced-motion: reduce`, all motion collapses and the hero band unpins.
+
+**The One Quote Action Rule.** One quote action is visible at a time. On the home page the bar's copy stays hidden until the hero's action has scrolled out of view, and on narrow phones it moves into the drawer. Sections never repeat it.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** spend road-marking yellow as a fill only on the primary action, and keep exactly one such action per region.
-- **Do** use network colours only to identify water, power, sewer/storm/landscape and roads, with their `-ink` partners for text on light grounds.
-- **Do** set lists as ruled records: a 2px ink rule to open, 1px hairlines between rows.
-- **Do** keep corners at 2px and surfaces flat; the form sheet is the only lifted surface.
-- **Do** write layout in logical properties so Arabic and English mirror from `dir` alone, and give Arabic headings zero tracking and taller leading.
-- **Do** set every compared figure in tabular lining numerals.
-- **Do** place the logo unaltered on dark grounds at 34px height.
-- **Do** wrap all motion in `prefers-reduced-motion: no-preference`; the reduce branch removes animation and transitions.
+- **Do** use the ten palette colours solid at full strength, and alternate Teal and Lavender plates in feature grids.
+- **Do** keep body text Lavender or Lavender Mist on dark and Page Night or Slate on Lavender.
+- **Do** keep headings at weight 300 in sentence case, within the type steps above.
+- **Do** draw new engineering illustrations as 1.5px round-capped strokes with round nodes, in periwinkle on teal and teal on lavender.
+- **Do** write layout with logical properties and mirror every directional effect for RTL.
+- **Do** give every interactive element a visible 2px periwinkle focus ring (Page Night on lavender plates) and a 44px target.
 
 ### Don't:
-- **Don't** build a full-bleed site photo with a stat band and a grid of service cards; that is the contractor default this world refuses.
-- **Don't** use dashed or dotted markers for active nav, tab or selection state; dashes stay inside the street drawing and the single road-edge strip.
-- **Don't** fill panels, bands or cards with yellow, or use a network colour as decoration.
-- **Don't** add parallax, tickers, or repeating entrance animations; the section settles once.
-- **Don't** push display weight above 650 or uppercase-transform any text.
-- **Don't** redraw, recolour or place the logo on a light ground.
-- **Don't** load fonts from a CDN; Alexandria and Readex Pro are self-hosted.
+- **Don't** use gradients, transparency washes, glass, blur, scrims or greyscale and desaturated photos.
+- **Don't** set Action Violet or Survey Grey as text on a dark background, or use violet for anything but the primary action.
+- **Don't** add a second quote action to a section, or a sitemap-style footer.
+- **Don't** add box-shadows; show state with outline, tone or a small lift.
+- **Don't** recolour, redraw or tint the SACC logo.
+- **Don't** render small uppercase eyebrow labels above headings. The content data carries `eyebrow` strings, but the shipped design does not show them.
+- **Don't** invent certificate artwork, client logos or testimonials. Seals stay typographic.

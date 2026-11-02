@@ -1,792 +1,548 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-01T12:17:37.318Z",
+  "generatedAt": "2026-11-02T11:37:23Z",
   "title": "Design System: SACC — Sana Al-Awael Contracting Company",
   "extensions": {
-    "referenceImplementation": "prototype/src (styles.css, app.js, template.html), bundled to prototype/dist/sacc-prototype.html; carried into frontend/ on owner approval",
+    "referenceImplementation": {
+      "stylesheet": "frontend/src/styles/site.css",
+      "components": [
+        "frontend/src/components/Chrome.jsx",
+        "frontend/src/components/ui.jsx",
+        "frontend/src/components/Viz.jsx"
+      ],
+      "pages": [
+        "frontend/src/pages/Home.jsx",
+        "frontend/src/pages/Inner.jsx",
+        "frontend/src/pages/Forms.jsx"
+      ],
+      "brief": "prototype-bento/BRIEF.md",
+      "approvedProposal": "proposal 6 (bento)"
+    },
     "colorMeta": {
-      "asphalt": {
+      "page-night": {
         "role": "neutral",
-        "displayName": "Asphalt",
-        "canonical": "#17181a",
+        "displayName": "Page Night",
+        "cssVar": "--bg",
+        "canonical": "#0C1926",
+        "oklch": "oklch(20.9% 0.032 249.6)",
         "tonalRamp": [
-          "#0e0f10",
-          "#17181a",
-          "#222326",
-          "#2c2d31",
-          "#3d3e43",
-          "oklch(70% 0.003 264.5)",
-          "oklch(82% 0.002 264.5)",
-          "oklch(95% 0.001 264.5)"
+          "#080B0F",
+          "#1F252B",
+          "#37414B",
+          "#525F6D",
+          "#707F8F",
+          "#94A0AD",
+          "#BCC5CE",
+          "#EAEFF4"
+        ],
+        "note": "Also --on-lav: text on lavender plates."
+      },
+      "bar-night": {
+        "role": "neutral",
+        "displayName": "Bar Night",
+        "cssVar": "--bar",
+        "canonical": "#0D1B22",
+        "oklch": "oklch(21.3% 0.024 231.1)",
+        "tonalRamp": [
+          "#090C0D",
+          "#1F2529",
+          "#374147",
+          "#526067",
+          "#718088",
+          "#94A1A7",
+          "#BDC6CB",
+          "#EAEFF2"
         ]
       },
-      "asphalt-2": {
-        "role": "neutral",
-        "displayName": "Asphalt, Section Band",
-        "canonical": "#222326",
+      "deep-teal": {
+        "role": "secondary",
+        "displayName": "Deep Teal",
+        "cssVar": "--teal",
+        "canonical": "#0F393C",
+        "oklch": "oklch(31.8% 0.045 201.9)",
         "tonalRamp": [
-          "#0e0f10",
-          "#17181a",
-          "#222326",
-          "#2c2d31",
-          "#3d3e43",
-          "oklch(70% 0.004 271.2)",
-          "oklch(82% 0.003 271.2)",
-          "oklch(95% 0.001 271.2)"
+          "#060D0D",
+          "#172728",
+          "#2C4547",
+          "#426567",
+          "#5F8588",
+          "#87A5A7",
+          "#B4C9CA",
+          "#E5F1F2"
         ]
       },
-      "asphalt-3": {
+      "slate-surface": {
         "role": "neutral",
-        "displayName": "Asphalt, Worn",
-        "canonical": "#2c2d31",
+        "displayName": "Slate Surface",
+        "cssVar": "--surface",
+        "canonical": "#182F3D",
+        "oklch": "oklch(29.3% 0.039 236.9)",
         "tonalRamp": [
-          "#0e0f10",
-          "#17181a",
-          "#222326",
-          "#2c2d31",
-          "#3d3e43",
-          "oklch(70% 0.005 274.7)",
-          "oklch(82% 0.003 274.7)",
-          "oklch(95% 0.002 274.7)"
+          "#070C0F",
+          "#1C252C",
+          "#33424C",
+          "#4C616F",
+          "#6A8190",
+          "#8FA2AE",
+          "#B9C6CF",
+          "#E8F0F5"
+        ],
+        "note": "Also --on-lav-2: secondary text on lavender plates."
+      },
+      "lavender": {
+        "role": "secondary",
+        "displayName": "Lavender",
+        "cssVar": "--lav / --ink",
+        "canonical": "#DDDFFC",
+        "oklch": "oklch(91.1% 0.039 282.5)",
+        "tonalRamp": [
+          "#0A0B10",
+          "#22232D",
+          "#3D3E4E",
+          "#5A5B71",
+          "#797B93",
+          "#9B9DB0",
+          "#C2C3D1",
+          "#EDEEF6"
         ]
       },
-      "asphalt-line": {
+      "lavender-mist": {
         "role": "neutral",
-        "displayName": "Asphalt Joint Line",
-        "canonical": "#3d3e43",
+        "displayName": "Lavender Mist",
+        "cssVar": "--ink-2",
+        "canonical": "#BEC6E9",
+        "oklch": "oklch(83.2% 0.050 275.1)",
         "tonalRamp": [
-          "#0e0f10",
-          "#17181a",
-          "#222326",
-          "#2c2d31",
-          "#3d3e43",
-          "oklch(70% 0.006 276.9)",
-          "oklch(82% 0.004 276.9)",
-          "oklch(95% 0.002 276.9)"
+          "#090B11",
+          "#212330",
+          "#3A3F52",
+          "#565C77",
+          "#757C99",
+          "#979DB6",
+          "#BFC3D5",
+          "#ECEEF8"
         ]
       },
-      "official-black": {
-        "role": "neutral",
-        "displayName": "Official Black",
-        "canonical": "#0e0f10",
-        "tonalRamp": [
-          "oklch(15% 0.001 248)",
-          "oklch(26% 0.001 248)",
-          "oklch(37% 0.002 248)",
-          "oklch(48% 0.003 248)",
-          "oklch(59% 0.003 248)",
-          "oklch(70% 0.002 248)",
-          "oklch(82% 0.001 248)",
-          "oklch(95% 0.001 248)"
-        ]
-      },
-      "basalt": {
+      "periwinkle-line": {
         "role": "tertiary",
-        "displayName": "Madinah Basalt",
-        "canonical": "#2e2a27",
+        "displayName": "Periwinkle Line",
+        "cssVar": "--line",
+        "canonical": "#AFB5F9",
+        "oklch": "oklch(79.3% 0.097 280.0)",
         "tonalRamp": [
-          "oklch(15% 0.002 59.4)",
-          "oklch(26% 0.003 59.4)",
-          "oklch(37% 0.005 59.4)",
-          "oklch(48% 0.008 59.4)",
-          "oklch(59% 0.008 59.4)",
-          "oklch(70% 0.006 59.4)",
-          "oklch(82% 0.004 59.4)",
-          "oklch(95% 0.002 59.4)"
+          "#090A16",
+          "#20213A",
+          "#393B61",
+          "#54588C",
+          "#7377B2",
+          "#959ACA",
+          "#BDC1E4",
+          "#EAEDFF"
         ]
       },
-      "basalt-2": {
-        "role": "tertiary",
-        "displayName": "Basalt Seam",
-        "canonical": "#3a3531",
-        "tonalRamp": [
-          "oklch(15% 0.002 61.2)",
-          "oklch(26% 0.004 61.2)",
-          "oklch(37% 0.007 61.2)",
-          "oklch(48% 0.009 61.2)",
-          "oklch(59% 0.01 61.2)",
-          "oklch(70% 0.007 61.2)",
-          "oklch(82% 0.004 61.2)",
-          "oklch(95% 0.002 61.2)"
-        ]
-      },
-      "ground": {
-        "role": "neutral",
-        "displayName": "Concrete Ground",
-        "canonical": "#e2e4e3",
-        "tonalRamp": [
-          "oklch(15% 0.001 165.1)",
-          "oklch(26% 0.001 165.1)",
-          "oklch(37% 0.002 165.1)",
-          "oklch(48% 0.002 165.1)",
-          "oklch(59% 0.003 165.1)",
-          "oklch(70% 0.002 165.1)",
-          "oklch(82% 0.001 165.1)",
-          "oklch(95% 0.001 165.1)"
-        ]
-      },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Paper",
-        "canonical": "#f3f4f3",
-        "tonalRamp": [
-          "oklch(15% 0 145.6)",
-          "oklch(26% 0.001 145.6)",
-          "oklch(37% 0.001 145.6)",
-          "oklch(48% 0.002 145.6)",
-          "oklch(59% 0.002 145.6)",
-          "oklch(70% 0.001 145.6)",
-          "oklch(82% 0.001 145.6)",
-          "oklch(95% 0 145.6)"
-        ]
-      },
-      "rule": {
-        "role": "neutral",
-        "displayName": "Hairline Rule",
-        "canonical": "#c5c8c6",
-        "tonalRamp": [
-          "oklch(15% 0.001 157.2)",
-          "oklch(26% 0.002 157.2)",
-          "oklch(37% 0.003 157.2)",
-          "oklch(48% 0.004 157.2)",
-          "oklch(59% 0.004 157.2)",
-          "oklch(70% 0.003 157.2)",
-          "oklch(82% 0.002 157.2)",
-          "oklch(95% 0.001 157.2)"
-        ]
-      },
-      "rule-strong": {
-        "role": "neutral",
-        "displayName": "Strong Rule",
-        "canonical": "#a2a6a4",
-        "tonalRamp": [
-          "oklch(15% 0.001 164.9)",
-          "oklch(26% 0.002 164.9)",
-          "oklch(37% 0.004 164.9)",
-          "oklch(48% 0.005 164.9)",
-          "oklch(59% 0.005 164.9)",
-          "oklch(70% 0.004 164.9)",
-          "oklch(82% 0.002 164.9)",
-          "oklch(95% 0.001 164.9)"
-        ]
-      },
-      "aggregate": {
-        "role": "neutral",
-        "displayName": "Aggregate",
-        "canonical": "#8b857a",
-        "tonalRamp": [
-          "oklch(15% 0.004 82.8)",
-          "oklch(26% 0.007 82.8)",
-          "oklch(37% 0.012 82.8)",
-          "oklch(48% 0.017 82.8)",
-          "oklch(59% 0.018 82.8)",
-          "oklch(70% 0.013 82.8)",
-          "oklch(82% 0.008 82.8)",
-          "oklch(95% 0.004 82.8)"
-        ]
-      },
-      "sand": {
-        "role": "tertiary",
-        "displayName": "Wadi Sand",
-        "canonical": "#c9a46a",
-        "tonalRamp": [
-          "oklch(15% 0.022 78)",
-          "oklch(26% 0.035 78)",
-          "oklch(37% 0.059 78)",
-          "oklch(48% 0.083 78)",
-          "oklch(59% 0.087 78)",
-          "oklch(70% 0.065 78)",
-          "oklch(82% 0.039 78)",
-          "oklch(95% 0.022 78)"
-        ]
-      },
-      "sand-deep": {
-        "role": "tertiary",
-        "displayName": "Wadi Sand, Deep",
-        "canonical": "#b38d55",
-        "tonalRamp": [
-          "oklch(15% 0.022 76)",
-          "oklch(26% 0.035 76)",
-          "oklch(37% 0.059 76)",
-          "oklch(48% 0.082 76)",
-          "oklch(59% 0.087 76)",
-          "oklch(70% 0.065 76)",
-          "oklch(82% 0.039 76)",
-          "oklch(95% 0.022 76)"
-        ]
-      },
-      "ink": {
-        "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "#17181a",
-        "tonalRamp": [
-          "oklch(15% 0.001 264.5)",
-          "oklch(26% 0.002 264.5)",
-          "oklch(37% 0.003 264.5)",
-          "oklch(48% 0.004 264.5)",
-          "oklch(59% 0.004 264.5)",
-          "oklch(70% 0.003 264.5)",
-          "oklch(82% 0.002 264.5)",
-          "oklch(95% 0.001 264.5)"
-        ]
-      },
-      "ink-2": {
-        "role": "neutral",
-        "displayName": "Ink, Secondary",
-        "canonical": "#47443f",
-        "tonalRamp": [
-          "oklch(15% 0.002 80.7)",
-          "oklch(26% 0.004 80.7)",
-          "oklch(37% 0.006 80.7)",
-          "oklch(48% 0.009 80.7)",
-          "oklch(59% 0.009 80.7)",
-          "oklch(70% 0.007 80.7)",
-          "oklch(82% 0.004 80.7)",
-          "oklch(95% 0.002 80.7)"
-        ]
-      },
-      "ink-3": {
-        "role": "neutral",
-        "displayName": "Ink, Meta",
-        "canonical": "#5f5b54",
-        "tonalRamp": [
-          "oklch(15% 0.003 81.8)",
-          "oklch(26% 0.005 81.8)",
-          "oklch(37% 0.008 81.8)",
-          "oklch(48% 0.012 81.8)",
-          "oklch(59% 0.012 81.8)",
-          "oklch(70% 0.009 81.8)",
-          "oklch(82% 0.005 81.8)",
-          "oklch(95% 0.003 81.8)"
-        ]
-      },
-      "on-dark": {
-        "role": "neutral",
-        "displayName": "On Dark",
-        "canonical": "#f3f2ed",
-        "tonalRamp": [
-          "oklch(15% 0.002 97.4)",
-          "oklch(26% 0.003 97.4)",
-          "oklch(37% 0.005 97.4)",
-          "oklch(48% 0.006 97.4)",
-          "oklch(59% 0.007 97.4)",
-          "oklch(70% 0.005 97.4)",
-          "oklch(82% 0.003 97.4)",
-          "oklch(95% 0.002 97.4)"
-        ]
-      },
-      "on-dark-2": {
-        "role": "neutral",
-        "displayName": "On Dark, Secondary",
-        "canonical": "#bdb9b0",
-        "tonalRamp": [
-          "oklch(15% 0.003 86.8)",
-          "oklch(26% 0.005 86.8)",
-          "oklch(37% 0.009 86.8)",
-          "oklch(48% 0.013 86.8)",
-          "oklch(59% 0.013 86.8)",
-          "oklch(70% 0.01 86.8)",
-          "oklch(82% 0.006 86.8)",
-          "oklch(95% 0.003 86.8)"
-        ]
-      },
-      "on-sand": {
-        "role": "tertiary",
-        "displayName": "On Sand",
-        "canonical": "#261d12",
-        "tonalRamp": [
-          "oklch(15% 0.006 71.9)",
-          "oklch(26% 0.01 71.9)",
-          "oklch(37% 0.016 71.9)",
-          "oklch(48% 0.023 71.9)",
-          "oklch(59% 0.024 71.9)",
-          "oklch(70% 0.018 71.9)",
-          "oklch(82% 0.011 71.9)",
-          "oklch(95% 0.006 71.9)"
-        ]
-      },
-      "on-sand-2": {
-        "role": "tertiary",
-        "displayName": "On Sand, Secondary",
-        "canonical": "#45361f",
-        "tonalRamp": [
-          "oklch(15% 0.01 77.3)",
-          "oklch(26% 0.017 77.3)",
-          "oklch(37% 0.028 77.3)",
-          "oklch(48% 0.04 77.3)",
-          "oklch(59% 0.042 77.3)",
-          "oklch(70% 0.031 77.3)",
-          "oklch(82% 0.019 77.3)",
-          "oklch(95% 0.01 77.3)"
-        ]
-      },
-      "marking": {
+      "action-violet": {
         "role": "primary",
-        "displayName": "Road-Marking Yellow",
-        "canonical": "#f6b81c",
+        "displayName": "Action Violet",
+        "cssVar": "--act",
+        "canonical": "#9662A8",
+        "oklch": "oklch(57.9% 0.119 317.0)",
         "tonalRamp": [
-          "oklch(15% 0.041 83.1)",
-          "oklch(26% 0.065 83.1)",
-          "oklch(37% 0.11 83.1)",
-          "oklch(48% 0.155 83.1)",
-          "oklch(59% 0.163 83.1)",
-          "oklch(70% 0.122 83.1)",
-          "oklch(82% 0.073 83.1)",
-          "oklch(95% 0.041 83.1)"
+          "#110714",
+          "#2F1B36",
+          "#51315B",
+          "#754984",
+          "#9867A8",
+          "#B48EC2",
+          "#D4B9DE",
+          "#F8E8FD"
         ]
       },
-      "marking-hover": {
-        "role": "primary",
-        "displayName": "Fresh Paint",
-        "canonical": "#ffc83d",
-        "tonalRamp": [
-          "oklch(15% 0.04 85.8)",
-          "oklch(26% 0.063 85.8)",
-          "oklch(37% 0.107 85.8)",
-          "oklch(48% 0.15 85.8)",
-          "oklch(59% 0.158 85.8)",
-          "oklch(70% 0.119 85.8)",
-          "oklch(82% 0.071 85.8)",
-          "oklch(95% 0.04 85.8)"
-        ]
-      },
-      "lane": {
+      "survey-grey": {
         "role": "neutral",
-        "displayName": "Lane White",
-        "canonical": "#e9e7df",
+        "displayName": "Survey Grey",
+        "cssVar": "--deco",
+        "canonical": "#70787A",
+        "oklch": "oklch(56.7% 0.010 214.4)",
         "tonalRamp": [
-          "oklch(15% 0.003 95.2)",
-          "oklch(26% 0.004 95.2)",
-          "oklch(37% 0.007 95.2)",
-          "oklch(48% 0.01 95.2)",
-          "oklch(59% 0.011 95.2)",
-          "oklch(70% 0.008 95.2)",
-          "oklch(82% 0.005 95.2)",
-          "oklch(95% 0.003 95.2)"
+          "#0A0B0C",
+          "#222525",
+          "#3C4142",
+          "#585F61",
+          "#777F81",
+          "#9AA0A1",
+          "#C0C5C6",
+          "#ECEFEF"
         ]
       },
-      "water": {
-        "role": "secondary",
-        "displayName": "Water Teal",
-        "canonical": "#3fa29b",
+      "earth": {
+        "role": "tertiary",
+        "displayName": "Earth",
+        "cssVar": "--earth",
+        "canonical": "#6E4A3B",
+        "oklch": "oklch(44.5% 0.055 43.5)",
         "tonalRamp": [
-          "oklch(15% 0.023 188.7)",
-          "oklch(26% 0.037 188.7)",
-          "oklch(37% 0.062 188.7)",
-          "oklch(48% 0.087 188.7)",
-          "oklch(59% 0.092 188.7)",
-          "oklch(70% 0.069 188.7)",
-          "oklch(82% 0.041 188.7)",
-          "oklch(95% 0.023 188.7)"
-        ]
+          "#110906",
+          "#2F201A",
+          "#513A30",
+          "#755548",
+          "#987465",
+          "#B5978B",
+          "#D5BFB6",
+          "#F8ECE7"
+        ],
+        "note": "Defined in site.css (--earth) but not used by any shipped surface."
       },
-      "water-ink": {
-        "role": "secondary",
-        "displayName": "Water Teal, Ink",
-        "canonical": "#1e6f69",
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "cssVar": "literal #fff",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
         "tonalRamp": [
-          "oklch(15% 0.019 187.8)",
-          "oklch(26% 0.03 187.8)",
-          "oklch(37% 0.051 187.8)",
-          "oklch(48% 0.072 187.8)",
-          "oklch(59% 0.076 187.8)",
-          "oklch(70% 0.057 187.8)",
-          "oklch(82% 0.034 187.8)",
-          "oklch(95% 0.019 187.8)"
-        ]
-      },
-      "power": {
-        "role": "secondary",
-        "displayName": "Power Orange",
-        "canonical": "#e5862b",
-        "tonalRamp": [
-          "oklch(15% 0.038 58.9)",
-          "oklch(26% 0.061 58.9)",
-          "oklch(37% 0.103 58.9)",
-          "oklch(48% 0.144 58.9)",
-          "oklch(59% 0.152 58.9)",
-          "oklch(70% 0.114 58.9)",
-          "oklch(82% 0.068 58.9)",
-          "oklch(95% 0.038 58.9)"
-        ]
-      },
-      "power-ink": {
-        "role": "secondary",
-        "displayName": "Power Orange, Ink",
-        "canonical": "#a65412",
-        "tonalRamp": [
-          "oklch(15% 0.032 52.5)",
-          "oklch(26% 0.052 52.5)",
-          "oklch(37% 0.087 52.5)",
-          "oklch(48% 0.123 52.5)",
-          "oklch(59% 0.129 52.5)",
-          "oklch(70% 0.097 52.5)",
-          "oklch(82% 0.058 52.5)",
-          "oklch(95% 0.032 52.5)"
-        ]
-      },
-      "sewer": {
-        "role": "secondary",
-        "displayName": "Sewer, Storm and Landscape Green",
-        "canonical": "#6cbf88",
-        "tonalRamp": [
-          "oklch(15% 0.029 153.6)",
-          "oklch(26% 0.046 153.6)",
-          "oklch(37% 0.077 153.6)",
-          "oklch(48% 0.109 153.6)",
-          "oklch(59% 0.115 153.6)",
-          "oklch(70% 0.086 153.6)",
-          "oklch(82% 0.052 153.6)",
-          "oklch(95% 0.029 153.6)"
-        ]
-      },
-      "sewer-ink": {
-        "role": "secondary",
-        "displayName": "Sewer Green, Ink",
-        "canonical": "#2a7446",
-        "tonalRamp": [
-          "oklch(15% 0.026 153)",
-          "oklch(26% 0.041 153)",
-          "oklch(37% 0.07 153)",
-          "oklch(48% 0.099 153)",
-          "oklch(59% 0.104 153)",
-          "oklch(70% 0.078 153)",
-          "oklch(82% 0.047 153)",
-          "oklch(95% 0.026 153)"
-        ]
-      },
-      "road": {
-        "role": "secondary",
-        "displayName": "Road Yellow",
-        "canonical": "#f6b81c",
-        "tonalRamp": [
-          "oklch(15% 0.041 83.1)",
-          "oklch(26% 0.065 83.1)",
-          "oklch(37% 0.11 83.1)",
-          "oklch(48% 0.155 83.1)",
-          "oklch(59% 0.163 83.1)",
-          "oklch(70% 0.122 83.1)",
-          "oklch(82% 0.073 83.1)",
-          "oklch(95% 0.041 83.1)"
-        ]
-      },
-      "road-ink": {
-        "role": "secondary",
-        "displayName": "Road Yellow, Ink",
-        "canonical": "#8a6200",
-        "tonalRamp": [
-          "oklch(15% 0.027 80.6)",
-          "oklch(26% 0.043 80.6)",
-          "oklch(37% 0.073 80.6)",
-          "oklch(48% 0.103 80.6)",
-          "oklch(59% 0.108 80.6)",
-          "oklch(70% 0.081 80.6)",
-          "oklch(82% 0.049 80.6)",
-          "oklch(95% 0.027 80.6)"
-        ]
-      },
-      "concrete": {
-        "role": "secondary",
-        "displayName": "Concrete",
-        "canonical": "#a7a298",
-        "tonalRamp": [
-          "oklch(15% 0.004 84.6)",
-          "oklch(26% 0.006 84.6)",
-          "oklch(37% 0.01 84.6)",
-          "oklch(48% 0.015 84.6)",
-          "oklch(59% 0.015 84.6)",
-          "oklch(70% 0.012 84.6)",
-          "oklch(82% 0.007 84.6)",
-          "oklch(95% 0.004 84.6)"
-        ]
-      },
-      "error": {
-        "role": "error",
-        "displayName": "Error Red",
-        "canonical": "#b3261e",
-        "tonalRamp": [
-          "oklch(15% 0.045 28.7)",
-          "oklch(26% 0.071 28.7)",
-          "oklch(37% 0.12 28.7)",
-          "oklch(48% 0.169 28.7)",
-          "oklch(59% 0.178 28.7)",
-          "oklch(70% 0.134 28.7)",
-          "oklch(82% 0.08 28.7)",
-          "oklch(95% 0.045 28.7)"
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
         ]
       }
     },
+    "contrast": [
+      {
+        "pair": "#FFFFFF on #9662A8",
+        "ratio": 4.56,
+        "use": "quote action label"
+      },
+      {
+        "pair": "#DDDFFC on #0C1926",
+        "ratio": 13.56,
+        "use": "primary text on page"
+      },
+      {
+        "pair": "#BEC6E9 on #0C1926",
+        "ratio": 10.52,
+        "use": "secondary text on page"
+      },
+      {
+        "pair": "#BEC6E9 on #0F393C",
+        "ratio": 7.45,
+        "use": "secondary text on teal"
+      },
+      {
+        "pair": "#0C1926 on #DDDFFC",
+        "ratio": 13.56,
+        "use": "text on lavender"
+      },
+      {
+        "pair": "#182F3D on #DDDFFC",
+        "ratio": 10.6,
+        "use": "secondary text on lavender"
+      },
+      {
+        "pair": "#AFB5F9 on #0C1926",
+        "ratio": 9.13,
+        "use": "lines, focus ring"
+      },
+      {
+        "pair": "#0F393C on #DDDFFC",
+        "ratio": 9.6,
+        "use": "drawings and seals on lavender"
+      },
+      {
+        "pair": "#70787A on #0C1926",
+        "ratio": 3.94,
+        "use": "field border only; never text"
+      },
+      {
+        "pair": "#9662A8 on #0C1926",
+        "ratio": 3.9,
+        "use": "never text on dark"
+      }
+    ],
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Home opening headline on asphalt only."
-      },
-      "display-ar": {
-        "displayName": "Display (Arabic)",
-        "purpose": "Arabic opening headline: zero tracking, taller leading."
-      },
-      "page-title": {
-        "displayName": "Page Title",
-        "purpose": "Inner page heads; compact sub-page heads use clamp(2rem, 3.6vw, 3rem)."
+        "purpose": "Page H1 and figure numerals. Arabic line-height 1.35.",
+        "cssVar": "--fs-display"
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Band headings."
+        "purpose": "Section H2. Arabic line-height 1.4.",
+        "cssVar": "--fs-head"
+      },
+      "quote": {
+        "displayName": "Quote",
+        "purpose": "Chairman's quote only."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Service rows, legend, project-sheet headings."
+        "purpose": "H3 on tiles, cards, rows, people; drawer links.",
+        "cssVar": "--fs-lead"
       },
-      "figure": {
-        "displayName": "Figure",
-        "purpose": "Record values, years, standards in tabular numerals."
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Supporting line beside H1/H2, Lavender Mist.",
+        "cssVar": "--fs-lead"
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Running copy, max 60-62ch."
-      },
-      "body-ar": {
-        "displayName": "Body (Arabic)",
-        "purpose": "Arabic running copy."
-      },
-      "button": {
-        "displayName": "Button",
-        "purpose": "Buttons and text links."
+        "purpose": "Running text. Arabic line-height 1.8; 44ch max in tiles.",
+        "cssVar": "--fs-body"
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Nav, meta, captions."
+        "purpose": "Nav, meta, chips, pills, field labels, footer; 500 for names.",
+        "cssVar": "--fs-small"
+      },
+      "fonts": {
+        "latin": "Onest Variable (@fontsource-variable/onest, wght axis)",
+        "arabic": "IBM Plex Sans Arabic 300/400/500 (@fontsource/ibm-plex-sans-arabic, arabic subset)",
+        "selfHosted": true
       }
     },
-    "shadows": [
-      {
-        "name": "kerb-lip",
-        "value": "0 1px 0 rgba(0,0,0,0.22)",
-        "purpose": "Under the yellow primary action only."
-      },
-      {
-        "name": "field-sheet",
-        "value": "0 1px 0 var(--rule), 0 18px 40px -28px rgba(23, 24, 26, 0.45)",
-        "purpose": "The form sheet, the one lifted surface (with a 4px ink top edge)."
-      },
-      {
-        "name": "inset-outline",
-        "value": "inset 0 0 0 1px var(--rule-strong)",
-        "purpose": "How outline buttons, chips, tags and the language toggle draw their border; var(--asphalt-line) on dark."
-      },
-      {
-        "name": "focus-halo",
-        "value": "0 0 0 3px rgba(246, 184, 28, 0.7)",
-        "purpose": "Focused form field; invalid fields use 0 0 0 3px rgba(179, 38, 30, 0.22)."
-      }
-    ],
+    "shadows": [],
     "motion": [
       {
-        "name": "ease-out",
-        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "The one easing for every transition and animation."
+        "name": "ease",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "The one easing curve for every transition."
       },
       {
         "name": "state",
-        "value": "140ms-220ms",
-        "purpose": "Colour, outline and opacity changes on hover, press and selection."
+        "value": "160ms–220ms",
+        "purpose": "Hover, outline, tone and pill state changes; tiles and project cards 220ms."
       },
       {
-        "name": "settle",
-        "value": "900ms, 70ms stagger per stratum; networks 700ms from 420ms",
-        "purpose": "The street section layers settle downward once on load."
+        "name": "lift",
+        "value": "translateY(-3px)",
+        "purpose": "Tiles and project cards on hover; primary action presses 1px down."
       },
       {
-        "name": "swap",
-        "value": "360ms",
-        "purpose": "Discipline reader swap after a network is selected."
+        "name": "rise",
+        "value": "opacity 0→1, translateY(16px→0), 700ms, stagger 80ms × --d",
+        "purpose": "Section entrance; content already on screen is never hidden."
+      },
+      {
+        "name": "line-draw",
+        "value": "clip-path inset reveal, 1100ms, 200ms delay, in reading direction",
+        "purpose": "Discipline line drawings draw in once."
+      },
+      {
+        "name": "drawer",
+        "value": "opacity + translateY(-8px), 200ms",
+        "purpose": "Mobile menu."
+      },
+      {
+        "name": "pinned-band",
+        "value": "position: sticky; top: 72px",
+        "purpose": "Hero photo band stays fixed while the disciplines section slides over it."
       },
       {
         "name": "reduced-motion",
-        "value": "prefers-reduced-motion: reduce removes all animation and transitions",
-        "purpose": "Required."
+        "value": "all durations 1ms; band unpinned",
+        "purpose": "prefers-reduced-motion: reduce."
       }
     ],
     "breakpoints": [
       {
-        "name": "gauge",
-        "value": "1360px"
+        "name": "nav",
+        "value": "960px",
+        "note": "nav to drawer; bento 2-up; leadership stacks"
       },
       {
-        "name": "nav-drawer",
-        "value": "1180px"
+        "name": "stack",
+        "value": "860px",
+        "note": "hero, section-head, page-head, split, closing band stack"
       },
       {
-        "name": "record-under",
-        "value": "1020px"
+        "name": "single",
+        "value": "640px",
+        "note": "bento 1-up; band shows two photos; fields 1-up"
       },
       {
-        "name": "two-col-collapse",
-        "value": "860px-960px"
+        "name": "phone",
+        "value": "560px",
+        "note": "Arabic hero H1 kept on one line; chair card stacks"
       },
       {
-        "name": "section-scroll",
-        "value": "700px"
+        "name": "compact",
+        "value": "520px",
+        "note": "bar compacts; seals become a list"
       },
       {
-        "name": "single-col",
-        "value": "520px-560px"
+        "name": "narrow",
+        "value": "420px",
+        "note": "language icon hidden; logo 22px"
+      },
+      {
+        "name": "tiny",
+        "value": "380px",
+        "note": "quote action moves into the drawer"
       }
     ],
     "focus": {
-      "value": "outline: 3px solid var(--marking); outline-offset: 3px; border-radius: 2px",
-      "purpose": "Global focus-visible ring."
+      "value": "outline: 2px solid #AFB5F9; outline-offset: 3px; border-radius: 4px",
+      "onLavender": "outline-color #0C1926",
+      "fields": "outline-offset 1px plus periwinkle border"
+    },
+    "grid": {
+      "value": "96px site-plan grid, 1px #182F3D lines, background-attachment fixed",
+      "purpose": "Faint plan lines behind every page."
     }
   },
   "components": [
     {
-      "name": "Primary Action (Marking)",
+      "name": "Quote Action",
       "kind": "button",
-      "refersTo": "button-mark",
-      "description": "The quote or document request; the only yellow fill in a region.",
-      "html": "<button class=\"ds-btn-mark\">Request a quote</button>",
-      "css": ".ds-btn-mark { display: inline-flex; align-items: center; gap: 0.6em; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: #f6b81c; color: #17181a; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; box-shadow: 0 1px 0 rgba(0,0,0,0.22); cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-mark:hover { background: #ffc83d; } .ds-btn-mark:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+      "refersTo": "button-primary",
+      "description": "The single primary action, Request a quote. One visible at a time; also the form submit.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-action\" href=\"#\">Request a quote</a></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 22px;border-radius:999px;background:var(--act);color:#fff;font-weight:500;text-decoration:none;white-space:nowrap;outline:2px solid transparent;outline-offset:2px;transition:outline-color 160ms var(--ease),transform 160ms var(--ease);} .ds-action:hover{outline-color:var(--line);} .ds-action:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-action:active{transform:translateY(1px);}"
     },
     {
-      "name": "Ink Button",
+      "name": "Ghost Button",
       "kind": "button",
-      "refersTo": "button-ink",
-      "description": "Second action on light grounds.",
-      "html": "<button class=\"ds-btn-ink\">Request certification documents</button>",
-      "css": ".ds-btn-ink { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: #17181a; color: #f3f2ed; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; cursor: pointer; transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-ink:hover { background: #2c2d31; } .ds-btn-ink:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+      "refersTo": "button-ghost",
+      "description": "Secondary routes: all disciplines, call the office, apply to a role.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-ghost\" href=\"#\">All disciplines</a></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-ghost{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 22px;border-radius:999px;border:1px solid var(--ink-2);background:none;color:var(--ink);text-decoration:none;transition:border-color 160ms var(--ease),background-color 160ms var(--ease);} .ds-ghost:hover{border-color:var(--line);background:var(--surface);} .ds-ghost:focus-visible{outline:2px solid var(--line);outline-offset:3px;}"
     },
     {
-      "name": "Line Button",
-      "kind": "button",
-      "refersTo": "button-line",
-      "description": "Tertiary action outlined with a 1px inset rule.",
-      "html": "<button class=\"ds-btn-line\">View our services</button>",
-      "css": ".ds-btn-line { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 1.35em; border: 0; border-radius: 2px; background: transparent; color: #17181a; box-shadow: inset 0 0 0 1px #a2a6a4; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.4; cursor: pointer; transition: box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-line:hover { box-shadow: inset 0 0 0 1px #17181a; } .ds-btn-line:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+      "name": "Text Link",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Inline route with a periwinkle underline and a reading-direction arrow.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-link\" href=\"#\">All projects <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:5px;text-decoration-thickness:1px;} .ds-link:hover{text-decoration-thickness:2px;} .ds-link:focus-visible{outline:2px solid var(--line);outline-offset:3px;border-radius:4px;}"
     },
     {
-      "name": "Field",
-      "kind": "input",
-      "refersTo": "input-field",
-      "description": "Form field on the paper sheet; yellow halo on focus.",
-      "html": "<label class=\"ds-field\"><span>Company</span><input placeholder=\"Company name\"></label>",
-      "css": ".ds-field { display: grid; gap: 6px; font-family: 'Readex Pro', system-ui, sans-serif; color: #17181a; } .ds-field span { font-size: 0.92rem; font-weight: 500; } .ds-field input { min-height: 48px; padding: 10px 14px; background: #fff; border: 1px solid #a2a6a4; border-radius: 2px; font: inherit; font-size: 1rem; transition: border-color 140ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 140ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-field input::placeholder { color: #6e6a62; } .ds-field input:hover { border-color: #5f5b54; } .ds-field input:focus { outline: none; border-color: #17181a; box-shadow: 0 0 0 3px rgba(246, 184, 28, 0.7); }"
-    },
-    {
-      "name": "Filter Chip",
+      "name": "Project Filters",
       "kind": "chip",
       "refersTo": "filter-chip",
-      "description": "Project filter; selected turns solid asphalt.",
-      "html": "<div class=\"ds-filters\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\"><i style=\"background:#3fa29b\"></i>Water</button></div>",
-      "css": ".ds-filters { display: flex; gap: 8px; } .ds-chip { min-height: 40px; padding: 0 16px; border: 0; border-radius: 2px; background: transparent; box-shadow: inset 0 0 0 1px #a2a6a4; color: #47443f; font-family: 'Readex Pro', system-ui, sans-serif; font-size: 0.93rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; } .ds-chip i { width: 14px; height: 4px; border-radius: 1px; } .ds-chip:hover { color: #17181a; box-shadow: inset 0 0 0 1px #17181a; } .ds-chip[aria-pressed='true'] { background: #17181a; color: #f3f2ed; box-shadow: none; } .ds-chip:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
-    },
-    {
-      "name": "Masthead",
-      "kind": "nav",
-      "refersTo": "masthead",
-      "description": "Sticky asphalt masthead; the current page carries a solid yellow bar.",
-      "html": "<nav class=\"ds-mast\"><a href=\"#\" aria-current=\"page\">Services</a><a href=\"#\">Projects</a><a href=\"#\">Certifications</a><a href=\"#\">Contact</a></nav>",
-      "css": ".ds-mast { display: flex; gap: 2px; align-items: center; height: 72px; padding-inline: 24px; background: #17181a; border-bottom: 1px solid #3d3e43; font-family: 'Readex Pro', system-ui, sans-serif; } .ds-mast a { position: relative; padding: 10px 11px; color: #bdb9b0; text-decoration: none; font-size: 0.93rem; transition: color 140ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-mast a:hover, .ds-mast a[aria-current='page'] { color: #f3f2ed; } .ds-mast a[aria-current='page']::after { content: ''; position: absolute; inset-inline: 11px; bottom: 2px; height: 2px; background: #f6b81c; } .ds-mast a:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+      "description": "Pill toggles filtering projects; selected fills lavender.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-filters\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">Water</button><button aria-pressed=\"false\">Roads</button><button aria-pressed=\"false\">Electrical</button></div></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-filters{display:flex;flex-wrap:wrap;gap:8px;} .ds-filters button{font:inherit;min-height:40px;padding:8px 18px;border-radius:999px;border:1px solid var(--surface);background:none;color:var(--ink-2);cursor:pointer;font-size:var(--fs-small);transition:background-color 160ms var(--ease),color 160ms var(--ease),border-color 160ms var(--ease);} .ds-filters button:hover{border-color:var(--line);color:var(--ink);} .ds-filters button:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-filters button[aria-pressed='true']{background:var(--lav);border-color:var(--lav);color:var(--on-lav);}"
     },
     {
       "name": "Tabs",
       "kind": "nav",
-      "refersTo": "tab",
-      "description": "In-page tabs on a 2px ink rule; selected tab gets a 3px solid yellow bar and a count chip.",
-      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">ISO <span>3</span></button><button role=\"tab\" aria-selected=\"false\">Approvals <span>7</span></button></div>",
-      "css": ".ds-tabs { display: flex; gap: 28px; border-bottom: 2px solid #17181a; } .ds-tabs [role='tab'] { position: relative; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0; border: 0; background: transparent; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-size: 1.08rem; font-weight: 500; color: #5f5b54; cursor: pointer; } .ds-tabs [role='tab']:hover { color: #17181a; } .ds-tabs [aria-selected='true'] { color: #17181a; font-weight: 650; } .ds-tabs [aria-selected='true']::after { content: ''; position: absolute; inset-inline: 0; bottom: -2px; height: 3px; background: #f6b81c; } .ds-tabs span { font-family: 'Readex Pro', system-ui, sans-serif; font-size: 0.78rem; font-weight: 500; min-width: 26px; height: 22px; padding: 0 7px; display: inline-grid; place-items: center; border-radius: 2px; background: #e2e4e3; color: #47443f; } .ds-tabs [role='tab']:focus-visible { outline: 3px solid #f6b81c; outline-offset: 3px; }"
+      "refersTo": "tablist",
+      "description": "Pill tabs in a slate track; arrow keys follow reading direction.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-tablist\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">About</button><button role=\"tab\" aria-selected=\"false\">Journey</button><button role=\"tab\" aria-selected=\"false\">Values</button><button role=\"tab\" aria-selected=\"false\">Leadership</button></div></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-tablist{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;background:var(--surface);} .ds-tablist button{font:inherit;min-height:40px;padding:8px 18px;border-radius:999px;border:0;background:none;color:var(--ink-2);cursor:pointer;transition:background-color 160ms var(--ease),color 160ms var(--ease);} .ds-tablist button:hover{color:var(--ink);} .ds-tablist button:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-tablist button[aria-selected='true']{background:var(--lav);color:var(--on-lav);}"
     },
     {
-      "name": "Qualification Record",
-      "kind": "custom",
-      "description": "Ruled record of figures and labels on paper; the signature record beside the street section.",
-      "html": "<dl class=\"ds-record\"><h2>Qualification record</h2><div><dt>2007</dt><dd>Founded</dd></div><div><dt>NWC</dt><dd>Approved contractor, National Water Company</dd></div><div><dt>150+</dt><dd>Owned fleet</dd></div></dl>",
-      "css": ".ds-record { margin: 0; max-width: 340px; background: #f3f4f3; color: #17181a; font-family: 'Readex Pro', system-ui, sans-serif; } .ds-record h2 { margin: 0; font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-size: 1.05rem; font-weight: 600; padding: 16px 20px 12px; border-bottom: 2px solid #17181a; } .ds-record div { display: grid; grid-template-columns: 7.4em 1fr; gap: 12px; align-items: center; padding: 7px 20px; border-bottom: 1px solid #c5c8c6; } .ds-record dt { font-family: 'Alexandria', 'Readex Pro', system-ui, sans-serif; font-weight: 700; font-size: 1.12rem; line-height: 1.2; font-variant-numeric: tabular-nums lining-nums; } .ds-record dd { margin: 0; font-size: 0.88rem; color: #47443f; line-height: 1.35; }"
+      "name": "Discipline Tiles",
+      "kind": "card",
+      "refersTo": "tile-teal",
+      "description": "Signature bento plates: teal and lavender alternate, each with a thin engineering line drawing and round nodes.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-bento\"><a class=\"ds-tile ds-teal\" href=\"#\"><h3>Roads &amp; Asphalt Works</h3><p>Earthworks, sub-base and asphalt paving.</p><svg viewBox=\"0 0 420 200\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 176H414\"/><circle cx=\"6\" cy=\"176\" r=\"4.5\"/><circle cx=\"414\" cy=\"176\" r=\"4.5\"/><path d=\"M13 176L65 92H355L407 176\"/><path d=\"M71 104H349M77 116H343\"/><path d=\"M85 80H190M230 80H335\" stroke-dasharray=\"14 10\"/><path d=\"M65 92V40M355 92V40M65 40H355\"/><circle cx=\"65\" cy=\"40\" r=\"4.5\"/><circle cx=\"355\" cy=\"40\" r=\"4.5\"/><circle cx=\"210\" cy=\"40\" r=\"4.5\"/></svg></a><a class=\"ds-tile ds-lav\" href=\"#\"><h3>Operation &amp; Maintenance</h3><p>Planned upkeep of delivered networks.</p><svg viewBox=\"0 0 420 200\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle class=\"ring\" cx=\"210\" cy=\"100\" r=\"62\"/><circle class=\"ring\" cx=\"210\" cy=\"100\" r=\"44\"/><path d=\"M6 100H148M272 100H414\"/><circle cx=\"6\" cy=\"100\" r=\"4.5\"/><circle cx=\"414\" cy=\"100\" r=\"4.5\"/><circle cx=\"272\" cy=\"100\" r=\"4.5\"/><circle cx=\"148\" cy=\"100\" r=\"4.5\"/><circle cx=\"241\" cy=\"154\" r=\"4.5\"/><circle cx=\"179\" cy=\"46\" r=\"4.5\"/></svg></a></div></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-bento{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;} .ds-tile{display:flex;flex-direction:column;gap:10px;padding:28px;border-radius:var(--r);text-decoration:none;outline:2px solid transparent;transition:transform 220ms var(--ease),outline-color 220ms var(--ease);} .ds-tile h3{font-size:var(--fs-lead);font-weight:400;line-height:1.35;margin:0;} .ds-tile p{margin:0;line-height:1.6;max-width:44ch;} .ds-tile svg{margin-top:auto;width:100%;height:auto;} .ds-tile svg *{vector-effect:non-scaling-stroke;} .ds-teal{background:var(--teal);color:var(--ink);} .ds-teal p{color:var(--ink-2);} .ds-teal svg{color:var(--line);} .ds-teal circle{fill:var(--teal);} .ds-lav{background:var(--lav);color:var(--on-lav);} .ds-lav p{color:var(--on-lav-2);} .ds-lav svg{color:var(--teal);} .ds-lav circle{fill:var(--lav);} .ds-tile circle.ring{fill:none;} .ds-tile:hover{transform:translateY(-3px);outline-color:var(--line);} .ds-tile:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-lav:focus-visible{outline-color:var(--on-lav);}"
     },
     {
-      "name": "Road Edge and Seam",
+      "name": "Project Row",
+      "kind": "card",
+      "refersTo": "project-row",
+      "description": "Slate row with title, status pill and client meta; turns teal on hover.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-row\" href=\"#\"><h3>Outfall Line for ISTP3</h3><span class=\"ds-st\">Completed</span><span class=\"ds-meta\">National Water Company</span></a><a class=\"ds-row\" href=\"#\"><h3>Six Flags Qiddiya Infrastructure Works</h3><span class=\"ds-st ds-live\">In progress</span><span class=\"ds-meta\">Qiddiya Investment Company</span></a></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;display:grid;gap:16px;} .ds-row{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:24px 28px;border-radius:var(--r);background:var(--surface);color:var(--ink);text-decoration:none;outline:2px solid transparent;transition:background-color 180ms var(--ease),outline-color 180ms var(--ease);} .ds-row:hover{background:var(--teal);outline-color:var(--line);} .ds-row:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-row h3{margin:0;font-size:var(--fs-lead);font-weight:400;line-height:1.4;} .ds-meta{grid-column:1;font-size:var(--fs-small);color:var(--ink-2);} .ds-st{grid-row:1;grid-column:2;font-size:var(--fs-small);padding:2px 12px;border-radius:999px;border:1px solid var(--ink-2);white-space:nowrap;} .ds-live{background:var(--lav);color:var(--on-lav);border-color:var(--lav);}"
+    },
+    {
+      "name": "Recognition Band",
       "kind": "custom",
-      "description": "Where the asphalt opening ends: the one dashed lane-marking strip; elsewhere a seam of thin strata marks a ground change.",
-      "html": "<div class=\"ds-roadedge\"></div><div class=\"ds-seam\"><i></i><i></i><i></i></div>",
-      "css": ".ds-roadedge { position: relative; height: 28px; background: #17181a; } .ds-roadedge::before { content: ''; position: absolute; inset-inline: 0; top: 9px; height: 4px; background: repeating-linear-gradient(90deg, #f6b81c 0 46px, transparent 46px 82px); opacity: 0.92; } .ds-roadedge::after { content: ''; position: absolute; inset-inline: 0; bottom: 4px; height: 2px; background: #e9e7df; opacity: 0.55; } .ds-seam { display: grid; grid-template-rows: 6px 4px 8px; } .ds-seam i:nth-child(1) { background: #2c2d31; } .ds-seam i:nth-child(2) { background: #6b675f; } .ds-seam i:nth-child(3) { background: #8b857a radial-gradient(circle at 30% 40%, rgba(0,0,0,0.18) 1px, transparent 1.6px) 0 0 / 9px 7px; }"
+      "refersTo": "recognition-band",
+      "description": "Lavender plate with typographic ISO double-ring seals in teal and approval chips.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-recog\"><div class=\"ds-seals\"><figure><svg viewBox=\"0 0 112 112\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"56\" cy=\"56\" r=\"53\"/><circle cx=\"56\" cy=\"56\" r=\"44\"/><text x=\"56\" y=\"52\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"15\" font-weight=\"500\">ISO</text><text x=\"56\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"20\" font-weight=\"300\">9001</text></svg><b>ISO 9001:2015</b><span>Quality</span></figure><figure><svg viewBox=\"0 0 112 112\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"56\" cy=\"56\" r=\"53\"/><circle cx=\"56\" cy=\"56\" r=\"44\"/><text x=\"56\" y=\"52\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"15\" font-weight=\"500\">ISO</text><text x=\"56\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"20\" font-weight=\"300\">14001</text></svg><b>ISO 14001:2015</b><span>Environment</span></figure></div><div class=\"ds-apprv\"><span class=\"ds-chip\">NWC</span><span class=\"ds-chip\">SCA</span><span class=\"ds-chip\">SEC</span></div></div></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--bg);padding:24px;} .ds-recog{padding:32px;border-radius:var(--r);background:var(--lav);color:var(--on-lav);display:grid;gap:24px;} .ds-seals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;} .ds-seals figure{margin:0;display:grid;justify-items:center;text-align:center;gap:10px;} .ds-seals svg{width:112px;height:112px;color:var(--teal);} .ds-seals b{font-weight:500;font-size:var(--fs-small);} .ds-seals span{font-size:var(--fs-small);color:var(--on-lav-2);} .ds-apprv{display:flex;flex-wrap:wrap;gap:8px;} .ds-chip{display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid var(--on-lav-2);font-size:var(--fs-small);}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Night-filled field with survey-grey border; periwinkle on focus, lavender on error.",
+      "html": "<div class=\"ds-canvas\"><label class=\"ds-field\"><span>Full name</span><input placeholder=\"Your name\"></label><label class=\"ds-field\"><span>Email</span><input aria-invalid=\"true\" value=\"name@\"><small class=\"ds-err\">Enter a valid email address.</small></label></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-canvas{background:var(--surface);padding:24px;display:grid;gap:20px;} .ds-field{display:grid;gap:8px;font-size:var(--fs-small);color:var(--ink);} .ds-field input{font:inherit;font-size:1rem;width:100%;box-sizing:border-box;min-height:48px;padding:12px 14px;border-radius:10px;border:1px solid var(--deco);background:var(--bg);color:var(--ink);} .ds-field input::placeholder{color:var(--ink-2);} .ds-field input:hover{border-color:var(--ink-2);} .ds-field input:focus-visible{outline:2px solid var(--line);outline-offset:1px;border-color:var(--line);} .ds-field input[aria-invalid='true']{border-color:var(--lav);outline:2px solid var(--lav);outline-offset:1px;} .ds-err{color:var(--lav);}"
+    },
+    {
+      "name": "Header Bar",
+      "kind": "nav",
+      "refersTo": "bar",
+      "description": "Sticky night bar: logo, nav links with periwinkle current underline, language switch, the quote action.",
+      "html": "<div class=\"ds-bar\"><span class=\"ds-brand\">SACC</span><nav><a href=\"#\" aria-current=\"page\">Company</a><a href=\"#\">Services</a><a href=\"#\">Projects</a><a href=\"#\">Fleet</a><a href=\"#\">Approvals</a></nav><a class=\"ds-lang\" href=\"#\">العربية</a><a class=\"ds-action\" href=\"#\">Request a quote</a></div>",
+      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --earth:#6E4A3B; --on-lav:#0C1926; --on-lav-2:#182F3D; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; } .ds-bar{display:flex;align-items:center;gap:28px;height:72px;padding-inline:24px;background:var(--bar);border-bottom:1px solid var(--surface);} .ds-brand{color:var(--ink);font-weight:500;} .ds-bar nav{flex:1;display:flex;gap:28px;} .ds-bar nav a{padding-block:24px;color:var(--ink-2);text-decoration:none;font-size:var(--fs-small);border-bottom:2px solid transparent;transition:color 160ms var(--ease),border-color 160ms var(--ease);} .ds-bar nav a:hover,.ds-bar nav a[aria-current='page']{color:var(--ink);border-bottom-color:var(--line);} .ds-bar a:focus-visible{outline:2px solid var(--line);outline-offset:3px;border-radius:4px;} .ds-lang{color:var(--ink);text-decoration:none;font-size:var(--fs-small);} .ds-action{display:inline-flex;align-items:center;min-height:44px;padding:10px 22px;border-radius:999px;background:var(--act);color:#fff;font-weight:500;text-decoration:none;white-space:nowrap;}"
     }
   ],
   "narrative": {
-    "northStar": "The Street Cross-Section",
-    "overview": "SACC builds what lies under and along a Saudi street, so the site is drawn as a section through one. Every ground is a stratum: asphalt black for the official bar, the masthead, the opening and inner page heads; a concrete-grey reading ground; wadi-sand and Madinah-basalt bands for proof and fleet. The signature is an interactive street section directly under the opening: road layers above pipes and ducts, each network labelled and selectable, with a depth ruler in tabular numerals and the qualification record standing along its inline-end edge. The world refuses the contractor default of a full-bleed site photo, a stat band and a grid of service cards.\n\nThe register is formal and institutional, written for procurement officers. Information is set as records, logs, fact sheets and ruled lists rather than cards: hairline rules (1px) separate rows, and a heavier 2px ink rule opens every list the way a leader line opens an engineering drawing. Display weights stay calm (600 to 650); emphasis comes from the strata and the ruled structure, not from size or effects. Motion is one gesture: the section's layers settle downward once.\n\nThe site is Arabic-first and fully bilingual. Direction is a document-level concern (`lang`/`dir` on `<html>`), and layout is written in logical properties (`inline-start`, `inline-end`, `margin-inline`, `padding-block`) so the whole world mirrors without per-component overrides. The SACC logo is a pre-existing brand asset; it is placed only on dark grounds at 34px height and is never redrawn or recoloured. Its four arcs supply the network colours.",
+    "northStar": "The Utility Network Plan",
+    "overview": "The site reads as a calm engineering sheet laid over a night-blue ground. A faint site-plan grid (96px squares in thin slate lines) sits fixed behind every page. On it rest solid, rounded plates in two alternating tones, deep teal and pale lavender. The discipline plates carry thin periwinkle or teal line drawings of pipes, culverts, road sections, bridges and lab specimens, with small round nodes like a utility network diagram. The register is institutional and airy: light-weight sentence-case headings at moderate sizes, generous section spacing, and real field photographs in full natural colour.\n\nThe character comes from the owner's reference (Sirion): a deep blue-green ground, alternating lavender and teal feature cards, one saturated accent kept for the single action, bento discipline tiles, a recognition band, portrait cards and a split closing band. Colours come only from the owner's ten-colour palette, always solid at full strength. Proof carries the page: ISO seals, named approvals, figures and named clients. Decoration never stands in for it.\n\nArabic is the root language and the layout is built with logical properties, so the English page under /en mirrors it without overrides. Everything that has a direction follows the reading direction: line-drawing reveals, arrows, band clip shapes and tab arrow keys.",
     "keyCharacteristics": [
-      "Grounds are strata: asphalt, concrete, sand, basalt, stacked like a street section.",
-      "Road-marking yellow is the action colour; network colours are functional keys.",
-      "Ruled records and logs instead of cards; 2px ink rule opens, 1px hairlines divide.",
-      "Near-square corners (2px) everywhere; flat surfaces.",
-      "Alexandria for display, Readex Pro for text, tabular numerals for every figure and depth.",
-      "Arabic-first, mirrored through logical properties.",
-      "One settling motion; no parallax, no ticker."
+      "Night-blue ground with a fixed site-plan grid; flat solid plates, no shadows.",
+      "Teal and lavender plates alternate; violet fills only the primary action.",
+      "Thin 1.5px engineering line drawings with round nodes on the discipline tiles.",
+      "Light (300) sentence-case headings, moderate sizes, one sans family per script.",
+      "Arabic-first RTL, logical properties throughout, full-colour photography."
     ],
     "rules": [
       {
-        "name": "The Road Marking Rule",
-        "body": "Yellow fills a surface only on the primary action. Everywhere else it appears as a line of 4px or less (active marker, focus ring, underline, leader tick) or a small mark. A yellow panel, band or card is off-world.",
+        "name": "The Full-Strength Rule",
+        "body": "Every colour is a solid fill at full strength. There are no gradients, no transparency washes, no glass or blur, and no scrims, greyscale or desaturation on photographs.",
         "section": "colors"
       },
       {
-        "name": "The Network Key Rule",
-        "body": "Teal, orange, green and road yellow mean water, power, sewer/storm/landscape and roads. Use them only where a network is being identified: the section, the legend segments, discipline icons, project logs. Never as general decoration or a second accent.",
+        "name": "The One Violet Rule",
+        "body": "Violet fills the primary action and nothing else. Neither Action Violet (3.90:1) nor Survey Grey (3.94:1) is ever used as text on a dark background.",
         "section": "colors"
       },
       {
-        "name": "The Strata Rule",
-        "body": "Grounds change only by stratum: asphalt, concrete ground or paper, sand, basalt. Where the home page moves from one ground to the next, a seam of thin strata bands (asphalt-3, a mid-grey, aggregate texture) marks the join.",
+        "name": "The Untouched Logo Rule",
+        "body": "The SACC lockup appears in its own colours, only resized. It is never recoloured, redrawn or placed on a tinted chip.",
         "section": "colors"
       },
       {
-        "name": "The Calm Weight Rule",
-        "body": "Display never goes above 650 and headings sit at 600 to 650. Size and the strata carry hierarchy; heavy black weights are off-register. Only figures take 700.",
+        "name": "The Light Voice Rule",
+        "body": "Headings are weight 300, sentence case, never uppercase, and stop at 3.5rem. The owner rejected large display text. Emphasis comes from size and position, never weight.",
         "section": "typography"
       },
       {
-        "name": "The Tabular Figures Rule",
-        "body": "Every number that is compared or measured (years, counts, depths, standards) is set with tabular lining numerals.",
+        "name": "The Arabic Leading Rule",
+        "body": "Arabic gets taller line-heights (body 1.8, display 1.35, headline 1.4) and zero letter-spacing. Latin headings take -0.01em. Numerals use lining tabular figures, and phone numbers are isolated LTR.",
         "section": "typography"
       },
       {
-        "name": "The Script Parity Rule",
-        "body": "Negative tracking applies to Latin only; Arabic headings get zero letter-spacing and more line-height (1.32 to 1.35 for headings, 1.8 for body). Never uppercase-transform text; Arabic has no case and the two languages must match.",
-        "section": "typography"
-      },
-      {
-        "name": "The Logical Axis Rule",
-        "body": "Write every offset, border and alignment with logical properties (inline-start/end, block). The few physical padding overrides keyed to `dir='rtl'` in the reference stylesheet are debt, not pattern.",
+        "name": "The Logical Properties Rule",
+        "body": "Inline layout uses only `inline-start/end`, `margin-inline` and `padding-inline`. Anything with a physical direction (clip-paths, reveal direction, arrows, tab keys) is mirrored explicitly for RTL.",
         "section": "layout"
       },
       {
-        "name": "The Flat Strata Rule",
-        "body": "Surfaces rest flat on their stratum. Only the form sheet lifts; nothing hovers into shadow.",
+        "name": "The Flat Plate Rule",
+        "body": "Plates are solid and shadowless. State shows as an outline colour, a tone swap (row: Slate to Teal) or a small lift, never as a shadow or glow.",
         "section": "elevation"
       },
       {
-        "name": "The Solid Marker Rule",
-        "body": "Active markers in nav and tabs are solid bars. Dashes belong to the drawing (lane dashes, leader lines and conduits inside the street section) and to the single lane-marking strip where the road band ends; never to UI state.",
-        "section": "shapes"
+        "name": "The One Quote Action Rule",
+        "body": "One quote action is visible at a time. On the home page the bar's copy stays hidden until the hero's action has scrolled out of view, and on narrow phones it moves into the drawer. Sections never repeat it.",
+        "section": "components"
       }
     ],
     "dos": [
-      "Do spend road-marking yellow as a fill only on the primary action, and keep exactly one such action per region.",
-      "Do use network colours only to identify water, power, sewer/storm/landscape and roads, with their `-ink` partners for text on light grounds.",
-      "Do set lists as ruled records: a 2px ink rule to open, 1px hairlines between rows.",
-      "Do keep corners at 2px and surfaces flat; the form sheet is the only lifted surface.",
-      "Do write layout in logical properties so Arabic and English mirror from `dir` alone, and give Arabic headings zero tracking and taller leading.",
-      "Do set every compared figure in tabular lining numerals.",
-      "Do place the logo unaltered on dark grounds at 34px height.",
-      "Do wrap all motion in `prefers-reduced-motion: no-preference`; the reduce branch removes animation and transitions."
+      "**Do** use the ten palette colours solid at full strength, and alternate Teal and Lavender plates in feature grids.",
+      "**Do** keep body text Lavender or Lavender Mist on dark and Page Night or Slate on Lavender.",
+      "**Do** keep headings at weight 300 in sentence case, within the type steps above.",
+      "**Do** draw new engineering illustrations as 1.5px round-capped strokes with round nodes, in periwinkle on teal and teal on lavender.",
+      "**Do** write layout with logical properties and mirror every directional effect for RTL.",
+      "**Do** give every interactive element a visible 2px periwinkle focus ring (Page Night on lavender plates) and a 44px target."
     ],
     "donts": [
-      "Don't build a full-bleed site photo with a stat band and a grid of service cards; that is the contractor default this world refuses.",
-      "Don't use dashed or dotted markers for active nav, tab or selection state; dashes stay inside the street drawing and the single road-edge strip.",
-      "Don't fill panels, bands or cards with yellow, or use a network colour as decoration.",
-      "Don't add parallax, tickers, or repeating entrance animations; the section settles once.",
-      "Don't push display weight above 650 or uppercase-transform any text.",
-      "Don't redraw, recolour or place the logo on a light ground.",
-      "Don't load fonts from a CDN; Alexandria and Readex Pro are self-hosted."
+      "**Don't** use gradients, transparency washes, glass, blur, scrims or greyscale and desaturated photos.",
+      "**Don't** set Action Violet or Survey Grey as text on a dark background, or use violet for anything but the primary action.",
+      "**Don't** add a second quote action to a section, or a sitemap-style footer.",
+      "**Don't** add box-shadows; show state with outline, tone or a small lift.",
+      "**Don't** recolour, redraw or tint the SACC logo.",
+      "**Don't** render small uppercase eyebrow labels above headings. The content data carries `eyebrow` strings, but the shipped design does not show them.",
+      "**Don't** invent certificate artwork, client logos or testimonials. Seals stay typographic."
     ]
   }
 }

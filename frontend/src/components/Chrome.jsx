@@ -9,7 +9,7 @@ import { Icon, Link, QuoteAction } from './ui.jsx';
 export function Bar() {
   const { t, ui, route, lang } = useSite();
   const [open, setOpen] = useState(false);
-  const [quiet, setQuiet] = useState(!route.page && !route.notFound);
+  const [quiet, setQuiet] = useState((!route.page && !route.notFound) || route.page === 'contact');
   const btn = useRef(null);
   const drawer = useRef(null);
   const other = lang === 'ar' ? 'en' : 'ar';
@@ -18,6 +18,8 @@ export function Bar() {
   // One quote action on screen at a time: on the home page the bar's copy
   // waits until the hero's own action has scrolled out of view.
   useEffect(() => {
+    // On the contact page the form itself is the quote action.
+    if (route.page === 'contact') { setQuiet(true); return undefined; }
     const a = document.getElementById('hero-action');
     setQuiet(!!a);
     if (!a) return undefined;
