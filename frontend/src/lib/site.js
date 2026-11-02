@@ -10,22 +10,21 @@ export const PAGES = ['', 'company', 'services', 'projects', 'fleet', 'approvals
 export const NAV = ['company', 'services', 'projects', 'fleet', 'approvals'];
 
 // Each discipline, keyed by the icon name the bundle gives it: its URL slug,
-// the project categories it delivers, the quote form's project type, and its
+// the project categories it delivers, and its
 // tile on the home page (a company photograph or a line drawing).
 export const SVC = {
-  Droplets: { slug: 'water-sewerage', cat: ['water'], type: 'water-sewerage', photo: '/assets/photos/water-network.jpg' },
-  CloudRain: { slug: 'stormwater', cat: [], type: 'water-sewerage', draw: 'culvert' },
-  Zap: { slug: 'electrical-solar', cat: ['electrical'], type: 'other', photo: '/assets/photos/public-realm.jpg' },
-  Route: { slug: 'roads-asphalt', cat: ['roads'], type: 'roads-asphalt', draw: 'road' },
-  Construction: { slug: 'bridges-tunnels', cat: [], type: 'bridges-tunnels', draw: 'bridge' },
-  Building2: { slug: 'landscaping', cat: ['urban'], type: 'urban-development', photoKey: 'urban' },
-  ShieldCheck: { slug: 'quality-laboratory', cat: [], type: 'other', draw: 'lab' },
-  Truck: { slug: 'equipment-rental', cat: [], type: 'equipment-rental', photo: '/assets/photos/equipment-fleet.jpg' },
-  Settings: { slug: 'operation-maintenance', cat: [], type: 'other', draw: 'cycle' },
+  Droplets: { slug: 'water-sewerage', cat: ['water'], photo: '/assets/photos/water-network.jpg' },
+  CloudRain: { slug: 'stormwater', cat: [], draw: 'culvert' },
+  Zap: { slug: 'electrical-solar', cat: ['electrical'], photo: '/assets/photos/public-realm.jpg' },
+  Route: { slug: 'roads-asphalt', cat: ['roads'], draw: 'road' },
+  Construction: { slug: 'bridges-tunnels', cat: [], draw: 'bridge' },
+  Building2: { slug: 'landscaping', cat: ['urban'], photoKey: 'urban' },
+  ShieldCheck: { slug: 'quality-laboratory', cat: [], draw: 'lab' },
+  Truck: { slug: 'equipment-rental', cat: [], photo: '/assets/photos/equipment-fleet.jpg' },
+  Settings: { slug: 'operation-maintenance', cat: [], draw: 'cycle' },
 };
 export const SVC_SLUGS = Object.values(SVC).map((s) => s.slug);
 export const CAT_SVC = { water: 'Droplets', roads: 'Route', electrical: 'Zap', urban: 'Building2' };
-export const CAT_TYPE = { water: 'water-sewerage', roads: 'roads-asphalt', urban: 'urban-development', electrical: 'other' };
 // Home-page bento: column span and tone for each of the nine tiles, in order.
 export const TILES = [[7, 'lav'], [5, 'teal'], [5, 'teal'], [7, 'lav'], [4, 'lav'], [4, 'teal'], [4, 'lav'], [6, 'teal'], [6, 'lav']];
 
@@ -40,7 +39,7 @@ export const src = (u) => (!u ? '' : u.startsWith('./') ? u.slice(1) : u);
 
 export const UI = {
   ar: {
-    skip: 'تخطَّ إلى المحتوى', menu: 'القائمة', close: 'إغلاق', quote: 'اطلب عرض سعر',
+    skip: 'تخطَّ إلى المحتوى', menu: 'القائمة', close: 'إغلاق', formH: 'للتواصل',
     langName: 'English',
     nav: { company: 'الشركة', services: 'الخدمات', projects: 'المشاريع', fleet: 'الأسطول', approvals: 'الاعتمادات' },
     all: 'الكل',
@@ -57,7 +56,7 @@ export const UI = {
     honeypot: 'اترك هذا الحقل فارغاً',
   },
   en: {
-    skip: 'Skip to content', menu: 'Menu', close: 'Close', quote: 'Request a Quote',
+    skip: 'Skip to content', menu: 'Menu', close: 'Close', formH: 'Write to us',
     langName: 'العربية',
     nav: { company: 'Company', services: 'Services', projects: 'Projects', fleet: 'Fleet', approvals: 'Approvals' },
     all: 'All',
