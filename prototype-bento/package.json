@@ -1,0 +1,12 @@
+{
+  "name": "sacc-prototype-bento",
+  "private": true,
+  "type": "module",
+  "description": "Proposal 6: SACC redesign from the owner-approved brief (Sirion-inspired character, owner palette).",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": {
+    "@fontsource-variable/onest": "5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "5.3.0",
+    "lucide-static": "^0.469.0"
+  }
+}

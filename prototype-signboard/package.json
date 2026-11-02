@@ -1,0 +1,16 @@
+{
+  "name": "sacc-prototype-signboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Proposal 3: standalone interactive design prototype (the project signboard). Bundles into one self-contained HTML file for review before integration into frontend/.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "@fontsource-variable/noto-kufi-arabic": "5.3.0",
+    "@fontsource-variable/noto-naskh-arabic": "5.3.0",
+    "lucide-static": "^0.469.0"
+  }
+}

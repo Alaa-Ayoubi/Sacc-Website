@@ -103,16 +103,273 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://sacc-backend-894t.onrender.com
+    # Every page is prerendered to its own file (frontend/scripts/prerender.mjs).
+    # Rules run in order: old addresses redirect permanently, then each clean
+    # address is rewritten to its file. No catch-all, so unknown paths are 404s.
     routes:
-      # Single-page app: unknown paths serve index.html rather than 404.
+    # BEGIN generated routes (frontend/scripts/render-routes.mjs)
+      - type: redirect
+        source: /ar
+        destination: /
+      - type: redirect
+        source: /ar/
+        destination: /
+      - type: redirect
+        source: /ar/company
+        destination: /company
+      - type: redirect
+        source: /ar/services
+        destination: /services
+      - type: redirect
+        source: /ar/projects
+        destination: /projects
+      - type: redirect
+        source: /ar/fleet
+        destination: /fleet
+      - type: redirect
+        source: /ar/approvals
+        destination: /approvals
+      - type: redirect
+        source: /ar/contact
+        destination: /contact
+      - type: redirect
+        source: /ar/careers
+        destination: /careers
+      - type: redirect
+        source: /ar/services/water-sewerage
+        destination: /services/water-sewerage
+      - type: redirect
+        source: /ar/services/stormwater
+        destination: /services/stormwater
+      - type: redirect
+        source: /ar/services/electrical-solar
+        destination: /services/electrical-solar
+      - type: redirect
+        source: /ar/services/roads-asphalt
+        destination: /services/roads-asphalt
+      - type: redirect
+        source: /ar/services/bridges-tunnels
+        destination: /services/bridges-tunnels
+      - type: redirect
+        source: /ar/services/landscaping
+        destination: /services/landscaping
+      - type: redirect
+        source: /ar/services/quality-laboratory
+        destination: /services/quality-laboratory
+      - type: redirect
+        source: /ar/services/equipment-rental
+        destination: /services/equipment-rental
+      - type: redirect
+        source: /ar/services/operation-maintenance
+        destination: /services/operation-maintenance
+      - type: redirect
+        source: /ar/projects/outfall-line-for-istp3
+        destination: /projects/outfall-line-for-istp3
+      - type: redirect
+        source: /ar/projects/reused-water-network-project
+        destination: /projects/reused-water-network-project
+      - type: redirect
+        source: /ar/projects/six-flags-qiddiya-infrastructure-works
+        destination: /projects/six-flags-qiddiya-infrastructure-works
+      - type: redirect
+        source: /ar/projects/haramain-high-speed-rail-water-network
+        destination: /projects/haramain-high-speed-rail-water-network
+      - type: redirect
+        source: /ar/projects/al-madinah-road-expansion-project
+        destination: /projects/al-madinah-road-expansion-project
+      - type: redirect
+        source: /ar/projects/electrical-infrastructure-network
+        destination: /projects/electrical-infrastructure-network
+      - type: redirect
+        source: /about
+        destination: /company
+      - type: redirect
+        source: /ar/about
+        destination: /company
+      - type: redirect
+        source: /en/about
+        destination: /en/company
+      - type: redirect
+        source: /equipment
+        destination: /fleet
+      - type: redirect
+        source: /ar/equipment
+        destination: /fleet
+      - type: redirect
+        source: /en/equipment
+        destination: /en/fleet
+      - type: redirect
+        source: /certifications
+        destination: /approvals
+      - type: redirect
+        source: /ar/certifications
+        destination: /approvals
+      - type: redirect
+        source: /en/certifications
+        destination: /en/approvals
+      - type: redirect
+        source: /journey
+        destination: /company
+      - type: redirect
+        source: /ar/journey
+        destination: /company
+      - type: redirect
+        source: /en/journey
+        destination: /en/company
+      - type: redirect
+        source: /leadership
+        destination: /company
+      - type: redirect
+        source: /ar/leadership
+        destination: /company
+      - type: redirect
+        source: /en/leadership
+        destination: /en/company
       - type: rewrite
-        source: /*
-        destination: /index.html
+        source: /company
+        destination: /company/index.html
+      - type: rewrite
+        source: /services
+        destination: /services/index.html
+      - type: rewrite
+        source: /projects
+        destination: /projects/index.html
+      - type: rewrite
+        source: /fleet
+        destination: /fleet/index.html
+      - type: rewrite
+        source: /approvals
+        destination: /approvals/index.html
+      - type: rewrite
+        source: /contact
+        destination: /contact/index.html
+      - type: rewrite
+        source: /careers
+        destination: /careers/index.html
+      - type: rewrite
+        source: /services/water-sewerage
+        destination: /services/water-sewerage/index.html
+      - type: rewrite
+        source: /services/stormwater
+        destination: /services/stormwater/index.html
+      - type: rewrite
+        source: /services/electrical-solar
+        destination: /services/electrical-solar/index.html
+      - type: rewrite
+        source: /services/roads-asphalt
+        destination: /services/roads-asphalt/index.html
+      - type: rewrite
+        source: /services/bridges-tunnels
+        destination: /services/bridges-tunnels/index.html
+      - type: rewrite
+        source: /services/landscaping
+        destination: /services/landscaping/index.html
+      - type: rewrite
+        source: /services/quality-laboratory
+        destination: /services/quality-laboratory/index.html
+      - type: rewrite
+        source: /services/equipment-rental
+        destination: /services/equipment-rental/index.html
+      - type: rewrite
+        source: /services/operation-maintenance
+        destination: /services/operation-maintenance/index.html
+      - type: rewrite
+        source: /projects/outfall-line-for-istp3
+        destination: /projects/outfall-line-for-istp3/index.html
+      - type: rewrite
+        source: /projects/reused-water-network-project
+        destination: /projects/reused-water-network-project/index.html
+      - type: rewrite
+        source: /projects/six-flags-qiddiya-infrastructure-works
+        destination: /projects/six-flags-qiddiya-infrastructure-works/index.html
+      - type: rewrite
+        source: /projects/haramain-high-speed-rail-water-network
+        destination: /projects/haramain-high-speed-rail-water-network/index.html
+      - type: rewrite
+        source: /projects/al-madinah-road-expansion-project
+        destination: /projects/al-madinah-road-expansion-project/index.html
+      - type: rewrite
+        source: /projects/electrical-infrastructure-network
+        destination: /projects/electrical-infrastructure-network/index.html
+      - type: rewrite
+        source: /en
+        destination: /en/index.html
+      - type: rewrite
+        source: /en/company
+        destination: /en/company/index.html
+      - type: rewrite
+        source: /en/services
+        destination: /en/services/index.html
+      - type: rewrite
+        source: /en/projects
+        destination: /en/projects/index.html
+      - type: rewrite
+        source: /en/fleet
+        destination: /en/fleet/index.html
+      - type: rewrite
+        source: /en/approvals
+        destination: /en/approvals/index.html
+      - type: rewrite
+        source: /en/contact
+        destination: /en/contact/index.html
+      - type: rewrite
+        source: /en/careers
+        destination: /en/careers/index.html
+      - type: rewrite
+        source: /en/services/water-sewerage
+        destination: /en/services/water-sewerage/index.html
+      - type: rewrite
+        source: /en/services/stormwater
+        destination: /en/services/stormwater/index.html
+      - type: rewrite
+        source: /en/services/electrical-solar
+        destination: /en/services/electrical-solar/index.html
+      - type: rewrite
+        source: /en/services/roads-asphalt
+        destination: /en/services/roads-asphalt/index.html
+      - type: rewrite
+        source: /en/services/bridges-tunnels
+        destination: /en/services/bridges-tunnels/index.html
+      - type: rewrite
+        source: /en/services/landscaping
+        destination: /en/services/landscaping/index.html
+      - type: rewrite
+        source: /en/services/quality-laboratory
+        destination: /en/services/quality-laboratory/index.html
+      - type: rewrite
+        source: /en/services/equipment-rental
+        destination: /en/services/equipment-rental/index.html
+      - type: rewrite
+        source: /en/services/operation-maintenance
+        destination: /en/services/operation-maintenance/index.html
+      - type: rewrite
+        source: /en/projects/outfall-line-for-istp3
+        destination: /en/projects/outfall-line-for-istp3/index.html
+      - type: rewrite
+        source: /en/projects/reused-water-network-project
+        destination: /en/projects/reused-water-network-project/index.html
+      - type: rewrite
+        source: /en/projects/six-flags-qiddiya-infrastructure-works
+        destination: /en/projects/six-flags-qiddiya-infrastructure-works/index.html
+      - type: rewrite
+        source: /en/projects/haramain-high-speed-rail-water-network
+        destination: /en/projects/haramain-high-speed-rail-water-network/index.html
+      - type: rewrite
+        source: /en/projects/al-madinah-road-expansion-project
+        destination: /en/projects/al-madinah-road-expansion-project/index.html
+      - type: rewrite
+        source: /en/projects/electrical-infrastructure-network
+        destination: /en/projects/electrical-infrastructure-network/index.html
+    # END generated routes
     headers:
       # Vite fingerprints these filenames, so they can be cached forever.
-      - path: /assets/*
+      - path: /static/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
+      # Photos and the logo keep their names when replaced, so a day only.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=86400
       - path: /*
         name: X-Content-Type-Options
         value: nosniff

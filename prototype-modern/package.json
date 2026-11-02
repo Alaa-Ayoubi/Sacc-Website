@@ -1,0 +1,12 @@
+{
+  "name": "sacc-prototype-modern",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Proposal 4: modern institutional design prototype. Bundles into one self-contained HTML file for review before integration into frontend/.",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": {
+    "@fontsource/almarai": "5.3.0",
+    "lucide-static": "^0.469.0"
+  }
+}

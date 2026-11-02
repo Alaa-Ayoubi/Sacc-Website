@@ -189,3 +189,27 @@ class ExportSiteDataCommandTests(TestCase):
             Service.objects.filter(order=0).update(title_en="Renamed service")
             with self.assertRaises(SystemExit):
                 call_command("export_site_data", "--output", str(target), "--check", verbosity=0)
+
+    def test_frontend_snapshot_is_the_api_bundle(self):
+        """The React site is prerendered from its snapshot; --frontend writes it as plain JSON."""
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "site-content.json"
+            call_command("export_site_data", "--frontend", "--output", str(target), verbosity=0)
+            exported = json.loads(target.read_text(encoding="utf-8"))
+        self.assertEqual(exported, build_site_bundle())
+
+    def test_committed_frontend_snapshot_matches_the_seed(self):
+        """The snapshot in the repository is what the seeded database exports."""
+        def without_ids(value):
+            # Row ids come from the database sequence, so they differ between databases.
+            if isinstance(value, dict):
+                return {k: without_ids(v) for k, v in value.items() if k != "id"}
+            if isinstance(value, list):
+                return [without_ids(v) for v in value]
+            return value
+
+        snapshot = Path(settings.BASE_DIR).parent / "frontend" / "src" / "data" / "site-content.json"
+        self.assertEqual(
+            without_ids(json.loads(snapshot.read_text(encoding="utf-8"))),
+            without_ids(build_site_bundle()),
+        )
