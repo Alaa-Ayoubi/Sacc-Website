@@ -26,7 +26,7 @@ cd backend
 docker compose up -d
 ```
 
-يشغّل هذا PostgreSQL 16 على المنفذ `5433`. البيانات محفوظة في مجلد Docker
+يشغّل هذا PostgreSQL 18 على المنفذ `5433`، وهو إصدار مشروع Neon نفسه. البيانات محفوظة في مجلد Docker
 اسمه `sacc_pgdata`، فلا تضيع عند إطفاء الجهاز. لإيقافه: `docker compose stop`.
 
 ### 2. ملف الإعدادات
@@ -82,15 +82,13 @@ npm run dev
 
 ## الجزء الثاني: النقل إلى Neon
 
-### 1. أنشئي مشروعًا جديدًا على Neon
+### 1. مشروع Neon
 
-عند الإنشاء في neon.tech اختاري:
+المشروع موجود ومربوط بالمستودع (`square-violet-63544729`، الفرع
+`production`). يعمل بـ PostgreSQL 18 في منطقة AWS US East 2 (Ohio). قاعدة Docker
+المحلية على الإصدار 18 أيضًا، فتعمل أوامر النسخ الاحتياطي بينهما دون تعارض.
 
-- **Postgres version: 16**، الإصدار نفسه الذي على جهازك.
-- **Region: AWS US West (Oregon)**، وهي منطقة خادم Render نفسها، فيكون
-  الاتصال أسرع.
-
-ثم من صفحة المشروع انسخي **Connection string** بهذه الشروط:
+من صفحة المشروع في console.neon.tech انسخي **Connection string** بهذه الشروط:
 
 - اختاري الاتصال **المباشر**، أي غير المفعّل عليه **Connection pooling**،
   فيكون العنوان بدون كلمة `-pooler`.
