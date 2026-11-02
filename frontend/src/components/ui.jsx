@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 import { useSite } from '../SiteContext.jsx';
-import { CAT_TYPE, pathFor, projSlug, svcOf } from '../lib/site.js';
+import { pathFor, projSlug, svcOf } from '../lib/site.js';
 
 export function Icon({ as: Glyph, size = 18 }) {
   return <span className="icon" aria-hidden="true"><Glyph size={size} strokeWidth={1.75} /></span>;
@@ -33,23 +33,23 @@ export function Link({ to, lang, onClick, children, ...rest }) {
   return <a href={href} onClick={handle} {...rest}>{children}</a>;
 }
 
-/** The single quote action. It carries what the visitor was looking at into the form. */
+/** The single contact action. It carries what the visitor was looking at into the form. */
 export function QuoteAction({ id, className = 'action' }) {
-  const { ui, t, route, site, setPrefill } = useSite();
+  const { t, route, site, setPrefill } = useSite();
   const onClick = () => {
     const { page, sub } = route;
     let pf = null;
     if (page === 'services' && sub) {
       const s = t.services.items.find((x) => svcOf(x).slug === sub);
-      if (s) pf = { type: svcOf(s).type, message: `${t.services.inquireCta} ${s.title}: ` };
+      if (s) pf = { message: `${t.services.inquireCta} ${s.title}: ` };
     } else if (page === 'projects' && sub) {
       const p = t.projects.items.find((x) => projSlug(site, x.id) === sub);
-      if (p) pf = { type: CAT_TYPE[p.key] || 'other', message: `${t.projects.detailsCta}: ${p.title}: ` };
-    } else if (page === 'fleet') pf = { type: 'equipment-rental', message: `${t.equipment.cta}: ` };
-    else if (page === 'approvals') pf = { type: '', message: `${t.certifications.cta}: ` };
+      if (p) pf = { message: `${t.projects.detailsCta}: ${p.title}: ` };
+    } else if (page === 'fleet') pf = { message: `${t.equipment.cta}: ` };
+    else if (page === 'approvals') pf = { message: `${t.certifications.cta}: ` };
     setPrefill(pf);
   };
-  return <Link to="contact" id={id} className={className} onClick={onClick}>{ui.quote}</Link>;
+  return <Link to="contact" id={id} className={className} onClick={onClick}>{t.navCta}</Link>;
 }
 
 /** A company photograph. A photo that fails to load is removed, leaving its tinted frame. */

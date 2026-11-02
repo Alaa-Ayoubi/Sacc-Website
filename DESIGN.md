@@ -154,7 +154,7 @@ Arabic is the root language and the layout is built with logical properties, so 
 The owner's palette, used solid at full strength: a deep blue-green ground, two plate tones, one violet accent and pale lavender text.
 
 ### Primary
-- **Action Violet** (#9662A8): fills the single primary action, "اطلب عرض سعر" / "Request a quote", and the submit button on the two forms. White text on it measures 4.56:1. It is never text and never a background for anything else.
+- **Action Violet** (#9662A8): fills the single primary action, "تواصل معنا" / "Contact Us" (the content's `navCta`), and the submit button on the two forms. White text on it measures 4.56:1. It is never text and never a background for anything else.
 
 ### Secondary
 - **Deep Teal** (#0F393C): the dark plate. Alternates with lavender in the bento and value cards, and backs project cards, leadership cards, the hover state of project rows and the contact aside. It also serves as the line-drawing and seal colour on lavender plates (9.6:1).
@@ -261,7 +261,7 @@ A single Lavender plate: text in columns 1–4, three ISO double-ring seals in T
 ### Motion
 Entrances fade up 16px over 700ms with an 80ms stagger. State changes take 160–220ms on one ease-out curve. Content already on screen at load is never hidden. With `prefers-reduced-motion: reduce`, all motion collapses and the hero band unpins.
 
-**The One Quote Action Rule.** One quote action is visible at a time. On the home page the bar's copy stays hidden until the hero's action has scrolled out of view, and on narrow phones it moves into the drawer. Sections never repeat it.
+**The One Contact Action Rule.** One contact action («تواصل معنا» / Contact Us) is visible at a time. On the home page the bar's copy stays hidden until the hero's action has scrolled out of view, and on narrow phones it moves into the drawer. Sections never repeat it.
 
 ## Do's and Don'ts
 

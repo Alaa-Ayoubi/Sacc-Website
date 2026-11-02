@@ -1,4 +1,4 @@
-/* The quote request and the job application. Both are real submissions to the
+/* The contact form and the job application. Both are real submissions to the
  * Django API: stored, staff notified, and the visitor told honestly what
  * happened. Field errors from the API land on the field they belong to. */
 import { useEffect, useRef, useState } from 'react';
@@ -37,9 +37,9 @@ function focusFirst(form, order, errors) {
   if (key) form.querySelector(`[data-key="${key}"]`)?.focus();
 }
 
-// ---------- quote request ----------
-const Q_EMPTY = { name: '', email: '', company: '', type: '', message: '', website: '' };
-const Q_BY_API = { full_name: 'name', email: 'email', company: 'company', project_type: 'type', message: 'message' };
+// ---------- contact form (stored as a quote request) ----------
+const Q_EMPTY = { name: '', email: '', company: '', message: '', website: '' };
+const Q_BY_API = { full_name: 'name', email: 'email', company: 'company', message: 'message' };
 
 export function Contact() {
   const { t, ui, lang, company, prefill, setPrefill } = useSite();
@@ -53,7 +53,7 @@ export function Contact() {
   // Arriving from a service, project, fleet or approvals page fills in what was being looked at.
   useEffect(() => {
     if (!prefill) return;
-    setValues((v) => ({ ...v, type: prefill.type || v.type, message: prefill.message || v.message }));
+    setValues((v) => ({ ...v, message: prefill.message || v.message }));
     setPrefill(null);
   }, [prefill, setPrefill]);
 
@@ -77,7 +77,7 @@ export function Contact() {
 
     setState('sending'); setFailure('');
     try {
-      await submitQuote({ ...values, projectTypeKey: values.type || null, type: '', locale: lang });
+      await submitQuote({ ...values, projectTypeKey: null, type: '', locale: lang });
       setValues(Q_EMPTY);
       setState('sent');
     } catch (error) {
@@ -88,7 +88,7 @@ export function Contact() {
       setErrors(mapped);
       setFailure(Object.keys(mapped).length ? '' : C.failure);
       setState('failed');
-      focusFirst(form.current, ['name', 'email', 'company', 'type', 'message'], mapped);
+      focusFirst(form.current, ['name', 'email', 'company', 'message'], mapped);
     }
   };
 
@@ -97,7 +97,7 @@ export function Contact() {
       <PageHead title={C.title} lead={C.lead} />
       <section className="sec wrap form-grid">
         <form id="quote-form" ref={form} noValidate aria-labelledby="qf-h" onSubmit={onSubmit}>
-          <h2 className="h-head" id="qf-h" style={{ marginBottom: 24 }}>{ui.quote}</h2>
+          <h2 className="h-head" id="qf-h" style={{ marginBottom: 24 }}>{ui.formH}</h2>
           <div className="fields">
             <Field id="f-name" label={C.fields.name} error={errors.name}>
               <input id="f-name" data-key="name" name="name" autoComplete="name" placeholder={C.placeholders.name} value={values.name} onChange={set('name')} {...aria('f-name', errors.name)} />
@@ -105,14 +105,8 @@ export function Contact() {
             <Field id="f-email" label={C.fields.email} error={errors.email}>
               <input id="f-email" data-key="email" name="email" type="email" autoComplete="email" dir="ltr" placeholder={C.placeholders.email} value={values.email} onChange={set('email')} {...aria('f-email', errors.email)} />
             </Field>
-            <Field id="f-company" label={C.fields.company} error={errors.company}>
+            <Field id="f-company" label={C.fields.company} error={errors.company} full>
               <input id="f-company" data-key="company" name="company" autoComplete="organization" placeholder={C.placeholders.company} value={values.company} onChange={set('company')} {...aria('f-company', errors.company)} />
-            </Field>
-            <Field id="f-type" label={C.fields.type} error={errors.type}>
-              <select id="f-type" data-key="type" name="type" value={values.type} onChange={set('type')} {...aria('f-type', errors.type)}>
-                <option value="">{C.placeholders.type}</option>
-                {C.typeOptions.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
-              </select>
             </Field>
             <Field id="f-message" label={C.fields.message} error={errors.message} full>
               <textarea id="f-message" data-key="message" name="message" placeholder={C.placeholders.message} value={values.message} onChange={set('message')} {...aria('f-message', errors.message)} />
