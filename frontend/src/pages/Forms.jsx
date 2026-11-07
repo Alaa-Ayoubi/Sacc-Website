@@ -44,7 +44,8 @@ const Q_BY_API = { full_name: 'name', email: 'email', company: 'company', messag
 export function Contact() {
   const { t, ui, lang, company, prefill, setPrefill } = useSite();
   const C = t.contact;
-  const [values, setValues] = useState(Q_EMPTY);
+  // Arriving with a prefill, the form starts with it already written in.
+  const [values, setValues] = useState(() => (prefill?.message ? { ...Q_EMPTY, message: prefill.message } : Q_EMPTY));
   const [errors, setErrors] = useState({});
   const [state, setState] = useState('idle');
   const [failure, setFailure] = useState('');

@@ -98,21 +98,24 @@ html[lang='ar'] .h-head { line-height: 1.4; }
 .bar-in { height: var(--bar-h); display: flex; align-items: center; gap: 32px; }
 .brand { display: block; flex: none; }
 .brand img { height: 30px; width: auto; }
-.bar nav { flex: 1; }
-.bar nav ul { display: flex; gap: 28px; }
-.bar nav a { display: inline-block; padding-block: 24px; color: var(--ink-2); text-decoration: none; font-size: var(--fs-small); border-bottom: 2px solid transparent; transition: color 160ms var(--ease), border-color 160ms var(--ease); }
-.bar nav a:hover, .bar nav a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--line); }
+.bar .main-nav { flex: 1; }
+.bar .main-nav ul { display: flex; gap: 28px; }
+.bar .main-nav a { display: inline-block; padding-block: 24px; color: var(--ink-2); text-decoration: none; font-size: var(--fs-small); border-bottom: 2px solid transparent; transition: color 160ms var(--ease), border-color 160ms var(--ease); }
+.bar .main-nav a:hover, .bar .main-nav a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--line); }
 .tools { display: flex; align-items: center; gap: 16px; margin-inline-start: auto; }
 .lang { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding-inline: 8px; color: var(--ink); text-decoration: none; font-size: var(--fs-small); }
 .bar .action { transition: opacity 200ms var(--ease), visibility 200ms, outline-color 160ms var(--ease); }
 .bar.quiet .action { opacity: 0; visibility: hidden; }
+/* An open menu covers the hero's action, so the menu always carries its own. */
+.bar.quiet .drawer .action { opacity: 1; visibility: inherit; }
 .menu-btn { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 1px solid var(--surface); border-radius: 999px; color: var(--ink); cursor: pointer; }
 .drawer { display: none; }
 @media (max-width: 960px) {
-  .bar nav { display: none; }
+  .bar .main-nav { display: none; }
   .menu-btn { display: inline-flex; }
   .drawer { display: block; position: fixed; inset: var(--bar-h) 0 auto 0; background: var(--bar); padding: 8px var(--m) 24px; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 200ms var(--ease), transform 200ms var(--ease), visibility 200ms; }
-  .drawer.open { visibility: visible; opacity: 1; transform: none; }
+  /* Visible at once when opening, so focus can move into it; fades out on close. */
+  .drawer.open { visibility: visible; opacity: 1; transform: none; transition: opacity 200ms var(--ease), transform 200ms var(--ease), visibility 0s; }
   .drawer a { display: block; padding: 12px 0; font-size: var(--fs-lead); text-decoration: none; color: var(--ink); }
   .drawer a[aria-current='page'] { color: var(--line); }
 }
@@ -421,6 +424,10 @@ input[type='file']:focus-visible + .file-btn, .file-row:focus-within .file-btn {
 }
 /* narrow phones: the bar keeps logo, language and menu; the quote action moves into the menu */
 .drawer-action { display: none; }
+/* The menu carries the contact action only when the bar's own is not on screen:
+   on narrow phones (where the bar drops it) and while the bar is quiet. */
+.drawer .drawer-action { display: none; margin-top: 20px; color: #fff; border-bottom: 0; font-size: var(--fs-body); padding: 10px 22px; }
+.bar.quiet .drawer .drawer-action { display: inline-flex; }
 @media (max-width: 420px) {
   .lang .icon { display: none; }
   .lang { min-width: 44px; justify-content: center; }
@@ -428,7 +435,7 @@ input[type='file']:focus-visible + .file-btn, .file-row:focus-within .file-btn {
 }
 @media (max-width: 380px) {
   .bar .tools .action { display: none; }
-  .drawer .drawer-action { display: inline-flex; margin-top: 20px; color: #fff; border-bottom: 0; font-size: var(--fs-body); padding: 10px 22px; }
+  .drawer .drawer-action { display: inline-flex; }
 }
 
 /* ---------- integration ---------- */

@@ -45,7 +45,7 @@ export function Bar() {
     <header className={`bar${quiet ? ' quiet' : ''}`} id="bar">
       <div className="wrap bar-in">
         <Link to="" className="brand"><img src="/assets/logo-full.webp" alt={t.brandLine} width="120" height="30" /></Link>
-        <nav aria-label={ui.menu}><ul>{links}</ul></nav>
+        <nav className="main-nav" aria-label={ui.menu}><ul>{links}</ul></nav>
         <div className="tools">
           {/* A plain link: the twin page is a separate document with its own language. */}
           <a className="lang" href={pathFor(here, other)} hrefLang={other} lang={other}>
