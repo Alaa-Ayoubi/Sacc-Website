@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Phone } from 'lucide-react';
 
 import { useSite } from '../SiteContext.jsx';
-import { TILES, isDone, projSlug, src, svcOf } from '../lib/site.js';
+import { isDone, projSlug, src, svcOf } from '../lib/site.js';
 import { Arrow, Icon, Img, Link, QuoteAction, Seal } from '../components/ui.jsx';
 import Viz from '../components/Viz.jsx';
 
@@ -32,6 +32,13 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <div className="wrap">
+          <dl className="creds" aria-label={ui.figuresLabel}>
+            {t.stats.map((s) => (
+              <div key={s.label}><dt>{s.label}</dt><dd className="num ltr">{s.value}</dd></div>
+            ))}
+          </dl>
+        </div>
       </section>
 
       <div className="stage">
@@ -47,16 +54,13 @@ export default function Home() {
               <h2 className="h-head rise" id="disc-h">{t.services.title}</h2>
               <p className="lead rise" style={{ '--d': 1 }}>{t.services.lead}</p>
             </div>
-            <div className="bento">
-              {t.services.items.map((s, i) => {
-                const [span, tone] = TILES[i] || [4, 'teal'];
-                return (
-                  <Link key={s.icon} to={`services/${svcOf(s).slug}`} className={`tile ${tone} span-${span} rise`} style={{ '--d': i % 3 }}>
-                    <h3>{s.title}</h3><p>{s.desc}</p>
-                    <Viz service={s} W={span >= 6 ? 640 : 420} />
-                  </Link>
-                );
-              })}
+            <div className="disc-grid">
+              {t.services.items.map((s, i) => (
+                <Link key={s.icon} to={`services/${svcOf(s).slug}`} className="tile rise" style={{ '--d': i % 3 }}>
+                  <h3>{s.title}</h3><p>{s.desc}</p>
+                  <Viz service={s} W={420} />
+                </Link>
+              ))}
             </div>
           </section>
         </div>
@@ -72,20 +76,30 @@ export default function Home() {
             <button key={c.key} type="button" aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>{c.key === 'all' ? ui.all : c.label}</button>
           ))}
         </div>
-        <div className="rows">
-          {P.items.map((p) => (
-            <Link key={p.id} to={`projects/${projSlug(site, p.id)}`} className="row" hidden={filter !== 'all' && filter !== p.key}>
-              <h3>{p.title}</h3>
-              <span className={`st${isDone(p) ? '' : ' live'}`}>{p.status}</span>
-              <span className="meta">{p.client} · {p.location}</span>
-            </Link>
-          ))}
+        <div className="register-wrap">
+          <table className="register">
+            <caption className="visually-hidden">{P.title}</caption>
+            <thead>
+              <tr><th scope="col">{ui.project}</th><th scope="col">{P.labels.client}</th><th scope="col">{ui.category}</th><th scope="col">{P.labels.location}</th><th scope="col">{P.labels.status}</th></tr>
+            </thead>
+            <tbody>
+              {P.items.map((p) => (
+                <tr key={p.id} hidden={filter !== 'all' && filter !== p.key}>
+                  <th scope="row" data-label={ui.project}><Link to={`projects/${projSlug(site, p.id)}`}>{p.title}</Link></th>
+                  <td data-col="client" data-label={P.labels.client}>{p.client}</td>
+                  <td data-col="minor" data-label={ui.category}>{P.categories.find((c) => c.key === p.key)?.label || p.category}</td>
+                  <td data-col="minor" data-label={P.labels.location}>{p.location}</td>
+                  <td data-col="status" data-label={P.labels.status}><span className={`st${isDone(p) ? '' : ' live'}`}>{p.status}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <p className="figures-foot"><Link to="projects" className="link">{ui.projMore} <Arrow /></Link></p>
       </section>
 
       <section className="sec wrap" aria-labelledby="recog-h">
-        <div className="recog lav rise">
+        <div className="recog rise">
           <div className="txt"><h2 className="h-head" id="recog-h">{Cc.title}</h2><p>{Cc.lead}</p></div>
           <ul className="seals">
             {Cc.iso.map((i) => (
@@ -98,15 +112,6 @@ export default function Home() {
             <Link to="approvals" className="link">{ui.apprMore} <Arrow /></Link>
           </div>
         </div>
-      </section>
-
-      <section className="sec wrap" aria-label={ui.figuresLabel}>
-        <dl className="figures rise">
-          {t.stats.map((s) => (
-            <div key={s.label}><dt className="visually-hidden">{s.label}</dt><dd><strong className="num ltr">{s.value}</strong></dd><dd><span>{s.label}</span></dd></div>
-          ))}
-        </dl>
-        <p className="figures-foot"><Link to="fleet" className="link">{ui.fleetMore} <Arrow /></Link></p>
       </section>
 
       <section className="sec wrap" aria-labelledby="lead-h">

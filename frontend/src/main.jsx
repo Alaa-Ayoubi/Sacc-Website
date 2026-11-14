@@ -5,6 +5,7 @@ import '@fontsource-variable/onest/wght.css';
 import '@fontsource/ibm-plex-sans-arabic/arabic-300.css';
 import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
 import '@fontsource/ibm-plex-sans-arabic/arabic-500.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-600.css';
 import './styles/site.css';
 
 import App from './App.jsx';

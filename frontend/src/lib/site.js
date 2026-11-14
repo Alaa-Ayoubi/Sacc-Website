@@ -25,8 +25,6 @@ export const SVC = {
 };
 export const SVC_SLUGS = Object.values(SVC).map((s) => s.slug);
 export const CAT_SVC = { water: 'Droplets', roads: 'Route', electrical: 'Zap', urban: 'Building2' };
-// Home-page bento: column span and tone for each of the nine tiles, in order.
-export const TILES = [[7, 'lav'], [5, 'teal'], [5, 'teal'], [7, 'lav'], [4, 'lav'], [4, 'teal'], [4, 'lav'], [6, 'teal'], [6, 'lav']];
 
 export const svcOf = (s) => SVC[s.icon] || SVC.Settings;
 const slugify = (x) => String(x).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -51,7 +49,7 @@ export const UI = {
     noProj: 'لا توجد مشاريع منشورة في هذا التخصص بعد.', prev: 'التخصص السابق', next: 'التخصص التالي',
     category: 'التصنيف', discipline: 'التخصص', more: 'مشاريع أخرى في التصنيف نفسه',
     tabs: { about: 'نبذة', journey: 'المسيرة', values: 'القيم', people: 'القيادة' },
-    apply: 'تقدّم', photoOf: 'صورة من موقع العمل', figuresLabel: 'الشركة بالأرقام',
+    apply: 'تقدّم', project: 'المشروع', photoOf: 'صورة من موقع العمل', figuresLabel: 'الشركة بالأرقام',
     notFoundTitle: 'الصفحة غير موجودة', notFoundLead: 'ربما نُقلت الصفحة أو تغيّر عنوانها.', home: 'الصفحة الرئيسية',
     honeypot: 'اترك هذا الحقل فارغاً',
   },
@@ -68,7 +66,7 @@ export const UI = {
     noProj: 'No published projects in this discipline yet.', prev: 'Previous discipline', next: 'Next discipline',
     category: 'Category', discipline: 'Discipline', more: 'More projects in this category',
     tabs: { about: 'Overview', journey: 'Journey', values: 'Values', people: 'Leadership' },
-    apply: 'Apply', photoOf: 'Site photograph', figuresLabel: 'The company in figures',
+    apply: 'Apply', project: 'Project', photoOf: 'Site photograph', figuresLabel: 'The company in figures',
     notFoundTitle: 'Page not found', notFoundLead: 'The page may have moved or its address changed.', home: 'Home page',
     honeypot: 'Leave this field empty',
   },
