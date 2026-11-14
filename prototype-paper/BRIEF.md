@@ -400,3 +400,11 @@ How the prototype applies them:
 - Projects: two wide photograph cards per row, as in the reference, instead
   of 3 × 2.
 - On narrow screens the ISO standards are a three-row list, not three plates.
+- Then: "make the components smaller: the boxes, and of course the type
+  inside them". The nine disciplines are five narrow boxes to a row, as in
+  the reference, with a tenth dark box linking to all disciplines; two to a
+  row on phones, where the capabilities line is left to the discipline's
+  page. Projects are three to a row. ISO plates are short. Box titles are
+  15.5px and box text 12–12.5px.
+- Inner pages keep one large heading; their sections use a smaller step.
+- Buttons and inputs look small but keep a 44px hit area on touch screens.

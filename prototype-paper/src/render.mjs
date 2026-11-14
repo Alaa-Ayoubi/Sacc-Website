@@ -62,7 +62,8 @@ function renderLang(site, lang) {
     let k = w.length <= 3 ? w.length - 1 : Math.ceil(w.length / 2);
     if (title === ui.officeH) k = rtl ? 1 : 2;
     while (k > 1 && JOINERS.has(w[k - 1].toLowerCase())) k -= 1;
-    return `${esc(w.slice(0, k).join(' '))} <span class="tone">${esc(w.slice(k).join(' '))}</span>`;
+    const two = k >= 2 && w.length - k >= 2;
+    return `${esc(w.slice(0, k).join(' '))} <span class="tone${two ? '' : ' in'}">${esc(w.slice(k).join(' '))}</span>`;
   };
 
   const secHead = (title, lead, { tag = 'h2', cls = 'h-sec', hid, extra = '', label = '' } = {}) => `
@@ -147,7 +148,7 @@ function renderLang(site, lang) {
 
   const pageHead = (title, lead, backLink = '') => `
     <div class="wrap page-head">${backLink ? `<p class="back">${backLink}</p>` : ''}${secHead(title, lead, { tag: 'h1', cls: 'h-page' })}</div>`;
-  const h2 = (text) => `<h2 class="h-sec rise" style="margin-bottom:28px">${esc(text)}</h2>`;
+  const h2 = (text) => `<h2 class="h-sub rise" style="margin-bottom:18px">${esc(text)}</h2>`;
 
   const out = [];
 
@@ -169,8 +170,9 @@ function renderLang(site, lang) {
     const body = `
     <section class="sec wrap">
       ${secHead(S.title, S.lead, { label: S.eyebrow })}
-      <div class="cards">
+      <div class="cards five">
         ${S.items.map((s) => `<a class="card rise" href="${href(`services/${svcOf(s).slug}`)}"><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><span class="gap"></span><p class="caps">${esc(s.capabilities.join(' · '))}</p>${icon(up, 'go')}</a>`).join('')}
+        <a class="card more on-dark rise" href="${href('services')}"><h3>${esc(ui.allDisc)}</h3>${icon(up, 'go')}</a>
       </div>
     </section>
 
@@ -311,7 +313,7 @@ function renderLang(site, lang) {
   out.push(...frame('approvals', `
     ${pageHead(Cc.title, Cc.lead)}
     <section class="sec wrap">
-      ${secHead(Cc.isoHeading, Cc.commitmentBody)}
+      ${secHead(Cc.isoHeading, Cc.commitmentBody, { cls: 'h-sub' })}
       ${isoTiles()}
     </section>
     <section class="sec">${band('h2')}</section>`, { current: 'approvals' }));
@@ -323,7 +325,7 @@ function renderLang(site, lang) {
     ${pageHead(C.title, C.lead)}
     <section class="sec wrap form-grid">
       <form aria-labelledby="${f('h')}" action="#${id('contact')}">
-        <h2 class="h-sec" id="${f('h')}" style="margin-bottom:24px">${esc(ui.formH)}</h2>
+        <h2 class="h-sub" id="${f('h')}" style="margin-bottom:18px">${esc(ui.formH)}</h2>
         <div class="fields">
           <div class="field"><label for="${f('name')}">${esc(C.fields.name)}</label><input type="text" id="${f('name')}" autocomplete="name" placeholder="${esc(C.placeholders.name)}"></div>
           <div class="field"><label for="${f('email')}">${esc(C.fields.email)}</label><input type="email" id="${f('email')}" dir="ltr" autocomplete="email" placeholder="${esc(C.placeholders.email)}"></div>
@@ -346,12 +348,12 @@ function renderLang(site, lang) {
       <div class="points">${K.why.map((w) => `<div class="rise"><h3>${esc(w.title)}</h3><p class="muted">${esc(w.desc)}</p></div>`).join('')}</div>
     </section>
     <section class="sec wrap">
-      ${secHead(K.rolesTitle, K.rolesLead)}
+      ${secHead(K.rolesTitle, K.rolesLead, { cls: 'h-sub' })}
       <ul class="list roles">${K.roles.map((r) => `<li class="row rise"><b>${esc(r.title)}</b><span class="muted">${esc([r.dept, r.location, r.type, r.exp].join(' · '))}</span></li>`).join('')}</ul>
     </section>
     <section class="sec wrap form-grid solo">
       <form aria-labelledby="${f('h')}" action="#${id('careers')}">
-        <h2 class="h-sec" id="${f('h')}" style="margin-bottom:8px">${esc(K.applyTitle)}</h2>
+        <h2 class="h-sub" id="${f('h')}" style="margin-bottom:6px">${esc(K.applyTitle)}</h2>
         <p class="muted" style="margin-bottom:24px">${esc(K.applyLead)}</p>
         <div class="fields">
           ${inp('name', 'text', ' autocomplete="name"')}${inp('email', 'email', ' dir="ltr" autocomplete="email"')}

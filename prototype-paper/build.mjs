@@ -42,6 +42,9 @@ const fonts = [
   arabic('Sacc', 'almarai', 300), arabic('Sacc', 'almarai', 400), arabic('Sacc', 'almarai', 400, 500), arabic('Sacc', 'almarai', 700),
   ...[400, 500].map((w) => faces('SaccDisplay', '@fontsource/newsreader', '300.css', ['newsreader-latin-300-normal.woff2', 'newsreader-latin-ext-300-normal.woff2'], String(w))),
   arabic('SaccDisplay', 'noto-naskh-arabic', 400), arabic('SaccDisplay', 'noto-naskh-arabic', 500),
+  // Slot 600 is the small-title step: Latin Regular (Light is faint under 20px) beside the same Arabic 500.
+  faces('SaccDisplay', '@fontsource/newsreader', '400.css', ['newsreader-latin-400-normal.woff2', 'newsreader-latin-ext-400-normal.woff2'], '600'),
+  arabic('SaccDisplay', 'noto-naskh-arabic', 500, 600),
 ].join('\n');
 
 const LOCAL = ['hero-infrastructure', 'water-network', 'public-realm', 'equipment-fleet'];
