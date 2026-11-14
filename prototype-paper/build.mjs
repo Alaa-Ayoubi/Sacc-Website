@@ -28,20 +28,20 @@ function faces(family, pkg, cssFile, wantFiles, weight, from = here) {
   }).filter(Boolean).join('\n');
 }
 // Body and interface: Onest (Latin) with Almarai (Arabic).
-// Headings: Instrument Serif (Latin) with Noto Naskh Arabic, the serif's Arabic counterpart.
+// Headings: Newsreader Light (Latin) with Noto Naskh Arabic, the serif's Arabic counterpart.
 //
 // A browser picks the faces of a family by weight first and by script second,
 // so the two scripts only combine when they declare exactly the same weights.
 // Each family therefore fills the same weight slots for both scripts, reusing a
-// file where a face has no such weight (Almarai has no 500; Instrument Serif
-// ships one weight).
+// file where a face has no such weight (Almarai has no 500; the headings use
+// Newsreader's light cut in every slot).
 const latin = (family, pkg, css, stem, slot) => faces(family, pkg, css, [`${stem}-latin-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`, `${stem}-latin-ext-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`], slot);
 const arabic = (family, pkg, w, slot = w) => faces(family, `@fontsource/${pkg}`, `${w}.css`, [`${pkg}-arabic-${w}-normal.woff2`], String(slot));
 const fonts = [
   ...[300, 400, 500, 700].map((w) => latin('Sacc', '@fontsource-variable/onest', 'wght.css', 'onest', String(w))),
   arabic('Sacc', 'almarai', 300), arabic('Sacc', 'almarai', 400), arabic('Sacc', 'almarai', 400, 500), arabic('Sacc', 'almarai', 700),
-  ...[400, 500, 600].map((w) => latin('SaccDisplay', '@fontsource/instrument-serif', '400.css', 'instrument-serif', String(w))),
-  arabic('SaccDisplay', 'noto-naskh-arabic', 400), arabic('SaccDisplay', 'noto-naskh-arabic', 500), arabic('SaccDisplay', 'noto-naskh-arabic', 600),
+  ...[400, 500].map((w) => faces('SaccDisplay', '@fontsource/newsreader', '300.css', ['newsreader-latin-300-normal.woff2', 'newsreader-latin-ext-300-normal.woff2'], String(w))),
+  arabic('SaccDisplay', 'noto-naskh-arabic', 400), arabic('SaccDisplay', 'noto-naskh-arabic', 500),
 ].join('\n');
 
 const LOCAL = ['hero-infrastructure', 'water-network', 'public-realm', 'equipment-fleet'];

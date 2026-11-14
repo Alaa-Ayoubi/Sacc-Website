@@ -375,14 +375,28 @@ These came after the brief was approved and override it where they differ.
   (the owner attached a close-up of its phone hero): serif headings, a light
   header bar, pale card plates, and the hero action in a translucent frame.
 
+- After seeing the first build: make the components consistent and matching
+  the reference, then "the components are too big; make them finer and
+  smaller so the page is simple and clear; match the reference".
+
 How the prototype applies them:
-- Headings: Instrument Serif (Latin) with Noto Naskh Arabic. Body and
+- Headings: Newsreader Light (Latin) with Noto Naskh Arabic. Body and
   interface: Onest (Latin) with Almarai (Arabic). This replaces the "light
   grotesque / IBM Plex Sans Arabic" line in the Type section.
+- Scale: the reference's fine scale. Body 15–15.5px, card text 13.5px,
+  labels 11.5px, buttons 13.5–14.5px; section headings 25–40px on two lines
+  (ink, then muted).
 - Header: a paper bar. The official lockup's wordmark is white and may not be
   recoloured, so the bar shows the official circular mark with the company's
   name as text, and the full lockup sits on the slate footer.
-- Card plates: a pale warm tint of #A99E8F over the paper, instead of solid
-  #C9C8C3.
+- Cards: pale warm plates (a tint of #A99E8F over the paper) with near-square
+  corners, a small serif title, small grey text and a firm small foot line,
+  without a hairline.
+- Bands: pale tints of #A99E8F (approvals) and #839FA3 (office) instead of
+  the solid colours, as in the reference; this also lets small text sit on
+  them at full contrast.
+- Section links ("All projects", "Approvals in full") are the reference's
+  small dark buttons. They are navigation; the contact action stays single.
 - Projects: two wide photograph cards per row, as in the reference, instead
   of 3 × 2.
+- On narrow screens the ISO standards are a three-row list, not three plates.

@@ -71,6 +71,7 @@ function renderLang(site, lang) {
       <div class="side rise">${lead ? `<p class="lead">${esc(lead)}</p>` : ''}${extra}</div>
     </div>`;
 
+  const btn = (path, label) => `<a class="btn" href="${href(path)}">${esc(label)}</a>`;
   const link = (path, label, dir = fwd) => `<a class="link" href="${href(path)}">${dir === back ? icon(back) : ''}<span>${esc(label)}</span>${dir === back ? '' : icon(fwd)}</a>`;
 
   const catLabel = (p) => P.categories.find((c) => c.key === p.key)?.label || p.category;
@@ -91,7 +92,7 @@ function renderLang(site, lang) {
     <div class="tiles">
       ${Cc.iso.map((x) => {
         const [, n] = /^ISO\s*(.+)$/.exec(x.title) || [null, x.title];
-        return `<div class="tile rise"><div class="plate"><small class="ltr">ISO</small><b class="ltr num">${esc(n)}</b></div><h3>${esc(x.desc)}</h3></div>`;
+        return `<div class="tile rise"><div class="plate"><small class="ltr">ISO</small><b class="ltr num">${esc(n)}</b></div><p class="cap">${esc(x.desc)}</p></div>`;
       }).join('')}
     </div>`;
 
@@ -176,11 +177,11 @@ function renderLang(site, lang) {
     <section class="sec wrap">
       ${secHead(P.title, P.lead, { label: P.eyebrow })}
       ${filtered('')}
-      <p class="sec-foot">${link('projects', ui.projMore)}</p>
+      <p class="sec-foot">${btn('projects', ui.projMore)}</p>
     </section>
 
     <section class="sec">
-      <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: link('approvals', ui.apprMore) })}</div>
+      <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: btn('approvals', ui.apprMore) })}</div>
       ${band('h3')}
       <div class="wrap" style="margin-top:clamp(48px,6vw,88px)">
         <h3 class="sub-h rise">${esc(Cc.isoHeading)}</h3>
