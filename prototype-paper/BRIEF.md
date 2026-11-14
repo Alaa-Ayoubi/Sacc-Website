@@ -406,5 +406,11 @@ How the prototype applies them:
   row on phones, where the capabilities line is left to the discipline's
   page. Projects are three to a row. ISO plates are short. Box titles are
   15.5px and box text 12–12.5px.
+- Then: "background colour white; box colour light beige". The page ground is
+  #FFFFFF and the boxes #F3F0E7, which is the reference's own card colour
+  (243,240,230 sampled from the owner's screenshot). The approvals band is the
+  reference's cream (#EAE7D3). These three sit outside the ten-colour list by
+  the owner's instruction; text, lines, buttons and the dark surfaces still
+  come from it.
 - Inner pages keep one large heading; their sections use a smaller step.
 - Buttons and inputs look small but keep a 44px hit area on touch screens.
