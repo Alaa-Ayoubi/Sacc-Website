@@ -1,0 +1,14 @@
+{
+  "name": "sacc-prototype-paper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/onest": "^5.2.8",
+    "@fontsource/almarai": "^5.2.7",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/noto-naskh-arabic": "^5.2.8"
+  }
+}
