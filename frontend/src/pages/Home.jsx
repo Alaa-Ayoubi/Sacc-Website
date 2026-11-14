@@ -95,7 +95,7 @@ export default function Home() {
             </tbody>
           </table>
         </div>
-        <p className="figures-foot"><Link to="projects" className="link">{ui.projMore} <Arrow /></Link></p>
+        <p className="sec-foot"><Link to="projects" className="link">{ui.projMore} <Arrow /></Link></p>
       </section>
 
       <section className="sec wrap" aria-labelledby="recog-h">
