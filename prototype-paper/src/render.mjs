@@ -95,6 +95,14 @@ function renderLang(site, lang) {
       }).join('')}
     </div>`;
 
+  const band = (tag) => `
+      <div class="band"><div class="wrap band-in">
+        <div class="rise"><${tag} class="band-h">${esc(Cc.approvalsHeading)}</${tag}>
+          <ol class="rows">${Cc.approvals.map((a, i) => `<li><span>${esc(a)}</span><span class="n num ltr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span></li>`).join('')}</ol>
+        </div>
+        <div class="drawing rise" aria-hidden="true">${drawing()}</div>
+      </div></div>`;
+
   const plainCards = (items, four = true, tag = 'h3') => `<div class="cards${four ? ' four' : ''}">${items.map((x) => `<div class="card plain rise"><${tag} class="h3">${esc(typeof x === 'string' ? x : x.title)}</${tag}>${x.desc ? `<p>${esc(x.desc)}</p>` : ''}</div>`).join('')}</div>`;
 
   const officeRows = (withCr = true) => `
@@ -173,12 +181,7 @@ function renderLang(site, lang) {
 
     <section class="sec">
       <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: link('approvals', ui.apprMore) })}</div>
-      <div class="band"><div class="wrap band-in">
-        <div class="rise"><h3>${esc(Cc.approvalsHeading)}</h3>
-          <ol class="rows">${Cc.approvals.map((a, i) => `<li><span>${esc(a)}</span><span class="n num ltr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span></li>`).join('')}</ol>
-        </div>
-        <div class="drawing rise" aria-hidden="true">${drawing()}</div>
-      </div></div>
+      ${band('h3')}
       <div class="wrap" style="margin-top:clamp(48px,6vw,88px)">
         <h3 class="sub-h rise">${esc(Cc.isoHeading)}</h3>
         ${isoTiles()}
@@ -196,7 +199,7 @@ function renderLang(site, lang) {
         </figure>
         <a class="float gm" href="${href('company-people')}">
           ${ph(images.gm, gm.name)}
-          <span class="txt"><b>${esc(gm.name)}</b><span>${esc(gm.title)}</span><span class="more">${esc(ui.tabs.people)}</span></span>
+          <span class="txt"><b>${esc(gm.name)}</b><span>${esc(gm.title)}</span><span class="more">${esc(ui.tabs.people)}${icon(fwd)}</span></span>
         </a>
       </div>
     </section>
@@ -310,7 +313,7 @@ function renderLang(site, lang) {
       ${secHead(Cc.isoHeading, Cc.commitmentBody)}
       ${isoTiles()}
     </section>
-    <section class="sec wrap">${h2(Cc.approvalsHeading)}${plainCards(Cc.approvals)}</section>`, { current: 'approvals' }));
+    <section class="sec">${band('h2')}</section>`, { current: 'approvals' }));
 
   // ---------- contact ----------
   {
