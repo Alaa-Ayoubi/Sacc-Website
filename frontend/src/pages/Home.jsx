@@ -84,7 +84,7 @@ export default function Home() {
             </thead>
             <tbody>
               {P.items.map((p) => (
-                <tr key={p.id} hidden={filter !== 'all' && filter !== p.key}>
+                <tr key={p.id} data-key={p.key} hidden={filter !== 'all' && filter !== p.key}>
                   <th scope="row" data-label={ui.project}><Link to={`projects/${projSlug(site, p.id)}`}>{p.title}</Link></th>
                   <td data-col="client" data-label={P.labels.client}>{p.client}</td>
                   <td data-col="minor" data-label={ui.category}>{P.categories.find((c) => c.key === p.key)?.label || p.category}</td>
