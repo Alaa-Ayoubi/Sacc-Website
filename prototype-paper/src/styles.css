@@ -18,7 +18,8 @@
   --r-panel: 4px;
   --r-card: 3px;
   --r-ctl: 4px;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --bar: 62px;
   --band: #EAE7D3;
   --close: #CDD9DA;
@@ -43,6 +44,7 @@ body {
 h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-decoration: none; }
+a, button, label { -webkit-tap-highlight-color: transparent; }
 svg { display: block; }
 :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; border-radius: 2px; }
 .on-dark :focus-visible, .on-dark:focus-visible { outline-color: var(--paper); }
@@ -92,16 +94,13 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .muted { color: var(--ink-2); }
 
 .link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate); font-weight: 500; min-height: 44px; }
-.link svg { width: 18px; height: 18px; transition: transform 0.3s var(--ease); }
-.link:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
-.link:hover svg { transform: translateX(calc(var(--dir) * 4px)); }
+.link svg { width: 18px; height: 18px; transition: transform 200ms var(--ease-out); }
 /* Section links: the small dark button the reference uses under a paragraph. */
 .btn {
   display: inline-flex; align-items: center; min-height: 36px; padding: 6px 13px; border-radius: var(--r-ctl);
   background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 500; line-height: 1.4;
-  transition: background 0.25s var(--ease);
+  transition: background-color 150ms ease, transform 160ms var(--ease-out);
 }
-.btn:hover { background: var(--slate); }
 [dir='rtl'] { --dir: -1; }
 [dir='ltr'] { --dir: 1; }
 
@@ -110,16 +109,14 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
   min-height: 40px; padding: 8px 16px; border: 0; border-radius: var(--r-ctl);
   background: var(--ink); color: var(--paper);
   font: inherit; font-size: 14px; font-weight: 500; line-height: 1.4; cursor: pointer;
-  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+  transition: background-color 150ms ease, color 150ms ease, transform 160ms var(--ease-out);
 }
-.action:hover { background: var(--slate); }
 .action.light { background: var(--paper); color: var(--ink); }
 @media (pointer: coarse) {
   .action, .btn, .filters > label, .icon-btn { position: relative; }
   .action::after, .btn::after { content: ''; position: absolute; inset: -6px 0; }
   input[type='text'], input[type='email'], input[type='tel'], input[type='number'], input[type='url'], select { min-height: 44px; }
 }
-.action.light:hover { background: var(--line); }
 
 /* ---------- header ---------- */
 .bar {
@@ -138,27 +135,28 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .main-nav a, .lang {
   display: inline-flex; align-items: center; min-height: 44px; padding-inline: 14px;
   font-size: 14px; border-radius: var(--r-ctl);
+  transition: background-color 150ms ease;
 }
-.main-nav a:hover, .bar .lang:hover { background: rgba(201, 200, 195, 0.45); }
 .main-nav a[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--fg); border-radius: 0; }
 .bar .action { min-height: 36px; padding: 6px 14px; font-size: 13.5px; }
 .bar .menu-btn { display: none; }
-.home > .bar:not(.stuck) .bar-action { display: none; }
+/* On the home page the hero carries the action; the bar's copy fades in once the hero has gone. */
+.home > .bar .bar-action { transition: opacity 200ms ease, transform 200ms var(--ease-out), background-color 150ms ease, visibility 0s; }
+.home > .bar:not(.stuck) .bar-action { opacity: 0; visibility: hidden; transform: scale(0.97); transition: opacity 120ms ease, transform 120ms ease, visibility 0s 120ms; }
 
 /* On wide screens the home page starts with the bar laid over the photograph. */
 @media (min-width: 941px) {
   .home > .hero { top: 8px; margin: 8px 8px 0; border-radius: var(--r-card); min-height: calc(100vh - 8px); min-height: calc(100svh - 8px); }
   .home > .hero .hero-mid { padding-top: calc(var(--bar) + 32px); }
   .home > .bar:not(.stuck) { --fg: var(--paper); position: absolute; inset-inline: 0; top: 0; background: transparent; border-color: transparent; }
-  .home > .bar:not(.stuck) .main-nav a:hover, .home > .bar:not(.stuck) .lang:hover { background: rgba(255, 255, 255, 0.14); }
-  .home > .bar.stuck { position: fixed; inset-inline: 0; animation: bar-in 0.4s var(--ease); }
+  .home > .bar.stuck { position: fixed; inset-inline: 0; }
+  /* With scripting the bar stays put and only its colours change, so the change can be interrupted. */
+  .js .home > .bar:not(.stuck), .js .home > .bar.stuck { position: fixed; inset-inline: 0; top: 0; transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease; }
 }
-@keyframes bar-in { from { transform: translateY(-100%); } to { transform: none; } }
 
 /* phone menu: a page of its own, so it opens without scripting */
 .page.drawer { padding: 0 var(--gut) 32px; }
-.page.drawer:target { display: flex; flex-direction: column; animation: drawer-in 0.35s var(--ease); }
-@keyframes drawer-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+.page.drawer:target { display: flex; flex-direction: column; }
 .drawer-top { display: flex; align-items: center; justify-content: space-between; min-height: var(--bar); }
 .drawer-nav { display: grid; margin-top: 20px; }
 .drawer-nav a {
@@ -171,8 +169,8 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .icon-btn {
   display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px;
   border-radius: var(--r-ctl); cursor: pointer; color: inherit;
+  transition: background-color 150ms ease, transform 160ms var(--ease-out);
 }
-.icon-btn:hover { background: rgba(201, 200, 195, 0.45); }
 .icon-btn svg { width: 26px; height: 26px; }
 
 @media (max-width: 940px) {
@@ -181,7 +179,6 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
   .bar-in { gap: 8px; }
   .bar .brand { margin-inline-end: auto; }
   .bar .menu-btn { display: inline-flex; }
-  .home > .bar.stuck .bar-action { display: inline-flex; }
 }
 @media (max-width: 420px) {
   .brand .name { font-size: calc(14.5px * var(--kd)); }
@@ -259,11 +256,11 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .card .caps { margin-top: auto; padding-top: 14px; font-size: 12.5px; font-weight: 700; line-height: 1.6; color: var(--ink); max-width: none; }
 .page[lang='en'] .card .caps { font-weight: 500; }
 .card .gap { flex: 1; min-height: 20px; }
-a.card { transition: background 0.3s var(--ease); min-height: 250px; }
+a.card { transition: background-color 200ms ease, transform 160ms var(--ease-out); min-height: 250px; }
 a.card h3 { padding-inline-end: 34px; }
-a.card .go { position: absolute; top: 18px; inset-inline-end: 16px; width: 18px; height: 18px; opacity: 0; transform: translate(calc(var(--dir) * -6px), 6px); transition: opacity 0.3s var(--ease), transform 0.4s var(--ease); }
-a.card:hover, a.card:focus-visible { background: var(--plate-2); }
-a.card:hover .go, a.card:focus-visible .go { opacity: 1; transform: none; }
+a.card .go { position: absolute; top: 18px; inset-inline-end: 16px; width: 18px; height: 18px; opacity: 0; transform: translate(calc(var(--dir) * -4px), 4px); transition: opacity 200ms ease, transform 200ms var(--ease-out); }
+a.card:focus-visible { background: var(--plate-2); }
+a.card:focus-visible .go { opacity: 1; transform: none; }
 .card.plain { min-height: 0; padding: 11px 14px; }
 .card.plain .h3 { font-size: calc(14px * var(--kd)); }
 .card.plain p { font-size: 12.5px; }
@@ -278,7 +275,7 @@ a.card:hover .go, a.card:focus-visible .go { opacity: 1; transform: none; }
 .cards.five a.card .go { top: 14px; inset-inline-end: 12px; width: 16px; height: 16px; }
 .cards.five a.card h3 { padding-inline-end: 20px; }
 a.card.more { background: var(--ink); color: var(--paper); justify-content: flex-end; }
-a.card.more:hover, a.card.more:focus-visible { background: var(--slate); }
+a.card.more:focus-visible { background: var(--slate); }
 a.card.more .go { opacity: 1; transform: none; }
 @media (max-width: 1000px) { .cards, .cards.four { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 899px) { .cards.five { grid-template-columns: repeat(3, 1fr); } .cards.five a.card.more { grid-column: 1 / -1; min-height: 64px; } }
@@ -297,9 +294,8 @@ a.card.more .go { opacity: 1; transform: none; }
 .filters > label {
   display: inline-flex; align-items: center; min-height: 44px; cursor: pointer;
   color: var(--ink-2); box-shadow: inset 0 -1px 0 transparent;
-  transition: color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  transition: color 150ms ease, box-shadow 150ms ease, transform 160ms var(--ease-out);
 }
-.filters > label:hover { color: var(--ink); }
 .filters > input:checked + label { color: var(--ink); font-weight: 500; box-shadow: inset 0 -2px 0 var(--slate); }
 .filters > input:focus-visible + label { outline: 2px solid var(--slate); outline-offset: 3px; border-radius: 2px; }
 .filters > .pgrid, .filters > .panels { flex: 0 0 100%; margin-top: clamp(22px, 3vw, 36px); }
@@ -313,14 +309,15 @@ a.card.more .go { opacity: 1; transform: none; }
   position: relative; display: flex; flex-direction: column; justify-content: space-between;
   aspect-ratio: 4 / 3; padding: clamp(14px, 1.5vw, 20px); border-radius: var(--r-card); overflow: hidden;
   color: var(--paper); background: var(--ink); isolation: isolate;
+  transition: opacity 250ms var(--ease-out), transform 160ms var(--ease-out);
 }
-.pcard .ph { position: absolute; inset: 0; z-index: -2; transition: transform 0.9s var(--ease); }
+.pcard .ph { position: absolute; inset: 0; z-index: -2; transition: transform 500ms var(--ease-out); }
 .pcard::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
   mix-blend-mode: multiply;
   background: linear-gradient(180deg, rgba(54, 64, 68, 0.86) 0%, rgba(54, 64, 68, 0.82) 30%, rgba(54, 64, 68, 0.12) 45%, rgba(54, 64, 68, 0.12) 52%, rgba(54, 64, 68, 0.84) 66%, rgba(54, 64, 68, 0.92) 100%);
 }
-.pcard:hover .ph, .pcard:focus-visible .ph { transform: scale(1.04); }
+.pcard:focus-visible .ph { transform: scale(1.03); }
 .pcard .top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; font-size: 12px; line-height: 1.5; }
 .pcard .pt { font-size: calc(clamp(15.5px, 1.3vw, 18.5px) * var(--kd)); line-height: 1.15; text-wrap: balance; max-width: 18em; }
 .page[lang='ar'] .pcard .pt { line-height: 1.55; }
@@ -378,7 +375,7 @@ a.card.more .go { opacity: 1; transform: none; }
   padding: clamp(20px, 4.5vw, 64px); background: var(--slate);
   display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; align-items: stretch;
 }
-.panel > .ph { position: absolute; inset: -40px; z-index: -1; filter: blur(22px) saturate(0.85); opacity: 0.9; }
+.panel > .ph { position: absolute; inset: -40px; z-index: -1; filter: blur(18px) saturate(0.85); opacity: 0.9; }
 .panel.sharp > .ph { inset: 0; filter: none; opacity: 1; }
 .float {
   background: var(--paper); color: var(--ink); border-radius: var(--r-card);
@@ -392,12 +389,10 @@ a.card.more .go { opacity: 1; transform: none; }
 .sig b, .gm b { font-weight: 500; }
 .sig span, .gm span { color: var(--ink-2); font-size: 14px; }
 /* Both portraits share one frame: same width, same 4:5 crop, same corner. */
-.gm { display: grid; grid-template-columns: 112px 1fr; gap: 20px; align-items: stretch; padding: 20px; transition: transform 0.4s var(--ease); }
-.gm:hover { transform: translateY(-3px); }
+.gm { display: grid; grid-template-columns: 112px 1fr; gap: 20px; align-items: stretch; padding: 20px; transition: transform 200ms var(--ease-out); }
 .gm .txt { display: flex; flex-direction: column; }
 .gm .more { display: inline-flex; align-items: center; gap: 6px; color: var(--slate); font-size: 13.5px; font-weight: 500; margin-top: auto; padding-top: 10px; }
-.gm .more svg { width: 16px; height: 16px; transition: transform 0.3s var(--ease); }
-.gm:hover .more svg { transform: translateX(calc(var(--dir) * 4px)); }
+.gm .more svg { width: 16px; height: 16px; transition: transform 200ms var(--ease-out); }
 @media (max-width: 900px) { .panel { grid-template-columns: 1fr; padding: 18px; } }
 @media (max-width: 520px) { .chair { grid-template-columns: 1fr; } .chair .ph, .gm .ph { width: 96px; } .gm { grid-template-columns: 96px 1fr; gap: 16px; } }
 
@@ -441,7 +436,7 @@ a.card.more .go { opacity: 1; transform: none; }
 
 /* tabs: radios, so they work without scripting */
 .tabs { display: flex; flex-wrap: wrap; gap: 4px 26px; border-top: 1px solid var(--line); padding-top: 6px; }
-.tabs > .panels > .tabpanel { display: none; }
+.tabs > .panels > .tabpanel { display: none; transition: opacity 200ms ease; }
 .tabs > .t1:checked ~ .panels > .p1, .tabs > .t2:checked ~ .panels > .p2,
 .tabs > .t3:checked ~ .panels > .p3, .tabs > .t4:checked ~ .panels > .p4 { display: block; }
 
@@ -467,11 +462,11 @@ a.card.more .go { opacity: 1; transform: none; }
 .list > :last-child { border-bottom: 1px solid var(--line); }
 .list a.row, .list li.row {
   display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) auto; gap: 8px 32px; align-items: baseline;
-  padding-block: 15px; transition: background 0.3s var(--ease), padding 0.4s var(--ease);
+  padding-block: 15px; transition: background-color 150ms ease;
 }
-.list a.row:hover, .list a.row:focus-visible { background: var(--plate); padding-inline: 16px; }
+.list a.row:focus-visible { background: var(--plate); }
 .list .row b { font-family: var(--disp); font-size: calc(20px * var(--kd)); font-weight: var(--wd); }
-.list .row .go { width: 20px; height: 20px; color: var(--slate); align-self: center; }
+.list .row .go { width: 20px; height: 20px; color: var(--slate); align-self: center; transition: transform 200ms var(--ease-out); }
 @media (max-width: 760px) { .list a.row, .list li.row { grid-template-columns: 1fr auto; } .list .row span { grid-column: 1; } .list .row .go { grid-row: 1; grid-column: 2; } }
 
 .points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 32px; }
@@ -480,8 +475,7 @@ a.card.more .go { opacity: 1; transform: none; }
 @media (max-width: 520px) { .points { grid-template-columns: 1fr; } }
 
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: clamp(40px, 6vw, 72px); }
-.pager a { display: grid; gap: 2px; padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-card); transition: background 0.3s var(--ease); }
-.pager a:hover { background: var(--plate); }
+.pager a { display: grid; gap: 2px; padding: 18px 22px; border: 1px solid var(--line); border-radius: var(--r-card); transition: background-color 150ms ease, transform 160ms var(--ease-out); }
 .pager a span { color: var(--ink-2); font-size: 13.5px; }
 .pager a:last-child { text-align: end; }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager a:last-child { text-align: start; } }
@@ -495,13 +489,14 @@ a.card.more .go { opacity: 1; transform: none; }
 input[type='text'], input[type='email'], input[type='tel'], input[type='number'], input[type='url'], select, textarea {
   width: 100%; min-height: 42px; padding: 8px 12px; border: 1px solid var(--mute); border-radius: var(--r-ctl);
   background: var(--paper); color: var(--ink); font: inherit; font-size: 14px; caret-color: var(--slate);
+  transition: border-color 150ms ease;
 }
 textarea { min-height: 116px; resize: vertical; }
 ::placeholder { color: var(--ink-2); opacity: 1; }
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--slate); outline-offset: 1px; border-color: var(--slate); }
 .hint { color: var(--ink-2); font-size: 13.5px; }
 .file-row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 4px; }
-.file-btn { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 16px; border: 1px solid var(--mute); border-radius: var(--r-ctl); cursor: pointer; font-size: 14px; }
+.file-btn { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 16px; border: 1px solid var(--mute); border-radius: var(--r-ctl); cursor: pointer; font-size: 14px; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
 .form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 24px; }
 .aside-list div { display: grid; gap: 2px; padding-block: 16px; border-top: 1px solid var(--line); }
 .aside-list div:last-child { border-bottom: 1px solid var(--line); }
@@ -513,13 +508,63 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 
 .roles .row { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); }
 
-/* ---------- motion ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .rise { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
-    @keyframes rise { from { opacity: 0.001; transform: translateY(22px); } to { opacity: 1; transform: none; } }
-  }
+/* ---------- interaction and motion ---------- */
+/* Press: every pressable thing answers at once. Small controls give more, large surfaces less. */
+.action:active, .btn:active, .file-btn:active { transform: scale(0.97); }
+.icon-btn:active { transform: scale(0.94); }
+.filters > label:active { transform: scale(0.97); }
+a.card:active, .pcard:active, .pager a:active { transform: scale(0.985); }
+.gm:active { transform: scale(0.99); }
+
+/* Hover belongs to pointers. On touch a hover sticks after the tap, so none of this applies there. */
+@media (hover: hover) and (pointer: fine) {
+  .link:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+  .link:hover svg, .gm:hover .more svg, .list a.row:hover .go { transform: translateX(calc(var(--dir) * 4px)); }
+  .btn:hover, .action:hover, a.card.more:hover { background: var(--slate); }
+  .action.light:hover { background: var(--line); }
+  .main-nav a:hover, .bar .lang:hover, .icon-btn:hover { background: rgba(201, 200, 195, 0.45); }
+  .filters > label:hover { color: var(--ink); }
+  a.card:hover { background: var(--plate-2); }
+  a.card:hover .go { opacity: 1; transform: none; }
+  .pcard:hover .ph { transform: scale(1.03); }
+  .gm:hover { transform: translateY(-2px); }
+  .gm:active { transform: scale(0.99); }
+  .list a.row:hover, .pager a:hover, .file-btn:hover { background: var(--plate); }
 }
+@media (hover: hover) and (pointer: fine) and (min-width: 941px) {
+  .home > .bar:not(.stuck) .main-nav a:hover, .home > .bar:not(.stuck) .lang:hover { background: rgba(255, 255, 255, 0.14); }
+}
+
+/* What enters fades in; what leaves just goes. Cards returning from a filter, a tab's panel. */
+@starting-style {
+  .pgrid > .pcard, .tabs > .panels > .tabpanel { opacity: 0; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  /* First sight of the page: name, sentence, action, figures, one after another. */
+  .hero-mid > *, .hero .creds { animation: rise 600ms var(--ease-out) backwards; }
+  .hero-mid > :nth-child(2) { animation-delay: 70ms; }
+  .hero-mid > :nth-child(3) { animation-delay: 140ms; }
+  .hero .creds { animation-delay: 210ms; }
+
+  /* The phone menu arrives as one sheet, then its links in turn. */
+  .page.drawer:target { animation: rise 250ms var(--ease-drawer) backwards; }
+  .page.drawer:target .drawer-nav a { animation: rise 300ms var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * 40ms + 60ms); }
+  .drawer-nav a:nth-child(2) { --i: 1; } .drawer-nav a:nth-child(3) { --i: 2; }
+  .drawer-nav a:nth-child(4) { --i: 3; } .drawer-nav a:nth-child(5) { --i: 4; }
+
+  /* Sections arrive once, as they come into view (the script marks them; without it they are simply there).
+     The animation only fills backwards, so afterwards the element is free to answer a press. */
+  .reveal .rise:not(.in) { opacity: 0; }
+  .reveal .rise.in { animation: rise 500ms var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * 50ms); }
+  .cards > :nth-child(5n + 2), .pgrid > :nth-child(3n + 2), .tiles > :nth-child(2), .points > :nth-child(2) { --i: 1; }
+  .cards > :nth-child(5n + 3), .pgrid > :nth-child(3n + 3), .tiles > :nth-child(3), .points > :nth-child(3) { --i: 2; }
+  .cards > :nth-child(5n + 4), .points > :nth-child(4) { --i: 3; }
+  .cards > :nth-child(5n + 5) { --i: 4; }
+}
+/* Less motion, not none: colour and opacity still change, nothing moves. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  *, *::before, *::after { animation: none !important; transition-property: opacity, color, background-color, border-color, box-shadow !important; }
 }

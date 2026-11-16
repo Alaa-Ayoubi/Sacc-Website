@@ -77,7 +77,7 @@ function renderLang(site, lang) {
 
   const catLabel = (p) => P.categories.find((c) => c.key === p.key)?.label || p.category;
   const pcard = (p, tag = 'h3') => `
-    <a class="pcard on-dark" data-key="${p.key}" href="${href(`projects/${projSlug(site, p.id)}`)}">
+    <a class="pcard on-dark rise" data-key="${p.key}" href="${href(`projects/${projSlug(site, p.id)}`)}">
       ${ph(p.image)}
       <span class="top"><span>${esc(p.client)}</span><span class="st${isDone(p) ? '' : ' live'}">${esc(p.status)}</span></span>
       <${tag} class="pt">${esc(p.title)}</${tag}>

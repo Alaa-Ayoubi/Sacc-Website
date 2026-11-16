@@ -413,4 +413,13 @@ How the prototype applies them:
   the owner's instruction; text, lines, buttons and the dark surfaces still
   come from it.
 - Inner pages keep one large heading; their sections use a smaller step.
+- Then, with the same design kept as it is: polish its interaction and motion.
+  Pressable things answer a press (a slight scale); hover effects apply to
+  pointer devices only; only transform and opacity move; interface changes
+  stay under 300ms on a strong ease-out curve; the home page's bar changes
+  colour by transition instead of sliding in; sections arrive once as they
+  come into view, in a short stagger; the hero's name, sentence, action and
+  figures arrive in turn on first sight; cards returning from a filter and a
+  tab's panel fade in; reduced motion keeps colour and opacity changes and
+  drops movement.
 - Buttons and inputs look small but keep a 44px hit area on touch screens.
