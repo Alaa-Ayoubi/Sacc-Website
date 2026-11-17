@@ -6,7 +6,7 @@ import { CAT_SVC, projSlug, src, svcOf } from '../lib/site.js';
 import { Arrow, BackArrow, Img, Link, PageHead, Seal, Tabs } from '../components/ui.jsx';
 import Viz from '../components/Viz.jsx';
 
-const tone = (i) => (i % 2 ? 'lav' : 'teal');
+const tone = () => 'teal';
 
 function NodeCards({ items, render }) {
   return (
@@ -55,7 +55,7 @@ export function Company() {
       <ol className="years">{J.milestones.map((m) => <li key={m.year}><span className="y num">{m.year}</span><div className="t"><b>{m.title}</b><span>{m.desc}</span></div></li>)}</ol>
     ) },
     { key: 'values', label: ui.tabs.values, content: (
-      <div className="cards">{J.values.map((v, i) => <div key={v.title} className={`card ${i % 3 === 1 ? 'lav' : 'teal'}`}><span className="node" /><h3>{v.title}</h3><p>{v.desc}</p></div>)}</div>
+      <div className="cards">{J.values.map((v, i) => <div key={v.title} className="card teal"><span className="node" /><h3>{v.title}</h3><p>{v.desc}</p></div>)}</div>
     ) },
     { key: 'people', label: ui.tabs.people, content: (
       <div className="people">{L.leaders.map((p, i) => (
@@ -81,9 +81,9 @@ export function Services() {
     <>
       <PageHead title={S.title} lead={S.lead} />
       <section className="sec wrap">
-        <div className="bento">
+        <div className="disc-grid">
           {S.items.map((s, i) => (
-            <Link key={s.icon} to={`services/${svcOf(s).slug}`} className={`tile ${i % 2 ? 'teal' : 'lav'} span-4 rise`} style={{ '--d': i % 3, minHeight: 0 }}>
+            <Link key={s.icon} to={`services/${svcOf(s).slug}`} className="tile rise" style={{ '--d': i % 3, minHeight: 0 }}>
               <h3>{s.title}</h3><p>{s.desc}</p>
               <p style={{ marginTop: 'auto', paddingTop: 12 }}>{s.capabilities.join(' · ')}</p>
             </Link>
@@ -200,7 +200,7 @@ export function Approvals() {
     <>
       <PageHead title={Cc.title} lead={Cc.lead} />
       <section className="sec wrap">
-        <div className="recog lav rise">
+        <div className="recog rise">
           <div className="txt"><h2 className="h-head">{Cc.isoHeading}</h2><p>{Cc.commitmentBody}</p></div>
           <ul className="seals">{Cc.iso.map((i) => <li key={i.title} className="seal"><Seal number={i.title.replace(/^ISO\s*/, '').split(':')[0]} /><b className="ltr">{i.title}</b><span>{i.desc}</span></li>)}</ul>
         </div>

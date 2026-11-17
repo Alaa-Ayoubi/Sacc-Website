@@ -217,7 +217,7 @@ export function Careers() {
       <PageHead title={K.title} lead={K.lead} />
       <section className="sec wrap">
         <h2 className="h-head rise" style={{ marginBottom: 28 }}>{K.whyTitle}</h2>
-        <div className="cards">{K.why.map((w, i) => <div key={w.title} className={`card ${i % 2 ? 'lav' : 'teal'} rise`} style={{ '--d': i % 4 }}><span className="node" /><h3>{w.title}</h3><p>{w.desc}</p></div>)}</div>
+        <div className="cards">{K.why.map((w, i) => <div key={w.title} className="card teal rise" style={{ '--d': i % 4 }}><span className="node" /><h3>{w.title}</h3><p>{w.desc}</p></div>)}</div>
       </section>
       <section className="sec wrap">
         <h2 className="h-head rise" style={{ marginBottom: 10 }}>{K.rolesTitle}</h2>

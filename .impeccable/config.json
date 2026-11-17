@@ -1,0 +1,13 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "sacc",
+        "createdAt": "2026-11-14T13:33:19.777Z"
+      }
+    ]
+  }
+}
