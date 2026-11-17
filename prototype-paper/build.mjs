@@ -12,6 +12,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { renderAll } from './src/render.mjs';
+import { withCopy } from './src/copy.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -51,7 +52,8 @@ const LOCAL = ['hero-infrastructure', 'water-network', 'public-realm', 'equipmen
 const vars = `:root{--ph-logo:url(data:image/webp;base64,${b64(join(root, 'frontend/public/assets/logo-full.webp'))});--ph-mark:url(data:image/png;base64,${b64(join(here, 'assets/mark.png'))});${
   LOCAL.map((n) => `--ph-${n}:url(data:image/jpeg;base64,${b64(join(here, 'assets', `${n}.jpg`))});`).join('')}}`;
 
-const site = JSON.parse(readFileSync(join(root, 'frontend/src/data/site-content.json'), 'utf8'));
+// The owner's plain-statement wording (src/copy.mjs) over the content bundle.
+const site = withCopy(JSON.parse(readFileSync(join(root, 'frontend/src/data/site-content.json'), 'utf8')));
 const css = readFileSync(join(here, 'src/styles.css'), 'utf8');
 
 // Optional polish only; nothing depends on it. It keeps the home page's bar in
