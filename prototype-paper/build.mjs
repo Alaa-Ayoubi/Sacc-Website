@@ -58,7 +58,7 @@ const css = readFileSync(join(here, 'src/styles.css'), 'utf8');
 // step with the scroll, and reveals each section once as it comes into view;
 // a revealed element drops its reveal classes, so a later filter or tab change
 // does not replay the entrance.
-const script = `(function(){var d=document.documentElement;d.classList.add('js');var bars=[].slice.call(document.querySelectorAll('.home > .bar'));function on(){var s=window.scrollY>window.innerHeight*0.8;bars.forEach(function(b){b.classList.toggle('stuck',s)})}addEventListener('scroll',on,{passive:true});addEventListener('hashchange',function(){window.scrollTo(0,0);on()});on();if('IntersectionObserver' in window&&matchMedia('(prefers-reduced-motion: no-preference)').matches){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.add('in');io.unobserve(t);t.addEventListener('animationend',function done(v){if(v.target!==t)return;t.removeEventListener('animationend',done);t.classList.remove('rise','in')})}})},{rootMargin:'0px 0px -8% 0px'});d.classList.add('reveal');[].forEach.call(document.querySelectorAll('.rise'),function(el){io.observe(el)})}})();`;
+const script = `(function(){var d=document.documentElement;d.classList.add('js');var bars=[].slice.call(document.querySelectorAll('.home > .bar'));function on(){var s=window.scrollY>window.innerHeight*0.8;bars.forEach(function(b){b.classList.toggle('stuck',s)})}addEventListener('scroll',on,{passive:true});addEventListener('hashchange',function(){var t=document.getElementById(location.hash.slice(1));if(!t||t.classList.contains('page'))window.scrollTo(0,0);on()});on();if('IntersectionObserver' in window&&matchMedia('(prefers-reduced-motion: no-preference)').matches){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var t=e.target;t.classList.add('in');io.unobserve(t);t.addEventListener('animationend',function done(v){if(v.target!==t)return;t.removeEventListener('animationend',done);t.classList.remove('rise','in')})}})},{rootMargin:'0px 0px -8% 0px'});d.classList.add('reveal');[].forEach.call(document.querySelectorAll('.rise'),function(el){io.observe(el)})}})();`;
 
 const html = `<!doctype html>
 <html lang="ar" dir="rtl">
@@ -66,6 +66,8 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="preconnect" href="https://horizons-cdn.hostinger.com">
 <title>${site.ar.brandLine} | ${site.en.brandLine}</title>
 <style>
 ${fonts}

@@ -121,16 +121,17 @@ function renderLang(site, lang) {
     const nav = (cls) => `<nav class="${cls}" aria-label="${esc(ui.menu)}">${NAV.map((n) => `<a href="${href(n)}"${current === n ? ' aria-current="page"' : ''}>${esc(ui.nav[n])}</a>`).join('')}</nav>`;
     const action = (cls) => (current === 'contact' ? '' : `<a class="action ${cls}" href="${href('contact')}">${esc(t.navCta)}</a>`);
     const langLink = `<a class="lang" href="${href(path, other)}" lang="${other}">${esc(ui.langName)}</a>`;
-    const brand = `<a class="brand" href="${href('')}"><span class="mark" aria-hidden="true"></span><span class="name">${esc(ui.short)}</span></a>`;
-    const lockup = `<a class="brand" href="${href('')}" aria-label="${esc(t.brandLine)}"><span class="logo"></span></a>`;
+    const brand = `<a class="brand" href="${href('')}"><span class="mark" aria-hidden="true"></span><span class="name" translate="no">${esc(ui.short)}</span></a>`;
+    const lockup = `<a class="brand" href="${href('')}" aria-label="${esc(t.brandLine)}" translate="no"><span class="logo"></span></a>`;
     const page = `
 <div class="page${home ? ' home' : ''}" id="${pid}" lang="${lang}" dir="${rtl ? 'rtl' : 'ltr'}">
+  <a class="skip" href="#main-${pid}">${esc(ui.skip)}</a>
   <header class="bar"><div class="wrap bar-in">
     ${brand}${nav('main-nav')}${langLink}${action('bar-action')}
     <a class="icon-btn menu-btn" href="#menu-${pid}" aria-label="${esc(ui.menu)}">${icon('menu')}</a>
   </div></header>
   ${hero}
-  <main class="sheet-body">${body}</main>
+  <main class="sheet-body" id="main-${pid}" tabindex="-1">${body}</main>
   <footer class="foot on-dark"><div class="wrap foot-in">
     ${lockup}<span class="rights">${esc(t.footer.rights)}</span>
     <a href="${href('careers')}">${esc(ui.careers)}</a>
@@ -159,7 +160,7 @@ function renderLang(site, lang) {
   <section class="hero on-dark" aria-labelledby="${id('')}-h1">
     ${ph(images.hero)}
     <div class="wrap hero-mid">
-      <h1 class="h-hero" id="${id('')}-h1">${esc(t.brandLine)}</h1>
+      <h1 class="h-hero" id="${id('')}-h1" translate="no">${esc(t.brandLine)}</h1>
       <p class="lead">${esc(t.hero.lead)}</p>
       <span class="cta"><a class="action light" href="${href('contact')}"><span class="ic">${icon('phone')}</span>${esc(t.navCta)}</a></span>
     </div>
@@ -327,10 +328,10 @@ function renderLang(site, lang) {
       <form aria-labelledby="${f('h')}" action="#${id('contact')}">
         <h2 class="h-sub" id="${f('h')}" style="margin-bottom:18px">${esc(ui.formH)}</h2>
         <div class="fields">
-          <div class="field"><label for="${f('name')}">${esc(C.fields.name)}</label><input type="text" id="${f('name')}" autocomplete="name" placeholder="${esc(C.placeholders.name)}"></div>
-          <div class="field"><label for="${f('email')}">${esc(C.fields.email)}</label><input type="email" id="${f('email')}" dir="ltr" autocomplete="email" placeholder="${esc(C.placeholders.email)}"></div>
-          <div class="field full"><label for="${f('company')}">${esc(C.fields.company)}</label><input type="text" id="${f('company')}" autocomplete="organization" placeholder="${esc(C.placeholders.company)}"></div>
-          <div class="field full"><label for="${f('message')}">${esc(C.fields.message)}</label><textarea id="${f('message')}" placeholder="${esc(C.placeholders.message)}"></textarea></div>
+          <div class="field"><label for="${f('name')}">${esc(C.fields.name)}</label><input type="text" id="${f('name')}" name="name" autocomplete="name" placeholder="${esc(C.placeholders.name)}"></div>
+          <div class="field"><label for="${f('email')}">${esc(C.fields.email)}</label><input type="email" id="${f('email')}" name="email" dir="ltr" autocomplete="email" spellcheck="false" placeholder="${esc(C.placeholders.email)}"></div>
+          <div class="field full"><label for="${f('company')}">${esc(C.fields.company)}</label><input type="text" id="${f('company')}" name="company" autocomplete="organization" placeholder="${esc(C.placeholders.company)}"></div>
+          <div class="field full"><label for="${f('message')}">${esc(C.fields.message)}</label><textarea id="${f('message')}" name="message" placeholder="${esc(C.placeholders.message)}"></textarea></div>
         </div>
         <div class="form-foot"><button class="action" type="button">${esc(C.submit)}</button><span class="hint">${esc(ui.preview)}</span></div>
       </form>
@@ -341,7 +342,7 @@ function renderLang(site, lang) {
   // ---------- careers ----------
   {
     const f = (k) => `${id('careers')}-${k}`;
-    const inp = (k, type, extra = '') => `<div class="field"><label for="${f(k)}">${esc(K.fields[k])}</label><input type="${type}" id="${f(k)}" placeholder="${esc(K.placeholders[k])}"${extra}></div>`;
+    const inp = (k, type, extra = '') => `<div class="field"><label for="${f(k)}">${esc(K.fields[k])}</label><input type="${type}" id="${f(k)}" name="${k}" placeholder="${esc(K.placeholders[k])}"${extra}></div>`;
     out.push(...frame('careers', `
     ${pageHead(K.title, K.lead)}
     <section class="sec wrap">${h2(K.whyTitle)}
@@ -356,15 +357,15 @@ function renderLang(site, lang) {
         <h2 class="h-sub" id="${f('h')}" style="margin-bottom:6px">${esc(K.applyTitle)}</h2>
         <p class="muted" style="margin-bottom:24px">${esc(K.applyLead)}</p>
         <div class="fields">
-          ${inp('name', 'text', ' autocomplete="name"')}${inp('email', 'email', ' dir="ltr" autocomplete="email"')}
+          ${inp('name', 'text', ' autocomplete="name"')}${inp('email', 'email', ' dir="ltr" autocomplete="email" spellcheck="false"')}
           ${inp('phone', 'tel', ' dir="ltr" autocomplete="tel"')}${inp('exp', 'number', ' min="0" max="60" inputmode="numeric"')}
           <div class="field full"><label for="${f('role')}">${esc(K.fields.role)}</label>
-            <select id="${f('role')}"><option value="">${esc(K.placeholders.role)}</option>${K.roles.map((r) => `<option>${esc(r.title)}</option>`).join('')}<option>${esc(K.otherRole)}</option></select></div>
+            <select id="${f('role')}" name="role"><option value="">${esc(K.placeholders.role)}</option>${K.roles.map((r) => `<option>${esc(r.title)}</option>`).join('')}<option>${esc(K.otherRole)}</option></select></div>
           <div class="field full"><label for="${f('cv')}">${esc(K.fields.cv)}</label>
-            <input type="url" id="${f('cv')}" dir="ltr" placeholder="${esc(K.placeholders.cv)}" aria-describedby="${f('cvh')}">
-            <div class="file-row"><input type="file" id="${f('file')}" class="vh" accept=".pdf,.doc,.docx"><label class="file-btn" for="${f('file')}">${esc(K.cvUploadBtn)}</label></div>
+            <input type="url" id="${f('cv')}" name="cv" dir="ltr" spellcheck="false" autocomplete="url" placeholder="${esc(K.placeholders.cv)}" aria-describedby="${f('cvh')}">
+            <div class="file-row"><input type="file" id="${f('file')}" name="cv_file" class="vh" accept=".pdf,.doc,.docx"><label class="file-btn" for="${f('file')}">${esc(K.cvUploadBtn)}</label></div>
             <span class="hint" id="${f('cvh')}">${esc(K.cvHint)}</span></div>
-          <div class="field full"><label for="${f('note')}">${esc(K.fields.note)}</label><textarea id="${f('note')}" placeholder="${esc(K.placeholders.note)}"></textarea></div>
+          <div class="field full"><label for="${f('note')}">${esc(K.fields.note)}</label><textarea id="${f('note')}" name="note" placeholder="${esc(K.placeholders.note)}"></textarea></div>
         </div>
         <div class="form-foot"><button class="action" type="button">${esc(K.submit)}</button><span class="hint">${esc(ui.preview)}</span></div>
       </form>

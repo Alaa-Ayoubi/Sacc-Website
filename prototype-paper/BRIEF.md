@@ -424,6 +424,15 @@ How the prototype applies them:
   text sits on a three-step scale (12, 13, 14px) instead of eight sizes, and
   each open role's department, location, type and experience sit in aligned
   columns instead of one dotted line.
+- Then a review against Vercel's Web Interface Guidelines (the
+  web-design-guidelines skill). The owner approved eight fixes, none of which
+  changes the look: a skip link to the content on every page; focus kept
+  clear of the sticky bar; name, autocomplete and spellcheck on the form
+  fields; no double-tap zoom delay on touch; a white browser theme colour; an
+  early connection to the company's photo server; and the company's name
+  marked not to be machine-translated. Left for the owner: "..." to "…" in
+  the content's placeholders and loading texts, and keeping the project
+  filter in the URL, which needs scripting and belongs to the live site.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

@@ -32,7 +32,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; scroll-padding-top: calc(var(--bar) + 16px); }
 body {
   margin: 0;
   background: var(--paper);
@@ -48,7 +48,7 @@ body {
 h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-decoration: none; }
-a, button, label { -webkit-tap-highlight-color: transparent; }
+a, button, label, input, select, textarea { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 svg { display: block; }
 :focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; border-radius: 2px; }
 .on-dark :focus-visible, .on-dark:focus-visible { outline-color: var(--paper); }
@@ -58,9 +58,17 @@ svg { display: block; }
 
 /* ---------- one document, many pages ---------- */
 .page { display: none; position: relative; min-height: 100vh; }
-.page:target { display: block; }
+.page:target, .page:has(:target) { display: block; }
 #ar { display: block; }
-.page:target ~ #ar { display: none; }
+.page:target ~ #ar, .page:has(:target) ~ #ar { display: none; }
+.skip {
+  position: absolute; top: 8px; inset-inline-start: 8px; z-index: 50;
+  padding: 8px 14px; border-radius: var(--r-ctl); background: var(--ink); color: var(--paper);
+  font-size: var(--fs-3); font-weight: 500;
+  transform: translateY(-160%); transition: transform 160ms var(--ease-out);
+}
+.skip:focus-visible { transform: none; outline-color: var(--paper); }
+main:focus { outline: none; }
 .page[lang='en'] { font-size: 15px; line-height: 1.6; }
 
 .wrap { width: 100%; max-width: calc(var(--wrap) + 2 * var(--gut)); margin-inline: auto; padding-inline: var(--gut); }
