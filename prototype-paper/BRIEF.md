@@ -417,6 +417,13 @@ How the prototype applies them:
   A rewrite of the promotional copy as plain statements was tried and
   rejected: "restore the original texts". The copy stays as the content
   bundle has it.
+- Then the frontend-design skill was run over the prototype, with the
+  owner's decisions kept wherever it disagreed with them (section labels,
+  two-tone headings, numbered approval rows, the figures in the hero, the
+  reveal motion, the dotted capability lines). Two changes came of it: small
+  text sits on a three-step scale (12, 13, 14px) instead of eight sizes, and
+  each open role's department, location, type and experience sit in aligned
+  columns instead of one dotted line.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

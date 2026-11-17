@@ -349,7 +349,7 @@ function renderLang(site, lang) {
     </section>
     <section class="sec wrap">
       ${secHead(K.rolesTitle, K.rolesLead, { cls: 'h-sub' })}
-      <ul class="list roles">${K.roles.map((r) => `<li class="row rise"><b>${esc(r.title)}</b><span class="muted">${esc([r.dept, r.location, r.type, r.exp].join(' · '))}</span></li>`).join('')}</ul>
+      <ul class="list roles">${K.roles.map((r) => `<li class="row role rise"><b>${esc(r.title)}</b>${[r.dept, r.location, r.type, r.exp].map((x) => `<span>${esc(x)}</span>`).join('')}</li>`).join('')}</ul>
     </section>
     <section class="sec wrap form-grid solo">
       <form aria-labelledby="${f('h')}" action="#${id('careers')}">
