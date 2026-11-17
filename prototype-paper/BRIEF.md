@@ -413,13 +413,10 @@ How the prototype applies them:
   the owner's instruction; text, lines, buttons and the dark surfaces still
   come from it.
 - Inner pages keep one large heading; their sections use a smaller step.
-- Then: "no page should try to persuade the client to work with us; we are a
-  company that needs no introduction; the same for joining and careers".
-  The owner chose to have every piece of promotional copy rewritten as plain
-  statements from facts the content already holds (src/copy.mjs), to keep
-  the hero's lead sentence and the Chairman's quote, and to keep the seven
-  values as names only. The "Why choose SACC" box is gone. The wording is
-  pending the owner's review; once approved it belongs in the Django admin.
+- The owner then asked for no attempt to persuade clients or candidates.
+  A rewrite of the promotional copy as plain statements was tried and
+  rejected: "restore the original texts". The copy stays as the content
+  bundle has it.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

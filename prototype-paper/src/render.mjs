@@ -221,9 +221,12 @@ function renderLang(site, lang) {
     const photos = [images.chairman, images.gm];
     const tabs = [
       [ui.tabs.about, `
-        <div class="prose narrow"><p class="lead" style="color:var(--ink);max-width:none">${esc(I.p2)}</p><p class="muted">${esc(I.p3)}</p></div>`],
+        <div class="split">
+          <div class="prose"><p class="lead" style="color:var(--ink);max-width:none">${esc(I.p2)}</p><p class="muted">${esc(I.p3)}</p></div>
+          <div class="card plain"><h2 class="h3">${esc(t.why.title)}</h2><ul class="ticks">${t.why.items.slice(4).map((w) => `<li><span>${esc(w)}</span></li>`).join('')}</ul></div>
+        </div>`],
       [ui.tabs.journey, `<ol class="years">${J.milestones.map((m) => `<li><span class="y num">${esc(m.year)}</span><div class="t"><b>${esc(m.title)}</b><span class="muted">${esc(m.desc)}</span></div></li>`).join('')}</ol>`],
-      [ui.tabs.values, plainCards(J.values.map((v) => v.title), true, 'h2')],
+      [ui.tabs.values, plainCards(J.values, true, 'h2')],
       [ui.tabs.people, `<div class="people">${L.leaders.map((p, i) => `
         <article class="person">${ph(photos[i], p.name)}
           <div><h2 class="pn">${esc(p.name)}</h2><p class="role">${esc(p.title)}</p><p class="muted">${esc(p.bio)}</p>
