@@ -467,6 +467,12 @@ How the prototype applies them:
   still hold the old name).
 - Section links name the page they open, as the owner asked for formal labels:
   «الشهادات والاعتمادات», «محفظة المشاريع», «تسعة قطاعات تنفيذية».
+  The back links on discipline and project pages follow the same rule.
+- The owner asked for the logo section to flow more, and chose a slowly moving
+  row: on the home page the seven logos slide in one endless row without
+  plates, pausing on hover and focus, with a pause switch (WCAG 2.2.2); under
+  reduced motion the row stands still, centred. The approvals page keeps the
+  grid of plates. Each logo file is now inlined once, as a CSS variable.
 - The "Why choose SACC" box on the About tab is removed at the owner's request;
   the tab keeps its two paragraphs.
 - The journey's 2018 milestone (fleet modernisation) is removed, with the fleet page.

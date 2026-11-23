@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { renderAll } from './src/render.mjs';
+import { renderAll, logoCss } from './src/render.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..');
@@ -72,6 +72,7 @@ const html = `<!doctype html>
 <style>
 ${fonts}
 ${vars}
+${logoCss()}
 ${css}
 </style>
 </head>

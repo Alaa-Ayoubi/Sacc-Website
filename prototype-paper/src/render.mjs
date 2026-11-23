@@ -58,6 +58,8 @@ const logoOf = (key) => {
   return null;
 };
 const LOGOS = Object.fromEntries(BODIES.map((k) => [k, logoOf(k)]));
+/* Each logo file is inlined once, as a CSS variable, however many times the page shows it. */
+export const logoCss = () => `:root{${BODIES.filter((k) => LOGOS[k]).map((k) => `--logo-${k}:url(${LOGOS[k].src});`).join('')}}`;
 // The ministry's current name, as its logo carries it (owner's decision). The
 // content bundle still holds the old name until it is changed in the admin.
 const BODY_NAME = { ar: { momah: 'وزارة البلديات والإسكان' }, en: { momah: 'Ministry of Municipalities and Housing' } };
@@ -141,14 +143,30 @@ function renderLang(site, lang) {
   // The approving bodies: one plate per body, its official logo only.
   // On the home page the three ISO standards ride quietly at the foot of the band.
   const isoLine = () => `<p class="iso-line rise"><span>${esc(Cc.isoHeading)}</span>${Cc.iso.map((x) => `<span class="iso"><b class="ltr num">${esc(x.title)}</b> ${esc(x.desc)}</span>`).join('')}</p>`;
+  /* One approving body: its logo, sized by area, drawn from the CSS variable. */
+  const bodyLogo = (i, hidden) => {
+    const k = BODIES[i], logo = LOGOS[k];
+    const name = BODY_NAME[lang][k] || Cc.approvals[i];
+    if (!logo) return `<li class="body-item"${hidden ? ' aria-hidden="true"' : ''}><span class="body-name">${esc(name)}</span></li>`;
+    return `<li class="body-item"${hidden ? ' aria-hidden="true"' : ''}><span class="logo-img" ${hidden ? '' : `role="img" aria-label="${esc(name)}" `}style="--logo:var(--logo-${k});width:calc(${logo.w}px * var(--ls, 1));aspect-ratio:${logo.w} / ${logo.h}"></span></li>`;
+  };
+  const bodyIdx = Cc.approvals.map((_, i) => i);
+  /* Home: the logos slide slowly in one endless row (two copies, the second
+     hidden from assistive tech). It pauses on hover and focus, and with its own
+     switch; under reduced motion it stands still as one centred row. */
+  const marquee = () => `
+        <div class="marquee rise">
+          <input type="checkbox" id="mq-${id()}" class="mq-t">
+          <label for="mq-${id()}" class="mq-btn"><span class="on">${esc(rtl ? 'إيقاف الحركة' : 'Pause')}</span><span class="off">${esc(rtl ? 'تشغيل الحركة' : 'Play')}</span></label>
+          <div class="mq-view"><div class="mq-track">
+            <ul class="mq-set">${bodyIdx.map((i) => bodyLogo(i, false)).join('')}</ul>
+            <ul class="mq-set dup" aria-hidden="true">${bodyIdx.map((i) => bodyLogo(i, true)).join('')}</ul>
+          </div></div>
+        </div>`;
   const band = (tag, iso = false) => `
       <div class="band"><div class="wrap">
         <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
-        <ul class="bodies">${Cc.approvals.map((a0, i) => {
-          const a = BODY_NAME[lang][BODIES[i]] || a0;
-          const logo = LOGOS[BODIES[i]];
-          return `<li class="body rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
-        }).join('')}</ul>
+        ${iso ? marquee() : `<ul class="bodies">${bodyIdx.map((i) => bodyLogo(i, false).replace('class="body-item"', 'class="body rise"')).join('')}</ul>`}
         ${iso ? isoLine() : ''}
       </div></div>`;
 
@@ -298,12 +316,12 @@ function renderLang(site, lang) {
     const rel = P.items.filter((p) => svcOf(s).cat.includes(p.key));
     const prev = S.items[(i + S.items.length - 1) % S.items.length], next = S.items[(i + 1) % S.items.length];
     out.push(...frame(`services/${svcOf(s).slug}`, `
-    ${pageHead(s.title, s.desc, link('services', ui.allDisc, back))}
+    ${pageHead(s.title, s.desc, link('services', S.title, back))}
     <section class="sec wrap">${h2(ui.scope)}${plainCards(s.capabilities)}</section>
     <section class="sec wrap">
       ${h2(ui.delivered)}
       ${rel.length ? pgrid(rel) : `<p class="muted">${esc(ui.noProj)}</p>`}
-      <nav class="pager" aria-label="${esc(ui.allDisc)}">
+      <nav class="pager" aria-label="${esc(S.title)}">
         <a href="${href(`services/${svcOf(prev).slug}`)}" rel="prev"><span>${esc(ui.prev)}</span><b style="font-weight:400">${esc(prev.title)}</b></a>
         <a href="${href(`services/${svcOf(next).slug}`)}" rel="next"><span>${esc(ui.next)}</span><b style="font-weight:400">${esc(next.title)}</b></a>
       </nav>
@@ -319,7 +337,7 @@ function renderLang(site, lang) {
     const svc = S.items.find((s) => s.icon === CAT_SVC[p.key]);
     const more = P.items.filter((x) => x.key === p.key && x.id !== p.id);
     out.push(...frame(`projects/${projSlug(site, p.id)}`, `
-    ${pageHead(p.title, p.desc, link('projects', ui.projMore, back))}
+    ${pageHead(p.title, p.desc, link('projects', P.title, back))}
     <div class="wrap">
       <div class="panel sharp record rise">
         ${ph(p.image, p.title)}
