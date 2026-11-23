@@ -32,8 +32,6 @@ const NAV_LABEL = { ar: { company: 'حول' }, en: { company: 'About' } };
 // logo, from assets/logos/<key>.svg, .png or .webp, supplied by the owner;
 // until a file is there the body's name stands in its place.
 const BODIES = ['nwc', 'sca', 'sec', 'aramco', 'maaden', 'rcjy', 'momah'];
-// Logos drawn white for dark backgrounds sit on a dark plate; the logo itself is never recoloured.
-const DARK_PLATE = new Set(['aramco', 'maaden']);
 const LOGO_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'logos');
 const MIME = { png: 'image/png', webp: 'image/webp', svg: 'image/svg+xml' };
 /* Logos come in every proportion, so one height makes a wide wordmark look
@@ -143,7 +141,7 @@ function renderLang(site, lang) {
         <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
         <ul class="bodies">${Cc.approvals.map((a, i) => {
           const logo = LOGOS[BODIES[i]];
-          return `<li class="body${logo && DARK_PLATE.has(BODIES[i]) ? ' dark' : ''} rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
+          return `<li class="body rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
         }).join('')}</ul>
       </div></div>`;
 

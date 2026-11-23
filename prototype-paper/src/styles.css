@@ -351,8 +351,6 @@ a.card.more .go { opacity: 1; transform: none; }
   display: flex; align-items: center; justify-content: center; text-align: center;
   aspect-ratio: 2 / 1; padding: 20px 28px; border-radius: var(--r-card); background: var(--paper);
 }
-/* Logos drawn white sit on the palette's slate blue, softer than the ink of the bar. */
-.body.dark { background: var(--slate); }
 .body img { display: block; width: calc(var(--lw) * var(--ls)); max-width: 100%; height: auto; }
 .body-name { font-size: var(--fs-2); font-weight: 500; line-height: 1.5; color: var(--ink); }
 @media (max-width: 900px) { .bodies { --cols: 3; --ls: 0.85; } }

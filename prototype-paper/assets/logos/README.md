@@ -21,5 +21,7 @@ file is here, the body's name shows in its place.
 `nwc`, `sca`, `sec`, `aramco` and `maaden` were supplied by the owner on
 2026-11-23 as screenshots or exported images. Only their flat backgrounds were
 made transparent (NWC on light grey, SEC on white) and their margins trimmed;
-no logo pixel was changed. The Aramco and Ma'aden files are the versions drawn
-in white for dark backgrounds, so they sit on dark plates.
+no logo pixel was changed. The owner then replaced the Aramco and Ma'aden files
+(first supplied in their white versions for dark grounds) with their positive
+versions, so every plate is white; Ma'aden's white background was made
+transparent the same way.
