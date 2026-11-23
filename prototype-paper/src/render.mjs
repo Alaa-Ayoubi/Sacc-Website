@@ -32,12 +32,30 @@ const NAV_LABEL = { ar: { company: 'حول' }, en: { company: 'About' } };
 // logo, from assets/logos/<key>.svg, .png or .webp, supplied by the owner;
 // until a file is there the body's name stands in its place.
 const BODIES = ['nwc', 'sca', 'sec', 'aramco', 'maaden', 'rcjy', 'momah'];
+// Logos drawn white for dark backgrounds sit on a dark plate; the logo itself is never recoloured.
+const DARK_PLATE = new Set(['aramco', 'maaden']);
 const LOGO_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'logos');
-const MIME = { svg: 'image/svg+xml', png: 'image/png', webp: 'image/webp' };
+const MIME = { png: 'image/png', webp: 'image/webp', svg: 'image/svg+xml' };
+/* Logos come in every proportion, so one height makes a wide wordmark look
+   tiny beside a square emblem. Each logo instead gets the same visual area,
+   within a height and width cap: width = sqrt(area * ratio). */
+const LOGO_AREA = 5800, LOGO_MAX_W = 170, LOGO_MAX_H = 64;
+const sizeOf = (buf, ext) => {
+  if (ext === 'png') return [buf.readUInt32BE(16), buf.readUInt32BE(20)];
+  const m = /viewBox="[\d.\s-]*?([\d.]+)\s+([\d.]+)"/.exec(buf.toString('utf8'));
+  return m ? [+m[1], +m[2]] : [2, 1];
+};
 const logoOf = (key) => {
   for (const ext of Object.keys(MIME)) {
     const f = join(LOGO_DIR, `${key}.${ext}`);
-    if (existsSync(f)) return `data:${MIME[ext]};base64,${readFileSync(f).toString('base64')}`;
+    if (!existsSync(f)) continue;
+    const buf = readFileSync(f);
+    const [w0, h0] = sizeOf(buf, ext);
+    const r = w0 / h0;
+    let w = Math.sqrt(LOGO_AREA * r), h = w / r;
+    if (h > LOGO_MAX_H) { h = LOGO_MAX_H; w = h * r; }
+    if (w > LOGO_MAX_W) { w = LOGO_MAX_W; h = w / r; }
+    return { src: `data:${MIME[ext]};base64,${buf.toString('base64')}`, w: Math.round(w), h: Math.round(h) };
   }
   return null;
 };
@@ -124,8 +142,8 @@ function renderLang(site, lang) {
       <div class="band"><div class="wrap">
         <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
         <ul class="bodies">${Cc.approvals.map((a, i) => {
-          const src = LOGOS[BODIES[i]];
-          return `<li class="body rise">${src ? `<img src="${src}" alt="${esc(a)}" loading="lazy" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
+          const logo = LOGOS[BODIES[i]];
+          return `<li class="body${logo && DARK_PLATE.has(BODIES[i]) ? ' dark' : ''} rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
         }).join('')}</ul>
       </div></div>`;
 

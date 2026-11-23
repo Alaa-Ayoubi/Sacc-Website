@@ -442,6 +442,13 @@ How the prototype applies them:
   supplies them, each plate shows the body's name. The fleet page and its
   nav item are gone (the equipment-rental discipline and the 150+ figure
   stay); the nav item «الشركة» / "Company" reads «حول» / "About".
+- The owner supplied five logos (NWC, SCA, SEC, Aramco, Ma'aden) and asked
+  for all of them at one size, shown professionally. Each logo gets the same
+  visual area rather than the same height (a wide wordmark beside a square
+  emblem), within a height and width cap; all plates are one size, and the
+  short last row is centred. The Aramco and Ma'aden files are drawn in white
+  for dark grounds, so their plates are dark; the logos are never recoloured.
+  RCJY and the ministry are still to come as files.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes
