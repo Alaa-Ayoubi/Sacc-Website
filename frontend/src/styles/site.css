@@ -82,9 +82,9 @@ main:focus { outline: none; }
 .after { margin-top: 28px; }
 
 /* ---------- type ---------- */
-/* Headings are set in the display pair (a light serif, with naskh for Arabic);
-   everything else in the plain pair. Naskh reads small, so Arabic display
-   sizes are scaled up by --kd. */
+/* Headings are set in El Messiri (SaccDisplay), everything else in Tajawal
+   (Sacc), both scripts from each family. --kd scales the display sizes per
+   language; both languages currently use 1. */
 .page { --disp: 'SaccDisplay', 'Sacc', serif; --wd: 400; --wd3: 600; --kd: 1; }
 .page[lang='ar'] { --wd: 500; --wd3: 600; --kd: 1; }
 /* Tajawal's Arabic letters sit small on their body, so Arabic text takes a step up. */

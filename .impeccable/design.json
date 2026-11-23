@@ -1,424 +1,461 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T00:00:00Z",
+  "generatedAt": "2026-11-23T00:00:00Z",
   "title": "Design System: SACC — Sana Al-Awael Contracting Company",
   "extensions": {
     "referenceImplementation": {
       "stylesheet": "frontend/src/styles/site.css",
+      "fonts": "frontend/src/styles/fonts.css",
       "components": [
         "frontend/src/components/Chrome.jsx",
-        "frontend/src/components/ui.jsx",
-        "frontend/src/components/Viz.jsx"
+        "frontend/src/components/ui.jsx"
       ],
       "pages": [
         "frontend/src/pages/Home.jsx",
         "frontend/src/pages/Inner.jsx",
         "frontend/src/pages/Forms.jsx"
       ],
-      "brief": "prototype-bento/BRIEF.md",
-      "approvedProposal": "proposal 6 (bento), revised by the owner-requested B2B pass"
+      "brief": "prototype-paper/BRIEF.md",
+      "approvedProposal": "the paper prototype (prototype-paper/), with the owner decisions recorded after approval"
     },
     "colorMeta": {
-      "page-night": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Page Night",
-        "cssVar": "--bg",
-        "canonical": "#0C1926",
-        "oklch": "oklch(20.9% 0.032 249.6)",
-        "tonalRamp": [
-          "#080B0F",
-          "#1F252B",
-          "#37414B",
-          "#525F6D",
-          "#707F8F",
-          "#94A0AD",
-          "#BCC5CE",
-          "#EAEFF4"
-        ],
-        "note": "Also --on-lav: text on lavender state fills."
-      },
-      "bar-night": {
-        "role": "neutral",
-        "displayName": "Bar Night",
-        "cssVar": "--bar",
-        "canonical": "#0D1B22",
-        "oklch": "oklch(21.3% 0.024 231.1)",
-        "tonalRamp": [
-          "#090C0D",
-          "#1F2529",
-          "#374147",
-          "#526067",
-          "#718088",
-          "#94A1A7",
-          "#BDC6CB",
-          "#EAEFF2"
-        ]
-      },
-      "deep-teal": {
-        "role": "secondary",
-        "displayName": "Deep Teal",
-        "cssVar": "--teal",
-        "canonical": "#0F393C",
-        "oklch": "oklch(31.8% 0.045 201.9)",
-        "tonalRamp": [
-          "#060D0D",
-          "#172728",
-          "#2C4547",
-          "#426567",
-          "#5F8588",
-          "#87A5A7",
-          "#B4C9CA",
-          "#E5F1F2"
-        ],
-        "note": "Every feature plate; register row divider."
-      },
-      "slate-surface": {
-        "role": "neutral",
-        "displayName": "Slate Surface",
-        "cssVar": "--surface",
-        "canonical": "#182F3D",
-        "oklch": "oklch(29.3% 0.039 236.9)",
-        "tonalRamp": [
-          "#070C0F",
-          "#1C252C",
-          "#33424C",
-          "#4C616F",
-          "#6A8190",
-          "#8FA2AE",
-          "#B9C6CF",
-          "#E8F0F5"
-        ],
-        "note": "Information plates: register, recognition band, panels, forms."
-      },
-      "lavender": {
-        "role": "secondary",
-        "displayName": "Lavender",
-        "cssVar": "--lav / --ink",
-        "canonical": "#DDDFFC",
-        "oklch": "oklch(91.1% 0.039 282.5)",
-        "tonalRamp": [
-          "#0A0B10",
-          "#22232D",
-          "#3D3E4E",
-          "#5A5B71",
-          "#797B93",
-          "#9B9DB0",
-          "#C2C3D1",
-          "#EDEEF6"
-        ],
-        "note": "Primary text; fills only selected filters/tabs, in-progress pill, notice, skip link. No lavender content plates."
-      },
-      "lavender-mist": {
-        "role": "neutral",
-        "displayName": "Lavender Mist",
-        "cssVar": "--ink-2",
-        "canonical": "#BEC6E9",
-        "oklch": "oklch(83.2% 0.050 275.1)",
-        "tonalRamp": [
-          "#090B11",
-          "#212330",
-          "#3A3F52",
-          "#565C77",
-          "#757C99",
-          "#979DB6",
-          "#BFC3D5",
-          "#ECEEF8"
-        ]
-      },
-      "periwinkle-line": {
-        "role": "tertiary",
-        "displayName": "Periwinkle Line",
-        "cssVar": "--line",
-        "canonical": "#AFB5F9",
-        "oklch": "oklch(79.3% 0.097 280.0)",
-        "tonalRamp": [
-          "#090A16",
-          "#20213A",
-          "#393B61",
-          "#54588C",
-          "#7377B2",
-          "#959ACA",
-          "#BDC1E4",
-          "#EAEDFF"
-        ]
-      },
-      "action-violet": {
-        "role": "primary",
-        "displayName": "Action Violet",
-        "cssVar": "--act",
-        "canonical": "#9662A8",
-        "oklch": "oklch(57.9% 0.119 317.0)",
-        "tonalRamp": [
-          "#110714",
-          "#2F1B36",
-          "#51315B",
-          "#754984",
-          "#9867A8",
-          "#B48EC2",
-          "#D4B9DE",
-          "#F8E8FD"
-        ],
-        "note": "Contact action and form submit buttons only."
-      },
-      "survey-grey": {
-        "role": "neutral",
-        "displayName": "Survey Grey",
-        "cssVar": "--deco",
-        "canonical": "#70787A",
-        "oklch": "oklch(56.7% 0.010 214.4)",
-        "tonalRamp": [
-          "#0A0B0C",
-          "#222525",
-          "#3C4142",
-          "#585F61",
-          "#777F81",
-          "#9AA0A1",
-          "#C0C5C6",
-          "#ECEFEF"
-        ],
-        "note": "Borders of form fields and approval chips only."
-      },
-      "earth": {
-        "role": "tertiary",
-        "displayName": "Earth",
-        "cssVar": "--earth",
-        "canonical": "#6E4A3B",
-        "oklch": "oklch(44.5% 0.055 43.5)",
-        "tonalRamp": [
-          "#110906",
-          "#2F201A",
-          "#513A30",
-          "#755548",
-          "#987465",
-          "#B5978B",
-          "#D5BFB6",
-          "#F8ECE7"
-        ],
-        "note": "Defined in site.css (--earth) but not used by any shipped surface."
-      },
-      "white": {
-        "role": "neutral",
-        "displayName": "White",
-        "cssVar": "literal #fff",
+        "displayName": "Paper",
+        "cssVar": "--paper",
         "canonical": "#FFFFFF",
         "oklch": "oklch(100.0% 0.000 89.9)",
         "tonalRamp": [
           "#0B0B0B",
-          "#242424",
-          "#404040",
-          "#5D5D5D",
-          "#7D7D7D",
-          "#9E9E9E",
-          "#C4C4C4",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#AEAEAE",
+          "#D1D1D1",
           "#EEEEEE"
-        ]
+        ],
+        "note": "Page ground, fixed bar, drawer, floating cards, logo plates, inputs; text on ink and photographs."
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink",
+        "cssVar": "--ink",
+        "canonical": "#364044",
+        "oklch": "oklch(36.4% 0.015 223.9)",
+        "tonalRamp": [
+          "#090C0D",
+          "#222729",
+          "#3F464A",
+          "#5E686C",
+          "#828B8E",
+          "#A9AFB1",
+          "#CED1D3",
+          "#ECEFF0"
+        ],
+        "note": "Text, column rules, dark buttons, footer, and the rgba(54,64,68,…) multiply veil over photographs."
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Two",
+        "cssVar": "--ink-2",
+        "canonical": "#545A5B",
+        "oklch": "oklch(46.3% 0.008 208.8)",
+        "tonalRamp": [
+          "#0A0B0C",
+          "#242727",
+          "#414647",
+          "#616768",
+          "#858A8B",
+          "#ABAFAF",
+          "#CFD1D2",
+          "#EDEFEF"
+        ],
+        "note": "Secondary text: leads, column text, hints, placeholders, unselected choices."
+      },
+      "slate": {
+        "role": "secondary",
+        "displayName": "Deep Slate",
+        "cssVar": "--slate",
+        "canonical": "#435563",
+        "oklch": "oklch(44.0% 0.032 241.8)",
+        "tonalRamp": [
+          "#080C0F",
+          "#1F282E",
+          "#394752",
+          "#576977",
+          "#7D8B97",
+          "#A5AFB7",
+          "#CCD2D6",
+          "#EAEFF3"
+        ],
+        "note": "Interactive accent: links, focus ring, selected underline, dark-button hover, photo panel ground."
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "cssVar": "--line",
+        "canonical": "#C9C8C3",
+        "oklch": "oklch(83.2% 0.007 97.4)",
+        "tonalRamp": [
+          "#0B0B0A",
+          "#272624",
+          "#464542",
+          "#676662",
+          "#8A8986",
+          "#AEAEAB",
+          "#D1D1CF",
+          "#EFEEED"
+        ],
+        "note": "Row hairlines, bar edge, photo placeholder; 45% as hover wash."
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute Grey",
+        "cssVar": "--mute",
+        "canonical": "#7B7C79",
+        "oklch": "oklch(58.5% 0.005 121.6)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#262725",
+          "#454543",
+          "#656664",
+          "#898987",
+          "#ADAEAC",
+          "#D1D1D0",
+          "#EEEEEE"
+        ],
+        "note": "Muted half of two-tone headings, journey years, input borders. Large text or borders only."
+      },
+      "band-cream": {
+        "role": "neutral",
+        "displayName": "Band Cream",
+        "cssVar": "--band",
+        "canonical": "#EAE7D3",
+        "oklch": "oklch(92.5% 0.027 99.9)",
+        "tonalRamp": [
+          "#0C0B08",
+          "#28271F",
+          "#474539",
+          "#696756",
+          "#8C8A7C",
+          "#B0AEA5",
+          "#D2D1CC",
+          "#EFEFEA"
+        ],
+        "note": "Approvals band and success notice. Owner-added, outside the ten-colour list."
+      },
+      "plate": {
+        "role": "neutral",
+        "displayName": "Plate",
+        "cssVar": "--plate",
+        "canonical": "#F3F0E7",
+        "oklch": "oklch(95.5% 0.012 91.5)",
+        "tonalRamp": [
+          "#0C0B09",
+          "#282623",
+          "#47453F",
+          "#68665E",
+          "#8B8983",
+          "#AFAEAA",
+          "#D2D1CE",
+          "#EFEEEC"
+        ],
+        "note": "Hover tint for rows, pager and file button; expertise tags. Owner-added."
+      }
+    },
+    "declaredUnused": {
+      "note": "Declared in :root but used by no shipped rule; not part of the working system.",
+      "tokens": {
+        "--stone": "#A99E8F",
+        "--teal": "#839FA3",
+        "--warm": "#857C6D",
+        "--deco": "#949690",
+        "--close": "#CDD9DA",
+        "--plate-2": "#E9E5D8"
       }
     },
     "contrast": [
       {
-        "pair": "#FFFFFF on #9662A8",
-        "ratio": 4.56,
-        "use": "contact action label"
+        "pair": "#364044 on #FFFFFF",
+        "ratio": 10.64,
+        "use": "body text and headings on paper"
       },
       {
-        "pair": "#DDDFFC on #0C1926",
-        "ratio": 13.56,
-        "use": "primary text on page"
+        "pair": "#545A5B on #FFFFFF",
+        "ratio": 7.02,
+        "use": "secondary text on paper"
       },
       {
-        "pair": "#DDDFFC on #0F393C",
-        "ratio": 9.6,
-        "use": "primary text on teal"
+        "pair": "#435563 on #FFFFFF",
+        "ratio": 7.73,
+        "use": "links and focus on paper"
       },
       {
-        "pair": "#DDDFFC on #182F3D",
-        "ratio": 10.6,
-        "use": "primary text on slate"
+        "pair": "#7B7C79 on #FFFFFF",
+        "ratio": 4.2,
+        "use": "muted heading half (large text only); input border"
       },
       {
-        "pair": "#BEC6E9 on #0C1926",
-        "ratio": 10.52,
-        "use": "secondary text on page"
+        "pair": "#FFFFFF on #364044",
+        "ratio": 10.64,
+        "use": "text on dark buttons and the footer"
       },
       {
-        "pair": "#BEC6E9 on #0F393C",
-        "ratio": 7.45,
-        "use": "secondary text on teal"
+        "pair": "#FFFFFF on #435563",
+        "ratio": 7.73,
+        "use": "text on a hovered dark button"
       },
       {
-        "pair": "#BEC6E9 on #182F3D",
-        "ratio": 8.23,
-        "use": "secondary text on slate (register cells)"
+        "pair": "#364044 on #EAE7D3",
+        "ratio": 8.55,
+        "use": "text on the approvals band"
       },
       {
-        "pair": "#0C1926 on #DDDFFC",
-        "ratio": 13.56,
-        "use": "text on lavender state fills"
+        "pair": "#545A5B on #EAE7D3",
+        "ratio": 5.64,
+        "use": "secondary text on the approvals band"
       },
       {
-        "pair": "#AFB5F9 on #0C1926",
-        "ratio": 9.13,
-        "use": "lines, focus ring"
+        "pair": "#364044 on #F3F0E7",
+        "ratio": 9.34,
+        "use": "text on plate tags and hover tint"
       },
       {
-        "pair": "#AFB5F9 on #182F3D",
-        "ratio": 7.14,
-        "use": "seals on the recognition band"
-      },
-      {
-        "pair": "#AFB5F9 on #0F393C",
-        "ratio": 6.46,
-        "use": "drawings on tiles"
-      },
-      {
-        "pair": "#70787A on #0C1926",
-        "ratio": 3.94,
-        "use": "field border only; never text"
-      },
-      {
-        "pair": "#9662A8 on #0C1926",
-        "ratio": 3.9,
-        "use": "never text on dark"
+        "pair": "#C9C8C3 on #FFFFFF",
+        "ratio": 1.68,
+        "use": "hairlines only; never text"
       }
     ],
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Page H1 only, weight 600. Arabic line-height 1.35.",
-        "cssVar": "--fs-display"
+        "purpose": "Home hero H1 (company name), paper on the photograph. Arabic line-height 1.5.",
+        "cssClass": ".h-hero",
+        "renderedFace": "El Messiri 600"
+      },
+      "headline-page": {
+        "displayName": "Page headline",
+        "purpose": "The one H1 of each inner page. Arabic line-height 1.4.",
+        "cssClass": ".h-page",
+        "renderedFace": "El Messiri 600"
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section H2, weight 500. Arabic line-height 1.4.",
-        "cssVar": "--fs-head"
-      },
-      "quote": {
-        "displayName": "Quote",
-        "purpose": "Chairman's quote only."
-      },
-      "title": {
-        "displayName": "Title",
-        "purpose": "H3: 500 on discipline tiles, 400 on node, project and people cards; drawer links.",
-        "cssVar": "--fs-lead"
-      },
-      "lead": {
-        "displayName": "Lead",
-        "purpose": "Line under H1/H2 in Lavender Mist; Lavender and 52ch in the hero.",
-        "cssVar": "--fs-lead"
-      },
-      "body": {
-        "displayName": "Body",
-        "purpose": "Running text. Arabic line-height 1.8; 44ch max in tiles.",
-        "cssVar": "--fs-body"
-      },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Nav, meta, chips, pills, register headers (500), field and credential labels, footer.",
-        "cssVar": "--fs-small"
-      },
-      "fonts": {
-        "latin": "Onest Variable (@fontsource-variable/onest, wght axis)",
-        "arabic": "IBM Plex Sans Arabic 300/400/500/600 (@fontsource/ibm-plex-sans-arabic, arabic subset)",
-        "selfHosted": true
+        "purpose": "Section H2, two-tone (ink, then Mute Grey). Latin -0.01em; Arabic line-height 1.4.",
+        "cssClass": ".h-sec",
+        "renderedFace": "El Messiri 600"
       },
       "figure": {
         "displayName": "Figure",
-        "purpose": "Credential values under the hero, 500, line-height 1, tabular numerals.",
-        "cssVar": "--fs-head"
+        "purpose": "The three hero figures; tabular lining numerals, isolated LTR.",
+        "cssClass": ".creds dd",
+        "renderedFace": "El Messiri 600"
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Inner-page sub-sections and form titles; muted half in Ink Two.",
+        "cssClass": ".h-sub",
+        "renderedFace": "El Messiri 600"
+      },
+      "quote": {
+        "displayName": "Quote",
+        "purpose": "Chairman's quote. Arabic line-height 1.8.",
+        "cssClass": ".chair blockquote",
+        "renderedFace": "El Messiri 600"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "H3 in ruled columns and journey titles (15px in plain columns). Arabic line-height 1.6.",
+        "cssClass": "h3, .h3",
+        "renderedFace": "El Messiri 700"
+      },
+      "title-small": {
+        "displayName": "Title small",
+        "purpose": "Titles in the five-across discipline row.",
+        "cssClass": ".cards.five h3",
+        "renderedFace": "El Messiri 700"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text. Arabic 16.5px; English 15px at 1.6.",
+        "cssClass": "body",
+        "renderedFace": "Tajawal 700"
+      },
+      "small-3": {
+        "displayName": "Small 3",
+        "purpose": "Leads, buttons, nav links, field labels, inputs. Arabic 15px.",
+        "cssVar": "--fs-3",
+        "renderedFace": "Tajawal 700"
+      },
+      "small-2": {
+        "displayName": "Small 2",
+        "purpose": "Column text, section buttons, hints, footer. Arabic 14px.",
+        "cssVar": "--fs-2",
+        "renderedFace": "Tajawal 700"
+      },
+      "small-1": {
+        "displayName": "Small 1",
+        "purpose": "Project-card meta. Arabic 13px.",
+        "cssVar": "--fs-1",
+        "renderedFace": "Tajawal 700"
       }
     },
-    "shadows": [],
+    "weightSlots": {
+      "note": "CSS weight slot to rendered face, identical for Arabic and Latin (fonts.css).",
+      "Sacc": {
+        "400": "Tajawal 400",
+        "500": "Tajawal 500",
+        "600": "Tajawal 700 Bold",
+        "700": "Tajawal 800 ExtraBold"
+      },
+      "SaccDisplay": {
+        "400": "El Messiri 600 SemiBold",
+        "500": "El Messiri 600 SemiBold",
+        "600": "El Messiri 700 Bold"
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 18px 44px -18px rgba(54, 64, 68, 0.55)",
+        "purpose": "White cards floating on a photo panel only."
+      },
+      {
+        "name": "cta-frame",
+        "value": "inset 0 0 0 1px rgba(255, 255, 255, 0.28)",
+        "purpose": "The translucent frame (20% white fill, 8px) around the hero action."
+      }
+    ],
+    "veils": [
+      {
+        "name": "hero",
+        "value": "multiply; top band 0.84 to 22%, central ellipse 0.8/0.74 behind the text, foot 0.82–0.9 from 66%, base 0.3; all rgba(54,64,68,…)",
+        "purpose": "Hero photograph; under 941px a single vertical gradient."
+      },
+      {
+        "name": "project-card",
+        "value": "multiply; linear-gradient(180deg, 0.86 0%, 0.82 30%, 0.12 45–52%, 0.84 66%, 0.92 100%) of rgba(54,64,68,…)",
+        "purpose": "Project cards: dark at the meta row and the title, light between."
+      },
+      {
+        "name": "panel-blur",
+        "value": "filter: blur(18px) saturate(0.85); opacity 0.9 over slate",
+        "purpose": "Leadership photo panel ground."
+      }
+    ],
     "motion": [
       {
-        "name": "ease",
-        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "The one easing curve for every transition."
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Every transform transition and entrance."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "The phone menu sheet arriving."
       },
       {
         "name": "state",
-        "value": "160ms–220ms",
-        "purpose": "Hover, outline, tone and pill state changes; tiles and project cards 220ms."
+        "value": "150ms ease",
+        "purpose": "Colour, background and border changes."
       },
       {
-        "name": "lift",
-        "value": "translateY(-3px)",
-        "purpose": "Tiles and project cards on hover; the contact action presses 1px down."
+        "name": "press",
+        "value": "scale(0.97) buttons, file button, choices; 0.94 icon buttons; 0.985 project cards and pager; 0.99 GM card; translateY(1px) linked columns; 160ms ease-out",
+        "purpose": "Every pressable thing answers a press."
+      },
+      {
+        "name": "hover-gate",
+        "value": "@media (hover: hover) and (pointer: fine)",
+        "purpose": "All hover effects; none on touch."
+      },
+      {
+        "name": "photo-zoom",
+        "value": "scale(1.03), 500ms ease-out",
+        "purpose": "Project card photo on hover or focus."
       },
       {
         "name": "rise",
-        "value": "opacity 0→1, translateY(16px→0), 700ms, stagger 80ms × --d",
-        "purpose": "Section entrance; content already on screen is never hidden."
+        "value": "opacity 0→1, translateY(10px→0); hero 600ms with 70ms steps; sections 500ms with 50ms × --i stagger",
+        "purpose": "Entrances, once; content on screen at load is left alone."
       },
       {
-        "name": "line-draw",
-        "value": "clip-path inset reveal, 1100ms, 200ms delay, in reading direction",
-        "purpose": "Discipline line drawings draw in once."
+        "name": "marquee",
+        "value": "linear 48s (40s under 560px), translateX(calc(var(--dir) * -50%)), paused on hover and focus-within",
+        "purpose": "Home logo row."
       },
       {
-        "name": "drawer",
-        "value": "opacity + translateY(-8px), 200ms",
-        "purpose": "Mobile menu."
-      },
-      {
-        "name": "pinned-band",
-        "value": "position: sticky; top: 72px",
-        "purpose": "Hero photo band stays fixed while the disciplines section slides over it."
+        "name": "bar-swap",
+        "value": "background-color, color, border-color 200ms ease",
+        "purpose": "Home bar from transparent to white."
       },
       {
         "name": "reduced-motion",
-        "value": "all durations 1ms; band unpinned",
-        "purpose": "prefers-reduced-motion: reduce."
+        "value": "animation: none; transitions limited to opacity, color, background-color, border-color, box-shadow",
+        "purpose": "Less motion, not none; marquee static and centred."
       }
     ],
     "breakpoints": [
       {
+        "name": "grids",
+        "value": "1000px",
+        "note": "columns drop: disciplines 5→3, others 3/4→2, project cards 3→2"
+      },
+      {
         "name": "nav",
-        "value": "960px",
-        "note": "main nav to drawer; disciplines 2-up; project cards 2-up; leadership and form grid stack"
+        "value": "940px",
+        "note": "nav to drawer; bar 56px; hero no longer inset, bar no longer over it"
+      },
+      {
+        "name": "panel",
+        "value": "900px",
+        "note": "leadership panel stacks; logo plates 4→3; careers points 4→2"
       },
       {
         "name": "stack",
         "value": "860px",
-        "note": "hero, page-head, split, closing band stack"
+        "note": "split, form grid and office stack"
       },
       {
-        "name": "register",
+        "name": "sec-head",
+        "value": "820px",
+        "note": "section head stacks"
+      },
+      {
+        "name": "rows",
         "value": "760px",
-        "note": "credentials 2-up; register becomes compact cards (name, owner, status); facts 2-up"
+        "note": "ISO tiles to rows; list rows and roles compact"
       },
       {
         "name": "single",
         "value": "640px",
-        "note": "disciplines 1-up with drawings hidden; band shows two photos; fields 1-up"
+        "note": "ruled columns 1-up (disciplines 2-up); linked-column arrows always shown"
       },
       {
         "name": "phone",
         "value": "560px",
-        "note": "Arabic hero H1 kept on one line; chair card stacks"
-      },
-      {
-        "name": "compact",
-        "value": "520px",
-        "note": "bar compacts; seals become a list"
+        "note": "project cards 1-up at 2:1; logo plates 2-up; pager stacks"
       },
       {
         "name": "narrow",
-        "value": "420px",
-        "note": "language icon hidden; logo 22px"
+        "value": "520px",
+        "note": "fields 1-up; chair card stacks"
       },
       {
-        "name": "tiny",
-        "value": "380px",
-        "note": "contact action leaves the bar and shows in the drawer"
+        "name": "compact",
+        "value": "420px",
+        "note": "brand name 14.5px; office pairs 1-up"
       }
     ],
     "focus": {
-      "value": "outline: 2px solid #AFB5F9; outline-offset: 3px; border-radius: 4px",
-      "fields": "outline-offset 1px plus periwinkle border"
+      "value": "outline: 2px solid #435563; outline-offset: 3px; border-radius: 2px",
+      "onDark": "outline-color #FFFFFF inside .on-dark (hero, project cards, footer); the bar uses its own text colour",
+      "fields": "outline-offset 1px plus slate border"
     },
     "background": {
-      "value": "solid #0C1926, no pattern",
-      "purpose": "The site-plan grid was removed in the B2B pass."
+      "value": "solid #FFFFFF, no pattern",
+      "purpose": "White paper ground by the owner's instruction; theme-color #FFFFFF."
     }
   },
   "components": [
@@ -426,166 +463,167 @@
       "name": "Contact Action",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The single contact action, «تواصل معنا» / Contact Us. One visible at a time; the same button submits the forms.",
-      "html": "<div class=\"ds-canvas\"><a class=\"ds-action\" href=\"#\">Contact Us</a></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-action{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 22px;border-radius:999px;background:var(--act);color:#fff;font-weight:500;text-decoration:none;white-space:nowrap;outline:2px solid transparent;outline-offset:2px;transition:outline-color 160ms var(--ease),transform 160ms var(--ease);} .ds-action:hover{outline-color:var(--line);} .ds-action:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-action:active{transform:translateY(1px);}"
+      "description": "The single contact action «تواصل معنا» / Contact us; the same button submits the forms. One visible at a time.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-action\" href=\"#\">Contact us</a></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-action{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 16px;border-radius:var(--r-ctl);background:var(--ink);color:var(--paper);font:inherit;font-size:var(--fs-3);font-weight:600;line-height:1.4;text-decoration:none;transition:background-color 150ms ease,transform 160ms var(--ease-out);} .ds-action:active{transform:scale(0.97);} .ds-action:focus-visible{outline:2px solid var(--slate);outline-offset:3px;} @media (hover:hover) and (pointer:fine){.ds-action:hover{background:var(--slate);}}"
     },
     {
-      "name": "Ghost Button",
+      "name": "Hero Action",
       "kind": "button",
-      "refersTo": "button-ghost",
-      "description": "Secondary routes: all disciplines, call the office, apply to a role.",
-      "html": "<div class=\"ds-canvas\"><a class=\"ds-ghost\" href=\"#\">All disciplines</a></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-ghost{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 22px;border-radius:999px;border:1px solid var(--ink-2);background:none;color:var(--ink);text-decoration:none;transition:border-color 160ms var(--ease),background-color 160ms var(--ease);} .ds-ghost:hover{border-color:var(--line);background:var(--surface);} .ds-ghost:focus-visible{outline:2px solid var(--line);outline-offset:3px;}"
+      "refersTo": "button-light",
+      "description": "The light action in a translucent frame, with a slate phone chip, over the hero photograph.",
+      "html": "<div class=\"ds-hero\"><span class=\"ds-cta\"><a class=\"ds-light\" href=\"#\"><span class=\"ds-ic\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg></span>Contact us</a></span></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-hero{background:linear-gradient(180deg,#5a6a70,#364044);padding:40px;display:flex;justify-content:center;} .ds-cta{display:inline-flex;padding:6px;border-radius:8px;background:rgba(255,255,255,0.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.28);} .ds-light{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding-inline:12px 18px;border-radius:var(--r-ctl);background:var(--paper);color:var(--ink);font-size:15px;font-weight:600;text-decoration:none;transition:background-color 150ms ease,transform 160ms var(--ease-out);} .ds-ic{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--slate);color:var(--paper);} .ds-ic svg{width:14px;height:14px;} .ds-light:active{transform:scale(0.97);} .ds-light:focus-visible{outline:2px solid var(--paper);outline-offset:3px;} @media (hover:hover) and (pointer:fine){.ds-light:hover{background:var(--line);}}"
     },
     {
-      "name": "Text Link",
-      "kind": "custom",
-      "refersTo": "link",
-      "description": "Inline route with a periwinkle underline and a reading-direction arrow.",
-      "html": "<div class=\"ds-canvas\"><a class=\"ds-link\" href=\"#\">All projects <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-link{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:5px;text-decoration-thickness:1px;} .ds-link:hover{text-decoration-thickness:2px;} .ds-link:focus-visible{outline:2px solid var(--line);outline-offset:3px;border-radius:4px;}"
+      "name": "Section Button",
+      "kind": "button",
+      "refersTo": "button-section",
+      "description": "The small dark button under a section lead, naming the page it opens. Navigation, not a second contact action.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-btn\" href=\"#\">Project portfolio</a></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-btn{display:inline-flex;align-items:center;min-height:36px;padding:6px 13px;border-radius:var(--r-ctl);background:var(--ink);color:var(--paper);font-size:var(--fs-2);font-weight:600;line-height:1.4;text-decoration:none;transition:background-color 150ms ease,transform 160ms var(--ease-out);} .ds-btn:active{transform:scale(0.97);} .ds-btn:focus-visible{outline:2px solid var(--slate);outline-offset:3px;} @media (hover:hover) and (pointer:fine){.ds-btn:hover{background:var(--slate);}}"
     },
     {
-      "name": "Project Filters",
+      "name": "Choices (filter and tabs)",
       "kind": "chip",
-      "refersTo": "filter-chip",
-      "description": "Pill toggles filtering projects; selected fills lavender.",
-      "html": "<div class=\"ds-canvas\"><div class=\"ds-filters\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">Water</button><button aria-pressed=\"false\">Roads</button><button aria-pressed=\"false\">Electrical</button></div></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-filters{display:flex;flex-wrap:wrap;gap:8px;} .ds-filters button{font:inherit;min-height:40px;padding:8px 18px;border-radius:999px;border:1px solid var(--surface);background:none;color:var(--ink-2);cursor:pointer;font-size:var(--fs-small);transition:background-color 160ms var(--ease),color 160ms var(--ease),border-color 160ms var(--ease);} .ds-filters button:hover{border-color:var(--line);color:var(--ink);} .ds-filters button:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-filters button[aria-pressed='true']{background:var(--lav);border-color:var(--lav);color:var(--on-lav);}"
+      "refersTo": "choice",
+      "description": "Plain text buttons in a row; the chosen one in ink at 600 with a 2px slate underline.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-choices\"><button aria-pressed=\"true\">All</button><button aria-pressed=\"false\">Water</button><button aria-pressed=\"false\">Roads</button><button aria-pressed=\"false\">Electrical</button><button aria-pressed=\"false\">Urban</button></div></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-choices{display:flex;flex-wrap:wrap;gap:4px 22px;} .ds-choices button{display:inline-flex;align-items:center;min-height:44px;padding:0;border:0;background:none;font:inherit;cursor:pointer;color:var(--ink-2);box-shadow:inset 0 -1px 0 transparent;transition:color 150ms ease,box-shadow 150ms ease,transform 160ms var(--ease-out);} .ds-choices [aria-pressed=true]{color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--slate);} .ds-choices button:active{transform:scale(0.97);} .ds-choices button:focus-visible{outline:2px solid var(--slate);outline-offset:3px;border-radius:2px;} @media (hover:hover) and (pointer:fine){.ds-choices button:hover{color:var(--ink);}}"
     },
     {
-      "name": "Tabs",
-      "kind": "nav",
-      "refersTo": "tablist",
-      "description": "Pill tabs in a slate track; arrow keys follow reading direction.",
-      "html": "<div class=\"ds-canvas\"><div class=\"ds-tablist\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">About</button><button role=\"tab\" aria-selected=\"false\">Journey</button><button role=\"tab\" aria-selected=\"false\">Values</button><button role=\"tab\" aria-selected=\"false\">Leadership</button></div></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-tablist{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:999px;background:var(--surface);} .ds-tablist button{font:inherit;min-height:40px;padding:8px 18px;border-radius:999px;border:0;background:none;color:var(--ink-2);cursor:pointer;transition:background-color 160ms var(--ease),color 160ms var(--ease);} .ds-tablist button:hover{color:var(--ink);} .ds-tablist button:focus-visible{outline:2px solid var(--line);outline-offset:3px;} .ds-tablist button[aria-selected='true']{background:var(--lav);color:var(--on-lav);}"
-    },
-    {
-      "name": "Discipline Tiles",
+      "name": "Ruled Columns",
       "kind": "card",
-      "refersTo": "tile",
-      "description": "Signature even grid of Teal plates, each with a thin periwinkle engineering line drawing and round nodes.",
-      "html": "<div class=\"ds-canvas\"><div class=\"ds-grid\"><a class=\"ds-tile\" href=\"#\"><h3>Roads &amp; Asphalt Works</h3><p>Earthworks, sub-base and asphalt paving.</p><svg viewBox=\"0 0 420 200\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 176H414\"/><circle cx=\"6\" cy=\"176\" r=\"4.5\"/><circle cx=\"414\" cy=\"176\" r=\"4.5\"/><path d=\"M13 176L65 92H355L407 176\"/><path d=\"M71 104H349M77 116H343\"/><path d=\"M85 80H190M230 80H335\" stroke-dasharray=\"14 10\"/><path d=\"M65 92V40M355 92V40M65 40H355\"/><circle cx=\"65\" cy=\"40\" r=\"4.5\"/><circle cx=\"355\" cy=\"40\" r=\"4.5\"/><circle cx=\"210\" cy=\"40\" r=\"4.5\"/></svg></a><a class=\"ds-tile\" href=\"#\"><h3>Operation &amp; Maintenance</h3><p>Planned upkeep of delivered networks.</p><svg viewBox=\"0 0 420 200\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle class=\"ring\" cx=\"210\" cy=\"100\" r=\"62\"/><circle class=\"ring\" cx=\"210\" cy=\"100\" r=\"44\"/><path d=\"M6 100H148M272 100H414\"/><circle cx=\"6\" cy=\"100\" r=\"4.5\"/><circle cx=\"414\" cy=\"100\" r=\"4.5\"/><circle cx=\"272\" cy=\"100\" r=\"4.5\"/><circle cx=\"148\" cy=\"100\" r=\"4.5\"/><circle cx=\"241\" cy=\"154\" r=\"4.5\"/><circle cx=\"179\" cy=\"46\" r=\"4.5\"/></svg></a></div></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;} .ds-tile{display:flex;flex-direction:column;gap:12px;padding:clamp(24px,2.6vw,36px);border-radius:var(--r);background:var(--teal);color:var(--ink);text-decoration:none;outline:2px solid transparent;transition:transform 220ms var(--ease),outline-color 220ms var(--ease);} .ds-tile h3{font-size:var(--fs-lead);font-weight:500;line-height:1.35;margin:0;} .ds-tile p{margin:0;line-height:1.6;max-width:44ch;color:var(--ink-2);} .ds-tile svg{margin-top:20px;width:100%;height:auto;color:var(--line);} .ds-tile svg *{vector-effect:non-scaling-stroke;} .ds-tile circle{fill:var(--teal);} .ds-tile circle.ring{fill:none;} .ds-tile:hover{transform:translateY(-3px);outline-color:var(--line);} .ds-tile:focus-visible{outline:2px solid var(--line);outline-offset:3px;}"
+      "refersTo": "ruled-column",
+      "description": "The signature: items under a firm 1px ink rule, no fill. Linked columns turn slate and show an arrow on hover or focus.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-cards\"><a class=\"ds-card\" href=\"#\"><h3>Water &amp; Sewerage Networks</h3><p>Design-to-handover networks for water supply and sewage.</p><svg class=\"ds-go\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a><a class=\"ds-card\" href=\"#\"><h3>Roads &amp; Asphalt Works</h3><p>Earthworks, base courses and asphalt paving.</p><svg class=\"ds-go\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a><a class=\"ds-card ds-more\" href=\"#\"><h3>Nine disciplines</h3><svg class=\"ds-go\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></div></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px;} .ds-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:16px 0 0;border-top:1px solid var(--ink);color:var(--ink);text-decoration:none;transition:border-color 150ms ease,transform 160ms var(--ease-out);} .ds-card h3{margin:0;font-family:var(--disp);font-weight:600;font-size:15.5px;line-height:1.3;padding-inline-end:22px;transition:color 150ms ease;} .ds-card p{margin:0;color:var(--ink-2);font-size:var(--fs-2);line-height:1.65;max-width:36ch;} .ds-go{position:absolute;top:16px;inset-inline-end:0;width:16px;height:16px;color:var(--slate);opacity:0;transform:translate(-4px,4px);transition:opacity 200ms ease,transform 200ms var(--ease-out);} .ds-more h3{color:var(--slate);} .ds-more .ds-go{opacity:1;transform:none;} .ds-card:active{transform:translateY(1px);} .ds-card:focus-visible{outline:2px solid var(--slate);outline-offset:3px;border-top-color:var(--slate);} .ds-card:focus-visible h3{color:var(--slate);} .ds-card:focus-visible .ds-go{opacity:1;transform:none;} @media (hover:hover) and (pointer:fine){.ds-card:hover{border-top-color:var(--slate);} .ds-card:hover h3{color:var(--slate);} .ds-card:hover .ds-go{opacity:1;transform:none;}}"
     },
     {
-      "name": "Project Register",
-      "kind": "custom",
-      "refersTo": "register",
-      "description": "Slate plate holding a real table of projects; Teal row dividers; status pills; compact cards on phones.",
-      "html": "<div class=\"ds-canvas\"><div class=\"ds-reg\"><table><thead><tr><th scope=\"col\">Project</th><th scope=\"col\">Owner</th><th scope=\"col\">Category</th><th scope=\"col\">Location</th><th scope=\"col\">Status</th></tr></thead><tbody><tr><th scope=\"row\"><a href=\"#\">Outfall Line for ISTP3</a></th><td>National Water Company</td><td>Water</td><td>Al Madinah</td><td><span class=\"ds-st\">Completed</span></td></tr><tr><th scope=\"row\"><a href=\"#\">Six Flags Qiddiya Infrastructure Works</a></th><td>Qiddiya Investment Company</td><td>Infrastructure</td><td>Riyadh</td><td><span class=\"ds-st ds-live\">In progress</span></td></tr></tbody></table></div></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-reg{border-radius:var(--r);background:var(--surface);padding:8px clamp(16px,2.4vw,32px);} .ds-reg table{width:100%;border-collapse:collapse;} .ds-reg th,.ds-reg td{padding:20px 12px;text-align:start;vertical-align:top;} .ds-reg thead th{font-size:var(--fs-small);font-weight:500;color:var(--ink-2);padding-block:18px;} .ds-reg tbody tr{border-top:1px solid var(--teal);} .ds-reg tbody th{font-weight:500;} .ds-reg tbody th a{color:var(--ink);text-decoration:none;} .ds-reg tbody th a:hover{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:5px;} .ds-reg tbody th a:focus-visible{outline:2px solid var(--line);outline-offset:3px;border-radius:4px;} .ds-reg td{color:var(--ink-2);} .ds-st{display:inline-block;font-size:var(--fs-small);padding:2px 12px;border-radius:999px;border:1px solid var(--ink-2);color:var(--ink);white-space:nowrap;} .ds-live{background:var(--lav);color:var(--on-lav);border-color:var(--lav);}"
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "A 4:3 photograph under an ink multiply veil; client and status at the top, title in El Messiri at the foot.",
+      "html": "<div class=\"ds-canvas\"><a class=\"ds-pcard\" href=\"#\"><span class=\"ds-ph\"></span><span class=\"ds-top\"><span>National Water Company</span><span class=\"ds-st\">Completed</span></span><span class=\"ds-pt\">Outfall Line for ISTP3</span></a></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-pcard{position:relative;display:flex;flex-direction:column;justify-content:space-between;width:320px;aspect-ratio:4/3;padding:18px;border-radius:var(--r-card);overflow:hidden;color:var(--paper);background:var(--ink);isolation:isolate;text-decoration:none;transition:transform 160ms var(--ease-out);} .ds-ph{position:absolute;inset:0;z-index:-2;background:linear-gradient(135deg,#9aa8a6,#c7b9a0 50%,#6e7f86);transition:transform 500ms var(--ease-out);} .ds-pcard::after{content:'';position:absolute;inset:0;z-index:-1;mix-blend-mode:multiply;background:linear-gradient(180deg,rgba(54,64,68,0.86) 0%,rgba(54,64,68,0.82) 30%,rgba(54,64,68,0.12) 45%,rgba(54,64,68,0.12) 52%,rgba(54,64,68,0.84) 66%,rgba(54,64,68,0.92) 100%);} .ds-top{display:flex;justify-content:space-between;gap:12px;font-size:var(--fs-1);line-height:1.5;} .ds-st{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;} .ds-st::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--paper);} .ds-pt{font-family:var(--disp);font-weight:400;font-size:18px;line-height:1.15;max-width:18em;} .ds-pcard:active{transform:scale(0.985);} .ds-pcard:focus-visible{outline:2px solid var(--slate);outline-offset:3px;} .ds-pcard:focus-visible .ds-ph{transform:scale(1.03);} @media (hover:hover) and (pointer:fine){.ds-pcard:hover .ds-ph{transform:scale(1.03);}}"
     },
     {
-      "name": "Recognition Band",
+      "name": "Approvals Band with Logo Marquee",
       "kind": "custom",
-      "refersTo": "recognition-band",
-      "description": "Slate plate with typographic ISO double-ring seals in periwinkle and approval chips.",
-      "html": "<div class=\"ds-canvas\"><div class=\"ds-recog\"><div class=\"ds-seals\"><figure><svg viewBox=\"0 0 112 112\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"56\" cy=\"56\" r=\"53\"/><circle cx=\"56\" cy=\"56\" r=\"44\"/><text x=\"56\" y=\"52\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"15\" font-weight=\"500\">ISO</text><text x=\"56\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"20\" font-weight=\"300\">9001</text></svg><b>ISO 9001:2015</b><span>Quality</span></figure><figure><svg viewBox=\"0 0 112 112\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"56\" cy=\"56\" r=\"53\"/><circle cx=\"56\" cy=\"56\" r=\"44\"/><text x=\"56\" y=\"52\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"15\" font-weight=\"500\">ISO</text><text x=\"56\" y=\"74\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"none\" font-size=\"20\" font-weight=\"300\">14001</text></svg><b>ISO 14001:2015</b><span>Environment</span></figure></div><div class=\"ds-apprv\"><span class=\"ds-chip\">NWC</span><span class=\"ds-chip\">SCA</span><span class=\"ds-chip\">SEC</span></div></div></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-recog{padding:clamp(32px,5vw,64px);border-radius:var(--r);background:var(--surface);color:var(--ink);display:grid;gap:24px;} .ds-seals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;} .ds-seals figure{margin:0;display:grid;justify-items:center;text-align:center;gap:10px;} .ds-seals svg{width:112px;height:112px;color:var(--line);} .ds-seals b{font-weight:500;font-size:var(--fs-small);} .ds-seals span{font-size:var(--fs-small);color:var(--ink-2);} .ds-apprv{display:flex;flex-wrap:wrap;gap:8px;} .ds-chip{display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid var(--deco);font-size:var(--fs-small);color:var(--ink);}"
+      "refersTo": "approvals-band",
+      "description": "Cream band; the approving bodies' logos slide in one endless masked row, pausing on hover and focus, static under reduced motion; one ISO line at the foot.",
+      "html": "<div class=\"ds-band\"><h3 class=\"ds-band-h\">Approved by</h3><div class=\"ds-mq\"><div class=\"ds-view\"><div class=\"ds-track\"><ul class=\"ds-set\"><li>NWC</li><li>SCA</li><li>SEC</li><li>Aramco</li><li>Ma'aden</li><li>RCJY</li><li>MoMAH</li></ul><ul class=\"ds-set\" aria-hidden=\"true\"><li>NWC</li><li>SCA</li><li>SEC</li><li>Aramco</li><li>Ma'aden</li><li>RCJY</li><li>MoMAH</li></ul></div></div></div><p class=\"ds-iso\"><span>ISO certified</span><span><b>ISO 9001:2015</b> Quality</span><span><b>ISO 14001:2015</b> Environment</span><span><b>ISO 45001:2018</b> Safety</span></p></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-band{background:var(--band);color:var(--ink);padding:48px 24px;} .ds-band-h{margin:0 0 24px;font-family:var(--disp);font-weight:400;font-size:24px;} .ds-view{overflow:hidden;padding-block:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);} .ds-track{display:flex;width:max-content;animation:ds-mq 48s linear infinite;} .ds-set{display:flex;align-items:center;margin:0;padding:0;list-style:none;} .ds-set li{display:flex;align-items:center;height:88px;padding-inline:40px;font-size:var(--fs-2);white-space:nowrap;} @keyframes ds-mq{to{transform:translateX(calc(var(--dir) * -50%));}} .ds-mq:hover .ds-track,.ds-mq:focus-within .ds-track{animation-play-state:paused;} .ds-iso{display:flex;flex-wrap:wrap;gap:8px 28px;margin:28px 0 0;padding-top:16px;border-top:1px solid rgba(54,64,68,0.25);font-size:var(--fs-2);color:var(--ink-2);} .ds-iso>span:first-child,.ds-iso b{color:var(--ink);font-weight:600;} @media (prefers-reduced-motion:reduce){.ds-track{animation:none;width:auto;justify-content:center;} .ds-set[aria-hidden]{display:none;} .ds-view{-webkit-mask-image:none;mask-image:none;} .ds-set{flex-wrap:wrap;justify-content:center;}}"
     },
     {
-      "name": "Credentials Strip",
-      "kind": "custom",
-      "refersTo": "typography.figure",
-      "description": "The four company figures under the hero text: value above label, said once.",
-      "html": "<div class=\"ds-canvas\"><dl class=\"ds-creds\"><div><dt>Established</dt><dd>2007</dd></div><div><dt>Years Leadership Experience</dt><dd>35+</dd></div><div><dt>Equipment Fleet</dt><dd>150+</dd></div><div><dt>Safety Compliance</dt><dd>100%</dd></div></dl></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-creds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:0;} .ds-creds>div{display:flex;flex-direction:column-reverse;gap:6px;} .ds-creds dd{margin:0;font-size:var(--fs-head);font-weight:500;line-height:1;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;} .ds-creds dt{font-size:var(--fs-small);color:var(--ink-2);}"
+      "name": "Leadership Photo Panel",
+      "kind": "card",
+      "refersTo": "photo-panel",
+      "description": "A 4px panel on slate with a blurred photograph, holding white floating cards with the one drop shadow in the system.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-panel\"><span class=\"ds-blur\"></span><figure class=\"ds-float\"><span class=\"ds-portrait\"></span><div><blockquote>Our commitment to engineering excellence drives every project we deliver.</blockquote><figcaption><b>Eng. Wasef Zeitoun</b><span>Chairman</span></figcaption></div></figure></div></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-panel{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--r-panel);padding:40px;background:var(--slate);} .ds-blur{position:absolute;inset:-40px;z-index:-1;background:linear-gradient(120deg,#8aa0a4,#c9bfa8,#56676e);filter:blur(18px) saturate(0.85);opacity:0.9;} .ds-float{margin:0;display:grid;grid-template-columns:112px 1fr;gap:20px;padding:20px;max-width:520px;background:var(--paper);color:var(--ink);border-radius:var(--r-card);box-shadow:0 18px 44px -18px rgba(54,64,68,0.55);} .ds-portrait{width:112px;aspect-ratio:4/5;border-radius:var(--r-ctl);background:var(--line);} .ds-float blockquote{margin:0;font-family:var(--disp);font-weight:400;font-size:19px;line-height:1.35;} .ds-float figcaption{margin-top:18px;display:grid;} .ds-float figcaption span{color:var(--ink-2);font-size:var(--fs-3);}"
     },
     {
       "name": "Text Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Night-filled field with survey-grey border; periwinkle on focus, lavender on error.",
-      "html": "<div class=\"ds-canvas\"><label class=\"ds-field\"><span>Full name</span><input placeholder=\"Your name\"></label><label class=\"ds-field\"><span>Email</span><input aria-invalid=\"true\" value=\"name@\"><small class=\"ds-err\">Enter a valid email address.</small></label></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--surface);padding:24px;display:grid;gap:20px;} .ds-field{display:grid;gap:8px;font-size:var(--fs-small);color:var(--ink);} .ds-field input{font:inherit;font-size:1rem;width:100%;box-sizing:border-box;min-height:48px;padding:12px 14px;border-radius:10px;border:1px solid var(--deco);background:var(--bg);color:var(--ink);} .ds-field input::placeholder{color:var(--ink-2);} .ds-field input:hover{border-color:var(--ink-2);} .ds-field input:focus-visible{outline:2px solid var(--line);outline-offset:1px;border-color:var(--line);} .ds-field input[aria-invalid='true']{border-color:var(--lav);outline:2px solid var(--lav);outline-offset:1px;} .ds-err{color:var(--lav);}"
+      "description": "Paper field with a 1px Mute Grey border and a slate focus; errors in ink, never red.",
+      "html": "<div class=\"ds-canvas\"><div class=\"ds-field\"><label for=\"ds-n\">Full name</label><input id=\"ds-n\" class=\"ds-input\" type=\"text\" placeholder=\"Your name\"></div><div class=\"ds-field\"><label for=\"ds-e\">Email</label><input id=\"ds-e\" class=\"ds-input\" type=\"email\" aria-invalid=\"true\" value=\"name@\"><span class=\"ds-err\">Enter a valid email address.</span></div></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-field{display:grid;gap:6px;max-width:360px;margin-bottom:14px;} .ds-field label{font-size:var(--fs-3);font-weight:600;} .ds-input{width:100%;min-height:42px;padding:8px 12px;border:1px solid var(--mute);border-radius:var(--r-ctl);background:var(--paper);color:var(--ink);font:inherit;font-size:var(--fs-3);caret-color:var(--slate);transition:border-color 150ms ease;} .ds-input::placeholder{color:var(--ink-2);opacity:1;} .ds-input:focus-visible{outline:2px solid var(--slate);outline-offset:1px;border-color:var(--slate);} .ds-input[aria-invalid=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);} .ds-err{font-size:var(--fs-2);font-weight:600;color:var(--ink);}"
     },
     {
       "name": "Header Bar",
       "kind": "nav",
       "refersTo": "bar",
-      "description": "Sticky night bar: logo, main nav with periwinkle current underline, language switch, the contact action.",
-      "html": "<div class=\"ds-bar\"><span class=\"ds-brand\">SACC</span><nav><a href=\"#\" aria-current=\"page\">Company</a><a href=\"#\">Services</a><a href=\"#\">Projects</a><a href=\"#\">Fleet</a><a href=\"#\">Approvals</a></nav><a class=\"ds-lang\" href=\"#\">العربية</a><a class=\"ds-action\" href=\"#\">Contact Us</a></div>",
-      "css": ":host { --bg:#0C1926; --bar:#0D1B22; --teal:#0F393C; --surface:#182F3D; --lav:#DDDFFC; --ink:#DDDFFC; --ink-2:#BEC6E9; --line:#AFB5F9; --act:#9662A8; --deco:#70787A; --on-lav:#0C1926; --r:14px; --ease:cubic-bezier(0.22, 1, 0.36, 1); --fs-small:0.875rem; --fs-lead:clamp(1.125rem, 1.06rem + 0.25vw, 1.25rem); --fs-head:clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); font-family:'Onest Variable', 'IBM Plex Sans Arabic', system-ui, 'Segoe UI', Tahoma, sans-serif; color:var(--ink); } .ds-canvas{background:var(--bg);padding:24px;} .ds-bar{display:flex;align-items:center;gap:28px;height:72px;padding-inline:24px;background:var(--bar);border-bottom:1px solid var(--surface);} .ds-brand{color:var(--ink);font-weight:500;} .ds-bar nav{flex:1;display:flex;gap:28px;} .ds-bar nav a{padding-block:24px;color:var(--ink-2);text-decoration:none;font-size:var(--fs-small);border-bottom:2px solid transparent;transition:color 160ms var(--ease),border-color 160ms var(--ease);} .ds-bar nav a:hover,.ds-bar nav a[aria-current='page']{color:var(--ink);border-bottom-color:var(--line);} .ds-bar a:focus-visible{outline:2px solid var(--line);outline-offset:3px;border-radius:4px;} .ds-lang{color:var(--ink);text-decoration:none;font-size:var(--fs-small);} .ds-action{display:inline-flex;align-items:center;min-height:44px;padding:10px 22px;border-radius:999px;background:var(--act);color:#fff;font-weight:500;text-decoration:none;white-space:nowrap;}"
+      "description": "Three zones: circular mark and name, centred nav (About, Services, Projects, Approvals), language and action. White and sticky; transparent over the home hero on wide screens until it scrolls away.",
+      "html": "<div class=\"ds-bar\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-mark\"></span><span class=\"ds-name\">Sana Al-Awael Contracting</span></a><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">About</a><a href=\"#\">Services</a><a href=\"#\">Projects</a><a href=\"#\">Approvals</a></nav><div class=\"ds-end\"><a class=\"ds-lang\" href=\"#\">العربية</a><a class=\"ds-act\" href=\"#\">Contact us</a></div></div>",
+      "css": ":host { --paper:#FFFFFF; --ink:#364044; --ink-2:#545A5B; --slate:#435563; --line:#C9C8C3; --mute:#7B7C79; --band:#EAE7D3; --plate:#F3F0E7; --r-panel:4px; --r-card:3px; --r-ctl:4px; --ease-out:cubic-bezier(0.23, 1, 0.32, 1); --fs-1:12px; --fs-2:13px; --fs-3:14px; --disp:'SaccDisplay','Sacc',serif; --dir:1; font-family:'Sacc', system-ui, sans-serif; font-weight:600; font-size:15.5px; line-height:1.7; color:var(--ink); } .ds-canvas{background:var(--paper);padding:24px;} .ds-bar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:28px;min-height:62px;padding-inline:24px;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line);} .ds-brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;} .ds-mark{width:28px;height:28px;border-radius:50%;background:var(--ink);} .ds-name{font-family:var(--disp);font-weight:600;font-size:17px;line-height:1.2;white-space:nowrap;} .ds-nav{display:flex;gap:4px;} .ds-nav a,.ds-lang{display:inline-flex;align-items:center;min-height:44px;padding-inline:14px;font-size:var(--fs-3);color:inherit;text-decoration:none;border-radius:var(--r-ctl);transition:background-color 150ms ease;} .ds-nav a[aria-current=page]{box-shadow:inset 0 -2px 0 var(--ink);border-radius:0;} .ds-end{display:flex;align-items:center;justify-content:flex-end;gap:12px;} .ds-act{display:inline-flex;align-items:center;min-height:36px;padding:6px 14px;border-radius:var(--r-ctl);background:var(--ink);color:var(--paper);font-size:var(--fs-2);font-weight:600;text-decoration:none;transition:background-color 150ms ease,transform 160ms var(--ease-out);} .ds-act:active{transform:scale(0.97);} .ds-nav a:focus-visible,.ds-lang:focus-visible,.ds-act:focus-visible{outline:2px solid var(--ink);outline-offset:3px;} @media (hover:hover) and (pointer:fine){.ds-nav a:hover,.ds-lang:hover{background:rgba(201,200,195,0.45);} .ds-act:hover{background:var(--slate);}}"
     }
   ],
   "narrative": {
-    "northStar": "The Utility Network Plan",
-    "overview": "The site reads as a calm engineering sheet on a plain night-blue ground. Solid, rounded plates in two dark tones, deep teal and slate, carry the content. The discipline tiles hold thin periwinkle line drawings of pipes, culverts, road sections, bridges and lab specimens, with small round nodes like a utility network diagram. The register is institutional and orderly: firm sentence-case headings at moderate sizes, wide section spacing, a project register laid out as a real table, and field photographs in full natural colour.\n\nThe character comes from the owner's reference (Sirion): a deep blue-green ground, one saturated accent kept for the single action, a discipline grid, a recognition band, portrait cards and a split closing band. The B2B pass made the system calmer and plainer for evaluators. Headings got heavier, the background site-plan grid was removed, the lavender plates were taken out (every plate is now dark), and the figures moved into a credentials strip under the hero. Colours come only from the owner's palette, always solid at full strength. Proof carries the page: ISO seals, named approvals, figures, owners and named projects.\n\nArabic is the root language and the layout is built with logical properties, so the English page under /en mirrors it without overrides. Everything that has a direction follows the reading direction: line-drawing reveals, arrows, band clip shapes and tab arrow keys.",
+    "northStar": "The Ruled Ledger on White Paper",
+    "overview": "The site reads as a formal, well-set document on a plain white sheet. Headings are a warm Arabic-Latin display face (El Messiri) in two tones, ink then a muted grey. Content below them sits in ruled columns: a firm 1px ink rule over each item, the title and a short line under it, and no fill or box. The owner tried pale beige plates and found they read as sticky notes, so the rule replaced the plate everywhere: disciplines, values, scope of work, ISO standards, the office and the careers points. Colour is nearly absent. It is the owner's ink, slate and grey on white, with one cream band for the approvals.\n\nPhotographs carry the emotion. The hero, the project cards and the leadership panel are real field photographs darkened by an ink-coloured multiply veil, so off-white type sits on them at full contrast without the photo going grey. Proof is named, never claimed: three hero figures, seven approving bodies shown by their official logos, three ISO standards, named projects and named leaders.\n\nArabic is the root language. Layout is written in logical properties so the English page under /en mirrors without overrides, and every arrow, slide and marquee direction follows the reading direction. The page is calm and small-scaled, matching the owner's reference: body text around 15.5px, small text on a three-step scale, headings that stop at 54px.",
     "keyCharacteristics": [
-      "Plain night-blue ground; flat solid dark plates (teal and slate), no shadows.",
-      "Lavender is text and selected state; violet fills only the contact action and form submits.",
-      "Thin 1.5px engineering line drawings with round nodes on the discipline tiles.",
-      "Medium (500) headings with a 600 H1, sentence case, moderate sizes.",
-      "Arabic-first RTL, logical properties throughout, full-colour photography."
+      "White paper ground; ink text; slate for links, focus and selection; one cream band.",
+      "El Messiri headings in two tones (ink, then muted grey); Tajawal for all other text, at bold weights.",
+      "Ruled columns (1px ink top rule, no fill) instead of cards or plates.",
+      "Photographs under an ink multiply veil, with off-white type on them.",
+      "Near-square corners (3–4px) throughout; flat except for cards floating on a photograph.",
+      "Press feedback on everything pressable; hover only on fine pointers; reduced motion keeps colour and opacity changes but drops movement."
     ],
     "rules": [
       {
-        "name": "The Full-Strength Rule",
-        "body": "Every colour is a solid fill at full strength. There are no gradients, no transparency washes, no glass or blur, and no scrims, greyscale or desaturation on photographs.",
+        "name": "The Ink Veil Rule",
+        "body": "Every photograph that carries text sits under a multiply layer of ink (rgba(54, 64, 68, …)) shaped by gradients: darker where the text is, lighter in between. Never a grey or black scrim, never desaturation.",
         "section": "colors"
       },
       {
-        "name": "The Dark Plate Rule",
-        "body": "Content plates are Teal or Slate, never Lavender. Lavender fills only small state elements (selected filter or tab, in-progress pill, notice, skip link).",
+        "name": "The Slate Means Interactive Rule",
+        "body": "Slate marks what can be acted on or is selected: links, focus, the chosen filter or tab, button hover. It does not appear as decoration or body text.",
         "section": "colors"
       },
       {
-        "name": "The One Violet Rule",
-        "body": "Violet fills the contact action and the form submits and nothing else. Neither Action Violet (3.90:1) nor Survey Grey (3.94:1) is ever text on a dark background.",
+        "name": "The Owner's Palette Rule",
+        "body": "Text, rules, buttons and dark surfaces come only from ink, ink-2, slate, mute and line. Paper, cream and plate are the only light grounds.",
         "section": "colors"
       },
       {
         "name": "The Untouched Logo Rule",
-        "body": "The SACC lockup appears in its own colours, only resized. It is never recoloured, redrawn or placed on a tinted chip.",
+        "body": "The SACC mark, the full lockup in the footer and the seven approving bodies' logos are shown in their own colours, only resized. Never recoloured or redrawn.",
         "section": "colors"
       },
       {
-        "name": "The Firm Voice Rule",
-        "body": "Headings are 500 (H1 600), sentence case, never uppercase, and stop at 3.5rem. Hierarchy comes from size steps and position, not from extra weights or larger display sizes.",
+        "name": "The Two-Tone Heading Rule",
+        "body": "A section heading is split in two: the first part in ink, the rest in Mute Grey. The muted part takes its own line only when each line keeps at least two words; joiners (and, of, in, و, في, من…) never end the ink part.",
         "section": "typography"
       },
       {
-        "name": "The Arabic Leading Rule",
-        "body": "Arabic gets taller line-heights (body 1.8, display 1.35, headline 1.4) and zero letter-spacing. Latin headings take -0.01em. Numerals use lining tabular figures, and phone numbers and figures are isolated LTR.",
+        "name": "The Display-Face Boundary Rule",
+        "body": "El Messiri is for headings, titles, figures, the quote, the brand name, project titles, drawer links and journey years. Everything else, including buttons and labels, is Tajawal.",
+        "section": "typography"
+      },
+      {
+        "name": "The Scaled Arabic Rule",
+        "body": "Arabic gets taller line-heights (headings 1.4–1.5, body inherited at 1.7 on a larger size, quote 1.8) and no letter-spacing. Numerals, phone numbers and ISO numbers are isolated LTR with tabular lining figures.",
         "section": "typography"
       },
       {
         "name": "The Logical Properties Rule",
-        "body": "Inline layout uses only `inline-start/end`, `margin-inline` and `padding-inline`. Anything with a physical direction (clip-paths, reveal direction, arrows, tab keys) is mirrored explicitly for RTL.",
+        "body": "Inline layout uses `inline-start/end`, `margin-inline` and `padding-inline` only. Anything with a physical direction (arrows, the marquee's travel, hover nudges) is multiplied by `--dir` (-1 in RTL, 1 in LTR).",
         "section": "layout"
       },
       {
-        "name": "The Flat Plate Rule",
-        "body": "Plates are solid and shadowless. State shows as an outline colour, an underline or a small lift, never as a shadow or glow.",
+        "name": "The Only-On-A-Photo Rule",
+        "body": "A drop shadow appears only on a white card that floats over a photograph. Nothing on paper casts a shadow.",
         "section": "elevation"
       },
       {
         "name": "The One Contact Action Rule",
-        "body": "One contact action («تواصل معنا» / Contact Us) is visible at a time. On the home page the bar's copy stays hidden until the hero's action has scrolled out of view; on the contact page the form stands in for it. Sections never repeat it.",
+        "body": "One contact action («تواصل معنا» / Contact us) is visible at a time. On the home page the bar's copy appears only after the hero's own has scrolled away; on the contact page the form stands in for it. Sections never repeat it.",
         "section": "components"
       }
     ],
     "dos": [
-      "**Do** use the palette colours solid at full strength, with Teal and Slate as the only plate tones.",
-      "**Do** keep text Lavender or Lavender Mist on dark, and Page Night on Lavender state fills.",
-      "**Do** set headings at 500 (H1 600) in sentence case, within the type steps above.",
-      "**Do** draw new engineering illustrations as 1.5px round-capped periwinkle strokes with round nodes.",
-      "**Do** present comparable records (projects, figures) as plain tables and lists, stacking to compact cards on phones.",
-      "**Do** write layout with logical properties and mirror every directional effect for RTL.",
-      "**Do** give every interactive element a visible 2px periwinkle focus ring and a 44px target."
+      "**Do** set new content on white paper in ink, with Ink Two for secondary text and slate only for what is interactive or selected.",
+      "**Do** put a list of comparable items in ruled columns: a 1px ink rule on top, 16px gap, title in El Messiri, text in Tajawal, no fill.",
+      "**Do** split section headings into two tones, ink then Mute Grey, using the shared heading component.",
+      "**Do** keep small text on the three-step scale (12 / 13 / 14px; 13 / 14 / 15px in Arabic).",
+      "**Do** put text on a photograph only under the ink multiply veil, in paper.",
+      "**Do** keep corners at 4px (panels, controls) or 3px (cards).",
+      "**Do** give every pressable element a scale press, keep hover inside `(hover: hover) and (pointer: fine)`, and keep a 44px hit area on touch.",
+      "**Do** write layout with logical properties and multiply directional motion by `--dir`.",
+      "**Do** show approving bodies only by their own logos, uncoloured, at an equal visual area."
     ],
     "donts": [
-      "**Don't** use gradients, transparency washes, glass, blur, scrims or greyscale and desaturated photos.",
-      "**Don't** build Lavender content plates (tiles, cards, bands); Lavender fills are for state only.",
-      "**Don't** set Action Violet or Survey Grey as text on a dark background, or use violet beyond the contact action and form submits.",
-      "**Don't** add a second contact action to a section, or a sitemap-style footer.",
-      "**Don't** add box-shadows or a background pattern; show state with outline, underline or a small lift.",
-      "**Don't** recolour, redraw or tint the SACC logo.",
-      "**Don't** render small uppercase eyebrow labels above headings. The content data carries `eyebrow` strings, but the shipped design does not show them.",
-      "**Don't** invent certificate artwork, client logos or testimonials. Seals stay typographic."
+      "**Don't** fill columns with beige or grey plates; the owner rejected them as sticky notes.",
+      "**Don't** use pills, large radii or heavy shadows; the only drop shadow is on a white card over a photograph.",
+      "**Don't** use stone, teal, warm, deco or plate-2 as surfaces; they are declared but retired.",
+      "**Don't** add a second contact action to a section, or a sitemap footer.",
+      "**Don't** use Mute Grey for body-size text, or Line for any text.",
+      "**Don't** bring back a fleet page or fleet nav item.",
+      "**Don't** add small uppercase labels above new section headings. The four home section heads that show one do so by an earlier owner choice; it is not a pattern to extend.",
+      "**Don't** recolour, redraw or tint the SACC logo or any body's logo.",
+      "**Don't** invent testimonials, certificate numbers, client logos or figures."
     ]
   }
 }
