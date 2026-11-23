@@ -25,3 +25,8 @@ no logo pixel was changed. The owner then replaced the Aramco and Ma'aden files
 (first supplied in their white versions for dark grounds) with their positive
 versions, so every plate is white; Ma'aden's white background was made
 transparent the same way.
+
+`rcjy` and `momah` were supplied by the owner on 2026-11-23 on white
+backgrounds, made transparent the same way. The ministry's logo carries its
+current name, «وزارة البلديات والإسكان» / Ministry of Municipalities and
+Housing, which the prototype uses as the logo's text alternative.

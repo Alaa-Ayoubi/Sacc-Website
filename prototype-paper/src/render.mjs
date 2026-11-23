@@ -58,6 +58,9 @@ const logoOf = (key) => {
   return null;
 };
 const LOGOS = Object.fromEntries(BODIES.map((k) => [k, logoOf(k)]));
+// The ministry's current name, as its logo carries it (owner's decision). The
+// content bundle still holds the old name until it is changed in the admin.
+const BODY_NAME = { ar: { momah: 'وزارة البلديات والإسكان' }, en: { momah: 'Ministry of Municipalities and Housing' } };
 
 const JOINERS = new Set(['&', 'و', 'في', 'in', 'of', 'for', 'to', 'the', 'إلى', 'من']);
 
@@ -141,7 +144,8 @@ function renderLang(site, lang) {
   const band = (tag, iso = false) => `
       <div class="band"><div class="wrap">
         <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
-        <ul class="bodies">${Cc.approvals.map((a, i) => {
+        <ul class="bodies">${Cc.approvals.map((a0, i) => {
+          const a = BODY_NAME[lang][BODIES[i]] || a0;
           const logo = LOGOS[BODIES[i]];
           return `<li class="body rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
         }).join('')}</ul>

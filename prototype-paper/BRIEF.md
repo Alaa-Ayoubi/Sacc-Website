@@ -461,6 +461,10 @@ How the prototype applies them:
 - The ISO standards took more room than their weight on the home page: they
   are now one quiet line at the foot of the approvals band. The approvals page
   keeps them in full.
+- All seven logos are in. At the owner's word the ministry is named by its
+  current name, «وزارة البلديات والإسكان» / Ministry of Municipalities and
+  Housing (a prototype override; the content bundle and the Django admin
+  still hold the old name).
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes
