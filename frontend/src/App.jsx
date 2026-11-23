@@ -8,10 +8,10 @@ import { OLD_PAGES, pathFor } from './lib/site.js';
 import { Bar, Footer } from './components/Chrome.jsx';
 import { useReveal } from './components/ui.jsx';
 import Home from './pages/Home.jsx';
-import { Approvals, Company, Fleet, NotFound, Project, Projects, Service, Services } from './pages/Inner.jsx';
+import { Approvals, Company, NotFound, Project, Projects, Service, Services } from './pages/Inner.jsx';
 import { Careers, Contact } from './pages/Forms.jsx';
 
-const PAGE = { '': Home, company: Company, services: Services, projects: Projects, fleet: Fleet, approvals: Approvals, contact: Contact, careers: Careers };
+const PAGE = { '': Home, company: Company, services: Services, projects: Projects, approvals: Approvals, contact: Contact, careers: Careers };
 
 /** Links from the previous site (#about, #equipment, ?lang=en …) go to their new addresses. */
 function useOldLinks(navigate) {
@@ -30,7 +30,7 @@ function useOldLinks(navigate) {
 }
 
 export default function App() {
-  const { route, ui, navigate } = useSite();
+  const { route, ui, navigate, lang, t } = useSite();
   useOldLinks(navigate);
   const key = `${route.lang}/${route.page}/${route.sub}/${route.notFound}`;
   useReveal(key);
@@ -39,13 +39,15 @@ export default function App() {
   if (route.notFound) Page = NotFound;
   else if (route.page === 'services' && route.sub) Page = Service;
   else if (route.page === 'projects' && route.sub) Page = Project;
+  const home = Page === Home;
 
   return (
-    <>
+    <div className={`page${home ? ' home' : ''}`} lang={lang} dir={t.dir}>
       <a className="skip" href="#main">{ui.skip}</a>
-      <Bar />
-      <main id="main" tabIndex={-1}><Page key={key} /></main>
+      <Bar home={home} />
+      {/* The home page lays its hero under the bar and its sheet over the hero. */}
+      <main id="main" tabIndex={-1}>{home ? <Home key={key} /> : <div className="sheet-body"><Page key={key} /></div>}</main>
       <Footer />
-    </>
+    </div>
   );
 }

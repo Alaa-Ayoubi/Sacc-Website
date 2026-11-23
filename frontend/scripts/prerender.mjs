@@ -20,13 +20,14 @@ const serverEntry = readdirSync(ssr).find((f) => /^entry-server\.m?js$/.test(f))
 const { render, site, allRoutes, pathFor } = await import(pathToFileURL(join(ssr, serverEntry)).href);
 const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
-// Preload the text faces the first screen needs, so the page does not reflow
-// when they arrive. Vite fingerprints them, so look them up in the build.
+// Preload the text face the first screen needs (Tajawal Bold, the body text),
+// so the page does not reflow when it arrives. Vite fingerprints the files,
+// so look them up in the build.
 const assets = readdirSync(join(dist, 'static'));
 const font = (re) => assets.find((f) => re.test(f));
 const preloadFor = {
-  ar: font(/^ibm-plex-sans-arabic-arabic-400-normal-.*\.woff2$/),
-  en: font(/^onest-latin-wght-normal-.*\.woff2$/),
+  ar: font(/^tajawal-arabic-700-normal-.*\.woff2$/),
+  en: font(/^tajawal-latin-700-normal-.*\.woff2$/),
 };
 const preload = (lang) => (preloadFor[lang] ? `<link rel="preload" href="/static/${preloadFor[lang]}" as="font" type="font/woff2" crossorigin>` : '');
 

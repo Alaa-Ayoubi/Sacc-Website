@@ -11,9 +11,8 @@
     "routes": "node scripts/render-routes.mjs"
   },
   "dependencies": {
-    "@fontsource-variable/onest": "^5.3.0",
-    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
-    "lucide-react": "^0.469.0",
+    "@fontsource/el-messiri": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

@@ -28,7 +28,6 @@ export function pageMeta(site, route) {
       company: [T.intro.title, T.intro.p1],
       services: [T.services.title, T.services.lead],
       projects: [T.projects.title, T.projects.lead],
-      fleet: [T.equipment.title, T.equipment.lead],
       approvals: [T.certifications.title, T.certifications.lead],
       contact: [T.contact.title, T.contact.lead],
       careers: [T.careers.title, T.careers.lead],

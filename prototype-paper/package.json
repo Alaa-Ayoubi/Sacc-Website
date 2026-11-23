@@ -1,0 +1,12 @@
+{
+  "name": "sacc-prototype-paper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/el-messiri": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0"
+  }
+}
