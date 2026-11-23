@@ -485,6 +485,8 @@ How the prototype applies them:
 - From seven formal pairings shown with the site's own text, the owner chose
   El Messiri for headings and Tajawal for text, in both languages, at the
   bolder weights asked for earlier.
+- At the owner's request the logo row's pause switch is removed; the row still
+  pauses on hover and focus and stands still under reduced motion.
 - The "Why choose SACC" box on the About tab is removed at the owner's request;
   the tab keeps its two paragraphs.
 - The journey's 2018 milestone (fleet modernisation) is removed, with the fleet page.

@@ -156,8 +156,6 @@ function renderLang(site, lang) {
      switch; under reduced motion it stands still as one centred row. */
   const marquee = () => `
         <div class="marquee rise">
-          <input type="checkbox" id="mq-${id()}" class="mq-t">
-          <label for="mq-${id()}" class="mq-btn"><span class="on">${esc(rtl ? 'إيقاف الحركة' : 'Pause')}</span><span class="off">${esc(rtl ? 'تشغيل الحركة' : 'Play')}</span></label>
           <div class="mq-view"><div class="mq-track">
             <ul class="mq-set">${bodyIdx.map((i) => bodyLogo(i, false)).join('')}</ul>
             <ul class="mq-set dup" aria-hidden="true">${bodyIdx.map((i) => bodyLogo(i, true)).join('')}</ul>
