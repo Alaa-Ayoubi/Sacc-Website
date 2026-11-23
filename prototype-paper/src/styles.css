@@ -235,7 +235,7 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .cta .ic svg { width: 14px; height: 14px; }
 .creds {
   position: relative; z-index: 1;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   padding-block: 22px 28px; border-top: 1px solid rgba(255, 255, 255, 0.28);
 }
 .creds div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 2px; }
@@ -243,7 +243,7 @@ h3, .h3 { font-size: calc(19px * var(--kd)); font-weight: var(--wd3); line-heigh
 .creds dd { font-size: clamp(24px, 2.5vw, 34px); line-height: 1.15; }
 .page[dir='rtl'] .creds dd { text-align: right; }
 @media (max-width: 700px) {
-  .creds { grid-template-columns: 1fr 1fr; gap: 18px 16px; padding-block: 22px 28px; }
+  .creds { gap: 18px 14px; padding-block: 22px 28px; }
   .hero-mid { gap: 18px; }
 }
 

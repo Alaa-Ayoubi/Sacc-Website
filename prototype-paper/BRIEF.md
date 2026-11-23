@@ -451,6 +451,7 @@ How the prototype applies them:
   RCJY and the ministry are still to come as files.
 - The owner then sent the positive versions of the Aramco and Ma'aden logos,
   so every plate is white.
+- The owner then removed the hero's fleet figure (150+), so the hero shows three figures.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

@@ -24,7 +24,7 @@ const EXTRA = {
   ar: { preview: 'معاينة فقط: الإرسال يعمل في الموقع الفعلي.', careers: 'الوظائف', address: 'العنوان', short: 'سنا الأوائل للمقاولات' },
   en: { preview: 'Preview only: sending works on the live site.', careers: 'Careers', address: 'Address', short: 'Sana Al-Awael Contracting' },
 };
-// The owner removed the fleet page and renamed «الشركة» to «حول».
+// The owner removed the fleet page (and the hero's fleet figure, filtered below) and renamed «الشركة» to «حول».
 const PAGES_NAV = NAV.filter((n) => n !== 'fleet');
 const NAV_LABEL = { ar: { company: 'حول' }, en: { company: 'About' } };
 
@@ -205,7 +205,7 @@ function renderLang(site, lang) {
       <span class="cta"><a class="action light" href="${href('contact')}"><span class="ic">${icon('phone')}</span>${esc(t.navCta)}</a></span>
     </div>
     <div class="wrap"><dl class="creds" aria-label="${esc(ui.figuresLabel)}">
-      ${t.stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd class="num ltr">${esc(s.value)}</dd></div>`).join('')}
+      ${t.stats.filter((s) => s.value !== '150+').map((s) => `<div><dt>${esc(s.label)}</dt><dd class="num ltr">${esc(s.value)}</dd></div>`).join('')}
     </dl></div>
   </section>`;
     const body = `
