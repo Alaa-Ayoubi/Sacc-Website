@@ -342,25 +342,16 @@ a.card.more .go { opacity: 1; transform: none; }
 
 /* ---------- approvals band ---------- */
 .band { background: var(--band); color: var(--ink); padding-block: clamp(40px, 5.5vw, 84px); }
-.band-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
-.band-h { font-size: calc(24px * var(--kd)); font-weight: var(--wd); margin-bottom: 18px; }
-.rows li {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
-  padding-block: 11px; border-top: 1px solid rgba(54, 64, 68, 0.3);
-  font-size: var(--fs-3); font-weight: 700; line-height: 1.5;
+.band-h { font-size: calc(24px * var(--kd)); font-weight: var(--wd); margin-bottom: clamp(20px, 3vw, 32px); }
+/* One plate per approving body: the logo alone, centred, on white. */
+.bodies { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 8px; }
+.body {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  aspect-ratio: 3 / 2; padding: 18px 20px; border-radius: var(--r-card); background: var(--paper);
 }
-.page[lang='en'] .rows li { font-weight: 500; }
-.rows li:last-child { border-bottom: 1px solid rgba(54, 64, 68, 0.3); }
-.rows .n { flex: none; }
-.drawing { max-width: 380px; width: 100%; margin-inline: auto; }
-.drawing svg { width: 100%; height: auto; overflow: visible; }
-.drawing .base { fill: var(--band); stroke: none; }
-.drawing .top { fill: rgba(255, 255, 255, 0.6); stroke: var(--ink); stroke-width: 1.1; }
-.drawing .side { fill: rgba(255, 255, 255, 0.25); stroke: var(--ink); stroke-width: 1.1; }
-.drawing .l { stroke: var(--ink); stroke-width: 1.1; }
-.drawing .f { stroke: var(--ink); stroke-width: 0.8; opacity: 0.55; }
-.drawing .d { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 2 6; }
-@media (max-width: 900px) { .band-in { grid-template-columns: 1fr; } .drawing { max-width: 300px; } }
+.body img { display: block; max-width: 100%; max-height: 64px; width: auto; height: auto; object-fit: contain; }
+.body-name { font-size: var(--fs-2); font-weight: 500; line-height: 1.5; color: var(--ink); }
+@media (max-width: 560px) { .bodies { grid-template-columns: repeat(2, minmax(0, 1fr)); } .body { padding: 14px; } }
 
 /* ---------- ISO tiles ---------- */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }

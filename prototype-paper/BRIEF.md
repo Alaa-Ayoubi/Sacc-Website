@@ -433,6 +433,15 @@ How the prototype applies them:
   marked not to be machine-translated. Left for the owner: "..." to "…" in
   the content's placeholders and loading texts, and keeping the project
   filter in the URL, which needs scripting and belongs to the live site.
+- Then: "turn the approvals section into one showing each body by its logo
+  only, and remove the drawings, to be more formal"; and "delete the fleet
+  section, and rename the Company tab to «حول»". The approvals band is now a
+  grid of white plates, one per body, each holding the body's official logo
+  from assets/logos/ (see the README there); the isometric drawing and the
+  numbered rows are gone. Logos are not in the project yet; until the owner
+  supplies them, each plate shows the body's name. The fleet page and its
+  nav item are gone (the equipment-rental discipline and the 150+ figure
+  stay); the nav item «الشركة» / "Company" reads «حول» / "About".
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

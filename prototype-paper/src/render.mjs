@@ -2,7 +2,9 @@
  * Nothing here needs scripting in the browser: pages switch with :target,
  * the project filter and the tabs are radio inputs, the phone menu is a page. */
 import { CAT_SVC, NAV, UI, isDone, projSlug, svcOf } from '../../frontend/src/lib/site.js';
-import { drawing } from './drawing.mjs';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -22,6 +24,25 @@ const EXTRA = {
   ar: { preview: 'معاينة فقط: الإرسال يعمل في الموقع الفعلي.', careers: 'الوظائف', address: 'العنوان', short: 'سنا الأوائل للمقاولات' },
   en: { preview: 'Preview only: sending works on the live site.', careers: 'Careers', address: 'Address', short: 'Sana Al-Awael Contracting' },
 };
+// The owner removed the fleet page and renamed «الشركة» to «حول».
+const PAGES_NAV = NAV.filter((n) => n !== 'fleet');
+const NAV_LABEL = { ar: { company: 'حول' }, en: { company: 'About' } };
+
+// Approving bodies, in the order the content lists them. Each shows its official
+// logo, from assets/logos/<key>.svg, .png or .webp, supplied by the owner;
+// until a file is there the body's name stands in its place.
+const BODIES = ['nwc', 'sca', 'sec', 'aramco', 'maaden', 'rcjy', 'momah'];
+const LOGO_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'logos');
+const MIME = { svg: 'image/svg+xml', png: 'image/png', webp: 'image/webp' };
+const logoOf = (key) => {
+  for (const ext of Object.keys(MIME)) {
+    const f = join(LOGO_DIR, `${key}.${ext}`);
+    if (existsSync(f)) return `data:${MIME[ext]};base64,${readFileSync(f).toString('base64')}`;
+  }
+  return null;
+};
+const LOGOS = Object.fromEntries(BODIES.map((k) => [k, logoOf(k)]));
+
 const JOINERS = new Set(['&', 'و', 'في', 'in', 'of', 'for', 'to', 'the', 'إلى', 'من']);
 
 export function renderAll(site) {
@@ -36,6 +57,7 @@ export function renderAll(site) {
 function renderLang(site, lang) {
   const t = site[lang];
   const ui = { ...UI[lang], ...EXTRA[lang] };
+  ui.nav = { ...ui.nav, ...NAV_LABEL[lang] };
   const { company, images } = site;
   const other = lang === 'ar' ? 'en' : 'ar';
   const rtl = lang === 'ar';
@@ -97,12 +119,14 @@ function renderLang(site, lang) {
       }).join('')}
     </div>`;
 
+  // The approving bodies: one plate per body, its official logo only.
   const band = (tag) => `
-      <div class="band"><div class="wrap band-in">
-        <div class="rise"><${tag} class="band-h">${esc(Cc.approvalsHeading)}</${tag}>
-          <ol class="rows">${Cc.approvals.map((a, i) => `<li><span>${esc(a)}</span><span class="n num ltr" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span></li>`).join('')}</ol>
-        </div>
-        <div class="drawing rise" aria-hidden="true">${drawing()}</div>
+      <div class="band"><div class="wrap">
+        <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
+        <ul class="bodies">${Cc.approvals.map((a, i) => {
+          const src = LOGOS[BODIES[i]];
+          return `<li class="body rise">${src ? `<img src="${src}" alt="${esc(a)}" loading="lazy" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
+        }).join('')}</ul>
       </div></div>`;
 
   const plainCards = (items, four = true, tag = 'h3') => `<div class="cards${four ? ' four' : ''}">${items.map((x) => `<div class="card plain rise"><${tag} class="h3">${esc(typeof x === 'string' ? x : x.title)}</${tag}>${x.desc ? `<p>${esc(x.desc)}</p>` : ''}</div>`).join('')}</div>`;
@@ -118,7 +142,7 @@ function renderLang(site, lang) {
   // ---------- frame ----------
   const frame = (path, body, { home = false, hero = '', current = '' } = {}) => {
     const pid = id(path);
-    const nav = (cls) => `<nav class="${cls}" aria-label="${esc(ui.menu)}">${NAV.map((n) => `<a href="${href(n)}"${current === n ? ' aria-current="page"' : ''}>${esc(ui.nav[n])}</a>`).join('')}</nav>`;
+    const nav = (cls) => `<nav class="${cls}" aria-label="${esc(ui.menu)}">${PAGES_NAV.map((n) => `<a href="${href(n)}"${current === n ? ' aria-current="page"' : ''}>${esc(ui.nav[n])}</a>`).join('')}</nav>`;
     const action = (cls) => (current === 'contact' ? '' : `<a class="action ${cls}" href="${href('contact')}">${esc(t.navCta)}</a>`);
     const langLink = `<a class="lang" href="${href(path, other)}" lang="${other}">${esc(ui.langName)}</a>`;
     const brand = `<a class="brand" href="${href('')}"><span class="mark" aria-hidden="true"></span><span class="name" translate="no">${esc(ui.short)}</span></a>`;
@@ -297,18 +321,6 @@ function renderLang(site, lang) {
     </section>
     ${more.length ? `<section class="sec wrap">${h2(ui.more)}${pgrid(more)}</section>` : ''}`, { current: 'projects' }));
   });
-
-  // ---------- fleet ----------
-  out.push(...frame('fleet', `
-    ${pageHead(E.title, E.lead)}
-    <section class="sec wrap">
-      <div class="split"><p class="lead rise" style="color:var(--ink);max-width:none">${esc(E.p1)}</p><p class="muted rise">${esc(E.p2)}</p></div>
-      <figure class="photo rise" style="margin-top:clamp(32px,5vw,64px)">${ph(images.equipment, E.title)}</figure>
-    </section>
-    <section class="sec wrap">${h2(E.categoriesHeading)}${plainCards(E.categories, false)}</section>
-    <section class="sec wrap">${h2(E.supportHeading)}
-      <div class="points">${E.features.map((f) => `<div class="rise"><h3>${esc(f.title)}</h3><p class="muted">${esc(f.desc)}</p></div>`).join('')}</div>
-    </section>`, { current: 'fleet' }));
 
   // ---------- approvals ----------
   out.push(...frame('approvals', `
