@@ -84,10 +84,6 @@
         "label": "سنة من الخبرة القيادية"
       },
       {
-        "value": "150+",
-        "label": "معدة ضمن الأسطول"
-      },
-      {
         "value": "100%",
         "label": "التزام بمعايير السلامة"
       }
@@ -436,7 +432,7 @@
         "أرامكو السعودية",
         "شركة معادن",
         "الهيئة الملكية للجبيل وينبع",
-        "وزارة الشؤون البلدية والقروية والإسكان"
+        "وزارة البلديات والإسكان"
       ],
       "cta": "اطلب وثائق الشهادات"
     },
@@ -459,11 +455,6 @@
           "year": "2015",
           "title": "شهادات الأيزو",
           "desc": "الحصول على شهادات الأيزو الشاملة في الجودة والبيئة والسلامة."
-        },
-        {
-          "year": "2018",
-          "title": "تحديث الأسطول",
-          "desc": "استثمار كبير في أسطول المعدات الثقيلة والآليات المتقدمة."
         },
         {
           "year": "2021",
@@ -807,10 +798,6 @@
       {
         "value": "35+",
         "label": "Years Leadership Experience"
-      },
-      {
-        "value": "150+",
-        "label": "Equipment Fleet"
       },
       {
         "value": "100%",
@@ -1161,7 +1148,7 @@
         "Saudi ARAMCO",
         "MAADEN",
         "Royal Commission for Jubail and Yanbu (RCYJ)",
-        "Ministry of Municipal and Rural Affairs (MOMRA)"
+        "Ministry of Municipalities and Housing"
       ],
       "cta": "Request Certification Documents"
     },
@@ -1184,11 +1171,6 @@
           "year": "2015",
           "title": "ISO Certification",
           "desc": "Achieved comprehensive ISO certifications for Quality, Environment, and Safety."
-        },
-        {
-          "year": "2018",
-          "title": "Fleet Modernization",
-          "desc": "Major investment in heavy equipment fleet and advanced machinery."
         },
         {
           "year": "2021",
