@@ -33,18 +33,20 @@ function faces(family, pkg, cssFile, wantFiles, weight, from = here) {
 // A browser picks the faces of a family by weight first and by script second,
 // so the two scripts only combine when they declare exactly the same weights.
 // Each family therefore fills the same weight slots for both scripts, reusing a
-// file where a face has no such weight (Almarai has no 500; the headings use
-// Newsreader's light cut in every slot).
+// file where a face has no such weight.
+//
+// The owner asked for everything bolder and clearer, headings included, so
+// every slot is one step heavier than its number: body text (500) is Onest 500
+// with Almarai Bold; headings are Newsreader Medium with Naskh SemiBold, and
+// small titles Newsreader SemiBold with Naskh Bold.
 const latin = (family, pkg, css, stem, slot) => faces(family, pkg, css, [`${stem}-latin-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`, `${stem}-latin-ext-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`], slot);
 const arabic = (family, pkg, w, slot = w) => faces(family, `@fontsource/${pkg}`, `${w}.css`, [`${pkg}-arabic-${w}-normal.woff2`], String(slot));
+const serif = (w, slot) => faces('SaccDisplay', '@fontsource/newsreader', `${w}.css`, [`newsreader-latin-${w}-normal.woff2`, `newsreader-latin-ext-${w}-normal.woff2`], String(slot));
 const fonts = [
-  ...[300, 400, 500, 700].map((w) => latin('Sacc', '@fontsource-variable/onest', 'wght.css', 'onest', String(w))),
-  arabic('Sacc', 'almarai', 300), arabic('Sacc', 'almarai', 400), arabic('Sacc', 'almarai', 400, 500), arabic('Sacc', 'almarai', 700),
-  ...[400, 500].map((w) => faces('SaccDisplay', '@fontsource/newsreader', '300.css', ['newsreader-latin-300-normal.woff2', 'newsreader-latin-ext-300-normal.woff2'], String(w))),
-  arabic('SaccDisplay', 'noto-naskh-arabic', 400), arabic('SaccDisplay', 'noto-naskh-arabic', 500),
-  // Slot 600 is the small-title step: Latin Regular (Light is faint under 20px) beside the same Arabic 500.
-  faces('SaccDisplay', '@fontsource/newsreader', '400.css', ['newsreader-latin-400-normal.woff2', 'newsreader-latin-ext-400-normal.woff2'], '600'),
-  arabic('SaccDisplay', 'noto-naskh-arabic', 500, 600),
+  ...[400, 500, 600, 700].map((w) => latin('Sacc', '@fontsource-variable/onest', 'wght.css', 'onest', String(w))),
+  arabic('Sacc', 'almarai', 400), arabic('Sacc', 'almarai', 700, 500), arabic('Sacc', 'almarai', 700, 600), arabic('Sacc', 'almarai', 800, 700),
+  serif(500, 400), serif(500, 500), serif(600, 600),
+  arabic('SaccDisplay', 'noto-naskh-arabic', 600, 400), arabic('SaccDisplay', 'noto-naskh-arabic', 600, 500), arabic('SaccDisplay', 'noto-naskh-arabic', 700, 600),
 ].join('\n');
 
 const LOCAL = ['hero-infrastructure', 'water-network', 'public-realm', 'equipment-fleet'];

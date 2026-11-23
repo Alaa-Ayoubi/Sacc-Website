@@ -473,6 +473,12 @@ How the prototype applies them:
   plates, pausing on hover and focus, with a pause switch (WCAG 2.2.2); under
   reduced motion the row stands still, centred. The approvals page keeps the
   grid of plates. Each logo file is now inlined once, as a CSS variable.
+- The office section loses its teal panel and white card: its heading, then
+  three ruled columns (address and hours, phone and mobile, email and
+  registration), as the owner chose.
+- The owner asked for every font to be bolder and clearer, headings included.
+  Body text is now Onest 500 with Almarai Bold; headings Newsreader Medium
+  with Noto Naskh SemiBold; small titles, labels and buttons one step heavier.
 - The "Why choose SACC" box on the About tab is removed at the owner's request;
   the tab keeps its two paragraphs.
 - The journey's 2018 milestone (fleet modernisation) is removed, with the fleet page.

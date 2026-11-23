@@ -270,9 +270,20 @@ function renderLang(site, lang) {
     </section>
 
     <section class="sec wrap">
-      <div class="close rise">
-        <h2 class="h-sec">${esc(ui.officeH)}</h2>
-        <dl class="float facts">${officeRows()}</dl>
+      <h2 class="h-sec rise office-h">${esc(ui.officeH)}</h2>
+      <div class="office">
+        <dl class="col rise">
+          <div><dt>${esc(ui.address)}</dt><dd>${esc(C.address)}</dd></div>
+          <div><dt>${esc(C.hoursHeading)}</dt><dd>${C.hours.map((h) => `<span class="num hr">${esc(h)}</span>`).join('')}</dd></div>
+        </dl>
+        <dl class="col rise">
+          <div><dt>${esc(ui.phone)}</dt><dd><a href="${tel(company.phone)}">${ltr(company.phone)}</a></dd></div>
+          <div><dt>${esc(ui.mobile)}</dt><dd><a href="${tel(company.mobile)}">${ltr(company.mobile)}</a></dd></div>
+        </dl>
+        <dl class="col rise">
+          <div><dt>${esc(ui.email)}</dt><dd><a href="mailto:${company.email}">${esc(company.email)}</a></dd></div>
+          <div><dt>${esc(ui.cr)}</dt><dd class="num">${esc(company.cr)}</dd></div>
+        </dl>
       </div>
     </section>`;
     out.push(...frame('', body, { home: true, hero }));
