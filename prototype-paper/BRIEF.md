@@ -465,6 +465,11 @@ How the prototype applies them:
   current name, «وزارة البلديات والإسكان» / Ministry of Municipalities and
   Housing (a prototype override; the content bundle and the Django admin
   still hold the old name).
+- Section links name the page they open, as the owner asked for formal labels:
+  «الشهادات والاعتمادات», «محفظة المشاريع», «تسعة قطاعات تنفيذية».
+- The "Why choose SACC" box on the About tab is removed at the owner's request;
+  the tab keeps its two paragraphs.
+- The journey's 2018 milestone (fleet modernisation) is removed, with the fleet page.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes

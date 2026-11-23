@@ -446,6 +446,7 @@ a.card.more .go { opacity: 1; transform: none; }
 .page-head .sec-head { margin-bottom: 0; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 72px); align-items: start; }
 .split .prose { display: grid; gap: 18px; }
+.prose.narrow { display: grid; gap: 18px; max-width: 68ch; }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
 .ticks { display: grid; gap: 10px; margin-top: 8px; }
 .ticks li { display: flex; gap: 12px; align-items: baseline; }

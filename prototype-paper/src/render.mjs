@@ -220,18 +220,18 @@ function renderLang(site, lang) {
       ${secHead(S.title, S.lead, { label: S.eyebrow })}
       <div class="cards five">
         ${S.items.map((s) => `<a class="card rise" href="${href(`services/${svcOf(s).slug}`)}"><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><span class="gap"></span><p class="caps">${esc(s.capabilities.join(' · '))}</p>${icon(up, 'go')}</a>`).join('')}
-        <a class="card more on-dark rise" href="${href('services')}"><h3>${esc(ui.allDisc)}</h3>${icon(up, 'go')}</a>
+        <a class="card more on-dark rise" href="${href('services')}"><h3>${esc(S.title)}</h3>${icon(up, 'go')}</a>
       </div>
     </section>
 
     <section class="sec wrap">
       ${secHead(P.title, P.lead, { label: P.eyebrow })}
       ${filtered('')}
-      <p class="sec-foot">${btn('projects', ui.projMore)}</p>
+      <p class="sec-foot">${btn('projects', P.title)}</p>
     </section>
 
     <section class="sec">
-      <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: btn('approvals', ui.apprMore) })}</div>
+      <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: btn('approvals', Cc.title) })}</div>
       ${band('h3', true)}
     </section>
 
@@ -265,11 +265,8 @@ function renderLang(site, lang) {
     const photos = [images.chairman, images.gm];
     const tabs = [
       [ui.tabs.about, `
-        <div class="split">
-          <div class="prose"><p class="lead" style="color:var(--ink);max-width:none">${esc(I.p2)}</p><p class="muted">${esc(I.p3)}</p></div>
-          <div class="card plain"><h2 class="h3">${esc(t.why.title)}</h2><ul class="ticks">${t.why.items.slice(4).map((w) => `<li><span>${esc(w)}</span></li>`).join('')}</ul></div>
-        </div>`],
-      [ui.tabs.journey, `<ol class="years">${J.milestones.map((m) => `<li><span class="y num">${esc(m.year)}</span><div class="t"><b>${esc(m.title)}</b><span class="muted">${esc(m.desc)}</span></div></li>`).join('')}</ol>`],
+        <div class="prose narrow"><p class="lead" style="color:var(--ink);max-width:none">${esc(I.p2)}</p><p class="muted">${esc(I.p3)}</p></div>`],
+      [ui.tabs.journey, `<ol class="years">${J.milestones.filter((m) => m.year !== '2018').map((m) => `<li><span class="y num">${esc(m.year)}</span><div class="t"><b>${esc(m.title)}</b><span class="muted">${esc(m.desc)}</span></div></li>`).join('')}</ol>`],
       [ui.tabs.values, plainCards(J.values, true, 'h2')],
       [ui.tabs.people, `<div class="people">${L.leaders.map((p, i) => `
         <article class="person">${ph(photos[i], p.name)}
