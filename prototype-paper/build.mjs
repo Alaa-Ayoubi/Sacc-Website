@@ -27,26 +27,19 @@ function faces(family, pkg, cssFile, wantFiles, weight, from = here) {
     return `@font-face{font-family:'${family}';font-style:normal;font-display:swap;font-weight:${weight};src:url(data:font/woff2;base64,${b64(join(dir, 'files', file))}) format('woff2');unicode-range:${range};}`;
   }).filter(Boolean).join('\n');
 }
-// Body and interface: Onest (Latin) with Almarai (Arabic).
-// Headings: Newsreader Light (Latin) with Noto Naskh Arabic, the serif's Arabic counterpart.
-//
 // A browser picks the faces of a family by weight first and by script second,
 // so the two scripts only combine when they declare exactly the same weights.
 // Each family therefore fills the same weight slots for both scripts, reusing a
 // file where a face has no such weight.
 //
-// The owner asked for everything bolder and clearer, headings included, so
-// every slot is one step heavier than its number: body text (500) is Onest 500
-// with Almarai Bold; headings are Newsreader Medium with Naskh SemiBold, and
-// small titles Newsreader SemiBold with Naskh Bold.
-const latin = (family, pkg, css, stem, slot) => faces(family, pkg, css, [`${stem}-latin-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`, `${stem}-latin-ext-${css === 'wght.css' ? 'wght' : '400'}-normal.woff2`], slot);
-const arabic = (family, pkg, w, slot = w) => faces(family, `@fontsource/${pkg}`, `${w}.css`, [`${pkg}-arabic-${w}-normal.woff2`], String(slot));
-const serif = (w, slot) => faces('SaccDisplay', '@fontsource/newsreader', `${w}.css`, [`newsreader-latin-${w}-normal.woff2`, `newsreader-latin-ext-${w}-normal.woff2`], String(slot));
+// The owner chose El Messiri for headings and Tajawal for text (both scripts
+// from each family), after asking for everything bolder and clearer: body text
+// (500) is Tajawal Medium, labels (600) Tajawal Bold, headings El Messiri
+// SemiBold and small titles El Messiri Bold.
+const both = (family, pkg, w, slot = w) => faces(family, `@fontsource/${pkg}`, `${w}.css`, [`${pkg}-arabic-${w}-normal.woff2`, `${pkg}-latin-${w}-normal.woff2`, `${pkg}-latin-ext-${w}-normal.woff2`], String(slot));
 const fonts = [
-  ...[400, 500, 600, 700].map((w) => latin('Sacc', '@fontsource-variable/onest', 'wght.css', 'onest', String(w))),
-  arabic('Sacc', 'almarai', 400), arabic('Sacc', 'almarai', 700, 500), arabic('Sacc', 'almarai', 700, 600), arabic('Sacc', 'almarai', 800, 700),
-  serif(500, 400), serif(500, 500), serif(600, 600),
-  arabic('SaccDisplay', 'noto-naskh-arabic', 600, 400), arabic('SaccDisplay', 'noto-naskh-arabic', 600, 500), arabic('SaccDisplay', 'noto-naskh-arabic', 700, 600),
+  both('Sacc', 'tajawal', 400), both('Sacc', 'tajawal', 500), both('Sacc', 'tajawal', 700, 600), both('Sacc', 'tajawal', 800, 700),
+  both('SaccDisplay', 'el-messiri', 600, 400), both('SaccDisplay', 'el-messiri', 600, 500), both('SaccDisplay', 'el-messiri', 700, 600),
 ].join('\n');
 
 const LOCAL = ['hero-infrastructure', 'water-network', 'public-realm', 'equipment-fleet'];
