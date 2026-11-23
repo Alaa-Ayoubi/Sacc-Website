@@ -237,7 +237,7 @@ function renderLang(site, lang) {
     <section class="sec wrap">
       ${secHead(S.title, S.lead, { label: S.eyebrow })}
       <div class="cards five">
-        ${S.items.map((s) => `<a class="card rise" href="${href(`services/${svcOf(s).slug}`)}"><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><span class="gap"></span><p class="caps">${esc(s.capabilities.join(' · '))}</p>${icon(up, 'go')}</a>`).join('')}
+        ${S.items.map((s) => `<a class="card rise" href="${href(`services/${svcOf(s).slug}`)}"><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p>${icon(up, 'go')}</a>`).join('')}
         <a class="card more on-dark rise" href="${href('services')}"><h3>${esc(S.title)}</h3>${icon(up, 'go')}</a>
       </div>
     </section>

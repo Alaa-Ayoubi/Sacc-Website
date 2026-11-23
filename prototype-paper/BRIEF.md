@@ -479,6 +479,9 @@ How the prototype applies them:
 - The owner asked for every font to be bolder and clearer, headings included.
   Body text is now Onest 500 with Almarai Bold; headings Newsreader Medium
   with Noto Naskh SemiBold; small titles, labels and buttons one step heavier.
+- The owner found the disciplines hard to read: on the home page each column now
+  holds only the title and description; the capabilities stay on each
+  discipline's page under «نطاق العمل».
 - The "Why choose SACC" box on the About tab is removed at the owner's request;
   the tab keeps its two paragraphs.
 - The journey's 2018 milestone (fleet modernisation) is removed, with the fleet page.
