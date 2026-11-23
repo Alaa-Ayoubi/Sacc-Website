@@ -2,11 +2,9 @@
  * Django API: stored, staff notified, and the visitor told honestly what
  * happened. Field errors from the API land on the field they belong to. */
 import { useEffect, useRef, useState } from 'react';
-import { Check, CircleAlert, Upload } from 'lucide-react';
-
 import { useSite } from '../SiteContext.jsx';
 import { submitApplication, submitQuote } from '../api.js';
-import { Icon, PageHead } from '../components/ui.jsx';
+import { Icon, PageHead, SecHead, SubHead } from '../components/ui.jsx';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const tel = (n) => `tel:${n.replace(/\s/g, '')}`;
@@ -16,7 +14,7 @@ function Field({ id, label, error, full, children }) {
     <div className={`field${full ? ' full' : ''}`}>
       <label htmlFor={id}>{label}</label>
       {children}
-      {error && <span className="err" id={`${id}-err`}><Icon as={CircleAlert} size={16} /><span>{error}</span></span>}
+      {error && <span className="err" id={`${id}-err`}><Icon name="alert" /><span>{error}</span></span>}
     </div>
   );
 }
@@ -25,8 +23,8 @@ const aria = (id, error) => ({ 'aria-invalid': error ? 'true' : undefined, 'aria
 function Status({ state, okText, failText }) {
   return (
     <div aria-live="polite">
-      {state === 'sent' && <div className="notice" role="status"><Icon as={Check} /><strong>{okText}</strong></div>}
-      {state === 'failed' && failText && <div className="notice fail" role="alert"><Icon as={CircleAlert} /><span>{failText}</span></div>}
+      {state === 'sent' && <div className="notice" role="status"><Icon name="check" /><strong>{okText}</strong></div>}
+      {state === 'failed' && failText && <div className="notice fail" role="alert"><Icon name="alert" /><span>{failText}</span></div>}
     </div>
   );
 }
@@ -51,7 +49,7 @@ export function Contact() {
   const [failure, setFailure] = useState('');
   const form = useRef(null);
 
-  // Arriving from a service, project, fleet or approvals page fills in what was being looked at.
+  // Arriving from a service, project or approvals page fills in what was being looked at.
   useEffect(() => {
     if (!prefill) return;
     setValues((v) => ({ ...v, message: prefill.message || v.message }));
@@ -98,16 +96,16 @@ export function Contact() {
       <PageHead title={C.title} lead={C.lead} />
       <section className="sec wrap form-grid">
         <form id="quote-form" ref={form} noValidate aria-labelledby="qf-h" onSubmit={onSubmit}>
-          <h2 className="h-head" id="qf-h" style={{ marginBottom: 24 }}>{ui.formH}</h2>
+          <h2 className="h-sub sub-gap" id="qf-h">{ui.formH}</h2>
           <div className="fields">
             <Field id="f-name" label={C.fields.name} error={errors.name}>
-              <input id="f-name" data-key="name" name="name" autoComplete="name" placeholder={C.placeholders.name} value={values.name} onChange={set('name')} {...aria('f-name', errors.name)} />
+              <input id="f-name" data-key="name" name="name" type="text" autoComplete="name" placeholder={C.placeholders.name} value={values.name} onChange={set('name')} {...aria('f-name', errors.name)} />
             </Field>
             <Field id="f-email" label={C.fields.email} error={errors.email}>
-              <input id="f-email" data-key="email" name="email" type="email" autoComplete="email" dir="ltr" placeholder={C.placeholders.email} value={values.email} onChange={set('email')} {...aria('f-email', errors.email)} />
+              <input id="f-email" data-key="email" name="email" type="email" autoComplete="email" dir="ltr" spellCheck={false} placeholder={C.placeholders.email} value={values.email} onChange={set('email')} {...aria('f-email', errors.email)} />
             </Field>
             <Field id="f-company" label={C.fields.company} error={errors.company} full>
-              <input id="f-company" data-key="company" name="company" autoComplete="organization" placeholder={C.placeholders.company} value={values.company} onChange={set('company')} {...aria('f-company', errors.company)} />
+              <input id="f-company" data-key="company" name="company" type="text" autoComplete="organization" placeholder={C.placeholders.company} value={values.company} onChange={set('company')} {...aria('f-company', errors.company)} />
             </Field>
             <Field id="f-message" label={C.fields.message} error={errors.message} full>
               <textarea id="f-message" data-key="message" name="message" placeholder={C.placeholders.message} value={values.message} onChange={set('message')} {...aria('f-message', errors.message)} />
@@ -115,7 +113,7 @@ export function Contact() {
             {/* Hidden from people, tempting to bots. */}
             <div className="honeypot" aria-hidden="true">
               <label htmlFor="f-website">{ui.honeypot}</label>
-              <input id="f-website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={set('website')} />
+              <input id="f-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={values.website} onChange={set('website')} />
             </div>
           </div>
           <div className="form-foot">
@@ -127,8 +125,8 @@ export function Contact() {
         </form>
         <aside aria-label={C.officeHeading}>
           <dl className="aside-list">
-            <div><dt>{C.officeHeading}</dt><dd>{C.address}</dd></div>
-            <div><dt>{C.hoursHeading}</dt><dd>{C.hours.map((h) => <span key={h} style={{ display: 'block' }}>{h}</span>)}</dd></div>
+            <div><dt>{ui.address}</dt><dd>{C.address}</dd></div>
+            <div><dt>{C.hoursHeading}</dt><dd>{C.hours.map((h) => <span key={h} className="num hr">{h}</span>)}</dd></div>
             <div><dt>{ui.phone}</dt><dd><a href={tel(company.phone)}><span className="ltr num">{company.phone}</span></a></dd></div>
             <div><dt>{ui.mobile}</dt><dd><a href={tel(company.mobile)}><span className="ltr num">{company.mobile}</span></a></dd></div>
             <div><dt>{ui.email}</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
@@ -159,13 +157,6 @@ export function Careers() {
     setValues((v) => ({ ...v, [key]: value }));
     setErrors((x) => ({ ...x, [key]: '' }));
     if (state !== 'sending') setState('idle');
-  };
-
-  const pickRole = (slug) => {
-    setValues((v) => ({ ...v, role: slug }));
-    setErrors((x) => ({ ...x, role: '' }));
-    form.current?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    setTimeout(() => form.current?.querySelector('#a-name')?.focus({ preventScroll: true }), 450);
   };
 
   const onSubmit = async (e) => {
@@ -209,36 +200,31 @@ export function Careers() {
   };
 
   const input = (key, id, extra = {}) => (
-    <input id={id} data-key={key} name={key} placeholder={K.placeholders[key]} value={values[key]} onChange={set(key)} {...aria(id, errors[key])} {...extra} />
+    <input id={id} data-key={key} name={key} type="text" placeholder={K.placeholders[key]} value={values[key]} onChange={set(key)} {...aria(id, errors[key])} {...extra} />
   );
 
   return (
     <>
       <PageHead title={K.title} lead={K.lead} />
       <section className="sec wrap">
-        <h2 className="h-head rise" style={{ marginBottom: 28 }}>{K.whyTitle}</h2>
-        <div className="cards">{K.why.map((w, i) => <div key={w.title} className="card teal rise" style={{ '--d': i % 4 }}><span className="node" /><h3>{w.title}</h3><p>{w.desc}</p></div>)}</div>
+        <SubHead>{K.whyTitle}</SubHead>
+        <div className="points">{K.why.map((w) => <div key={w.title} className="rise"><h3>{w.title}</h3><p className="muted">{w.desc}</p></div>)}</div>
       </section>
       <section className="sec wrap">
-        <h2 className="h-head rise" style={{ marginBottom: 10 }}>{K.rolesTitle}</h2>
-        <p className="muted rise" style={{ marginBottom: 28 }}>{K.rolesLead}</p>
-        <ul className="roles">
+        <SecHead title={K.rolesTitle} lead={K.rolesLead} cls="h-sub" />
+        <ul className="list roles">
           {K.roles.map((r) => (
-            <li key={r.slug} className="rise">
-              <span className="t">{r.title}</span>
-              <span className="m">{r.dept} · {r.location} · {r.type} · {r.exp}</span>
-              <button className="ghost" type="button" onClick={() => pickRole(r.slug)} aria-label={`${ui.apply}: ${r.title}`}>{ui.apply}</button>
-            </li>
+            <li key={r.slug} className="row role rise"><b>{r.title}</b>{[r.dept, r.location, r.type, r.exp].map((x, i) => <span key={i}>{x}</span>)}</li>
           ))}
         </ul>
       </section>
-      <section className="sec wrap form-grid" id="apply">
+      <section className="sec wrap form-grid solo" id="apply">
         <form id="apply-form" ref={form} noValidate aria-labelledby="af-h" onSubmit={onSubmit}>
-          <h2 className="h-head" id="af-h" style={{ marginBottom: 8 }}>{K.applyTitle}</h2>
-          <p className="muted" style={{ marginBottom: 24 }}>{K.applyLead}</p>
+          <h2 className="h-sub" id="af-h">{K.applyTitle}</h2>
+          <p className="muted apply-lead">{K.applyLead}</p>
           <div className="fields">
             <Field id="a-name" label={K.fields.name} error={errors.name}>{input('name', 'a-name', { autoComplete: 'name' })}</Field>
-            <Field id="a-email" label={K.fields.email} error={errors.email}>{input('email', 'a-email', { type: 'email', autoComplete: 'email', dir: 'ltr' })}</Field>
+            <Field id="a-email" label={K.fields.email} error={errors.email}>{input('email', 'a-email', { type: 'email', autoComplete: 'email', dir: 'ltr', spellCheck: false })}</Field>
             <Field id="a-phone" label={K.fields.phone} error={errors.phone}>{input('phone', 'a-phone', { type: 'tel', autoComplete: 'tel', dir: 'ltr' })}</Field>
             <Field id="a-exp" label={K.fields.exp} error={errors.exp}>{input('exp', 'a-exp', { type: 'number', min: 0, max: 60, inputMode: 'numeric' })}</Field>
             <Field id="a-role" label={K.fields.role} error={errors.role} full>
@@ -249,25 +235,25 @@ export function Careers() {
               </select>
             </Field>
             <div className="field full">
-              <span className="label" id="a-cv-l">{K.fields.cv}</span>
+              <span className="field-label" id="a-cv-l">{K.fields.cv}</span>
               <label className="visually-hidden" htmlFor="a-cv">{K.cvLink}</label>
-              <input id="a-cv" data-key="cv" name="cv" type="url" dir="ltr" placeholder={K.placeholders.cv} value={values.cv} onChange={set('cv')}
+              <input id="a-cv" data-key="cv" name="cv" type="url" dir="ltr" spellCheck={false} autoComplete="url" placeholder={K.placeholders.cv} value={values.cv} onChange={set('cv')}
                 aria-invalid={errors.cv ? 'true' : undefined} aria-describedby={`a-cv-l a-cv-hint${errors.cv ? ' a-cv-err' : ''}`} />
               <div className="file-row">
-                <input id="a-file" ref={file} type="file" accept=".pdf,.doc,.docx" className="visually-hidden"
+                <input id="a-file" ref={file} name="cv_file" type="file" accept=".pdf,.doc,.docx" className="visually-hidden"
                   onChange={(e) => { setCvFile(e.target.files[0] || null); setErrors((x) => ({ ...x, cv: '' })); }} />
-                <label className="file-btn" htmlFor="a-file"><Icon as={Upload} />{K.cvUploadBtn}</label>
+                <label className="file-btn" htmlFor="a-file"><Icon name="upload" />{K.cvUploadBtn}</label>
                 <span className="hint">{cvFile ? cvFile.name : K.cvNone}</span>
               </div>
               <span className="hint" id="a-cv-hint">{K.cvHint}</span>
-              {errors.cv && <span className="err" id="a-cv-err"><Icon as={CircleAlert} size={16} /><span>{errors.cv}</span></span>}
+              {errors.cv && <span className="err" id="a-cv-err"><Icon name="alert" /><span>{errors.cv}</span></span>}
             </div>
             <Field id="a-note" label={K.fields.note} error={errors.note} full>
               <textarea id="a-note" data-key="note" name="note" placeholder={K.placeholders.note} value={values.note} onChange={set('note')} {...aria('a-note', errors.note)} />
             </Field>
             <div className="honeypot" aria-hidden="true">
               <label htmlFor="a-website">{ui.honeypot}</label>
-              <input id="a-website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={set('website')} />
+              <input id="a-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={values.website} onChange={set('website')} />
             </div>
           </div>
           <div className="form-foot">

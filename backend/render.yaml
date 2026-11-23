@@ -129,9 +129,6 @@ services:
         source: /ar/projects
         destination: /projects
       - type: redirect
-        source: /ar/fleet
-        destination: /fleet
-      - type: redirect
         source: /ar/approvals
         destination: /approvals
       - type: redirect
@@ -196,13 +193,22 @@ services:
         destination: /en/company
       - type: redirect
         source: /equipment
-        destination: /fleet
+        destination: /services/equipment-rental
       - type: redirect
         source: /ar/equipment
-        destination: /fleet
+        destination: /services/equipment-rental
       - type: redirect
         source: /en/equipment
-        destination: /en/fleet
+        destination: /en/services/equipment-rental
+      - type: redirect
+        source: /fleet
+        destination: /services/equipment-rental
+      - type: redirect
+        source: /ar/fleet
+        destination: /services/equipment-rental
+      - type: redirect
+        source: /en/fleet
+        destination: /en/services/equipment-rental
       - type: redirect
         source: /certifications
         destination: /approvals
@@ -239,9 +245,6 @@ services:
       - type: rewrite
         source: /projects
         destination: /projects/index.html
-      - type: rewrite
-        source: /fleet
-        destination: /fleet/index.html
       - type: rewrite
         source: /approvals
         destination: /approvals/index.html
@@ -308,9 +311,6 @@ services:
       - type: rewrite
         source: /en/projects
         destination: /en/projects/index.html
-      - type: rewrite
-        source: /en/fleet
-        destination: /en/fleet/index.html
       - type: rewrite
         source: /en/approvals
         destination: /en/approvals/index.html
