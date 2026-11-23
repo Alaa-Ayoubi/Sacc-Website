@@ -136,13 +136,16 @@ function renderLang(site, lang) {
     </div>`;
 
   // The approving bodies: one plate per body, its official logo only.
-  const band = (tag) => `
+  // On the home page the three ISO standards ride quietly at the foot of the band.
+  const isoLine = () => `<p class="iso-line rise"><span>${esc(Cc.isoHeading)}</span>${Cc.iso.map((x) => `<span class="iso"><b class="ltr num">${esc(x.title)}</b> ${esc(x.desc)}</span>`).join('')}</p>`;
+  const band = (tag, iso = false) => `
       <div class="band"><div class="wrap">
         <${tag} class="band-h rise">${esc(Cc.approvalsHeading)}</${tag}>
         <ul class="bodies">${Cc.approvals.map((a, i) => {
           const logo = LOGOS[BODIES[i]];
           return `<li class="body rise">${logo ? `<img src="${logo.src}" alt="${esc(a)}" width="${logo.w}" height="${logo.h}" style="--lw:${logo.w}px" decoding="async">` : `<span class="body-name">${esc(a)}</span>`}</li>`;
         }).join('')}</ul>
+        ${iso ? isoLine() : ''}
       </div></div>`;
 
   const plainCards = (items, four = true, tag = 'h3') => `<div class="cards${four ? ' four' : ''}">${items.map((x) => `<div class="card plain rise"><${tag} class="h3">${esc(typeof x === 'string' ? x : x.title)}</${tag}>${x.desc ? `<p>${esc(x.desc)}</p>` : ''}</div>`).join('')}</div>`;
@@ -167,8 +170,8 @@ function renderLang(site, lang) {
 <div class="page${home ? ' home' : ''}" id="${pid}" lang="${lang}" dir="${rtl ? 'rtl' : 'ltr'}">
   <a class="skip" href="#main-${pid}">${esc(ui.skip)}</a>
   <header class="bar"><div class="wrap bar-in">
-    ${brand}${nav('main-nav')}${langLink}${action('bar-action')}
-    <a class="icon-btn menu-btn" href="#menu-${pid}" aria-label="${esc(ui.menu)}">${icon('menu')}</a>
+    ${brand}${nav('main-nav')}
+    <div class="bar-end">${langLink}${action('bar-action')}<a class="icon-btn menu-btn" href="#menu-${pid}" aria-label="${esc(ui.menu)}">${icon('menu')}</a></div>
   </div></header>
   ${hero}
   <main class="sheet-body" id="main-${pid}" tabindex="-1">${body}</main>
@@ -225,11 +228,7 @@ function renderLang(site, lang) {
 
     <section class="sec">
       <div class="wrap">${secHead(Cc.title, Cc.lead, { label: Cc.eyebrow, extra: btn('approvals', ui.apprMore) })}</div>
-      ${band('h3')}
-      <div class="wrap" style="margin-top:clamp(48px,6vw,88px)">
-        <h3 class="sub-h rise">${esc(Cc.isoHeading)}</h3>
-        ${isoTiles()}
-      </div>
+      ${band('h3', true)}
     </section>
 
     <section class="sec wrap">

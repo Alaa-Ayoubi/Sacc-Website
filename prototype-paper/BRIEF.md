@@ -452,6 +452,15 @@ How the prototype applies them:
 - The owner then sent the positive versions of the Aramco and Ma'aden logos,
   so every plate is white.
 - The owner then removed the hero's fleet figure (150+), so the hero shows three figures.
+- The owner found the beige plates read as sticky notes and chose ruled
+  columns for all of them, the nine disciplines included: no fill, a firm rule
+  over each item, title and text below. The ISO standards follow the same
+  rule. The owner also found the header and hero parts out of place: the
+  header is now three zones so the links sit at its true centre, and the
+  three hero figures run edge to edge (start, centre, end).
+- The ISO standards took more room than their weight on the home page: they
+  are now one quiet line at the foot of the approvals band. The approvals page
+  keeps them in full.
 - Then, with the same design kept as it is: polish its interaction and motion.
   Pressable things answer a press (a slight scale); hover effects apply to
   pointer devices only; only transform and opacity move; interface changes
