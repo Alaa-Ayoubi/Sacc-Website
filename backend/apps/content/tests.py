@@ -213,3 +213,76 @@ class ExportSiteDataCommandTests(TestCase):
             without_ids(json.loads(snapshot.read_text(encoding="utf-8"))),
             without_ids(build_site_bundle()),
         )
+
+
+class ContentMigrationTests(TestCase):
+    """The owner's content edits shipped as data migrations (0004 to 0007)."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("seed_content", verbosity=0)
+
+    def _migration(self, name):
+        from importlib import import_module
+
+        return import_module(f"apps.content.migrations.{name}")
+
+    def test_seed_carries_no_fleet_count_and_the_new_ministry_name(self):
+        values = list(Stat.objects.values_list("value", flat=True))
+        self.assertNotIn("150+", values)
+        from apps.content.models import Milestone
+
+        self.assertFalse(Milestone.objects.filter(year_en="2018").exists())
+        equipment = Section.objects.get(key="equipment")
+        self.assertNotIn("150", equipment.body_1_ar + equipment.body_1_en)
+        certs = Section.objects.get(key="certifications")
+        self.assertIn("وزارة البلديات والإسكان", certs.list_ar)
+        self.assertIn("Ministry of Municipalities and Housing", certs.list_en)
+
+    def test_renumbering_closes_gaps_so_a_reseed_adds_no_duplicates(self):
+        from django.apps import apps as global_apps
+
+        from apps.content.models import Milestone
+
+        # The state 0004 leaves in production: gaps where rows were deleted.
+        for model in (Stat, Milestone):
+            for row in model.objects.order_by("order"):
+                model.objects.filter(pk=row.pk).update(order=row.order * 2)
+        self._migration("0007_renumber_stats_and_milestones").renumber(global_apps, None)
+        self.assertEqual(list(Stat.objects.order_by("order").values_list("order", flat=True)), [0, 1, 2])
+        stats, milestones = Stat.objects.count(), Milestone.objects.count()
+
+        call_command("seed_content", verbosity=0)
+        self.assertEqual(Stat.objects.count(), stats)
+        self.assertEqual(Milestone.objects.count(), milestones)
+
+    def test_service_photographs_fill_only_empty_rows_and_reverse(self):
+        from django.apps import apps as global_apps
+
+        migration = self._migration("0006_service_photographs")
+        water = Service.objects.get(icon="Droplets")
+        Service.objects.update(image_url="")
+        water.image_url = "https://example.com/own.jpg"
+        water.save(update_fields=["image_url"])
+
+        migration.forwards(global_apps, None)
+        water.refresh_from_db()
+        self.assertEqual(water.image_url, "https://example.com/own.jpg")  # an admin choice is kept
+        self.assertEqual(Service.objects.get(icon="Construction").image_url, "")  # bridges: none yet
+        self.assertEqual(Service.objects.exclude(image_url="").count(), 8)
+
+        migration.backwards(global_apps, None)
+        self.assertEqual(Service.objects.exclude(image_url="").count(), 1)  # only the admin's own
+
+    def test_bundle_carries_each_service_photograph(self):
+        built = build_site_bundle()
+        for lang in ("ar", "en"):
+            images = [item["image"] for item in built[lang]["services"]["items"]]
+            self.assertEqual(len(images), Service.objects.count())
+            self.assertEqual(sum(bool(x) for x in images), 8)
+
+    def test_an_uploaded_service_image_wins_over_its_address(self):
+        service = Service(image_url="https://example.com/a.jpg")
+        self.assertEqual(service.image_src, "https://example.com/a.jpg")
+        service.image.name = "services/b.jpg"
+        self.assertTrue(service.image_src.endswith("services/b.jpg"))

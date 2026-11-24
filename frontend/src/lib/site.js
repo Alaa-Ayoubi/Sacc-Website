@@ -47,15 +47,15 @@ export const BODIES = [
   ['maaden', 127, 46], ['rcjy', 141, 41], ['momah', 93, 63],
 ];
 export const isDone = (p) => /complete|مكتمل|منجز/i.test(p.status);
-/** Local repository photos are served from /assets; the bundle writes them as ./assets/... */
-export const src = (u) => (!u ? '' : u.startsWith('./') ? u.slice(1) : u);
-/* The design shows only the company's own photographs, from its image server
- * (content.images); the stock photographs kept in the repository are not used. */
+/* The design shows only the company's own photographs, from its image server;
+ * the stock photographs kept in the repository are not used. Each project and
+ * leader carries its own photograph, so a deletion or a new order in the admin
+ * never moves a photograph to someone else. */
 const isRemote = (u) => /^https?:/i.test(u || '');
 /** A project's photograph, or '' when it has none of its own. */
-export const projImage = (site, p) => { const u = site.images.projects?.[p.id - 1]; return isRemote(u) ? u : ''; };
-/** A leader's portrait (chairman, general manager), or ''. */
-export const portrait = (site, i) => { const u = [site.images.chairman, site.images.gm][i]; return isRemote(u) ? u : ''; };
+export const projImage = (site, p) => (isRemote(p.image) ? p.image : '');
+/** A leader's portrait, or ''. */
+export const portrait = (leader) => (isRemote(leader.photo) ? leader.photo : '');
 
 export const UI = {
   ar: {
@@ -70,7 +70,8 @@ export const UI = {
     apply: 'تقدّم لهذه الوظيفة', role: 'الوظيفة', dept: 'القسم', loc: 'الموقع', type: 'الدوام', exp: 'الخبرة',
     emailRequired: 'البريد الإلكتروني مطلوب', meetLeaders: 'تعرّف على القيادة', ourJourney: 'مسيرتنا منذ 2007',
     featured: 'مشاريع مختارة', figuresLabel: 'الشركة بالأرقام', homeDisc: 'ما ننفّذه',
-    published: { one: 'مشروع منشور واحد', two: 'مشروعان منشوران', few: 'مشاريع منشورة' },
+    published: { one: 'مشروع منشور واحد', two: 'مشروعان منشوران', few: 'مشاريع منشورة', many: 'مشروعاً منشوراً' },
+    shown: (n) => (n === 1 ? 'يُعرض مشروع واحد' : n === 2 ? 'يُعرض مشروعان' : n >= 3 && n <= 10 ? `يُعرض ${n} مشاريع` : `يُعرض ${n} مشروعاً`),
     notFoundTitle: 'الصفحة غير موجودة', notFoundLead: 'ربما نُقلت الصفحة أو تغيّر عنوانها.', home: 'الصفحة الرئيسية',
     honeypot: 'اترك هذا الحقل فارغاً',
   },
@@ -86,7 +87,8 @@ export const UI = {
     apply: 'Apply for this role', role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
     emailRequired: 'Email is required', meetLeaders: 'Meet the leadership', ourJourney: 'Our journey since 2007',
     featured: 'Selected projects', figuresLabel: 'The company in figures', homeDisc: 'What we deliver',
-    published: { one: '1 published project', two: '2 published projects', few: 'published projects' },
+    published: { one: '1 published project', two: '2 published projects', few: 'published projects', many: 'published projects' },
+    shown: (n) => (n === 1 ? 'Showing 1 project' : `Showing ${n} projects`),
     notFoundTitle: 'Page not found', notFoundLead: 'The page may have moved or its address changed.', home: 'Home page',
     honeypot: 'Leave this field empty',
   },

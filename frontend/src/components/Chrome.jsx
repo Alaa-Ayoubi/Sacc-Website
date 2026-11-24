@@ -37,6 +37,13 @@ export function Masthead() {
   const refocus = useRef(false);
 
   useEffect(() => { setOpen(false); }, [route]);
+  // The menu belongs to narrow screens: widening past them closes it.
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 1181px)');
+    const onChange = (e) => { if (e.matches) setOpen(false); };
+    wide.addEventListener('change', onChange);
+    return () => wide.removeEventListener('change', onChange);
+  }, []);
   useEffect(() => {
     if (!open) return undefined;
     // The menu opens right under the masthead, wherever the page has scrolled to.
@@ -46,14 +53,15 @@ export function Masthead() {
     const onKey = (e) => { if (e.key === 'Escape') { refocus.current = true; setOpen(false); } };
     document.addEventListener('keydown', onKey);
     // While the menu is open the page under it neither scrolls nor takes focus.
-    const behind = [...document.querySelectorAll('.topbar, main, .footer')];
+    const behind = [...document.querySelectorAll('.skip, .topbar, main, .footer')];
     behind.forEach((el) => el.setAttribute('inert', ''));
     document.documentElement.classList.add('locked');
     return () => {
       document.removeEventListener('keydown', onKey);
       behind.forEach((el) => el.removeAttribute('inert'));
       document.documentElement.classList.remove('locked');
-      if (refocus.current) { refocus.current = false; btn.current?.focus(); }
+      // Without preventScroll the browser scrolls the page back to the button.
+      if (refocus.current) { refocus.current = false; btn.current?.focus({ preventScroll: true }); }
     };
   }, [open]);
 
@@ -78,7 +86,8 @@ export function Masthead() {
         </div>
       </div>
       <nav className={`drawer${open ? ' open' : ''}`} id="drawer" aria-label={ui.menu} ref={drawer}>
-        {NAV.map(([page]) => <Link key={page} to={page} aria-current={cur(page)}><span>{navLabel(t, page)}</span><Arrow /></Link>)}
+        {/* A link closes the menu even when it leads to the page already open. */}
+        {NAV.map(([page]) => <Link key={page} to={page} aria-current={cur(page)} onClick={() => setOpen(false)}><span>{navLabel(t, page)}</span><Arrow /></Link>)}
       </nav>
     </header>
   );

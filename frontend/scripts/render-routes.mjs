@@ -10,8 +10,9 @@
  * address gets a real 404, not a copy of the home page.
  *
  * Old addresses get permanent (301) redirects: the /ar prefix of the previous
- * site, and the old page names (about, equipment, certifications, journey,
- * leadership). Old #hash links cannot reach a server; the app moves those. */
+ * site, and the old page names (about, equipment, certifications; journey and
+ * leadership kept their names and are pages of their own). Old #hash links
+ * cannot reach a server; the app moves those. */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';

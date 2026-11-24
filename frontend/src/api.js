@@ -69,8 +69,6 @@ export function submitQuote(values) {
       email: values.email,
       phone: values.phone || '',
       company: values.company,
-      project_type: values.projectTypeKey || null,
-      project_type_other: values.projectTypeKey ? '' : values.type || '',
       message: values.message,
       locale: values.locale || 'ar',
       website: values.website || '',
