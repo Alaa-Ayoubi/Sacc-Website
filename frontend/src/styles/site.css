@@ -195,15 +195,6 @@ html[lang='en'] .hero h1 { line-height: 1.08; }
 }
 
 /* Services page: one cell per discipline */
-.disc-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--rule-strong); border-inline-start: 1px solid var(--rule); }
-.disc-grid li { border-inline-end: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.disc-grid a { display: grid; gap: 14px; padding: 28px; text-decoration: none; height: 100%; transition: background-color 160ms var(--ease); }
-@media (hover: hover) and (pointer: fine) { .disc-grid a:hover { background: var(--mist); } }
-.disc-grid h2 { font-size: 1.2rem; line-height: 1.45; }
-.disc-grid .meta { color: var(--ink-3); font-size: 0.9rem; }
-.disc-grid .go { color: var(--teal-700); font-weight: 700; font-size: 0.93rem; display: inline-flex; gap: 6px; align-items: center; }
-@media (max-width: 900px) { .disc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .disc-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Projects ---------- */
 .proj-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
@@ -395,17 +386,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
   .roles td:last-child { padding-top: 10px !important; }
 }
 
-/* ---------- Footer ---------- */
-.footer { background: var(--teal-950); color: var(--on-teal-2); }
-.footer-in { width: var(--wrap); margin-inline: auto; padding-block: 52px 32px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 40px; }
-.footer img { height: 36px; width: auto; }
-.footer h2 { font-size: 0.95rem; color: var(--on-teal); margin-bottom: 14px; }
-.footer ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 24px; font-size: 0.93rem; }
-.footer a { color: var(--on-teal-2); text-decoration: none; }
-@media (hover: hover) and (pointer: fine) { .footer a:hover { color: var(--on-teal); } }
-.footer-base { width: var(--wrap); margin-inline: auto; border-top: 1px solid rgba(242, 247, 247, 0.12); padding-block: 18px 26px; font-size: 0.85rem; }
-@media (max-width: 760px) { .footer-in { grid-template-columns: 1fr; } }
-@media (max-width: 420px) { .footer ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* ---------- Motion ----------
    Motion answers the visitor: a press gives a little, a menu shows where it
@@ -458,8 +438,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .ruled-desc p { color: var(--ink-2); margin-top: 4px; max-width: 70ch; }
 
 /* services cards: fixed rows so titles and links align across each row */
-.disc-grid a { grid-template-rows: auto minmax(1.6em, auto) 1fr; }
-.disc-grid .go { align-self: end; }
 
 /* ---------- Fixed hero photograph: the page slides over it ----------
    The photograph is a sticky layer pinned under the masthead for the whole
@@ -488,25 +466,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
   .hero-in { min-height: calc(100svh - var(--head-h) - 160px); }
 }
 
-/* ---------- Footer: one compact, ordered bar ---------- */
-.footer-in { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; padding-block: 22px; grid-template-columns: none; }
-.footer-brand { flex: none; display: inline-flex; }
-.footer-brand img { height: 32px; }
-.footer-links { flex: 1 1 auto; }
-.footer-links ul { display: flex; flex-wrap: wrap; gap: 6px 22px; grid-template-columns: none; font-size: 0.9rem; }
-.footer-rights { flex: none; font-size: 0.82rem; color: var(--on-teal-2); opacity: 0.85; }
-.footer-base { display: none; }
-@media (max-width: 760px) {
-  .footer-in { gap: 14px 20px; padding-block: 20px 24px; }
-  .footer-links { flex-basis: 100%; order: 2; }
-  .footer-links ul { gap: 8px 18px; }
-  .footer-rights { order: 3; flex-basis: 100%; }
-}
-.footer-in { column-gap: 28px; }
-.footer-links { flex: 1 1 0; min-width: 0; }
-.footer-links ul { column-gap: 18px; font-size: 0.88rem; }
-@media (max-width: 760px) { .footer-links { flex: 1 1 100%; } }
-@media (max-width: 760px) { .footer-links { flex: 1 1 auto; order: 0; } }
 
 /* ---------- Approving bodies: each by its official logo ----------
    One white plate per body, so every logo sits on the ground it was made for.
@@ -588,3 +547,59 @@ html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
 .features.iso-cards li { padding: 24px 0; border-bottom: 0; border-top: 2px solid var(--teal-700); }
 .features.iso-cards :is(h3, h4) { font-size: 1.25rem; }
 @media (max-width: 860px) { .features.iso-cards { grid-template-columns: 1fr; } .features.iso-cards li { border-top-width: 1px; border-top-color: var(--rule-strong); } }
+
+/* ---------- Services: each discipline in full ----------
+   A card per discipline: the company's photograph (or its frame's tint when
+   there is none), the title, what it is, and what it covers as a checked list.
+   The title's link stretches over the whole card. */
+.svc-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; }
+.svc-card { position: relative; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--rule); border-radius: 2px; transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease), transform 120ms var(--ease); }
+.svc-card .photo { position: relative; margin: 0; aspect-ratio: 16 / 10; background: var(--teal-100); overflow: hidden; }
+.svc-card .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 450ms var(--ease); }
+.svc-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 18px; }
+.svc-body h2 { font-size: 1.2rem; line-height: 1.45; }
+.svc-body h2 a { text-decoration: none; }
+.svc-body h2 a::after { content: ''; position: absolute; inset: 0; }
+.svc-desc { color: var(--ink-2); font-size: 0.97rem; line-height: 1.7; }
+.svc-caps-h { margin-top: 6px; font-size: 0.88rem; color: var(--ink-3); font-weight: 700; }
+.svc-caps.caps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+.svc-caps.caps li { padding: 9px 0; font-size: 0.92rem; }
+.svc-foot { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.svc-foot .meta { color: var(--ink-3); font-size: 0.88rem; }
+.svc-foot .go { color: var(--teal-700); font-weight: 700; font-size: 0.93rem; display: inline-flex; gap: 6px; align-items: center; }
+.svc-card:focus-within { border-color: var(--teal-700); }
+.svc-body h2 a:focus-visible { outline: none; }
+.svc-body h2 a:focus-visible::after { outline: 3px solid var(--teal-600); outline-offset: 3px; }
+.svc-card:active { transform: scale(0.99); }
+@media (hover: hover) and (pointer: fine) {
+  .svc-card:hover { border-color: var(--rule-strong); box-shadow: 0 18px 40px -30px rgba(13, 53, 54, 0.45); }
+  .svc-card:hover .photo img { transform: scale(1.03); }
+  .svc-card:hover h2 a { color: var(--teal-700); }
+  .svc-card:hover .go .icon { transform: translateX(calc(var(--dir) * 3px)); }
+}
+.svc-foot .go .icon { transition: transform 160ms var(--ease); }
+@media (max-width: 1020px) { .svc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .svc-cards { grid-template-columns: 1fr; } .svc-caps.caps { grid-template-columns: 1fr 1fr; } }
+.svc-card { min-width: 0; }
+.svc-caps.caps li span { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 420px) { .svc-caps.caps { grid-template-columns: 1fr; } }
+
+/* ---------- Footer: the company's register ----------
+   Four columns on deep teal: who we are (logo, line, registration), the pages,
+   the certificates and approvals, and how to reach the office; then a base
+   line with the rights and the careers link. */
+.footer { background: var(--teal-950); color: var(--on-teal-2); font-size: 0.92rem; }
+.footer a { color: var(--on-teal-2); text-decoration: none; transition: color 140ms var(--ease); }
+@media (hover: hover) and (pointer: fine) { .footer a:hover { color: var(--on-teal); } }
+.footer-in { width: var(--wrap); margin-inline: auto; padding-block: clamp(44px, 6vw, 64px) 32px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr); gap: 36px 40px; }
+.footer-brand { display: inline-flex; }
+.footer-brand img { height: 36px; width: auto; }
+.footer-about p { margin-top: 16px; line-height: 1.75; max-width: 36ch; }
+.footer-about .cr { margin-top: 14px; display: inline-flex; gap: 8px; align-items: center; color: var(--on-teal); font-size: 0.88rem; }
+.footer h2 { font-size: 0.98rem; color: var(--on-teal); margin-bottom: 16px; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.footer .icon { color: var(--orange); }
+.footer-certs li, .footer-reach li { display: flex; gap: 10px; align-items: baseline; }
+.footer-base { width: var(--wrap); margin-inline: auto; padding-block: 18px 26px; border-top: 1px solid rgba(242, 247, 247, 0.12); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font-size: 0.85rem; }
+@media (max-width: 1020px) { .footer-in { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .footer-in { grid-template-columns: 1fr; gap: 28px; } }

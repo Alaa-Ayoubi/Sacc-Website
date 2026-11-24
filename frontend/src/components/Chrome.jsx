@@ -85,15 +85,40 @@ export function Masthead() {
 }
 
 export function Footer() {
-  const { t, route } = useSite();
+  const { t, ui, company, route } = useSite();
+  const F = t.footer, C = t.contact;
+  const cur = (page) => (route.page === page ? 'page' : undefined);
   return (
     <footer className="footer">
       <div className="footer-in">
-        <Link to="" className="footer-brand"><img src="/assets/logo-full.webp" alt={t.brandLine} width="128" height="32" /></Link>
-        <nav className="footer-links" aria-label={t.footer.quickLinks}>
-          <ul><li><Link to="careers" aria-current={route.page === 'careers' ? 'page' : undefined}>{t.navCareers}</Link></li></ul>
+        <div className="footer-about">
+          <Link to="" className="footer-brand"><img src="/assets/logo-full.webp" alt={t.brandLine} width="144" height="36" /></Link>
+          <p>{F.tagline}</p>
+          <span className="cr"><Icon name="file-text" />{ui.cr} <span className="num">{company.cr}</span></span>
+        </div>
+        <nav aria-labelledby="foot-links-h">
+          <h2 id="foot-links-h">{F.quickLinks}</h2>
+          <ul>
+            {NAV.map(([page]) => <li key={page}><Link to={page} aria-current={cur(page)}>{navLabel(t, page)}</Link></li>)}
+            <li><Link to="careers" aria-current={cur('careers')}>{t.navCareers}</Link></li>
+          </ul>
         </nav>
-        <p className="footer-rights">{t.footer.rights}</p>
+        <div>
+          <h2>{F.certsHeading}</h2>
+          <ul className="footer-certs">{F.certs.map((c) => <li key={c}><Icon name="check" /><span>{c}</span></li>)}</ul>
+        </div>
+        <div>
+          <h2>{F.contactHeading}</h2>
+          <ul className="footer-reach">
+            <li><Icon name="map-pin" /><span>{C.address}</span></li>
+            <li><Icon name="phone" /><a href={tel(company.phone)}><span className="ltr num">{company.phone}</span></a></li>
+            <li><Icon name="phone" /><a href={tel(company.mobile)}><span className="ltr num">{company.mobile}</span></a></li>
+            <li><Icon name="mail" /><a href={`mailto:${company.email}`}>{company.email}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div className="footer-base">
+        <p>{F.rights}</p>
       </div>
     </footer>
   );
