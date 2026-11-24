@@ -176,11 +176,22 @@ class Service(OrderedModel, TranslatableModel):
     capabilities_ar = models.TextField(blank=True, help_text="One capability per line.")
     capabilities_en = models.TextField(blank=True, help_text="One capability per line.")
 
+    # A photograph of the company's own work in this discipline, shown on the
+    # services page. Upload one, or give the address of one already online.
+    image = models.ImageField(upload_to="services/", blank=True)
+    image_url = models.CharField(
+        max_length=500, blank=True, help_text="Used when no image is uploaded."
+    )
+
     class Meta(OrderedModel.Meta):
         verbose_name = "service"
 
     def __str__(self):
         return self.title_en or self.title_ar or f"Service #{self.pk}"
+
+    @property
+    def image_src(self) -> str:
+        return self.image.url if self.image else self.image_url
 
 
 class EquipmentFeature(OrderedModel, TranslatableModel):

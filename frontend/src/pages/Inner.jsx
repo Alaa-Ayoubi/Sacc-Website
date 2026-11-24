@@ -53,15 +53,25 @@ export function Services() {
     <>
       <PageHead title={S.title} lead={S.lead} />
       <section className="band"><div className="wrap">
-        <ul className="disc-grid">
+        {/* Each discipline in full: its photograph, what it is, what it covers. The
+            whole card opens the discipline's page. */}
+        <ul className="svc-cards">
           {S.items.map((s) => {
             const n = relProjects(t, s).length;
             return (
-              <li key={s.icon}><Link to={`services/${svcOf(s).slug}`}>
-                <h2>{s.title}</h2>
-                <span className="meta" aria-hidden={n ? undefined : 'true'}>{n ? <Published n={n} /> : ''}</span>
-                <span className="go">{ui.details} <Arrow /></span>
-              </Link></li>
+              <li key={s.icon} className="svc-card">
+                <Photo src={s.image} />
+                <div className="svc-body">
+                  <h2><Link to={`services/${svcOf(s).slug}`}>{s.title}</Link></h2>
+                  <p className="svc-desc">{s.desc}</p>
+                  <h3 className="svc-caps-h">{S.capabilitiesHeading.replace(/[:：]\s*$/, "")}</h3>
+                  <Checks items={s.capabilities} className="caps svc-caps" />
+                  <p className="svc-foot">
+                    <span className="meta">{n ? <Published n={n} /> : ''}</span>
+                    <span className="go" aria-hidden="true">{ui.details} <Arrow /></span>
+                  </p>
+                </div>
+              </li>
             );
           })}
         </ul>

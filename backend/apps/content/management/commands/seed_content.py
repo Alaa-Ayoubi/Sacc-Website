@@ -321,6 +321,7 @@ class Command(BaseCommand):
                     "description_ar": a["desc"], "description_en": e["desc"],
                     "capabilities_ar": joined(a.get("capabilities")),
                     "capabilities_en": joined(e.get("capabilities")),
+                    "image_url": a.get("image", ""),
                 },
             )
         return len(ar_items)
