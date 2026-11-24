@@ -307,7 +307,7 @@ html[lang='en'] .hero h1 { line-height: 1.08; }
 .features li { padding: 22px 22px 22px 0; border-bottom: 1px solid var(--rule); }
 html[dir='rtl'] .features li { padding: 22px 0 22px 22px; }
 .features .icon { width: 28px; height: 28px; color: var(--teal-600); }
-.features h3 { font-size: 1.05rem; margin: 12px 0 6px; }
+.features :is(h3, h4) { font-size: 1.05rem; margin: 12px 0 6px; }
 .features p { color: var(--ink-2); font-size: 0.95rem; }
 .teal .features { border-top-color: rgba(242, 247, 247, 0.25); }
 .teal .features li { border-bottom-color: rgba(242, 247, 247, 0.16); }
@@ -450,11 +450,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 /* home disciplines: the name, then the arrow */
 .disc-list a { justify-content: flex-start; }
 .disc-list .name { flex: 1; }
-/* home approvals: one ruled row of names */
-.names { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; border-top: 1px solid rgba(242, 247, 247, 0.25); border-bottom: 1px solid rgba(242, 247, 247, 0.25); }
-.names li { padding: 16px 22px; font-weight: 700; border-inline-end: 1px solid rgba(242, 247, 247, 0.16); }
-.names li:first-child { padding-inline-start: 0; }
-.names li:last-child { border-inline-end: 0; }
 /* equipment support: ruled list */
 .ruled-desc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
 .ruled-desc li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
@@ -462,14 +457,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .ruled-desc h3 { font-size: 1.08rem; }
 .ruled-desc p { color: var(--ink-2); margin-top: 4px; max-width: 70ch; }
 
-/* approvals on a fixed grid: ISO codes in one row of three, bodies in a ruled grid */
-.names { display: grid; flex-wrap: nowrap; border-bottom: 0; }
-.names li { padding: 16px 0; border-inline-end: 0; border-bottom: 1px solid rgba(242, 247, 247, 0.16); }
-.names li:first-child { padding-inline-start: 0; }
-.names.iso { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; font-size: 1.15rem; }
-.names.bodies-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; border-top: 0; }
-@media (max-width: 1020px) { .names.bodies-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .names.bodies-grid { grid-template-columns: 1fr; } .names.iso { grid-template-columns: 1fr; } }
 /* services cards: fixed rows so titles and links align across each row */
 .disc-grid a { grid-template-rows: auto minmax(1.6em, auto) 1fr; }
 .disc-grid .go { align-self: end; }
@@ -528,7 +515,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 .logos li { display: flex; align-items: center; justify-content: center; min-height: 116px; padding: 20px 24px; background: var(--white); border-radius: 2px; }
 .logos img { height: auto; }
 .band:not(.teal) .logos li { box-shadow: inset 0 0 0 1px var(--rule); }
-.names.iso + .logos { margin-top: 28px; }
 @media (max-width: 1020px) { .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); } .logos li { min-height: 96px; padding: 16px; } .logos img { max-width: 80%; } }
 
@@ -539,7 +525,8 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
    The logos ride without plates, as in the first design. Two copies of the
    row slide by half the track; hover or focus pauses it; under reduced
    motion it stands still, centred and wrapped. */
-.strip + .names.iso { margin-top: 28px; }
+.approvals-band .iso-sub { margin-top: clamp(36px, 5vw, 56px); margin-bottom: 18px; font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+.iso-sub + .iso-cards { border-top: 0; }
 .strip-view {
   overflow: hidden; padding-block: 10px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
@@ -578,8 +565,6 @@ html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
 @media (max-width: 560px) { .hero-strip ul { flex-direction: column; gap: 6px; padding: 14px 0; font-size: 0.93rem; } }
 
 /* ---------- Home: the approvals on a light ground ---------- */
-.approvals-band .names { border-top-color: var(--rule-strong); }
-.approvals-band .names li { border-bottom-color: var(--rule); color: var(--ink); }
 
 /* ---------- Pages in parts ----------
    A page's parts follow one another as bands, each under its own heading, on
@@ -601,5 +586,5 @@ html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
 /* Certifications: the three ISO standards, side by side. */
 .features.iso-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
 .features.iso-cards li { padding: 24px 0; border-bottom: 0; border-top: 2px solid var(--teal-700); }
-.features.iso-cards h3 { font-size: 1.25rem; }
+.features.iso-cards :is(h3, h4) { font-size: 1.25rem; }
 @media (max-width: 860px) { .features.iso-cards { grid-template-columns: 1fr; } .features.iso-cards li { border-top-width: 1px; border-top-color: var(--rule-strong); } }

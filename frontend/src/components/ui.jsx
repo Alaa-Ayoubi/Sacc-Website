@@ -147,3 +147,12 @@ export function LogoStrip({ names }) {
   );
 }
 
+/** The three ISO standards side by side: a certificate mark, the standard,
+ * what it covers. The same cards on the home page and the certifications page. */
+export function IsoCards({ iso, as: H = 'h3' }) {
+  return (
+    <ul className="features iso-cards">
+      {iso.map((i) => <li key={i.title}><Icon name="award" /><H><span className="num ltr">{i.title}</span></H><p>{i.desc}</p></li>)}
+    </ul>
+  );
+}
