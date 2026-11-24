@@ -61,7 +61,7 @@ export const UI = {
   ar: {
     skip: 'تخطَّ إلى المحتوى', menu: 'القائمة', close: 'إغلاق', formH: 'للتواصل',
     langName: 'English', langShort: 'EN', cr: 'السجل التجاري',
-    allDisciplines: 'كل التخصصات', allProjects: 'كل المشاريع', certsLink: 'الشهادات والاعتمادات بالتفصيل',
+    allDisciplines: 'كل التخصصات', allProjects: 'كل المشاريع', certsLink: 'المزيد',
     details: 'التفاصيل', scopeTab: 'نطاق العمل', projectsTab: 'المشاريع المنفّذة',
     noProjects: 'لا توجد مشاريع منشورة في هذا التخصص بعد.',
     prev: 'التخصص السابق', next: 'التخصص التالي', category: 'التصنيف', discipline: 'التخصص',
@@ -77,7 +77,7 @@ export const UI = {
   en: {
     skip: 'Skip to content', menu: 'Menu', close: 'Close', formH: 'Write to us',
     langName: 'العربية', langShort: 'ع', cr: 'Commercial Registration',
-    allDisciplines: 'All disciplines', allProjects: 'All projects', certsLink: 'Certifications and approvals in full',
+    allDisciplines: 'All disciplines', allProjects: 'All projects', certsLink: 'More',
     details: 'Details', scopeTab: 'Scope of work', projectsTab: 'Delivered projects',
     noProjects: 'No published projects in this discipline yet.',
     prev: 'Previous discipline', next: 'Next discipline', category: 'Category', discipline: 'Discipline',
