@@ -6,9 +6,15 @@
 
 export const SITE_URL = 'https://saccgroup.net';
 export const LANGS = ['ar', 'en'];
-// The owner removed the fleet page; its old addresses redirect to the equipment-rental discipline.
-export const PAGES = ['', 'company', 'services', 'projects', 'approvals', 'contact', 'careers'];
-export const NAV = ['company', 'services', 'projects', 'approvals'];
+export const PAGES = ['', 'company', 'services', 'projects', 'fleet', 'approvals', 'journey', 'leadership', 'contact', 'careers'];
+/* The masthead's pages, each paired with the id of its label in the content
+ * bundle's `nav` list (editable in the admin). Careers is reached from the footer. */
+export const NAV = [
+  ['company', 'about'], ['services', 'services'], ['projects', 'projects'], ['fleet', 'equipment'],
+  ['approvals', 'certifications'], ['journey', 'journey'], ['leadership', 'leadership'], ['contact', 'contact'],
+];
+/** A page's label from the content bundle's navigation list. */
+export const navLabel = (t, page) => t.nav.find((n) => n.id === (NAV.find(([p]) => p === page) || [])[1])?.label || '';
 
 // Each discipline, keyed by the icon name the bundle gives it: its URL slug
 // and the project categories it delivers.
@@ -43,39 +49,44 @@ export const BODIES = [
 export const isDone = (p) => /complete|مكتمل|منجز/i.test(p.status);
 /** Local repository photos are served from /assets; the bundle writes them as ./assets/... */
 export const src = (u) => (!u ? '' : u.startsWith('./') ? u.slice(1) : u);
+/* The design shows only the company's own photographs, from its image server
+ * (content.images); the stock photographs kept in the repository are not used. */
+const isRemote = (u) => /^https?:/i.test(u || '');
+/** A project's photograph, or '' when it has none of its own. */
+export const projImage = (site, p) => { const u = site.images.projects?.[p.id - 1]; return isRemote(u) ? u : ''; };
+/** A leader's portrait (chairman, general manager), or ''. */
+export const portrait = (site, i) => { const u = [site.images.chairman, site.images.gm][i]; return isRemote(u) ? u : ''; };
 
 export const UI = {
   ar: {
     skip: 'تخطَّ إلى المحتوى', menu: 'القائمة', close: 'إغلاق', formH: 'للتواصل',
-    short: 'سنا الأوائل للمقاولات', address: 'العنوان', careers: 'الوظائف',
-    langName: 'English',
-    nav: { company: 'حول', services: 'الخدمات', projects: 'المشاريع', approvals: 'الاعتمادات' },
-    all: 'الكل',
-    officeH: 'مكتبنا في المدينة المنورة',
-    phone: 'الهاتف', mobile: 'الجوال', email: 'البريد', cr: 'السجل التجاري',
-    emailRequired: 'البريد الإلكتروني مطلوب',
-    scope: 'نطاق العمل', delivered: 'مشاريع منفّذة في هذا التخصص',
-    noProj: 'لا توجد مشاريع منشورة في هذا التخصص بعد.', prev: 'التخصص السابق', next: 'التخصص التالي',
-    category: 'التصنيف', discipline: 'التخصص', more: 'مشاريع أخرى في التصنيف نفسه',
-    tabs: { about: 'نبذة', journey: 'المسيرة', values: 'القيم', people: 'القيادة' },
-    figuresLabel: 'الشركة بالأرقام',
+    langName: 'English', langShort: 'EN', cr: 'السجل التجاري',
+    allDisciplines: 'كل التخصصات', allProjects: 'كل المشاريع', certsLink: 'الشهادات والاعتمادات بالتفصيل',
+    details: 'التفاصيل', scopeTab: 'نطاق العمل', projectsTab: 'المشاريع المنفّذة',
+    noProjects: 'لا توجد مشاريع منشورة في هذا التخصص بعد.',
+    prev: 'التخصص السابق', next: 'التخصص التالي', category: 'التصنيف', discipline: 'التخصص',
+    moreProjects: 'مشاريع أخرى في التصنيف نفسه', milestones: 'محطات المسيرة',
+    office: 'المكتب', mobile: 'الجوال',
+    apply: 'تقدّم لهذه الوظيفة', role: 'الوظيفة', dept: 'القسم', loc: 'الموقع', type: 'الدوام', exp: 'الخبرة',
+    emailRequired: 'البريد الإلكتروني مطلوب', meetLeaders: 'تعرّف على القيادة', ourJourney: 'مسيرتنا منذ 2007',
+    featured: 'مشاريع مختارة', homeDisc: 'ما ننفّذه', homeAppr: 'معتمدون وحاصلون على الأيزو',
+    published: { one: 'مشروع منشور واحد', two: 'مشروعان منشوران', few: 'مشاريع منشورة' },
     notFoundTitle: 'الصفحة غير موجودة', notFoundLead: 'ربما نُقلت الصفحة أو تغيّر عنوانها.', home: 'الصفحة الرئيسية',
     honeypot: 'اترك هذا الحقل فارغاً',
   },
   en: {
     skip: 'Skip to content', menu: 'Menu', close: 'Close', formH: 'Write to us',
-    short: 'Sana Al-Awael Contracting', address: 'Address', careers: 'Careers',
-    langName: 'العربية',
-    nav: { company: 'About', services: 'Services', projects: 'Projects', approvals: 'Approvals' },
-    all: 'All',
-    officeH: 'Our office in Al Madinah',
-    phone: 'Phone', mobile: 'Mobile', email: 'Email', cr: 'Commercial Registration',
-    emailRequired: 'Email is required',
-    scope: 'Scope of work', delivered: 'Projects delivered in this discipline',
-    noProj: 'No published projects in this discipline yet.', prev: 'Previous discipline', next: 'Next discipline',
-    category: 'Category', discipline: 'Discipline', more: 'More projects in this category',
-    tabs: { about: 'Overview', journey: 'Journey', values: 'Values', people: 'Leadership' },
-    figuresLabel: 'The company in figures',
+    langName: 'العربية', langShort: 'ع', cr: 'Commercial Registration',
+    allDisciplines: 'All disciplines', allProjects: 'All projects', certsLink: 'Certifications and approvals in full',
+    details: 'Details', scopeTab: 'Scope of work', projectsTab: 'Delivered projects',
+    noProjects: 'No published projects in this discipline yet.',
+    prev: 'Previous discipline', next: 'Next discipline', category: 'Category', discipline: 'Discipline',
+    moreProjects: 'More projects in this category', milestones: 'Milestones',
+    office: 'Office', mobile: 'Mobile',
+    apply: 'Apply for this role', role: 'Role', dept: 'Department', loc: 'Location', type: 'Type', exp: 'Experience',
+    emailRequired: 'Email is required', meetLeaders: 'Meet the leadership', ourJourney: 'Our journey since 2007',
+    featured: 'Selected projects', homeDisc: 'What we deliver', homeAppr: 'Approved and ISO certified',
+    published: { one: '1 published project', two: '2 published projects', few: 'published projects' },
     notFoundTitle: 'Page not found', notFoundLead: 'The page may have moved or its address changed.', home: 'Home page',
     honeypot: 'Leave this field empty',
   },
@@ -113,6 +124,6 @@ export function allRoutes(site) {
 
 /** Old addresses (the previous single-page site used #hash pages and ?lang=). */
 export const OLD_PAGES = {
-  home: '', about: 'company', services: 'services', projects: 'projects', equipment: 'services/equipment-rental', fleet: 'services/equipment-rental',
-  certifications: 'approvals', journey: 'company', leadership: 'company', contact: 'contact', careers: 'careers',
+  home: '', about: 'company', services: 'services', projects: 'projects', equipment: 'fleet',
+  certifications: 'approvals', journey: 'journey', leadership: 'leadership', contact: 'contact', careers: 'careers',
 };

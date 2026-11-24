@@ -1,98 +1,60 @@
 /* Every page other than the home page and the two forms. */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useSite } from '../SiteContext.jsx';
-import { CAT_SVC, isDone, projSlug, svcOf } from '../lib/site.js';
-import { ArrowLink, Bodies, Cards, Icon, Img, Link, PageHead, SecHead, SubHead, Tabs, useDir } from '../components/ui.jsx';
+import { isDone, portrait, projImage, projSlug, svcOf } from '../lib/site.js';
+import { Arrow, Checks, Icon, Link, Logos, More, PageHead, Photo, ProjectItem, Tabs, projService } from '../components/ui.jsx';
 
-/** A project on its photograph: client and status at the top, title at the foot. */
-export function ProjectCard({ p, as: H = 'h3', hidden }) {
-  const { site } = useSite();
-  return (
-    <Link to={`projects/${projSlug(site, p.id)}`} className="pcard on-dark rise" data-key={p.key} hidden={hidden}>
-      <Img src={p.image} />
-      <span className="top"><span>{p.client}</span><span className={`st${isDone(p) ? '' : ' live'}`}>{p.status}</span></span>
-      <H className="pt">{p.title}</H>
-    </Link>
-  );
+/** "n published projects" in the visitor's language. */
+function Published({ n }) {
+  const P = useSite().ui.published;
+  if (n === 1) return P.one;
+  if (n === 2) return P.two;
+  return <><span className="num">{n}</span> {P.few}</>;
 }
 
-const ProjectGrid = ({ items, as, show = () => true }) => (
-  <div className="pgrid">{items.map((p) => <ProjectCard key={p.id} p={p} as={as} hidden={!show(p)} />)}</div>
-);
-
-/** Every project, with the category filter above. */
-export function FilteredProjects({ as }) {
-  const { t, ui } = useSite();
-  const P = t.projects;
-  const [filter, setFilter] = useState('all');
-  return (
-    <>
-      <div className="filters choices" role="group" aria-label={P.title}>
-        {P.categories.map((c) => (
-          <button key={c.key} type="button" aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>{c.key === 'all' ? ui.all : c.label}</button>
-        ))}
-      </div>
-      <ProjectGrid items={P.items} as={as} show={(p) => filter === 'all' || p.key === filter} />
-    </>
-  );
-}
+const relProjects = (t, s) => t.projects.items.filter((p) => svcOf(s).cat.includes(p.key));
+const Crumb = ({ to, children }) => <Link to={to} className="crumb"><Arrow /> {children}</Link>;
 
 export function Company() {
-  const { t, ui, images, route } = useSite();
-  const I = t.intro, J = t.journey, L = t.leadership;
-  const [tab, setTab] = useState('about');
-  // Arriving from a link to the leadership (/company#people) opens that tab.
-  useEffect(() => {
-    const h = window.location.hash.slice(1);
-    if (['about', 'journey', 'values', 'people'].includes(h)) setTab(h);
-  }, [route]);
-  const photos = [images.chairman, images.gm];
-  const items = [
-    { key: 'about', label: ui.tabs.about, content: (
-      <div className="prose narrow"><p className="lead strong">{I.p2}</p><p className="muted">{I.p3}</p></div>
-    ) },
-    { key: 'journey', label: ui.tabs.journey, content: (
-      <ol className="years">
-        {J.milestones.map((m) => <li key={m.year}><span className="y num">{m.year}</span><div className="t"><b>{m.title}</b><span className="muted">{m.desc}</span></div></li>)}
-      </ol>
-    ) },
-    { key: 'values', label: ui.tabs.values, content: <Cards items={J.values} as="h2" /> },
-    { key: 'people', label: ui.tabs.people, content: (
-      <div className="people">{L.leaders.map((p, i) => (
-        <article key={p.name} className="person">
-          <Img src={photos[i]} alt={p.name} />
-          <div>
-            <h2 className="pn">{p.name}</h2><p className="role">{p.title}</p><p className="muted">{p.bio}</p>
-            <p className="tags">{(p.expertise || []).map((x) => <span key={x}>{x}</span>)}</p>
-          </div>
-        </article>
-      ))}</div>
-    ) },
-  ];
+  const { t, ui } = useSite();
+  const I = t.intro, Y = t.why;
+  // The first four reasons (ISO, NWC, 35 years, fleet) are stated on their own pages.
   return (
     <>
       <PageHead title={I.title} lead={I.p1} />
-      <section className="sec wrap"><Tabs id="co" label={I.title} items={items} current={tab} onChange={setTab} /></section>
+      <section className="band"><div className="wrap cols-2">
+        <div className="prose"><p className="lead">{I.p2}</p><p>{I.p3}</p></div>
+        <div>
+          <h2 className="sub-h">{Y.title}</h2>
+          <Checks items={Y.items.slice(4)} className="checks" />
+          <div className="onward"><More to="leadership">{ui.meetLeaders}</More><More to="journey">{ui.ourJourney}</More></div>
+        </div>
+      </div></section>
     </>
   );
 }
 
 export function Services() {
-  const S = useSite().t.services;
-  const d = useDir();
+  const { t, ui } = useSite();
+  const S = t.services;
   return (
     <>
       <PageHead title={S.title} lead={S.lead} />
-      <section className="sec wrap">
-        <div className="list">
-          {S.items.map((s) => (
-            <Link key={s.icon} to={`services/${svcOf(s).slug}`} className="row rise">
-              <b>{s.title}</b><span className="muted">{s.desc}</span><Icon name={d.fwd} className="go" />
-            </Link>
-          ))}
-        </div>
-      </section>
+      <section className="band"><div className="wrap">
+        <ul className="disc-grid">
+          {S.items.map((s) => {
+            const n = relProjects(t, s).length;
+            return (
+              <li key={s.icon}><Link to={`services/${svcOf(s).slug}`}>
+                <h2>{s.title}</h2>
+                <span className="meta" aria-hidden={n ? undefined : 'true'}>{n ? <Published n={n} /> : ''}</span>
+                <span className="go">{ui.details} <Arrow /></span>
+              </Link></li>
+            );
+          })}
+        </ul>
+      </div></section>
     </>
   );
 }
@@ -102,30 +64,44 @@ export function Service() {
   const S = t.services.items;
   const i = S.findIndex((x) => svcOf(x).slug === route.sub);
   const s = S[i];
-  const rel = t.projects.items.filter((p) => svcOf(s).cat.includes(p.key));
+  const rel = relProjects(t, s);
   const prev = S[(i + S.length - 1) % S.length], next = S[(i + 1) % S.length];
   return (
     <>
-      <PageHead title={s.title} lead={s.desc} back={<ArrowLink to="services" back>{t.services.title}</ArrowLink>} />
-      <section className="sec wrap"><SubHead>{ui.scope}</SubHead><Cards items={s.capabilities} /></section>
-      <section className="sec wrap">
-        <SubHead>{ui.delivered}</SubHead>
-        {rel.length ? <ProjectGrid items={rel} /> : <p className="muted">{ui.noProj}</p>}
-        <nav className="pager" aria-label={t.services.title}>
-          <Link to={`services/${svcOf(prev).slug}`} rel="prev"><span>{ui.prev}</span><b>{prev.title}</b></Link>
-          <Link to={`services/${svcOf(next).slug}`} rel="next"><span>{ui.next}</span><b>{next.title}</b></Link>
+      <PageHead title={s.title} lead={s.desc}><Crumb to="services">{ui.allDisciplines}</Crumb></PageHead>
+      <section className="band"><div className="wrap">
+        <Tabs id="svc" label={s.title} items={[
+          { key: 'scope', label: ui.scopeTab, count: s.capabilities.length, content: <Checks items={s.capabilities} /> },
+          { key: 'projects', label: ui.projectsTab, count: rel.length, content: rel.length
+            ? <ul className="proj-grid">{rel.map((p) => <ProjectItem key={p.id} p={p} />)}</ul>
+            : <p className="empty">{ui.noProjects}</p> },
+        ]} />
+        <nav className="pager" aria-label={ui.allDisciplines}>
+          <Link to={`services/${svcOf(prev).slug}`} rel="prev"><span className="k">{ui.prev}</span><span className="v">{prev.title}</span></Link>
+          <Link to={`services/${svcOf(next).slug}`} rel="next"><span className="k">{ui.next}</span><span className="v">{next.title}</span></Link>
         </nav>
-      </section>
+      </div></section>
     </>
   );
 }
 
 export function Projects() {
   const P = useSite().t.projects;
+  const [filter, setFilter] = useState('all');
+  const items = P.items.filter((p) => filter === 'all' || p.key === filter);
   return (
     <>
       <PageHead title={P.title} lead={P.lead} />
-      <section className="sec wrap"><FilteredProjects as="h2" /></section>
+      <section className="band"><div className="wrap">
+        <div className="filters" role="group" aria-label={P.title}>
+          {P.categories.map((c) => (
+            <button key={c.key} type="button" aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>
+              {c.label}<span className="count num">{c.key === 'all' ? P.items.length : P.items.filter((p) => p.key === c.key).length}</span>
+            </button>
+          ))}
+        </div>
+        {items.length ? <ul className="proj-grid">{items.map((p) => <ProjectItem key={p.id} p={p} as="h2" />)}</ul> : <p className="empty">{P.empty}</p>}
+      </div></section>
     </>
   );
 }
@@ -134,53 +110,120 @@ export function Project() {
   const { t, ui, site, route } = useSite();
   const P = t.projects;
   const p = P.items.find((x) => projSlug(site, x.id) === route.sub);
-  const svc = t.services.items.find((s) => s.icon === CAT_SVC[p.key]);
-  const more = P.items.filter((x) => x.key === p.key && x.id !== p.id);
+  const svc = projService(t, p);
   const cat = P.categories.find((c) => c.key === p.key)?.label || p.category;
+  const more = P.items.filter((x) => x.key === p.key && x.id !== p.id);
   return (
     <>
-      <PageHead title={p.title} lead={p.desc} back={<ArrowLink to="projects" back>{P.title}</ArrowLink>} />
-      <div className="wrap">
-        <div className="panel sharp record rise">
-          <Img src={p.image} alt={p.title} eager />
-          <dl className="float facts">
-            <div><dt>{P.labels.client}</dt><dd>{p.client}</dd></div>
-            <div><dt>{P.labels.location}</dt><dd>{p.location}</dd></div>
-            <div><dt>{ui.category}</dt><dd>{cat}</dd></div>
-            <div><dt>{P.labels.status}</dt><dd>{p.status}</dd></div>
-          </dl>
+      <PageHead title={p.title}><Crumb to="projects">{ui.allProjects}</Crumb></PageHead>
+      <Photo src={projImage(site, p)} alt={p.title} className="proj-hero" eager />
+      <section className="band"><div className="wrap cols-2">
+        <div className="prose">
+          <p className="lead">{p.desc}</p>
+          <h2 className="sub-h scope-h">{P.labels.scope}</h2>
+          <Checks items={p.scope || []} />
         </div>
-      </div>
-      <section className="sec wrap">
-        <SubHead>{P.labels.scope}</SubHead>
-        <Cards items={p.scope || []} />
-        {svc && <p className="after"><ArrowLink to={`services/${svcOf(svc).slug}`}>{ui.discipline}: {svc.title}</ArrowLink></p>}
-      </section>
-      {more.length > 0 && <section className="sec wrap"><SubHead>{ui.more}</SubHead><ProjectGrid items={more} /></section>}
+        <dl className="facts">
+          <div><dt>{P.labels.client}</dt><dd>{p.client}</dd></div>
+          <div><dt>{P.labels.location}</dt><dd>{p.location}</dd></div>
+          <div><dt>{ui.category}</dt><dd>{cat}</dd></div>
+          <div><dt>{P.labels.status}</dt><dd><span className={`status ${isDone(p) ? 'done' : 'live'}`}>{p.status}</span></dd></div>
+          {svc && <div><dt>{ui.discipline}</dt><dd><Link to={`services/${svcOf(svc).slug}`} className="more">{svc.title}</Link></dd></div>}
+        </dl>
+      </div></section>
+      {more.length > 0 && (
+        <section className="band mist"><div className="wrap">
+          <div className="head"><h2>{ui.moreProjects}</h2></div>
+          <ul className="proj-grid">{more.map((x) => <ProjectItem key={x.id} p={x} />)}</ul>
+        </div></section>
+      )}
+    </>
+  );
+}
+
+export function Fleet() {
+  const E = useSite().t.equipment;
+  return (
+    <>
+      <PageHead title={E.title} lead={E.lead} />
+      <section className="band"><div className="wrap">
+        <div className="prose fleet-prose"><p className="lead">{E.p1}</p><p>{E.p2}</p></div>
+        <Tabs id="fleet" label={E.title} items={[
+          { key: 'cats', label: E.categoriesHeading, count: E.categories.length, content: (
+            <ul className="list-ruled">{E.categories.map((c) => <li key={c}><span className="tick" aria-hidden="true" /><span>{c}</span></li>)}</ul>
+          ) },
+          { key: 'support', label: E.supportHeading, count: E.features.length, content: (
+            <ul className="ruled-desc">{E.features.map((f) => <li key={f.title}><Icon name="check" /><div><h3>{f.title}</h3><p>{f.desc}</p></div></li>)}</ul>
+          ) },
+        ]} />
+      </div></section>
     </>
   );
 }
 
 export function Approvals() {
-  const Cc = useSite().t.certifications;
+  const C = useSite().t.certifications;
+  // The owner's order: government approvals, then the commitment, then the ISO certificates.
   return (
     <>
-      <PageHead title={Cc.title} lead={Cc.lead} />
-      <section className="sec wrap">
-        <SecHead title={Cc.isoHeading} lead={Cc.commitmentBody} cls="h-sub" />
-        <div className="tiles">
-          {Cc.iso.map((x) => {
-            const n = (/^ISO\s*(.+)$/.exec(x.title) || [null, x.title])[1];
-            return <div key={x.title} className="tile rise"><div className="plate"><small className="ltr">ISO</small><b className="ltr num">{n}</b></div><p className="cap">{x.desc}</p></div>;
-          })}
-        </div>
-      </section>
-      <section className="sec">
-        <div className="band"><div className="wrap">
-          <h2 className="band-h rise">{Cc.approvalsHeading}</h2>
-          <Bodies names={Cc.approvals} />
-        </div></div>
-      </section>
+      <PageHead title={C.title} lead={C.lead} />
+      <section className="band"><div className="wrap">
+        <Tabs id="certs" label={C.title} items={[
+          { key: 'gov', label: C.approvalsHeading, count: C.approvals.length, content: <Logos names={C.approvals} /> },
+          { key: 'commit', label: C.commitmentTitle, content: <div className="prose"><p className="lead">{C.commitmentBody}</p></div> },
+          { key: 'iso', label: C.isoHeading, count: C.iso.length, content: (
+            <ul className="features">{C.iso.map((i) => <li key={i.title}><Icon name="award" /><h3 className="num">{i.title}</h3><p>{i.desc}</p></li>)}</ul>
+          ) },
+        ]} />
+      </div></section>
+    </>
+  );
+}
+
+export function Journey() {
+  const { t, ui } = useSite();
+  const J = t.journey;
+  return (
+    <>
+      <PageHead title={J.title} lead={J.lead} />
+      <section className="band"><div className="wrap">
+        <Tabs id="journey" label={J.title} items={[
+          { key: 'm', label: ui.milestones, count: J.milestones.length, content: (
+            <ol className="timeline">{J.milestones.map((m) => <li key={m.year}><span className="yr">{m.year}</span><div><h3>{m.title}</h3><p>{m.desc}</p></div></li>)}</ol>
+          ) },
+          { key: 'v', label: J.valuesTitle, count: J.values.length, content: (
+            <ul className="values">{J.values.map((v) => <li key={v.title}><strong>{v.title}</strong><span>{v.desc}</span></li>)}</ul>
+          ) },
+        ]} />
+      </div></section>
+    </>
+  );
+}
+
+export function Leadership() {
+  const { t, site } = useSite();
+  const L = t.leadership;
+  return (
+    <>
+      <PageHead title={L.title} lead={L.lead} />
+      <section className="band"><div className="wrap leaders">
+        {L.leaders.map((p, i) => (
+          <article key={p.name} className="leader">
+            <Photo src={portrait(site, i)} alt={p.name} className="portrait" />
+            <div>
+              <h2>{p.name}</h2><p className="role">{p.title}</p><p className="bio">{p.bio}</p>
+              <h3 className="visually-hidden">{L.expertiseHeading}</h3>
+              <ul className="tags">{(p.expertise || []).map((x) => <li key={x}>{x}</li>)}</ul>
+            </div>
+          </article>
+        ))}
+      </div></section>
+      <section className="band teal on-dark"><div className="wrap">
+        <figure className="quote">
+          <blockquote>{L.quote}</blockquote>
+          <figcaption><strong>{L.leaders[0].name}</strong>{L.leaders[0].title}</figcaption>
+        </figure>
+      </div></section>
     </>
   );
 }
@@ -190,7 +233,7 @@ export function NotFound() {
   return (
     <>
       <PageHead title={ui.notFoundTitle} lead={ui.notFoundLead} />
-      <section className="sec wrap page-404"><ArrowLink to="">{ui.home}</ArrowLink></section>
+      <section className="band"><div className="wrap"><More to="">{ui.home}</More></div></section>
     </>
   );
 }

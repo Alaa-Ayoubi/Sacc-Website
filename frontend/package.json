@@ -11,8 +11,8 @@
     "routes": "node scripts/render-routes.mjs"
   },
   "dependencies": {
-    "@fontsource/el-messiri": "^5.3.0",
-    "@fontsource/tajawal": "^5.3.0",
+    "@fontsource/almarai": "^5.3.0",
+    "lucide-react": "^0.469.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

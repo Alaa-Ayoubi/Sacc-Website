@@ -5,13 +5,15 @@ import { useEffect } from 'react';
 
 import { useSite } from './SiteContext.jsx';
 import { OLD_PAGES, pathFor } from './lib/site.js';
-import { Bar, Footer } from './components/Chrome.jsx';
-import { useReveal } from './components/ui.jsx';
+import { Footer, Masthead, TopBar } from './components/Chrome.jsx';
 import Home from './pages/Home.jsx';
-import { Approvals, Company, NotFound, Project, Projects, Service, Services } from './pages/Inner.jsx';
+import { Approvals, Company, Fleet, Journey, Leadership, NotFound, Project, Projects, Service, Services } from './pages/Inner.jsx';
 import { Careers, Contact } from './pages/Forms.jsx';
 
-const PAGE = { '': Home, company: Company, services: Services, projects: Projects, approvals: Approvals, contact: Contact, careers: Careers };
+const PAGE = {
+  '': Home, company: Company, services: Services, projects: Projects, fleet: Fleet, approvals: Approvals,
+  journey: Journey, leadership: Leadership, contact: Contact, careers: Careers,
+};
 
 /** Links from the previous site (#about, #equipment, ?lang=en …) go to their new addresses. */
 function useOldLinks(navigate) {
@@ -21,8 +23,7 @@ function useOldLinks(navigate) {
     const lang = new URLSearchParams(search).get('lang') === 'en' || pathname.startsWith('/en') ? 'en' : 'ar';
     const atHome = pathname === '/' || pathname === '/en' || pathname === '/en/';
     if (atHome && id in OLD_PAGES) {
-      const tab = { journey: '#journey', leadership: '#people' }[id] || '';
-      navigate(pathFor(OLD_PAGES[id], lang) + tab, { replace: true });
+      navigate(pathFor(OLD_PAGES[id], lang), { replace: true });
     } else if (search.includes('lang=en') && !pathname.startsWith('/en')) {
       navigate(pathFor(pathname.replace(/^\/+|\/+$/g, ''), 'en'), { replace: true });
     }
@@ -30,24 +31,22 @@ function useOldLinks(navigate) {
 }
 
 export default function App() {
-  const { route, ui, navigate, lang, t } = useSite();
+  const { route, ui, navigate } = useSite();
   useOldLinks(navigate);
   const key = `${route.lang}/${route.page}/${route.sub}/${route.notFound}`;
-  useReveal(key);
 
   let Page = PAGE[route.page] || Home;
   if (route.notFound) Page = NotFound;
   else if (route.page === 'services' && route.sub) Page = Service;
   else if (route.page === 'projects' && route.sub) Page = Project;
-  const home = Page === Home;
 
   return (
-    <div className={`page${home ? ' home' : ''}`} lang={lang} dir={t.dir}>
+    <>
       <a className="skip" href="#main">{ui.skip}</a>
-      <Bar home={home} />
-      {/* The home page lays its hero under the bar and its sheet over the hero. */}
-      <main id="main" tabIndex={-1}>{home ? <Home key={key} /> : <div className="sheet-body"><Page key={key} /></div>}</main>
+      <TopBar />
+      <Masthead />
+      <main id="main" tabIndex={-1}><Page key={key} /></main>
       <Footer />
-    </div>
+    </>
   );
 }

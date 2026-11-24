@@ -19,15 +19,18 @@ export function pageMeta(site, route) {
   }
   if (page === 'services' && sub) {
     const s = T.services.items.find((x) => svcOf(x).slug === sub);
-    title = `${s.title} | ${brand}`; description = s.desc; crumb = [U.nav.services, 'services', s.title];
+    title = `${s.title} | ${brand}`; description = s.desc; crumb = [T.services.title, 'services', s.title];
   } else if (page === 'projects' && sub) {
     const p = T.projects.items.find((x) => projSlug(site, x.id) === sub);
-    title = `${p.title} | ${brand}`; description = p.desc; crumb = [U.nav.projects, 'projects', p.title];
+    title = `${p.title} | ${brand}`; description = p.desc; crumb = [T.projects.title, 'projects', p.title];
   } else if (page) {
     const map = {
       company: [T.intro.title, T.intro.p1],
       services: [T.services.title, T.services.lead],
       projects: [T.projects.title, T.projects.lead],
+      fleet: [T.equipment.title, T.equipment.lead],
+      journey: [T.journey.title, T.journey.lead],
+      leadership: [T.leadership.title, T.leadership.lead],
       approvals: [T.certifications.title, T.certifications.lead],
       contact: [T.contact.title, T.contact.lead],
       careers: [T.careers.title, T.careers.lead],

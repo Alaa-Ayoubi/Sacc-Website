@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSite } from '../SiteContext.jsx';
 import { submitApplication, submitQuote } from '../api.js';
-import { Icon, PageHead, SecHead, SubHead } from '../components/ui.jsx';
+import { Icon, PageHead } from '../components/ui.jsx';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const tel = (n) => `tel:${n.replace(/\s/g, '')}`;
@@ -14,7 +14,7 @@ function Field({ id, label, error, full, children }) {
     <div className={`field${full ? ' full' : ''}`}>
       <label htmlFor={id}>{label}</label>
       {children}
-      {error && <span className="err" id={`${id}-err`}><Icon name="alert" /><span>{error}</span></span>}
+      {error && <span className="err" id={`${id}-err`}><Icon name="circle-alert" /><span>{error}</span></span>}
     </div>
   );
 }
@@ -24,7 +24,7 @@ function Status({ state, okText, failText }) {
   return (
     <div aria-live="polite">
       {state === 'sent' && <div className="notice" role="status"><Icon name="check" /><strong>{okText}</strong></div>}
-      {state === 'failed' && failText && <div className="notice fail" role="alert"><Icon name="alert" /><span>{failText}</span></div>}
+      {state === 'failed' && failText && <div className="notice fail" role="alert"><Icon name="circle-alert" /><span>{failText}</span></div>}
     </div>
   );
 }
@@ -49,7 +49,7 @@ export function Contact() {
   const [failure, setFailure] = useState('');
   const form = useRef(null);
 
-  // Arriving from a service, project or approvals page fills in what was being looked at.
+  // Arriving from a service, project or fleet page fills in what was being looked at.
   useEffect(() => {
     if (!prefill) return;
     setValues((v) => ({ ...v, message: prefill.message || v.message }));
@@ -94,9 +94,9 @@ export function Contact() {
   return (
     <>
       <PageHead title={C.title} lead={C.lead} />
-      <section className="sec wrap form-grid">
-        <form id="quote-form" ref={form} noValidate aria-labelledby="qf-h" onSubmit={onSubmit}>
-          <h2 className="h-sub sub-gap" id="qf-h">{ui.formH}</h2>
+      <section className="band"><div className="wrap sheet-grid">
+        <form className="sheet" id="quote-form" ref={form} noValidate aria-labelledby="qf-h" onSubmit={onSubmit}>
+          <h2 id="qf-h">{ui.formH}</h2>
           <div className="fields">
             <Field id="f-name" label={C.fields.name} error={errors.name}>
               <input id="f-name" data-key="name" name="name" type="text" autoComplete="name" placeholder={C.placeholders.name} value={values.name} onChange={set('name')} {...aria('f-name', errors.name)} />
@@ -117,22 +117,21 @@ export function Contact() {
             </div>
           </div>
           <div className="form-foot">
-            <button className="action" type="submit" disabled={state === 'sending'} aria-busy={state === 'sending'}>
-              <span>{state === 'sending' ? C.submitting : C.submit}</span>
+            <button className="btn btn-quote" type="submit" disabled={state === 'sending'} aria-busy={state === 'sending'}>
+              <Icon name="send" className="flip" /><span>{state === 'sending' ? C.submitting : C.submit}</span>
             </button>
           </div>
           <Status state={state} okText={C.success} failText={failure} />
         </form>
-        <aside aria-label={C.officeHeading}>
-          <dl className="aside-list">
-            <div><dt>{ui.address}</dt><dd>{C.address}</dd></div>
-            <div><dt>{C.hoursHeading}</dt><dd>{C.hours.map((h) => <span key={h} className="num hr">{h}</span>)}</dd></div>
-            <div><dt>{ui.phone}</dt><dd><a href={tel(company.phone)}><span className="ltr num">{company.phone}</span></a></dd></div>
-            <div><dt>{ui.mobile}</dt><dd><a href={tel(company.mobile)}><span className="ltr num">{company.mobile}</span></a></dd></div>
-            <div><dt>{ui.email}</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
-          </dl>
+        <aside className="aside" aria-labelledby="office-h">
+          <h2 id="office-h">{C.officeHeading}</h2>
+          <ul className="office">
+            <li><Icon name="map-pin" /><span className="k">{ui.office}</span><span>{C.address}</span></li>
+            <li><Icon name="phone" /><span className="k">{ui.mobile}</span><a href={tel(company.mobile)}><span className="ltr num">{company.mobile}</span></a></li>
+            <li><Icon name="clock" /><span className="k">{C.hoursHeading}</span><span>{C.hours.map((h) => <span key={h} className="hr">{h}</span>)}</span></li>
+          </ul>
         </aside>
-      </section>
+      </div></section>
     </>
   );
 }
@@ -199,29 +198,54 @@ export function Careers() {
     }
   };
 
+  // "Apply for this role": choose it in the form and move there.
+  const pickRole = (slug) => {
+    setValues((v) => ({ ...v, role: slug }));
+    setErrors((x) => ({ ...x, role: '' }));
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById('apply')?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+    setTimeout(() => form.current?.querySelector('#a-name')?.focus({ preventScroll: true }), smooth ? 450 : 0);
+  };
+  const toForm = (e) => {
+    e.preventDefault();
+    document.getElementById('apply')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  };
+  const WHY_ICON = { Layers: 'layers', GraduationCap: 'graduation-cap', HardHat: 'hard-hat', ShieldCheck: 'shield-check', Briefcase: 'briefcase' };
+
   const input = (key, id, extra = {}) => (
     <input id={id} data-key={key} name={key} type="text" placeholder={K.placeholders[key]} value={values[key]} onChange={set(key)} {...aria(id, errors[key])} {...extra} />
   );
 
   return (
     <>
-      <PageHead title={K.title} lead={K.lead} />
-      <section className="sec wrap">
-        <SubHead>{K.whyTitle}</SubHead>
-        <div className="points">{K.why.map((w) => <div key={w.title} className="rise"><h3>{w.title}</h3><p className="muted">{w.desc}</p></div>)}</div>
-      </section>
-      <section className="sec wrap">
-        <SecHead title={K.rolesTitle} lead={K.rolesLead} cls="h-sub" />
-        <ul className="list roles">
-          {K.roles.map((r) => (
-            <li key={r.slug} className="row role rise"><b>{r.title}</b>{[r.dept, r.location, r.type, r.exp].map((x, i) => <span key={i}>{x}</span>)}</li>
-          ))}
-        </ul>
-      </section>
-      <section className="sec wrap form-grid solo" id="apply">
-        <form id="apply-form" ref={form} noValidate aria-labelledby="af-h" onSubmit={onSubmit}>
-          <h2 className="h-sub" id="af-h">{K.applyTitle}</h2>
-          <p className="muted apply-lead">{K.applyLead}</p>
+      <PageHead title={K.title} lead={K.lead}><a className="btn btn-outline-light" href="#apply" onClick={toForm}>{K.cta}</a></PageHead>
+      <section className="band mist"><div className="wrap">
+        <div className="head"><h2>{K.whyTitle}</h2></div>
+        <ul className="features">{K.why.map((w) => <li key={w.title}><Icon name={WHY_ICON[w.icon] || 'layers'} /><h3>{w.title}</h3><p>{w.desc}</p></li>)}</ul>
+      </div></section>
+      <section className="band"><div className="wrap">
+        <div className="head"><div><h2>{K.rolesTitle}</h2><p>{K.rolesLead}</p></div></div>
+        <table className="roles">
+          <thead><tr>
+            <th scope="col">{ui.role}</th><th scope="col">{ui.dept}</th><th scope="col">{ui.loc}</th><th scope="col">{ui.type}</th><th scope="col">{ui.exp}</th>
+            <th scope="col"><span className="visually-hidden">{ui.apply}</span></th>
+          </tr></thead>
+          <tbody>
+            {K.roles.map((r) => (
+              <tr key={r.slug}>
+                <td className="t">{r.title}</td>
+                <td className="k" data-k={ui.dept}>{r.dept}</td><td className="k" data-k={ui.loc}>{r.location}</td>
+                <td className="k" data-k={ui.type}>{r.type}</td><td className="k" data-k={ui.exp}>{r.exp}</td>
+                <td><button className="btn btn-outline" type="button" onClick={() => pickRole(r.slug)} aria-label={`${ui.apply}: ${r.title}`}>{ui.apply}</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div></section>
+      <section className="band mist" id="apply"><div className="wrap sheet-solo">
+        <form className="sheet" id="apply-form" ref={form} noValidate aria-labelledby="af-h" onSubmit={onSubmit}>
+          <h2 id="af-h">{K.applyTitle}</h2>
+          <p>{K.applyLead}</p>
           <div className="fields">
             <Field id="a-name" label={K.fields.name} error={errors.name}>{input('name', 'a-name', { autoComplete: 'name' })}</Field>
             <Field id="a-email" label={K.fields.email} error={errors.email}>{input('email', 'a-email', { type: 'email', autoComplete: 'email', dir: 'ltr', spellCheck: false })}</Field>
@@ -235,18 +259,18 @@ export function Careers() {
               </select>
             </Field>
             <div className="field full">
-              <span className="field-label" id="a-cv-l">{K.fields.cv}</span>
+              <span className="label" id="a-cv-l">{K.fields.cv}</span>
               <label className="visually-hidden" htmlFor="a-cv">{K.cvLink}</label>
               <input id="a-cv" data-key="cv" name="cv" type="url" dir="ltr" spellCheck={false} autoComplete="url" placeholder={K.placeholders.cv} value={values.cv} onChange={set('cv')}
                 aria-invalid={errors.cv ? 'true' : undefined} aria-describedby={`a-cv-l a-cv-hint${errors.cv ? ' a-cv-err' : ''}`} />
               <div className="file-row">
                 <input id="a-file" ref={file} name="cv_file" type="file" accept=".pdf,.doc,.docx" className="visually-hidden"
                   onChange={(e) => { setCvFile(e.target.files[0] || null); setErrors((x) => ({ ...x, cv: '' })); }} />
-                <label className="file-btn" htmlFor="a-file"><Icon name="upload" />{K.cvUploadBtn}</label>
-                <span className="hint">{cvFile ? cvFile.name : K.cvNone}</span>
+                <label className="btn btn-outline" htmlFor="a-file"><Icon name="upload" />{K.cvUploadBtn}</label>
+                <span>{cvFile ? cvFile.name : K.cvNone}</span>
               </div>
               <span className="hint" id="a-cv-hint">{K.cvHint}</span>
-              {errors.cv && <span className="err" id="a-cv-err"><Icon name="alert" /><span>{errors.cv}</span></span>}
+              {errors.cv && <span className="err" id="a-cv-err"><Icon name="circle-alert" /><span>{errors.cv}</span></span>}
             </div>
             <Field id="a-note" label={K.fields.note} error={errors.note} full>
               <textarea id="a-note" data-key="note" name="note" placeholder={K.placeholders.note} value={values.note} onChange={set('note')} {...aria('a-note', errors.note)} />
@@ -257,13 +281,13 @@ export function Careers() {
             </div>
           </div>
           <div className="form-foot">
-            <button className="action" type="submit" disabled={state === 'sending'} aria-busy={state === 'sending'}>
-              <span>{state === 'sending' ? K.submitting : K.submit}</span>
+            <button className="btn btn-teal" type="submit" disabled={state === 'sending'} aria-busy={state === 'sending'}>
+              <Icon name="send" className="flip" /><span>{state === 'sending' ? K.submitting : K.submit}</span>
             </button>
           </div>
           <Status state={state} okText={K.success} failText={failure} />
         </form>
-      </section>
+      </div></section>
     </>
   );
 }
