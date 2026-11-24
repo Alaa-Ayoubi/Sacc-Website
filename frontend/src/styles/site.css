@@ -332,11 +332,15 @@ html[dir='rtl'] .features li { padding: 22px 0 22px 22px; }
 .timeline h3 { font-size: 1.15rem; }
 .timeline p { color: var(--ink-2); margin-top: 4px; }
 @media (max-width: 560px) { .timeline li { grid-template-columns: 4.6rem minmax(0, 1fr); gap: 16px; } .timeline .yr { font-size: 1.25rem; } }
-.values { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; border-top: 1px solid var(--rule-strong); }
-.values li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-.values strong { display: block; font-size: 1.08rem; }
+/* Values: one under another, as one ruled register. Each value's name holds
+   a fixed column at the inline-start, so the names align down the page, and
+   its line reads beside it. The tab row's own rule is the list's top edge. */
+.values { list-style: none; margin: 0; padding: 0; max-width: 980px; }
+.values li { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); column-gap: 40px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.values li:first-child { padding-top: 6px; }
+.values strong { font-size: 1.12rem; font-weight: 800; color: var(--teal-800); }
 .values span { color: var(--ink-2); }
-@media (max-width: 640px) { .values { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .values li { grid-template-columns: 1fr; row-gap: 4px; padding: 16px 0; } }
 .leaders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
 .leader { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; align-items: start; border-top: 1px solid var(--rule-strong); padding-top: 24px; }
 .portrait { width: 160px; aspect-ratio: 4 / 5; background: var(--teal-100); overflow: hidden; position: relative; margin: 0; }
