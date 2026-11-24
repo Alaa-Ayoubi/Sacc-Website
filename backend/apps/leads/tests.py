@@ -113,7 +113,9 @@ class QuoteRequestTests(TestCase):
             self.payload(),
             content_type="application/json",
             HTTP_USER_AGENT="Mozilla/5.0",
-            HTTP_X_FORWARDED_FOR="203.0.113.7, 10.0.0.1",
+            # The first entry is whatever the client sent; Render appends the
+            # address it really came from, so the last one is recorded.
+            HTTP_X_FORWARDED_FOR="10.0.0.1, 203.0.113.7",
         )
         quote = QuoteRequest.objects.get()
         self.assertEqual(quote.ip_address, "203.0.113.7")
@@ -153,3 +155,36 @@ class QuoteRequestTests(TestCase):
 
         self.assertEqual(blocked.status_code, 429)
         self.assertEqual(QuoteRequest.objects.count(), 2)
+
+    def test_a_forged_forwarded_for_header_does_not_open_a_new_bucket(self):
+        # Render keeps the client's X-Forwarded-For and appends the real address,
+        # so a fresh forged first entry on every request must not reset the count.
+        with mock.patch.dict(SimpleRateThrottle.THROTTLE_RATES, {"quote_request": "2/hour"}):
+            cache.clear()
+            codes = [
+                self.client.post(
+                    self.url, self.payload(), content_type="application/json",
+                    HTTP_X_FORWARDED_FOR=f"10.0.0.{i}, 203.0.113.7",
+                ).status_code
+                for i in range(3)
+            ]
+        self.assertEqual(codes, [201, 201, 429])
+
+    def test_the_edge_header_identifies_the_visitor(self):
+        # Cloudflare's header wins over anything in X-Forwarded-For.
+        with mock.patch.dict(SimpleRateThrottle.THROTTLE_RATES, {"quote_request": "1/hour"}):
+            cache.clear()
+            first = self.client.post(
+                self.url, self.payload(), content_type="application/json",
+                HTTP_CF_CONNECTING_IP="198.51.100.1", HTTP_X_FORWARDED_FOR="1.1.1.1",
+            )
+            other_visitor = self.client.post(
+                self.url, self.payload(), content_type="application/json",
+                HTTP_CF_CONNECTING_IP="198.51.100.2", HTTP_X_FORWARDED_FOR="1.1.1.1",
+            )
+            same_visitor = self.client.post(
+                self.url, self.payload(), content_type="application/json",
+                HTTP_CF_CONNECTING_IP="198.51.100.1", HTTP_X_FORWARDED_FOR="9.9.9.9",
+            )
+        self.assertEqual([first.status_code, other_visitor.status_code, same_visitor.status_code], [201, 201, 429])
+        self.assertEqual(QuoteRequest.objects.order_by("created_at").first().ip_address, "198.51.100.1")

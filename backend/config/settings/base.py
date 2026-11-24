@@ -162,13 +162,27 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 25,
-    "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.ScopedRateThrottle"],
+    "DEFAULT_THROTTLE_CLASSES": ["apps.core.throttling.ClientScopedRateThrottle"],
     # Public write endpoints are the spam surface, so they get their own buckets.
     "DEFAULT_THROTTLE_RATES": {
         "quote_request": env("THROTTLE_QUOTE_REQUEST", default="10/hour"),
         "job_application": env("THROTTLE_JOB_APPLICATION", default="5/hour"),
     },
     "EXCEPTION_HANDLER": "apps.core.exceptions.api_exception_handler",
+}
+
+# The header the hosting edge sets to the visitor's address (Cloudflare's, in
+# front of Render). Empty falls back to the last X-Forwarded-For entry.
+CLIENT_IP_HEADER = env("CLIENT_IP_HEADER", default="CF-Connecting-IP")
+
+# Throttle counters live in the database: shared by every gunicorn worker and
+# kept across restarts, unlike the default per-process memory cache. The table
+# is created by `createcachetable` in build.sh.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "sacc_cache",
+    }
 }
 
 # --- CORS -----------------------------------------------------------------
