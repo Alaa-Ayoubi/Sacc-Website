@@ -290,7 +290,7 @@ Grids are mostly three columns stepping to two (about 860–960px) and one (abou
 
 The utility bar (38px) holds the CR number and the NWC approval on one side, phone and email on the other, and drops items as the screen narrows. The masthead is sticky at 76px. Under 1180px the navigation folds into a full-height drawer under the masthead. On the home page the hero photograph is a sticky layer pinned under the masthead; the hero copy scrolls away and the following opaque bands slide over the photograph.
 
-Tabs organise any page with two or three kinds of content: a discipline's scope and its projects, the fleet's categories and support, the journey's milestones and values, and the certifications page in the owner's order: government approvals, then the commitment, then ISO certificates.
+A page with two or three kinds of content gives each its own part, one under another, never tabs (owner's decision): each part is a band with its own heading over a rule-strong line, on alternating white and mist grounds, so the page reads in one flow. The parts are a discipline's scope and its projects, the fleet's categories and support, the journey's milestones and values, and the certifications page in the owner's order: government approvals, then the commitment, then ISO certificates. On the home page the approvals band sits on white, the bodies' logos riding in a slow endless strip with no plates, the ISO codes beneath; the hero carries the company's figures in one line at its foot.
 
 ## Elevation & Depth
 
@@ -336,7 +336,7 @@ Near-square everywhere: buttons, inputs, filters, tags, tab counts, the language
 ### Navigation
 - **Masthead:** logo at the inline-start, links in on-teal-2 turning on-teal on hover; the current page gets a 2px orange underline. Then the language switch (a 1px inset stroke, its short form under 520px), the contact button and, under 1180px, the menu button.
 - **Drawer:** full-height teal-900, 1.15rem 700 links between faint rules, the current one in orange.
-- **Tabs:** 54px label row over a rule-strong baseline; unselected ink-3, selected teal-800 with a 3px teal-700 underline and a count in a mist badge. On teal, selected is on-teal with an orange underline. Arrow keys follow the reading direction.
+- **Page parts:** no tabs. Each part of a page is a band headed by an 800 H2 at clamp(1.45rem, 2.4vw, 1.95rem) over a 1px rule-strong line, clamp(48px, 6vw, 84px) of block padding, alternating white and mist.
 - **Footer:** one compact teal-950 bar: logo, the careers link, the rights line.
 
 ### Ruled lists (signature)
@@ -355,7 +355,7 @@ Colour and background changes at 140–160ms, the project photograph zoom at 600
 - **Do** put comparable items in hairline-ruled rows: a 1px rule-strong top rule, 1px rule between rows, no fill.
 - **Do** keep corners at 2px and photographs square.
 - **Do** show the approving bodies only by their official logos, uncoloured, on white plates at an equal visual area.
-- **Do** open each inner page with the teal page head and give a page with several kinds of content tabs, keeping the certifications order: government approvals, commitment, ISO certificates.
+- **Do** open each inner page with the teal page head and set its several kinds of content as parts one under another, never tabs, keeping the certifications order: government approvals, commitment, ISO certificates.
 - **Do** use only the company's own photographs, in a teal-100 frame that holds when a photograph is missing.
 - **Do** write layout with logical properties and flip directional arrows with the reading direction.
 
