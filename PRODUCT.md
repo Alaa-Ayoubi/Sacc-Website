@@ -28,7 +28,7 @@ Success means real enquiries arriving: quote requests from the Contact form, doc
 The four strengths below were confirmed together. A neighbouring contractor would have to match all four to copy the claim:
 
 1. **Qualified and approved.** Approved contractor for the National Water Company and other government bodies. Holds ISO 9001:2015, ISO 14001:2015 and ISO 45001:2018.
-2. **Owned fleet.** 150+ machines are owned, not hired. This gives control over schedules, and the fleet is also rented out.
+2. **Owned fleet.** The machines are owned, not hired. This gives control over schedules, and the fleet is also rented out. The site states no machine count (owner's decision).
 3. **Integrated multi-discipline delivery.** Nine disciplines under one contractor, delivered turnkey: water and sewerage, stormwater, electrical and solar, roads and asphalt, bridges and tunnels, landscaping and urban development, and more.
 4. **Local experience across several regions of the Kingdom.** The base is Al Madinah, but the record is national, for example the Haramain High-Speed Rail water network and the Qiddiya infrastructure works.
 
@@ -60,7 +60,7 @@ The live production site is **https://saccgroup.net/**. The owner confirms that 
 
 All of the following is confirmed real by the owner:
 
-- **Stats:** Established 2007 · 35+ years of leadership experience · 150+ machines in the equipment fleet · 100% safety compliance.
+- **Stats:** Established 2007 · 35+ years of leadership experience · 100% safety compliance.
 - **Projects (6):**
   - Outfall Line for ISTP3 (National Water Company, completed)
   - Reused Water Network (Ministry of Environment, Water and Agriculture, completed)
@@ -69,7 +69,7 @@ All of the following is confirmed real by the owner:
   - Al Madinah Road Expansion (Ministry of Transport, completed)
   - Electrical Infrastructure Network (Saudi Electricity Company, completed)
 - **Certifications:** ISO 9001:2015, ISO 14001:2015, ISO 45001:2018.
-- **Government approvals:** NWC, SCA, SEC, Saudi Aramco, MAADEN, the Royal Commission for Jubail and Yanbu, MOMRA.
+- **Government approvals:** NWC, SCA, SEC, Saudi Aramco, MAADEN, the Royal Commission for Jubail and Yanbu, the Ministry of Municipalities and Housing (MOMAH).
 - **Leadership:** Chairman Eng. Wasef Zeitoun and General Manager Eng. Fathy Ibrahim Aboukoura, with bios and the chairman's quote.
 - **Journey:** six milestones (2007 founding → present) and seven core values.
 - **Photography:** `frontend/public/assets/photos/` holds `hero-infrastructure.jpg`, `water-network.jpg`, `equipment-fleet.jpg` and `public-realm.jpg`.

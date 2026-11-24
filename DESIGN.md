@@ -1,6 +1,6 @@
 ---
 name: SACC — Sana Al-Awael Contracting Company
-description: A modern institutional, Arabic-first contractor site on white and cool mist grounds, with deep logo teal for the masthead, footer and key bands, the logo's orange reserved for the one contact action, Almarai throughout, hairline-ruled modules, the company's own photographs, and the approving bodies shown by their official logos on white plates.
+description: A modern institutional, Arabic-first contractor site on white and cool mist grounds, with deep logo teal for the masthead, footer and key bands, the logo's orange reserved for the one contact action, Almarai throughout, hairline-ruled modules, the company's own photographs, and the approving bodies shown by their official logos: in a slow plateless strip on the home page, on captioned white plates on the certifications page.
 colors:
   teal-950: "#0b2c2d"
   teal-900: "#0d3536"
@@ -170,17 +170,6 @@ components:
   filter-chip-selected:
     backgroundColor: "{colors.teal-800}"
     textColor: "{colors.on-teal}"
-  tab:
-    textColor: "{colors.ink-3}"
-    height: "54px"
-    padding: "0"
-  tab-selected:
-    textColor: "{colors.teal-800}"
-  tab-count:
-    backgroundColor: "{colors.mist}"
-    textColor: "{colors.ink-2}"
-    rounded: "{rounded.ctl}"
-    height: "22px"
   input:
     backgroundColor: "{colors.white}"
     textColor: "{colors.ink}"
@@ -207,7 +196,7 @@ components:
   footer:
     backgroundColor: "{colors.teal-950}"
     textColor: "{colors.on-teal-2}"
-    padding: "22px 0"
+    padding: "clamp(44px, 6vw, 64px) 0 32px"
 ---
 
 # Design System: SACC — Sana Al-Awael Contracting Company
@@ -216,9 +205,9 @@ components:
 
 **Creative North Star: "The Institutional Register"**
 
-The site reads as the formal register of an established infrastructure contractor: orderly, contemporary and plain. White and a cool mist grey carry the content; the logo's deep teal frames it, as the utility bar, the sticky masthead, every inner page's head band, the approvals band on the home page, the chairman's quote and the footer. The logo's orange is held back for the one contact action, «تواصل معنا» in the masthead, and for the small markers that say "here" on a teal ground (the current page, the selected tab, a tick, a rule).
+The site reads as the formal register of an established infrastructure contractor: orderly, contemporary and plain. White and a cool mist grey carry the content; the logo's deep teal frames it, as the utility bar, the sticky masthead, every inner page's head band, the chairman's quote and the footer. The logo's orange is held back for the one contact action, «تواصل معنا» in the masthead, and for the small markers that say "here" on a teal ground (the current page, a tick, a rule).
 
-Everything sits on a hairline-ruled grid. Lists of comparable things (disciplines, scope of work, capabilities, values, milestones, project facts, office details, open roles) are rows between 1px rules, with a firmer rule on top and no fill. Cards are a photograph and a title, not a box. The field is shown only by the company's own photographs: one pinned under the home hero that the page slides over, and the photographs of real projects. Who approved the company is shown by each body's official logo on its own white plate. No line drawings, no ornament, nothing that moves except calm fades and colour changes.
+Everything sits on a hairline-ruled grid. Lists of comparable things (disciplines, scope of work, capabilities, values, milestones, project facts, office details, open roles) are rows between 1px rules, with a firmer rule on top and no fill. Cards are a photograph and a title, not a box. The field is shown only by the company's own photographs: one pinned under the home hero that the page slides over, and the photographs of real projects. Who approved the company is shown by each body's official logo: riding a slow, plateless strip on the home page, and on its own captioned white plate on the certifications page. No line drawings, no ornament; motion is limited to that strip, calm fades, short entrances and colour changes.
 
 Arabic is the root language and Almarai sets both scripts at 400, 700 and 800. The English twin under /en mirrors through logical properties; arrows flip with the reading direction.
 
@@ -226,8 +215,8 @@ Arabic is the root language and Almarai sets both scripts at 400, 700 and 800. T
 - White and mist grounds; deep teal (#0d3536 / #0b2c2d) for the chrome and the key bands.
 - Orange only for the contact action and for small current-state markers on teal.
 - One family, Almarai, with 800 headings, 700 labels and 400 body at a generous 1.75 line height.
-- Hairline-ruled rows and grids instead of cards and plates; near-square 2px corners.
-- The company's own photographs only; approving bodies by their official logos on white plates.
+- Hairline-ruled rows and grids instead of boxed cards; near-square 2px corners.
+- The company's own photographs only; approving bodies by their official logos.
 - Flat by default; two soft shadows only (the sticky masthead and the form sheet).
 
 ## Colors
@@ -237,19 +226,19 @@ A cool, two-ground palette taken from the logo: a deep teal family, one warm ora
 ### Primary
 - **Logo Teal, deep** (teal-900): the masthead, the inner-page head band, the teal content bands and the mobile menu drawer; also the hero's fallback ground under its photograph.
 - **Logo Teal, darkest** (teal-950): the utility bar above the masthead and the footer, one step darker so the chrome brackets the page.
-- **Teal steps** (teal-800, teal-700, teal-600): interaction on light grounds. teal-800 fills the selected filter, the teal button and selected tab text; teal-700 colours "more" links, outlines, the form sheet's top rule, the selected tab underline, milestone years and leader roles; teal-600 is focus, caret and every icon on a light ground.
+- **Teal steps** (teal-800, teal-700, teal-600): interaction on light grounds. teal-800 fills the selected filter and the teal button; teal-700 colours "more" links, outlines, the form sheet's top rule, milestone years and leader roles; teal-600 is focus, caret and every icon on a light ground.
 - **Pale teal** (teal-100, teal-300): teal-100 is the photo frame tint while a photograph loads or is missing, the outline button's hover and text selection; teal-300 colours utility-bar icons.
 
 ### Secondary
-- **Logo Orange** (orange, hover orange-hover): the contact button (masthead, and the contact form's submit), the skip link, the focus ring on teal grounds, and the current-page or selected markers on teal: nav underline, drawer link, tab underline, list ticks, feature icons and the quote rule.
+- **Logo Orange** (orange, hover orange-hover): the contact button (masthead, and the contact form's submit), the skip link, the focus ring on teal grounds, and the current-page or selected markers on teal: nav underline, drawer link, list ticks, feature icons and the quote rule.
 
 ### Neutral
 - **Ink** (ink): headings and body text on light grounds.
-- **Ink Two** (ink-2): secondary prose, section leads, filter text, tab counts.
-- **Ink Three** (ink-3): meta lines, labels in fact lists, unselected tabs, hints.
+- **Ink Two** (ink-2): secondary prose, section leads, filter text, filter counts.
+- **Ink Three** (ink-3): meta lines, labels in fact lists, hints.
 - **On Teal / On Teal Two** (on-teal, on-teal-2): primary and secondary text on teal.
-- **White** (white) and **Mist** (mist): the two light grounds; bands alternate between them. Tags and tab counts sit on mist.
-- **Rule / Rule Strong** (rule, rule-strong): rule separates rows and cells; rule-strong is the firmer top rule of a list, the tab baseline and input borders. On teal the rules are white at 16% (rows) and 25% (top).
+- **White** (white) and **Mist** (mist): the two light grounds; bands alternate between them. Tags sit on mist.
+- **Rule / Rule Strong** (rule, rule-strong): rule separates rows and cells; rule-strong is the firmer top rule of a list, a part's heading line and input borders. On teal the rules are white at 16% (rows) and 25% (top).
 - **Status** (ok, live, danger): a completed project, a project in progress (each with a 7px dot), and form errors.
 
 ### Named Rules
@@ -274,7 +263,7 @@ A cool, two-ground palette taken from the logo: a deep teal family, one warm ora
 - **Title** (800, 1.05–1.2rem, 1.45): project, discipline, feature and timeline titles.
 - **Lead** (400, clamp(1.15rem, 1.6vw, 1.32rem)): the opening paragraph of a prose block; hero and page-head leads at about 1.1–1.22rem in on-teal-2.
 - **Body** (400, 1.0625rem, 1.75; 1.65 in English): prose capped at 70ch, section leads at 60ch.
-- **Label** (700, 0.93–1rem): buttons, field labels, "more" links, tab labels, ruled list items.
+- **Label** (700, 0.93–1rem): buttons, field labels, "more" links, ruled list items.
 - **Meta / Small** (400, 0.82–0.9rem): project meta, fact keys, hints, utility bar, footer.
 
 English headings tighten to -0.015em tracking and 1.18 line height; Arabic stays at 0. Numbers use tabular lining figures, and phone numbers and ISO codes are isolated left-to-right.
@@ -284,13 +273,13 @@ English headings tighten to -0.015em tracking and 1.18 line height; Arabic stays
 
 ## Layout
 
-A centred column of min(1240px, 100% − 2 × gutter), with the gutter at clamp(20px, 4vw, 48px). Sections are full-width bands with clamp(64px, 8vw, 112px) of block padding, alternating white and mist, with a teal band reserved for approvals or the quote. A band head puts the heading (and an optional lead) at the inline-start and a "more" link at the inline-end, spaced clamp(28px, 4vw, 44px) above the content.
+A centred column of min(1240px, 100% − 2 × gutter), with the gutter at clamp(20px, 4vw, 48px). Sections are full-width bands with clamp(64px, 8vw, 112px) of block padding, alternating white and mist, with a teal band reserved for the chairman's quote. A band head puts the heading (and an optional lead) at the inline-start and a "more" link at the inline-end, spaced clamp(28px, 4vw, 44px) above the content.
 
 Grids are mostly three columns stepping to two (about 860–960px) and one (about 520–600px); the gap between project cards and list columns is 28px. The home's selected projects use a 1.5fr / 1fr featured grid with the first project spanning two rows. Inner pages open with a teal page head (title, lead, optional crumb or button), then content bands. Prose and an aside sit in a 1.2fr / 1fr split; forms in a 1.5fr / 1fr split with the office details beside them.
 
 The utility bar (38px) holds the CR number and the NWC approval on one side, phone and email on the other, and drops items as the screen narrows. The masthead is sticky at 76px. Under 1180px the navigation folds into a full-height drawer under the masthead. On the home page the hero photograph is a sticky layer pinned under the masthead; the hero copy scrolls away and the following opaque bands slide over the photograph.
 
-A page with two or three kinds of content gives each its own part, one under another, never tabs (owner's decision): each part is a band with its own heading over a rule-strong line, on alternating white and mist grounds, so the page reads in one flow. The parts are a discipline's scope and its projects, the fleet's categories and support, the journey's milestones and values, and the certifications page in the owner's order: government approvals, then the commitment, then ISO certificates. On the home page the approvals band sits on white, the bodies' logos riding in a slow endless strip with no plates, the ISO codes beneath; the hero carries the company's figures in one line at its foot.
+A page with two or three kinds of content gives each its own part, one under another, never tabs (owner's decision): each part is a band with its own heading over a rule-strong line, on alternating white and mist grounds, so the page reads in one flow. The parts are a discipline's scope and its projects, the fleet's categories and support, the journey's milestones and values, and the certifications page in the owner's order: government approvals, then the commitment, then ISO certificates. On the home page the approvals band sits on white, the bodies' logos riding in a slow endless strip with no plates, the ISO certificates as cards beneath; the hero carries the company's figures in one line at its foot.
 
 ## Elevation & Depth
 
@@ -306,7 +295,7 @@ Flat by default. Depth comes from the change of ground (white, mist, teal) and f
 
 ## Shapes
 
-Near-square everywhere: buttons, inputs, filters, tags, tab counts, the language switch and logo plates take a 2px radius; photographs and portraits are square-cornered. The only round shape is the 7px status dot. Rows are separated by 1px rules with a firmer 1px rule-strong on top; the selected tab and current nav item carry a 2–3px underline; the form sheet has a 3px teal top rule. Ticks are 12 × 2px bars.
+Near-square everywhere: buttons, inputs, filters, tags, the language switch and logo plates take a 2px radius; photographs and portraits are square-cornered. The only round shape is the 7px status dot. Rows are separated by 1px rules with a firmer 1px rule-strong on top; the current nav item carries a 2px underline; the form sheet has a 3px teal top rule. Ticks are 12 × 2px bars.
 
 ## Components
 
@@ -337,16 +326,16 @@ Near-square everywhere: buttons, inputs, filters, tags, tab counts, the language
 - **Masthead:** logo at the inline-start, links in on-teal-2 turning on-teal on hover; the current page gets a 2px orange underline. Then the language switch (a 1px inset stroke, its short form under 520px), the contact button and, under 1180px, the menu button.
 - **Drawer:** full-height teal-900, 1.15rem 700 links between faint rules, the current one in orange.
 - **Page parts:** no tabs. Each part of a page is a band headed by an 800 H2 at clamp(1.45rem, 2.4vw, 1.95rem) over a 1px rule-strong line, clamp(48px, 6vw, 84px) of block padding, alternating white and mist.
-- **Footer:** one compact teal-950 bar: logo, the careers link, the rights line.
+- **Footer:** teal-950, four columns stepping down on narrow screens: the logo, tagline and commercial registration; quick links (every page and careers); the certificates; the address, phones and email. A rights line closes it under a faint rule.
 
 ### Ruled lists (signature)
 Rows between hairlines with a firmer top rule, in one to four columns: checks (teal-600 check icon), capabilities, the fleet's categories (a 12 × 2px teal tick, orange on teal), features with a 28px icon, values, the milestone timeline (year column, title, line), project facts (key column, bold value), office details and the open-roles table that collapses into stacked rows under 820px.
 
-### Approving body plates (signature)
-Each approving body by its official logo on its own white plate: 116px tall, 20px 24px padding, 2px corners, 12px gaps, four across stepping to three and two; a 1px inset rule outline on light grounds, none on teal. Every logo is sized to the same visual area within a 170 × 64px box so a wide wordmark and a square emblem read at equal weight. On the home approvals band the three ISO codes sit in a ruled row of three above the plates.
+### Approving bodies (signature)
+Every logo is sized to the same visual area within a 170 × 64px box so a wide wordmark and a square emblem read at equal weight. On the home page the logos ride a slow endless strip with no plates (48s a loop, 40s on phones), paused on hover and focus and standing still under reduced motion; the three ISO certificates follow beneath as cards under the subheading «شهادات الأيزو». On the certifications page each body has its own white plate with its name written beneath: 2px corners, 12px gaps, four across stepping to three and two, a 1px inset rule outline. The ISO certificates there are the same cards.
 
 ### Motion
-Colour and background changes at 140–160ms, the project photograph zoom at 600ms, all on cubic-bezier(0.16, 1, 0.3, 1). Reduced motion removes every animation and transition.
+Colour and background changes at 140–160ms, the project photograph zoom at 450ms, the phone menu dropping in over 240ms with its links following, filtered project cards fading in over 200ms, and a slight press (scale 0.97–0.99) on buttons and cards, all easing out on cubic-bezier(0.16, 1, 0.3, 1). Hover effects apply only to a fine pointer. Exits are instant. The logo strip is the one continuous motion. Reduced motion stops every animation and movement and keeps only colour changes as feedback.
 
 ## Do's and Don'ts
 

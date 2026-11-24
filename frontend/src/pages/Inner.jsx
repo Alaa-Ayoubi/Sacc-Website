@@ -21,7 +21,8 @@ function Published({ n }) {
   const P = useSite().ui.published;
   if (n === 1) return P.one;
   if (n === 2) return P.two;
-  return <><span className="num">{n}</span> {P.few}</>;
+  // Arabic counts 3 to 10 with a plural noun, 11 and above with a singular one.
+  return <><span className="num">{n}</span> {n >= 3 && n <= 10 ? P.few : P.many}</>;
 }
 
 const relProjects = (t, s) => t.projects.items.filter((p) => svcOf(s).cat.includes(p.key));
@@ -107,7 +108,8 @@ export function Service() {
 }
 
 export function Projects() {
-  const P = useSite().t.projects;
+  const { t, ui } = useSite();
+  const P = t.projects;
   const [filter, setFilter] = useState('all');
   const items = P.items.filter((p) => filter === 'all' || p.key === filter);
   return (
@@ -117,10 +119,12 @@ export function Projects() {
         <div className="filters" role="group" aria-label={P.title}>
           {P.categories.map((c) => (
             <button key={c.key} type="button" aria-pressed={filter === c.key} onClick={() => setFilter(c.key)}>
-              {c.label}<span className="count num">{c.key === 'all' ? P.items.length : P.items.filter((p) => p.key === c.key).length}</span>
+              {c.label}<span className="visually-hidden">: </span><span className="count num">{c.key === 'all' ? P.items.length : P.items.filter((p) => p.key === c.key).length}</span>
             </button>
           ))}
         </div>
+        {/* A filter changes the list below it without moving focus: say how many remain. */}
+        <p className="visually-hidden" role="status" aria-live="polite">{ui.shown(items.length)}</p>
         {items.length ? <ul className="proj-grid">{items.map((p) => <ProjectItem key={p.id} p={p} as="h2" />)}</ul> : <p className="empty">{P.empty}</p>}
       </div></section>
     </>
@@ -214,15 +218,15 @@ export function Journey() {
 }
 
 export function Leadership() {
-  const { t, site } = useSite();
+  const { t } = useSite();
   const L = t.leadership;
   return (
     <>
       <PageHead title={L.title} lead={L.lead} />
       <section className="band"><div className="wrap leaders">
-        {L.leaders.map((p, i) => (
+        {L.leaders.map((p) => (
           <article key={p.name} className="leader">
-            <Photo src={portrait(site, i)} alt={p.name} className="portrait" />
+            <Photo src={portrait(p)} alt={p.name} className="portrait" />
             <div>
               <h2>{p.name}</h2><p className="role">{p.title}</p><p className="bio">{p.bio}</p>
               <h3 className="visually-hidden">{L.expertiseHeading}</h3>

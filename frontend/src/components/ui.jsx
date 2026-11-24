@@ -1,18 +1,18 @@
 /* Small building blocks shared by every page. */
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowLeft, ArrowRight, Award, Briefcase, Building2, Check, CircleAlert, Clock, FileText, GraduationCap,
-  HardHat, Languages, Layers, Mail, MapPin, Menu, Phone, Satellite, Send, ShieldCheck, Upload, Wrench, X,
+  ArrowLeft, ArrowRight, Award, Briefcase, Check, CircleAlert, Clock, FileText, GraduationCap,
+  HardHat, Languages, Layers, Mail, MapPin, Menu, Phone, Send, ShieldCheck, Upload, X,
 } from 'lucide-react';
 
 import { useSite } from '../SiteContext.jsx';
 import { BODIES, CAT_SVC, isDone, pathFor, projImage, projSlug, svcOf } from '../lib/site.js';
 
 const GLYPH = {
-  'arrow-left': ArrowLeft, 'arrow-right': ArrowRight, award: Award, briefcase: Briefcase, 'building-2': Building2,
+  'arrow-left': ArrowLeft, 'arrow-right': ArrowRight, award: Award, briefcase: Briefcase,
   check: Check, 'circle-alert': CircleAlert, clock: Clock, 'file-text': FileText, 'graduation-cap': GraduationCap,
   'hard-hat': HardHat, languages: Languages, layers: Layers, mail: Mail, 'map-pin': MapPin, menu: Menu, phone: Phone,
-  satellite: Satellite, send: Send, 'shield-check': ShieldCheck, upload: Upload, wrench: Wrench, x: X,
+  send: Send, 'shield-check': ShieldCheck, upload: Upload, x: X,
 };
 
 /** A line icon, decorative (its control carries the name). */
@@ -51,7 +51,7 @@ export function QuoteAction({ className = 'btn btn-quote' }) {
       if (s) pf = { message: `${t.services.inquireCta} ${s.title}: ` };
     } else if (page === 'projects' && sub) {
       const p = t.projects.items.find((x) => projSlug(site, x.id) === sub);
-      if (p) pf = { message: `${t.projects.detailsCta}: ${p.title}: ` };
+      if (p) pf = { message: `${t.projects.detailsCta}: ${p.title} — ` };
     } else if (page === 'fleet') pf = { message: `${t.equipment.cta}: ` };
     setPrefill(pf);
   };
@@ -62,11 +62,18 @@ export function QuoteAction({ className = 'btn btn-quote' }) {
  * to load, the frame keeps its own tint. With no `alt` it is decorative. */
 export function Photo({ src, alt = '', className = 'photo', eager = false }) {
   const [failed, setFailed] = useState(false);
+  const img = useRef(null);
+  // A prerendered photograph may fail before the page hydrates, and React does
+  // not replay that error: look at it once on mount.
+  useEffect(() => {
+    const el = img.current;
+    if (el && el.complete && !el.naturalWidth) setFailed(true);
+  }, [src]);
   const none = !src || failed;
   return (
     <figure className={`${className}${none ? ' nophoto' : ''}`}>
       {!none && (
-        <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined}
+        <img ref={img} src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined}
           decoding="async" onError={() => setFailed(true)} />
       )}
     </figure>
@@ -110,7 +117,7 @@ export function ProjectItem({ p, as: H = 'h3' }) {
 
 export const projService = (t, p) => t.services.items.find((s) => s.icon === CAT_SVC[p.key]);
 
-/** The approving bodies, each by its official logo on a white plate. Logos
+/** The approving bodies, each by its official logo, no plate. Logos
  * are sized to the same visual area, so a wide wordmark and a square emblem
  * read at the same weight. */
 export function Logos({ names, captions = false }) {

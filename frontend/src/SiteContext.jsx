@@ -18,7 +18,15 @@ const SiteContext = createContext(null);
 
 export function SiteProvider({ url, children }) {
   const [site, setSite] = useState(snapshot);
-  const [path, setPath] = useState(url ?? (typeof window !== 'undefined' ? window.location.pathname : '/'));
+  // Every unknown address is served the one prerendered 404 page, which is
+  // Arabic. Hydrate that page as it was rendered, then turn to the real address
+  // (an English 404 under /en becomes English).
+  const [path, setPath] = useState(() => {
+    if (url != null) return url;
+    if (typeof window === 'undefined') return '/';
+    return parsePath(window.location.pathname, snapshot).notFound ? '/404' : window.location.pathname;
+  });
+  useEffect(() => { if (url == null) setPath(window.location.pathname); }, [url]);
   const [prefill, setPrefill] = useState(null);
   const route = useMemo(() => parsePath(path, site), [path, site]);
 

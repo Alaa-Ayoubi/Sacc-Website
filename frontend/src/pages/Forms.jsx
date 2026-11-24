@@ -44,6 +44,8 @@ export function Contact() {
   const C = t.contact;
   // Arriving with a prefill, the form starts with it already written in.
   const [values, setValues] = useState(() => (prefill?.message ? { ...Q_EMPTY, message: prefill.message } : Q_EMPTY));
+  // The words the site wrote in for the visitor; the message must say more than that.
+  const [lead, setLead] = useState(() => prefill?.message || '');
   const [errors, setErrors] = useState({});
   const [state, setState] = useState('idle');
   const [failure, setFailure] = useState('');
@@ -53,6 +55,7 @@ export function Contact() {
   useEffect(() => {
     if (!prefill) return;
     setValues((v) => ({ ...v, message: prefill.message || v.message }));
+    setLead(prefill.message || '');
     setPrefill(null);
   }, [prefill, setPrefill]);
 
@@ -70,14 +73,15 @@ export function Contact() {
     if (!values.email.trim()) found.email = ui.emailRequired;
     else if (!EMAIL.test(values.email.trim())) found.email = C.errors.email;
     if (!values.company.trim()) found.company = C.errors.company;
-    if (values.message.trim().length < 10) found.message = C.errors.message;
+    const own = lead && values.message.startsWith(lead) ? values.message.slice(lead.length) : values.message;
+    if (own.trim().length < 10) found.message = C.errors.message;
     setErrors(found);
     if (Object.keys(found).length) { focusFirst(form.current, ['name', 'email', 'company', 'message'], found); return; }
 
     setState('sending'); setFailure('');
     try {
-      await submitQuote({ ...values, projectTypeKey: null, type: '', locale: lang });
-      setValues(Q_EMPTY);
+      await submitQuote({ ...values, locale: lang });
+      setValues(Q_EMPTY); setLead('');
       setState('sent');
     } catch (error) {
       const mapped = {};

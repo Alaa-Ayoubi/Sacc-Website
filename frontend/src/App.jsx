@@ -23,7 +23,10 @@ function useOldLinks(navigate) {
     const lang = new URLSearchParams(search).get('lang') === 'en' || pathname.startsWith('/en') ? 'en' : 'ar';
     const atHome = pathname === '/' || pathname === '/en' || pathname === '/en/';
     if (atHome && id in OLD_PAGES) {
-      navigate(pathFor(OLD_PAGES[id], lang), { replace: true });
+      const to = pathFor(OLD_PAGES[id], lang);
+      // An old link to the home page itself (/#home) only loses its hash.
+      if (to === pathname || `${to}/` === pathname) window.history.replaceState(null, '', pathname + search);
+      else navigate(to, { replace: true });
     } else if (search.includes('lang=en') && !pathname.startsWith('/en')) {
       navigate(pathFor(pathname.replace(/^\/+|\/+$/g, ''), 'en'), { replace: true });
     }

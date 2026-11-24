@@ -150,7 +150,7 @@ class Stat(OrderedModel, TranslatableModel):
 
     translatable_fields = ("label",)
 
-    value = models.CharField(max_length=32, help_text="e.g. '2007', '150+', '100%'.")
+    value = models.CharField(max_length=32, help_text="e.g. '2007', '35+', '100%'.")
     label_ar = models.CharField(max_length=120, blank=True)
     label_en = models.CharField(max_length=120, blank=True)
 
