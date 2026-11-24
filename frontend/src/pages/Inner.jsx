@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useSite } from '../SiteContext.jsx';
 import { isDone, portrait, projImage, projSlug, svcOf } from '../lib/site.js';
-import { Arrow, Checks, Icon, Link, Logos, More, PageHead, Photo, ProjectItem, projService } from '../components/ui.jsx';
+import { Arrow, Checks, Icon, IsoCards, Link, Logos, More, PageHead, Photo, ProjectItem, projService } from '../components/ui.jsx';
 
 /** One part of a page, as its own band under its own heading. A page's parts
  * follow one another on alternating white and mist grounds, so the whole page
@@ -181,7 +181,7 @@ export function Approvals() {
         <div className="prose"><p className="lead">{C.commitmentBody}</p></div>
       </Part>
       <Part id="certs-iso" title={C.isoHeading}>
-        <ul className="features iso-cards">{C.iso.map((i) => <li key={i.title}><Icon name="award" /><h3><span className="num ltr">{i.title}</span></h3><p>{i.desc}</p></li>)}</ul>
+        <IsoCards iso={C.iso} />
       </Part>
     </>
   );
