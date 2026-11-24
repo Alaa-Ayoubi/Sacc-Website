@@ -43,7 +43,7 @@ export default function Home() {
 
       {/* On a light ground, so every body's logo shows in its own colours, with no plates. */}
       <section className="band approvals-band" aria-labelledby="appr-h"><div className="wrap">
-        <div className="head"><h2 id="appr-h">{ui.homeAppr}</h2><More to="approvals">{ui.certsLink}</More></div>
+        <div className="head"><h2 id="appr-h">{C.approvalsHeading}</h2><More to="approvals">{ui.certsLink}</More></div>
         {/* The owner's order: the government approvals first, the ISO certificates beneath. */}
         <LogoStrip names={C.approvals} />
         <ul className="names iso">{C.iso.map((i) => <li key={i.title}><span className="num ltr">{i.title}</span></li>)}</ul>
