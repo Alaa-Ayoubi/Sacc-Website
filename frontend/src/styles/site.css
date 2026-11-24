@@ -63,7 +63,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; line-height: 1.3; text-wrap: balan
 html[lang='en'] h1, html[lang='en'] h2, html[lang='en'] h3 { letter-spacing: -0.015em; line-height: 1.18; }
 p { margin: 0; text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--teal-600); outline-offset: 3px; }
-.on-dark :focus-visible, .masthead :focus-visible, .footer :focus-visible, .hero :focus-visible { outline-color: var(--orange); }
+.on-dark :focus-visible, .masthead :focus-visible, .footer :focus-visible, .hero :focus-visible,
+.pagehead :focus-visible, .topbar :focus-visible { outline-color: var(--orange); }
 
 .wrap { width: var(--wrap); margin-inline: auto; }
 .num { font-variant-numeric: tabular-nums lining-nums; }
