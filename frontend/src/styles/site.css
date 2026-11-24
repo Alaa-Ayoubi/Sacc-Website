@@ -564,7 +564,9 @@ html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
    Four columns on deep teal: who we are (logo, line, registration), the pages,
    the certificates and approvals, and how to reach the office; then a base
    line with the rights and the careers link. */
-.footer { background: var(--teal-950); color: var(--on-teal-2); font-size: 0.92rem; }
+/* Above the home page's pinned hero photograph, which may stay pinned past the
+   end of the page content: the footer must cover it, never the other way round. */
+.footer { position: relative; z-index: 1; background: var(--teal-950); color: var(--on-teal-2); font-size: 0.92rem; }
 .footer a { color: var(--on-teal-2); text-decoration: none; transition: color 140ms var(--ease); }
 @media (hover: hover) and (pointer: fine) { .footer a:hover { color: var(--on-teal); } }
 .footer-in { width: var(--wrap); margin-inline: auto; padding-block: clamp(44px, 6vw, 64px) 32px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr); gap: 36px 40px; }
