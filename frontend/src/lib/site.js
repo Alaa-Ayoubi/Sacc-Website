@@ -47,11 +47,12 @@ export const BODIES = [
   ['maaden', 127, 46], ['rcjy', 141, 41], ['momah', 93, 63],
 ];
 export const isDone = (p) => /complete|مكتمل|منجز/i.test(p.status);
-/* The design shows only the company's own photographs, from its image server;
- * the stock photographs kept in the repository are not used. Each project and
- * leader carries its own photograph, so a deletion or a new order in the admin
- * never moves a photograph to someone else. */
-const isRemote = (u) => /^https?:/i.test(u || '');
+/* The design shows only the company's own photographs: those shipped with the
+ * site under /assets/photos/site/, or one an editor uploaded (an absolute
+ * address). The older stock photographs in the repository (./assets/photos/...)
+ * are not used. Each project and leader carries its own photograph, so a
+ * deletion or a new order in the admin never moves a photograph to someone else. */
+const isRemote = (u) => /^https?:/i.test(u || '') || /^\/assets\/photos\/site\//.test(u || '');
 /** A project's photograph, or '' when it has none of its own. */
 export const projImage = (site, p) => (isRemote(p.image) ? p.image : '');
 /** A leader's portrait, or ''. */

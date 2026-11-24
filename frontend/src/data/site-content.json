@@ -11,16 +11,16 @@
     "hero": "./assets/photos/hero-infrastructure.jpg",
     "equipment": "./assets/photos/equipment-fleet.jpg",
     "water": "./assets/photos/water-network.jpg",
-    "urban": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg",
-    "careers": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/0ee767b1ad6a6c135b51e48993a3465f.jpg",
-    "chairman": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/54ad47034b10af4059ad230ab0ad21d9.jpg",
-    "gm": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/707fe33ae62954361a266d7ce41ab386.png",
+    "urban": "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp",
+    "careers": "/assets/photos/site/0ee767b1ad6a6c135b51e48993a3465f.webp",
+    "chairman": "/assets/photos/site/54ad47034b10af4059ad230ab0ad21d9.webp",
+    "gm": "/assets/photos/site/707fe33ae62954361a266d7ce41ab386.webp",
     "projects": [
-      "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg",
+      "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp",
       "./assets/photos/water-network.jpg",
-      "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/f90aea0ed9efb167c5e0f909c0dfd546.png",
-      "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/170e3ecc615f477a1f6c16510fdc0943.jpg",
-      "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/dbf9273f0e607726fb87885bddfdffa1.jpg",
+      "/assets/photos/site/f90aea0ed9efb167c5e0f909c0dfd546.webp",
+      "/assets/photos/site/170e3ecc615f477a1f6c16510fdc0943.webp",
+      "/assets/photos/site/dbf9273f0e607726fb87885bddfdffa1.webp",
       "./assets/photos/public-realm.jpg"
     ]
   },
@@ -126,7 +126,7 @@
             "الخزانات",
             "التوصيلات المنزلية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/170e3ecc615f477a1f6c16510fdc0943.jpg"
+          "image": "/assets/photos/site/170e3ecc615f477a1f6c16510fdc0943.webp"
         },
         {
           "icon": "CloudRain",
@@ -138,7 +138,7 @@
             "أحواض التجميع",
             "الحفر النفقي الدقيق"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/9ca88518e2da2ef0f72ea8ba1ef7c485.jpg"
+          "image": "/assets/photos/site/9ca88518e2da2ef0f72ea8ba1ef7c485.webp"
         },
         {
           "icon": "Zap",
@@ -150,7 +150,7 @@
             "إنارة الشوارع",
             "شبكات الألياف البصرية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/74d65ac0771e13d4ae20d9c36da6a002.jpg"
+          "image": "/assets/photos/site/74d65ac0771e13d4ae20d9c36da6a002.webp"
         },
         {
           "icon": "Route",
@@ -162,7 +162,7 @@
             "أنظمة السلامة المرورية",
             "الدهانات الأرضية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/dbf9273f0e607726fb87885bddfdffa1.jpg"
+          "image": "/assets/photos/site/dbf9273f0e607726fb87885bddfdffa1.webp"
         },
         {
           "icon": "Construction",
@@ -186,7 +186,7 @@
             "الحدائق العامة",
             "ممرات المشاة"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg"
+          "image": "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp"
         },
         {
           "icon": "ShieldCheck",
@@ -198,7 +198,7 @@
             "اختبار الخرسانة",
             "اختبارات الكثافة الحقلية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/a08bd408fb9cb46035fe88b4d10df759.webp"
+          "image": "/assets/photos/site/a08bd408fb9cb46035fe88b4d10df759.webp"
         },
         {
           "icon": "Truck",
@@ -210,7 +210,7 @@
             "معدات الرصف",
             "الصيانة الوقائية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/c277183c582c97537e04c923bbe697a7.jpg"
+          "image": "/assets/photos/site/c277183c582c97537e04c923bbe697a7.webp"
         },
         {
           "icon": "Settings",
@@ -222,7 +222,7 @@
             "إدارة الأصول",
             "تطوير الأنظمة"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/128edc4885024e1cbd744761744d201e.jpg"
+          "image": "/assets/photos/site/128edc4885024e1cbd744761744d201e.webp"
         }
       ]
     },
@@ -277,7 +277,7 @@
             "تركيب أنابيب كبيرة القطر",
             "إنشاء خط التصريف الخارجي"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg"
+          "image": "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp"
         },
         {
           "id": 2,
@@ -309,7 +309,7 @@
             "تنفيذ الخدمات العميقة",
             "البنية التحتية الأساسية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/f90aea0ed9efb167c5e0f909c0dfd546.png"
+          "image": "/assets/photos/site/f90aea0ed9efb167c5e0f909c0dfd546.webp"
         },
         {
           "id": 4,
@@ -325,7 +325,7 @@
             "أنظمة الصرف",
             "المحطات ومرافق الصيانة"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/170e3ecc615f477a1f6c16510fdc0943.jpg"
+          "image": "/assets/photos/site/170e3ecc615f477a1f6c16510fdc0943.webp"
         },
         {
           "id": 5,
@@ -342,7 +342,7 @@
             "رصف الأسفلت",
             "أنظمة السلامة المرورية"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/dbf9273f0e607726fb87885bddfdffa1.jpg"
+          "image": "/assets/photos/site/dbf9273f0e607726fb87885bddfdffa1.webp"
         },
         {
           "id": 6,
@@ -526,7 +526,7 @@
             "الحوكمة المؤسسية",
             "تطوير الأعمال"
           ],
-          "photo": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/54ad47034b10af4059ad230ab0ad21d9.jpg"
+          "photo": "/assets/photos/site/54ad47034b10af4059ad230ab0ad21d9.webp"
         },
         {
           "name": "المهندس فتحي إبراهيم أبوقورة",
@@ -538,7 +538,7 @@
             "تحسين الموارد",
             "الهندسة الفنية"
           ],
-          "photo": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/707fe33ae62954361a266d7ce41ab386.png"
+          "photo": "/assets/photos/site/707fe33ae62954361a266d7ce41ab386.webp"
         }
       ]
     },
@@ -851,7 +851,7 @@
             "Reservoirs",
             "House connections"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/170e3ecc615f477a1f6c16510fdc0943.jpg"
+          "image": "/assets/photos/site/170e3ecc615f477a1f6c16510fdc0943.webp"
         },
         {
           "icon": "CloudRain",
@@ -863,7 +863,7 @@
             "Retention basins",
             "Micro-tunneling"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/9ca88518e2da2ef0f72ea8ba1ef7c485.jpg"
+          "image": "/assets/photos/site/9ca88518e2da2ef0f72ea8ba1ef7c485.webp"
         },
         {
           "icon": "Zap",
@@ -875,7 +875,7 @@
             "Street lighting",
             "Fiber optic networks"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/74d65ac0771e13d4ae20d9c36da6a002.jpg"
+          "image": "/assets/photos/site/74d65ac0771e13d4ae20d9c36da6a002.webp"
         },
         {
           "icon": "Route",
@@ -887,7 +887,7 @@
             "Traffic safety systems",
             "Road marking"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/dbf9273f0e607726fb87885bddfdffa1.jpg"
+          "image": "/assets/photos/site/dbf9273f0e607726fb87885bddfdffa1.webp"
         },
         {
           "icon": "Construction",
@@ -911,7 +911,7 @@
             "Public parks",
             "Pedestrian walkways"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg"
+          "image": "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp"
         },
         {
           "icon": "ShieldCheck",
@@ -923,7 +923,7 @@
             "Concrete testing",
             "Field density tests"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/a08bd408fb9cb46035fe88b4d10df759.webp"
+          "image": "/assets/photos/site/a08bd408fb9cb46035fe88b4d10df759.webp"
         },
         {
           "icon": "Truck",
@@ -935,7 +935,7 @@
             "Paving equipment",
             "Preventive maintenance"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/c277183c582c97537e04c923bbe697a7.jpg"
+          "image": "/assets/photos/site/c277183c582c97537e04c923bbe697a7.webp"
         },
         {
           "icon": "Settings",
@@ -947,7 +947,7 @@
             "Asset management",
             "System upgrades"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/128edc4885024e1cbd744761744d201e.jpg"
+          "image": "/assets/photos/site/128edc4885024e1cbd744761744d201e.webp"
         }
       ]
     },
@@ -1002,7 +1002,7 @@
             "Large-diameter pipe installation",
             "Sewerage outfall line construction"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/fe90b22a280af627db8dde84d95bb038.jpg"
+          "image": "/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp"
         },
         {
           "id": 2,
@@ -1034,7 +1034,7 @@
             "Deep utilities",
             "Foundational infrastructure"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/f90aea0ed9efb167c5e0f909c0dfd546.png"
+          "image": "/assets/photos/site/f90aea0ed9efb167c5e0f909c0dfd546.webp"
         },
         {
           "id": 4,
@@ -1050,7 +1050,7 @@
             "Drainage systems",
             "Stations and maintenance facilities"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/170e3ecc615f477a1f6c16510fdc0943.jpg"
+          "image": "/assets/photos/site/170e3ecc615f477a1f6c16510fdc0943.webp"
         },
         {
           "id": 5,
@@ -1067,7 +1067,7 @@
             "Asphalt paving",
             "Traffic safety systems"
           ],
-          "image": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/dbf9273f0e607726fb87885bddfdffa1.jpg"
+          "image": "/assets/photos/site/dbf9273f0e607726fb87885bddfdffa1.webp"
         },
         {
           "id": 6,
@@ -1251,7 +1251,7 @@
             "Corporate Governance",
             "Business Development"
           ],
-          "photo": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/54ad47034b10af4059ad230ab0ad21d9.jpg"
+          "photo": "/assets/photos/site/54ad47034b10af4059ad230ab0ad21d9.webp"
         },
         {
           "name": "Eng. Fathy Ibrahim Aboukoura",
@@ -1263,7 +1263,7 @@
             "Resource Optimization",
             "Technical Engineering"
           ],
-          "photo": "https://horizons-cdn.hostinger.com/452dd903-afe9-42ac-8b4c-5c4b979ffaf2/707fe33ae62954361a266d7ce41ab386.png"
+          "photo": "/assets/photos/site/707fe33ae62954361a266d7ce41ab386.webp"
         }
       ]
     },
