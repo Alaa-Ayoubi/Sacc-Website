@@ -134,6 +134,13 @@ class ServiceAdmin(PublishedAdminMixin, admin.ModelAdmin):
                 "fields": ("capabilities_ar", "capabilities_en"),
             },
         ),
+        (
+            "Photograph",
+            {
+                "description": "The company's own work in this discipline, shown on the services page.",
+                "fields": ("image", "image_url"),
+            },
+        ),
     )
 
 

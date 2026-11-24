@@ -142,6 +142,7 @@ def _language_block(lang: str, data: dict) -> dict:
                     "title": service.tr("title", lang),
                     "desc": service.tr("description", lang),
                     "capabilities": service.tr_list("capabilities", lang),
+                    "image": service.image_src,
                 }
                 for service in data["services"]
             ],
