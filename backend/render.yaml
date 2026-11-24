@@ -129,8 +129,17 @@ services:
         source: /ar/projects
         destination: /projects
       - type: redirect
+        source: /ar/fleet
+        destination: /fleet
+      - type: redirect
         source: /ar/approvals
         destination: /approvals
+      - type: redirect
+        source: /ar/journey
+        destination: /journey
+      - type: redirect
+        source: /ar/leadership
+        destination: /leadership
       - type: redirect
         source: /ar/contact
         destination: /contact
@@ -193,22 +202,13 @@ services:
         destination: /en/company
       - type: redirect
         source: /equipment
-        destination: /services/equipment-rental
+        destination: /fleet
       - type: redirect
         source: /ar/equipment
-        destination: /services/equipment-rental
+        destination: /fleet
       - type: redirect
         source: /en/equipment
-        destination: /en/services/equipment-rental
-      - type: redirect
-        source: /fleet
-        destination: /services/equipment-rental
-      - type: redirect
-        source: /ar/fleet
-        destination: /services/equipment-rental
-      - type: redirect
-        source: /en/fleet
-        destination: /en/services/equipment-rental
+        destination: /en/fleet
       - type: redirect
         source: /certifications
         destination: /approvals
@@ -218,24 +218,6 @@ services:
       - type: redirect
         source: /en/certifications
         destination: /en/approvals
-      - type: redirect
-        source: /journey
-        destination: /company
-      - type: redirect
-        source: /ar/journey
-        destination: /company
-      - type: redirect
-        source: /en/journey
-        destination: /en/company
-      - type: redirect
-        source: /leadership
-        destination: /company
-      - type: redirect
-        source: /ar/leadership
-        destination: /company
-      - type: redirect
-        source: /en/leadership
-        destination: /en/company
       - type: rewrite
         source: /company
         destination: /company/index.html
@@ -246,8 +228,17 @@ services:
         source: /projects
         destination: /projects/index.html
       - type: rewrite
+        source: /fleet
+        destination: /fleet/index.html
+      - type: rewrite
         source: /approvals
         destination: /approvals/index.html
+      - type: rewrite
+        source: /journey
+        destination: /journey/index.html
+      - type: rewrite
+        source: /leadership
+        destination: /leadership/index.html
       - type: rewrite
         source: /contact
         destination: /contact/index.html
@@ -312,8 +303,17 @@ services:
         source: /en/projects
         destination: /en/projects/index.html
       - type: rewrite
+        source: /en/fleet
+        destination: /en/fleet/index.html
+      - type: rewrite
         source: /en/approvals
         destination: /en/approvals/index.html
+      - type: rewrite
+        source: /en/journey
+        destination: /en/journey/index.html
+      - type: rewrite
+        source: /en/leadership
+        destination: /en/leadership/index.html
       - type: rewrite
         source: /en/contact
         destination: /en/contact/index.html
