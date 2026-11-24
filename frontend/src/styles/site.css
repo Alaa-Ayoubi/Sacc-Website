@@ -513,3 +513,29 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 /* ---------- Small spacing the pages need ---------- */
 .scope-h { margin-top: 18px; }
 .fleet-prose { margin-bottom: 48px; }
+
+/* ---------- Home: the approving bodies in one slow, endless row ----------
+   The logos ride without plates, as in the first design. Two copies of the
+   row slide by half the track; hover or focus pauses it; under reduced
+   motion it stands still, centred and wrapped. */
+.strip + .names.iso { margin-top: 28px; }
+.strip-view {
+  overflow: hidden; padding-block: 10px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.strip-track { display: flex; width: max-content; animation: strip 48s linear infinite; }
+.strip-set { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+.strip-set li { flex: none; display: flex; align-items: center; justify-content: center; height: 96px; padding-inline: clamp(28px, 3.5vw, 52px); }
+.strip-set img { height: auto; }
+html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
+@keyframes strip { to { transform: translateX(-50%); } }
+@keyframes strip-rtl { to { transform: translateX(50%); } }
+.strip:hover .strip-track, .strip:focus-within .strip-track { animation-play-state: paused; }
+@media (max-width: 560px) { .strip-set li { height: 76px; padding-inline: 22px; } .strip-set img { width: 80%; } .strip-track { animation-duration: 40s; } }
+@media (prefers-reduced-motion: reduce) {
+  .strip-set.dup { display: none; }
+  .strip-view { -webkit-mask-image: none; mask-image: none; }
+  .strip-track { width: auto; justify-content: center; }
+  .strip-set { flex-wrap: wrap; justify-content: center; row-gap: 8px; }
+}

@@ -1,6 +1,6 @@
 import { useSite } from '../SiteContext.jsx';
 import { projImage, svcOf } from '../lib/site.js';
-import { Arrow, Link, Logos, More, Photo, ProjectItem } from '../components/ui.jsx';
+import { Arrow, Link, LogoStrip, More, Photo, ProjectItem } from '../components/ui.jsx';
 
 export default function Home() {
   const { t, ui, site } = useSite();
@@ -37,8 +37,9 @@ export default function Home() {
 
       <section className="band teal on-dark" aria-labelledby="appr-h"><div className="wrap">
         <div className="head"><h2 id="appr-h">{ui.homeAppr}</h2><More to="approvals">{ui.certsLink}</More></div>
+        {/* The owner's order: the government approvals first, the ISO certificates beneath. */}
+        <LogoStrip names={C.approvals} />
         <ul className="names iso">{C.iso.map((i) => <li key={i.title}><span className="num ltr">{i.title}</span></li>)}</ul>
-        <Logos names={C.approvals} />
       </div></section>
     </>
   );
