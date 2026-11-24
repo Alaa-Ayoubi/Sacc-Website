@@ -3,21 +3,22 @@
  * The language is part of the address (Arabic at the root, English under /en),
  * so switching language is a link to the twin page, not a stored preference.
  *
- * Content starts from the snapshot bundled at build time — the same one the
- * pages were prerendered from, so hydration matches — then quietly upgrades
- * if the API answers.
+ * Content is the snapshot taken at build time, the same one the pages were
+ * prerendered from, so hydration always matches. The browser never asks the
+ * backend for it: a content change in the admin rebuilds the site instead
+ * (backend apps.core.publish), which keeps visitors from waking the sleeping
+ * backend and the page from changing under them.
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import snapshot from './data/site-content.json';
-import { fetchSite } from './api.js';
 import { UI, parsePath } from './lib/site.js';
 import { pageMeta } from './lib/seo.js';
 
 const SiteContext = createContext(null);
 
 export function SiteProvider({ url, children }) {
-  const [site, setSite] = useState(snapshot);
+  const site = snapshot;
   // Every unknown address is served the one prerendered 404 page, which is
   // Arabic. Hydrate that page as it was rendered, then turn to the real address
   // (an English 404 under /en becomes English).
@@ -29,15 +30,6 @@ export function SiteProvider({ url, children }) {
   useEffect(() => { if (url == null) setPath(window.location.pathname); }, [url]);
   const [prefill, setPrefill] = useState(null);
   const route = useMemo(() => parsePath(path, site), [path, site]);
-
-  // Refresh in the background. A failure is never shown: the snapshot is complete.
-  useEffect(() => {
-    let cancelled = false;
-    fetchSite()
-      .then((data) => { if (!cancelled && data?.en?.services?.items?.length && data?.ar?.services?.items?.length) setSite(data); })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, []);
 
   // Back and forward buttons.
   useEffect(() => {

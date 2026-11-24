@@ -89,6 +89,12 @@ services:
       - key: LEAD_NOTIFICATION_RECIPIENTS
         sync: false
 
+      # The static site's deploy hook: every content change in the admin
+      # rebuilds the public site from the new content (apps.core.publish).
+      # Copy it from sacc-site > Settings > Deploy Hook. It is a secret.
+      - key: RENDER_DEPLOY_HOOK_URL
+        sync: false
+
       # Uploaded CVs must not live on the container filesystem — it is wiped on
       # every deploy. Cloudflare R2 has a free tier that covers this comfortably.
       # See README, "Uploaded files".

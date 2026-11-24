@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs && (node scripts/render-routes.mjs --check || echo 'warning: run npm run routes and commit backend/render.yaml')",
+    "build": "node scripts/fetch-content.mjs && vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs && (node scripts/render-routes.mjs --check || echo 'warning: run npm run routes and commit backend/render.yaml')",
     "preview": "vite preview",
     "build:client": "vite build",
-    "routes": "node scripts/render-routes.mjs"
+    "routes": "node scripts/render-routes.mjs",
+    "content": "node scripts/fetch-content.mjs"
   },
   "dependencies": {
     "@fontsource/almarai": "^5.3.0",

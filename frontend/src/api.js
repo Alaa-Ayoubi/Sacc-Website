@@ -1,10 +1,8 @@
-/* Talking to the Django backend.
+/* Talking to the Django backend: only the two forms do.
  *
- * The backend runs on a free instance that sleeps when idle, so the first
- * request after a quiet spell can take the better part of a minute. That is
- * fine when someone has just pressed Submit, and not fine for painting the
- * page — so content never blocks rendering: the app starts from the snapshot
- * bundled at build time and swaps in fresh content only if it arrives.
+ * Content is not fetched in the browser. Each build takes it from the backend
+ * (scripts/fetch-content.mjs) and every content change in the admin starts a
+ * build, so the prerendered pages are always the current content.
  */
 
 /* In development this is left empty so requests go through Vite's proxy and
@@ -12,8 +10,6 @@
  * deployed backend, whose CORS allowlist names the live domain. */
 const BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 
-/** How long to wait for content before giving up and keeping the snapshot. */
-const CONTENT_TIMEOUT_MS = 8000;
 /** Form submissions wait much longer — the visitor is expecting a result. */
 const SUBMIT_TIMEOUT_MS = 90000;
 
@@ -52,11 +48,6 @@ async function request(path, { timeout, ...options } = {}) {
   return body;
 }
 
-/** Fetch the whole bilingual bundle. Both languages arrive at once so
- *  switching language never costs another request. */
-export function fetchSite() {
-  return request('/api/v1/site/', { timeout: CONTENT_TIMEOUT_MS });
-}
 
 /** `website` is the honeypot: it stays hidden and empty for real people. */
 export function submitQuote(values) {

@@ -206,3 +206,68 @@ class IndexPageTests(TestCase):
     def test_index_is_not_indexable(self):
         # An internal service should not turn up in search results.
         self.assertContains(self.client.get("/"), "noindex")
+
+
+class PublishOnContentChangeTests(TestCase):
+    """A content change drops the cached bundle and asks for a site rebuild."""
+
+    HOOK = "https://api.render.com/deploy/srv-test?key=test"
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()
+
+    def _change(self, action):
+        from unittest import mock
+
+        with self.settings(RENDER_DEPLOY_HOOK_URL=self.HOOK), \
+                mock.patch("apps.core.publish.threading.Thread") as thread, \
+                self.captureOnCommitCallbacks(execute=True):
+            action()
+        return thread
+
+    def test_a_content_edit_rebuilds_the_site_and_drops_the_cache(self):
+        from django.core.cache import cache
+
+        from apps.content.models import Stat
+
+        cache.set("site-bundle:all", {"stale": True})
+        thread = self._change(lambda: Stat.objects.create(value="2007", label_ar="تأسست", label_en="Founded"))
+        thread.assert_called_once()
+        self.assertEqual(thread.call_args.kwargs["args"], (self.HOOK,))
+        self.assertIsNone(cache.get("site-bundle:all"))
+
+    def test_a_deletion_rebuilds_the_site_too(self):
+        from apps.content.models import Stat
+
+        stat = Stat.objects.create(value="1", label_ar="أ", label_en="a")
+        thread = self._change(stat.delete)
+        thread.assert_called_once()
+
+    def test_an_enquiry_never_rebuilds_the_site(self):
+        from apps.leads.models import QuoteRequest
+
+        thread = self._change(lambda: QuoteRequest.objects.create(
+            full_name="n", company="c", email="e@example.com", phone="1", message="message text"))
+        thread.assert_not_called()
+
+    def test_without_a_hook_nothing_is_called(self):
+        from unittest import mock
+
+        from apps.content.models import Stat
+
+        with self.settings(RENDER_DEPLOY_HOOK_URL=""), \
+                mock.patch("apps.core.publish.threading.Thread") as thread, \
+                self.captureOnCommitCallbacks(execute=True):
+            Stat.objects.create(value="1", label_ar="أ", label_en="a")
+        thread.assert_not_called()
+
+    def test_the_bundle_is_served_from_the_cache_until_content_changes(self):
+        from django.core.cache import cache
+
+        self.client.get("/api/v1/site/")
+        self.assertIsNotNone(cache.get("site-bundle:all"))
+        self.client.get("/api/v1/site/?lang=ar")
+        self.assertIn("ar", cache.get("site-bundle:ar"))
+        self.assertNotIn("en", cache.get("site-bundle:ar"))

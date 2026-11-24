@@ -1,9 +1,7 @@
 """Public read endpoints: the site bundle and a health probe."""
 from django.conf import settings
+from django.core.cache import cache
 from django.db import connection
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_headers
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -26,18 +24,22 @@ class SiteBundleView(APIView):
 
     throttle_classes = []
 
-    @method_decorator(cache_page(settings.SITE_BUNDLE_CACHE_SECONDS))
-    @method_decorator(vary_on_headers("Accept-Language"))
     def get(self, request):
-        bundle = build_site_bundle()
-
+        # Cached under fixed keys so a content change can drop them at once
+        # (apps.core.publish) instead of waiting for them to expire.
         lang = request.query_params.get("lang")
-        if lang in LANGUAGES:
-            bundle = {
-                "company": bundle["company"],
-                "images": bundle["images"],
-                lang: bundle[lang],
-            }
+        lang = lang if lang in LANGUAGES else "all"
+        key = f"site-bundle:{lang}"
+        bundle = cache.get(key)
+        if bundle is None:
+            bundle = build_site_bundle()
+            if lang != "all":
+                bundle = {
+                    "company": bundle["company"],
+                    "images": bundle["images"],
+                    lang: bundle[lang],
+                }
+            cache.set(key, bundle, settings.SITE_BUNDLE_CACHE_SECONDS)
         return Response(bundle)
 
 

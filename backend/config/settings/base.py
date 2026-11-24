@@ -207,6 +207,9 @@ LEAD_NOTIFICATION_RECIPIENTS = env("LEAD_NOTIFICATION_RECIPIENTS")
 
 # --- app-specific ---------------------------------------------------------
 SITE_BUNDLE_CACHE_SECONDS = env("SITE_BUNDLE_CACHE_SECONDS")
+# The static site's deploy hook (Render > sacc-site > Settings > Deploy Hook).
+# A secret: set it in the dashboard. Empty means content changes rebuild nothing.
+RENDER_DEPLOY_HOOK_URL = env("RENDER_DEPLOY_HOOK_URL", default="")
 MAX_CV_UPLOAD_MB = env("MAX_CV_UPLOAD_MB")
 ALLOWED_CV_EXTENSIONS = ["pdf", "doc", "docx"]
 
