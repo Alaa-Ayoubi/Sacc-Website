@@ -57,10 +57,12 @@ services:
       # these are the live domains.
       - key: ALLOWED_HOSTS
         value: saccgroup.net,www.saccgroup.net
+      # The site's own Render address too, so its forms work before the
+      # domain points at it.
       - key: CORS_ALLOWED_ORIGINS
-        value: https://saccgroup.net,https://www.saccgroup.net
+        value: https://saccgroup.net,https://www.saccgroup.net,https://sacc-site.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://saccgroup.net,https://www.saccgroup.net
+        value: https://saccgroup.net,https://www.saccgroup.net,https://sacc-site.onrender.com
 
       # The admin account, created on first deploy by bootstrap_site. Render's
       # Shell is a paid feature, so createsuperuser cannot be run by hand on the
