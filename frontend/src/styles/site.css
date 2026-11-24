@@ -282,19 +282,6 @@ html[lang='en'] .hero h1 { line-height: 1.08; }
 .pager a:hover .v { color: var(--teal-700); }
 @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager a[rel='next'] { text-align: start; } }
 
-/* ---------- Tabs ---------- */
-.tablist { display: flex; flex-wrap: wrap; gap: 0 28px; border-bottom: 1px solid var(--rule-strong); margin-bottom: 28px; }
-.tablist [role='tab'] { position: relative; min-height: 54px; padding: 0; border: 0; background: transparent; color: var(--ink-3); font-weight: 700; font-size: 1.02rem; display: inline-flex; align-items: center; gap: 8px; }
-.tablist [role='tab']:hover { color: var(--ink); }
-.tablist [role='tab'][aria-selected='true'] { color: var(--teal-800); }
-.tablist [role='tab'][aria-selected='true']::after { content: ''; position: absolute; inset-inline: 0; bottom: -1px; height: 3px; background: var(--teal-700); }
-.tablist .count { font-size: 0.78rem; min-width: 24px; height: 22px; padding: 0 7px; display: inline-grid; place-items: center; border-radius: 2px; background: var(--mist); color: var(--ink-2); }
-.teal .tablist { border-bottom-color: rgba(242, 247, 247, 0.3); }
-.teal .tablist [role='tab'] { color: var(--on-teal-2); }
-.teal .tablist [role='tab']:hover, .teal .tablist [role='tab'][aria-selected='true'] { color: var(--on-teal); }
-.teal .tablist [role='tab'][aria-selected='true']::after { background: var(--orange); }
-.teal .tablist .count { background: var(--teal-800); color: var(--on-teal); }
-.tabpanel:focus-visible { outline-offset: 6px; }
 
 /* ---------- Project page ---------- */
 .proj-hero { margin: 0; aspect-ratio: 21 / 9; max-height: 520px; width: 100%; background: var(--teal-100); position: relative; overflow: hidden; }
@@ -516,7 +503,6 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 
 /* ---------- Small spacing the pages need ---------- */
 .scope-h { margin-top: 18px; }
-.fleet-prose { margin-bottom: 48px; }
 
 /* ---------- Home: the approving bodies in one slow, endless row ----------
    The logos ride without plates, as in the first design. Two copies of the
@@ -562,3 +548,26 @@ html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
 /* ---------- Home: the approvals on a light ground ---------- */
 .approvals-band .names { border-top-color: var(--rule-strong); }
 .approvals-band .names li { border-bottom-color: var(--rule); color: var(--ink); }
+
+/* ---------- Pages in parts ----------
+   A page's parts follow one another as bands, each under its own heading, on
+   alternating white and mist grounds; a part needs less room than a page
+   section, so the page reads as one continuous register. */
+.band.part { padding-block: clamp(48px, 6vw, 84px); }
+.band.part .head { margin-bottom: clamp(22px, 3vw, 32px); padding-bottom: 14px; border-bottom: 1px solid var(--rule-strong); }
+.band.part .head h2 { font-size: clamp(1.45rem, 2.4vw, 1.95rem); }
+.band.part .head + :is(.caps, .checks, .list-ruled, .ruled-desc, .values, .features) { border-top: 0; }
+.band.part .timeline li:first-child { padding-top: 6px; }
+.pager-band { padding-block: 0 clamp(48px, 6vw, 84px); }
+.pager-band .pager { margin-top: 0; }
+
+/* Certifications: each body by its logo, with its name written beneath. */
+.logos.named li { flex-direction: column; justify-content: stretch; gap: 14px; padding: 22px 20px 18px; }
+.logos.named .logo { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 72px; }
+.logos.named .name { align-self: stretch; padding-top: 12px; border-top: 1px solid var(--rule); text-align: center; font-size: 0.88rem; font-weight: 700; color: var(--ink-2); line-height: 1.5; }
+
+/* Certifications: the three ISO standards, side by side. */
+.features.iso-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+.features.iso-cards li { padding: 24px 0; border-bottom: 0; border-top: 2px solid var(--teal-700); }
+.features.iso-cards h3 { font-size: 1.25rem; }
+@media (max-width: 860px) { .features.iso-cards { grid-template-columns: 1fr; } .features.iso-cards li { border-top-width: 1px; border-top-color: var(--rule-strong); } }

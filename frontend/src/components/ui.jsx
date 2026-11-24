@@ -1,5 +1,5 @@
 /* Small building blocks shared by every page. */
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   ArrowLeft, ArrowRight, Award, Briefcase, Building2, Check, CircleAlert, Clock, FileText, GraduationCap,
   HardHat, Languages, Layers, Mail, MapPin, Menu, Phone, Satellite, Send, ShieldCheck, Upload, Wrench, X,
@@ -87,42 +87,6 @@ export function More({ to, children }) {
   return <Link to={to} className="more">{children} <Arrow /></Link>;
 }
 
-/** ARIA tabs with counts, and arrow keys that follow the reading direction. */
-export function Tabs({ id, label, items, current, onChange }) {
-  const { rtl } = useSite();
-  const list = useRef(null);
-  const [own, setOwn] = useState(items[0].key);
-  const value = current ?? own;
-  const set = onChange ?? setOwn;
-  const cur = items.some((i) => i.key === value) ? value : items[0].key;
-  const onKey = (e) => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
-    const i = items.findIndex((x) => x.key === cur);
-    const fwd = rtl ? 'ArrowLeft' : 'ArrowRight';
-    const j = e.key === 'Home' ? 0 : e.key === 'End' ? items.length - 1 : (i + (e.key === fwd ? 1 : -1) + items.length) % items.length;
-    e.preventDefault();
-    set(items[j].key);
-    requestAnimationFrame(() => list.current?.querySelectorAll('[role=tab]')[j]?.focus());
-  };
-  return (
-    <div className="tabs">
-      <div className="tablist" role="tablist" aria-label={label} ref={list} onKeyDown={onKey}>
-        {items.map((it) => (
-          <button key={it.key} type="button" role="tab" id={`tab-${id}-${it.key}`} aria-controls={`panel-${id}-${it.key}`}
-            aria-selected={cur === it.key} tabIndex={cur === it.key ? 0 : -1} onClick={() => set(it.key)}>
-            {it.label}{it.count !== undefined && <span className="count num">{it.count}</span>}
-          </button>
-        ))}
-      </div>
-      {items.map((it) => (
-        <div key={it.key} className="tabpanel" role="tabpanel" id={`panel-${id}-${it.key}`} aria-labelledby={`tab-${id}-${it.key}`} tabIndex={0} hidden={cur !== it.key}>
-          {it.content}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 /** A list of short items, each with a check mark, under a firm rule. */
 export function Checks({ items, className = 'caps' }) {
   return <ul className={className}>{items.map((x) => <li key={x}><Icon name="check" /><span>{x}</span></li>)}</ul>;
@@ -149,12 +113,14 @@ export const projService = (t, p) => t.services.items.find((s) => s.icon === CAT
 /** The approving bodies, each by its official logo on a white plate. Logos
  * are sized to the same visual area, so a wide wordmark and a square emblem
  * read at the same weight. */
-export function Logos({ names }) {
+export function Logos({ names, captions = false }) {
   return (
-    <ul className="logos">
+    <ul className={`logos${captions ? ' named' : ''}`}>
       {BODIES.map(([k, w, h], i) => (
         <li key={k}>
-          <img src={`/assets/logos/${k}.webp`} alt={names[i]} width={w} height={h} loading="lazy" decoding="async" />
+          <span className="logo"><img src={`/assets/logos/${k}.webp`} alt={captions ? '' : names[i]} width={w} height={h} loading="lazy" decoding="async" /></span>
+          {/* With a caption the body's name is written out; the logo then repeats it. */}
+          {captions && <span className="name">{names[i]}</span>}
         </li>
       ))}
     </ul>
