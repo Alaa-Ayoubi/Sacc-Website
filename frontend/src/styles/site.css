@@ -63,7 +63,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; line-height: 1.3; text-wrap: balan
 html[lang='en'] h1, html[lang='en'] h2, html[lang='en'] h3 { letter-spacing: -0.015em; line-height: 1.18; }
 p { margin: 0; text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--teal-600); outline-offset: 3px; }
-.on-dark :focus-visible, .masthead :focus-visible, .footer :focus-visible, .hero :focus-visible { outline-color: var(--orange); }
+.on-dark :focus-visible, .masthead :focus-visible, .footer :focus-visible, .hero :focus-visible,
+.pagehead :focus-visible, .topbar :focus-visible { outline-color: var(--orange); }
 
 .wrap { width: var(--wrap); margin-inline: auto; }
 .num { font-variant-numeric: tabular-nums lining-nums; }
@@ -512,3 +513,48 @@ html[dir='rtl'] .roles th, html[dir='rtl'] .roles td { padding: 12px 0 12px 12px
 /* ---------- Small spacing the pages need ---------- */
 .scope-h { margin-top: 18px; }
 .fleet-prose { margin-bottom: 48px; }
+
+/* ---------- Home: the approving bodies in one slow, endless row ----------
+   The logos ride without plates, as in the first design. Two copies of the
+   row slide by half the track; hover or focus pauses it; under reduced
+   motion it stands still, centred and wrapped. */
+.strip + .names.iso { margin-top: 28px; }
+.strip-view {
+  overflow: hidden; padding-block: 10px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.strip-track { display: flex; width: max-content; animation: strip 48s linear infinite; }
+.strip-set { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+.strip-set li { flex: none; display: flex; align-items: center; justify-content: center; height: 96px; padding-inline: clamp(28px, 3.5vw, 52px); }
+.strip-set img { height: auto; }
+html[dir='rtl'] .strip-track { animation-name: strip-rtl; }
+@keyframes strip { to { transform: translateX(-50%); } }
+@keyframes strip-rtl { to { transform: translateX(50%); } }
+.strip:hover .strip-track, .strip:focus-within .strip-track { animation-play-state: paused; }
+@media (max-width: 560px) { .strip-set li { height: 76px; padding-inline: 22px; } .strip-set img { width: 80%; } .strip-track { animation-duration: 40s; } }
+@media (prefers-reduced-motion: reduce) {
+  .strip-set.dup { display: none; }
+  .strip-view { -webkit-mask-image: none; mask-image: none; }
+  .strip-track { width: auto; justify-content: center; }
+  .strip-set { flex-wrap: wrap; justify-content: center; row-gap: 8px; }
+}
+
+/* ---------- Home: the figures at the foot of the hero ----------
+   One quiet line of facts on a dark, blurred strip over the photograph: the
+   founding year, the leadership's experience, the safety record. */
+.hero-strip { position: relative; z-index: 1; border-top: 1px solid rgba(242, 247, 247, 0.22); background: rgba(11, 44, 45, 0.62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.hero-strip ul { width: var(--wrap); margin-inline: auto; list-style: none; padding: 16px 0; display: flex; flex-wrap: wrap; gap: 10px 40px; font-size: 0.97rem; color: var(--on-teal); }
+.hero-strip li { display: inline-flex; align-items: center; gap: 8px; }
+.hero-strip strong { font-weight: 800; }
+.hero-strip .icon { color: var(--orange); }
+.hero-in { padding-bottom: 56px; }
+/* The hero fills the first screen under the top bar and masthead, so the
+   figures sit at its foot and the next band starts exactly at the fold. */
+.hero { display: flex; flex-direction: column; min-height: calc(100svh - var(--head-h) - 38px); }
+.hero > .hero-in { flex: 1; min-height: 0; }
+@media (max-width: 560px) { .hero-strip ul { flex-direction: column; gap: 6px; padding: 14px 0; font-size: 0.93rem; } }
+
+/* ---------- Home: the approvals on a light ground ---------- */
+.approvals-band .names { border-top-color: var(--rule-strong); }
+.approvals-band .names li { border-bottom-color: var(--rule); color: var(--ink); }

@@ -160,3 +160,24 @@ export function Logos({ names }) {
     </ul>
   );
 }
+
+/** Home: the approving bodies' logos slide slowly in one endless row, with no
+ * plates. Two copies make the loop seamless; the second is hidden from
+ * assistive tech. It pauses on hover and focus, and under reduced motion it
+ * stands still as one centred row. */
+export function LogoStrip({ names }) {
+  const set = (hidden) => BODIES.map(([k, w, h], i) => (
+    <li key={k}>
+      <img src={`/assets/logos/${k}.webp`} alt={hidden ? '' : names[i]} width={w} height={h} decoding="async" />
+    </li>
+  ));
+  return (
+    <div className="strip">
+      <div className="strip-view"><div className="strip-track">
+        <ul className="strip-set">{set(false)}</ul>
+        <ul className="strip-set dup" aria-hidden="true">{set(true)}</ul>
+      </div></div>
+    </div>
+  );
+}
+

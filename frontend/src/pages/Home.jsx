@@ -1,6 +1,6 @@
 import { useSite } from '../SiteContext.jsx';
 import { projImage, svcOf } from '../lib/site.js';
-import { Arrow, Link, Logos, More, Photo, ProjectItem } from '../components/ui.jsx';
+import { Arrow, Icon, Link, LogoStrip, More, Photo, ProjectItem } from '../components/ui.jsx';
 
 export default function Home() {
   const { t, ui, site } = useSite();
@@ -19,6 +19,12 @@ export default function Home() {
           <p>{H.lead}</p>
           <Link to="services" className="btn btn-outline-light">{H.cta1}</Link>
         </div>
+        {/* The company's standing in figures, the first proof a procurement officer looks for. */}
+        <div className="hero-strip">
+          <ul aria-label={ui.figuresLabel}>
+            {t.stats.map((s) => <li key={s.label}><Icon name="check" /><span><strong className="num ltr">{s.value}</strong> {s.label}</span></li>)}
+          </ul>
+        </div>
       </section>
 
       <section className="band" aria-labelledby="disc-h"><div className="wrap">
@@ -35,10 +41,12 @@ export default function Home() {
         <ul className="proj-grid featured">{featured.map((p) => <ProjectItem key={p.id} p={p} />)}</ul>
       </div></section>
 
-      <section className="band teal on-dark" aria-labelledby="appr-h"><div className="wrap">
+      {/* On a light ground, so every body's logo shows in its own colours, with no plates. */}
+      <section className="band approvals-band" aria-labelledby="appr-h"><div className="wrap">
         <div className="head"><h2 id="appr-h">{ui.homeAppr}</h2><More to="approvals">{ui.certsLink}</More></div>
+        {/* The owner's order: the government approvals first, the ISO certificates beneath. */}
+        <LogoStrip names={C.approvals} />
         <ul className="names iso">{C.iso.map((i) => <li key={i.title}><span className="num ltr">{i.title}</span></li>)}</ul>
-        <Logos names={C.approvals} />
       </div></section>
     </>
   );
