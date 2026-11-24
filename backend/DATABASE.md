@@ -166,33 +166,52 @@ $env:DB_USE_DIRECT="True"; .venv\Scripts\python manage.py migrate
 
 ---
 
-## نسخة احتياطية دورية (مهم)
+## النسخ الاحتياطي اليومي
 
-القاعدة السابقة اختفت دون نسخة. خذي نسخة من Neon مرة شهريًا على الأقل،
-وبعد أي تعديل كبير في المحتوى:
+خطة Neon المجانية تحتفظ بتاريخ ست ساعات فقط. لذلك تأخذ مهمة GitHub Actions
+(`.github/workflows/backup.yml`) نسخة كاملة من القاعدة كل ليلة، الساعة 02:17
+بتوقيت السعودية، وتشفّرها، وتحفظها 90 يوماً.
 
-```powershell
-docker compose exec db pg_dump -Fc -f /tmp/backup.dump "رابط-Neon"
-docker compose cp db:/tmp/backup.dump ./sacc-backup.dump
+### الإعداد مرة واحدة
+
+في GitHub: Settings ثم Secrets and variables ثم Actions، أضيفي سرّين:
+
+- `BACKUP_DATABASE_URL`: رابط Neon **المباشر** (الذي لا يحتوي `-pooler`).
+- `BACKUP_PASSPHRASE`: كلمة سر طويلة عشوائية. احفظيها أيضاً خارج GitHub، في
+  مدير كلمات السر مثلاً: بدونها لا يمكن فتح أي نسخة.
+
+ثم من تبويب Actions شغّلي «Database backup» يدوياً مرة (Run workflow) وتأكدي
+أنه نجح.
+
+لماذا التشفير؟ المستودع عام، وملفات المهام قابلة للتنزيل لأي مستخدم GitHub.
+النسخة فيها الطلبات والسير الذاتية وحساب المدير، فلا تُرفع إلا مشفّرة.
+
+### الاستعادة
+
+نزّلي النسخة من صفحة المهمة في تبويب Actions (Artifacts)، ثم:
+
+```bash
+gpg --decrypt sacc-YYYY-MM-DDTHHMMZ.dump.gpg > sacc.dump
+pg_restore --no-owner --no-privileges --clean --if-exists -d "رابط-القاعدة-المباشر" sacc.dump
 ```
 
-احفظي الملف `sacc-backup.dump` خارج المستودع، في مكان آمن، لأنه يحتوي بيانات
-الطلبات وحساب المدير. المستودع يتجاهل ملفات `.dump` حتى لا تُرفع بالخطأ.
-
-لاستعادة نسخة إلى قاعدة فارغة، استخدمي أمر `pg_restore` نفسه في الجزء الثاني.
+جرّبي الاستعادة أولاً على فرع Neon جديد، لا على القاعدة المنشورة. احذفي
+`sacc.dump` بعد الانتهاء: المستودع يتجاهل ملفات `.dump`، لكنها بيانات خاصة.
 
 ---
 
 ## بعد تعديل المحتوى من لوحة التحكم
 
-لكي يظهر التعديل في صفحات الموقع:
+لا شيء تفعلينه. كل حفظ أو حذف لمحتوى في لوحة التحكم يطلب من Render إعادة بناء
+الموقع، والبناء يأخذ المحتوى من الخادم، فيظهر التعديل خلال دقائق.
+
+يعمل هذا حين يكون `RENDER_DEPLOY_HOOK_URL` مضبوطاً في إعدادات خدمة
+`sacc-backend` على Render: انسخيه من خدمة `sacc-site` ثم Settings ثم Deploy
+Hook. هذا الرابط سرّ، فلا تضعيه في المستودع.
+
+الملف `frontend/src/data/site-content.json` يبقى نسخة احتياطية: يُبنى منها
+الموقع فقط إذا تعذّر الوصول إلى الخادم أثناء البناء. لتحديثه:
 
 ```powershell
 .venv\Scripts\python manage.py export_site_data --frontend
 ```
-
-ثم ارفعي الملف الذي تغيّر (`frontend/src/data/site-content.json`) إلى GitHub،
-فيُنشر مع النشر التالي. التفاصيل في `README.md`.
-
-عند تشغيل هذا الأمر على جهازك، اجعلي `DATABASE_URL` في `.env` يشير إلى القاعدة
-التي فيها التعديل. إن كان التعديل على الموقع المنشور، فهي قاعدة Neon.
