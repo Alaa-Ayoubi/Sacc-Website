@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "django_filters",
+    "axes",
     # local
     "apps.core",
     "apps.content",
@@ -61,7 +62,24 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Last, as django-axes asks: it turns a locked-out login into a refusal.
+    "axes.middleware.AxesMiddleware",
 ]
+
+# --- admin login protection -------------------------------------------------
+# The admin is on the public internet, so password guessing is cut off: five
+# failed logins from one address lock that address out for an hour. A good
+# login clears its count. The address is the visitor's real one (client_ip),
+# not a header they can change to start over.
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+AXES_FAILURE_LIMIT = env.int("AXES_FAILURE_LIMIT", default=5)
+AXES_COOLOFF_TIME = 1  # hours
+AXES_LOCKOUT_PARAMETERS = ["ip_address"]
+AXES_RESET_ON_SUCCESS = True
+AXES_CLIENT_IP_CALLABLE = "apps.core.utils.client_ip"
 
 ROOT_URLCONF = "config.urls"
 

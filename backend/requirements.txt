@@ -11,3 +11,4 @@ gunicorn==23.0.0
 # Object storage for uploaded CVs (needed on container hosts such as
 # Render, whose filesystem is wiped on every deploy).
 django-storages[s3]==1.14.6
+django-axes==8.0.0

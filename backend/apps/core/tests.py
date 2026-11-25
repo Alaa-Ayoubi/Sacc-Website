@@ -294,3 +294,46 @@ class EmailSettingsTests(TestCase):
         from django.conf import settings
 
         self.assertIn("@saccgroup.net", settings.DEFAULT_FROM_EMAIL)
+
+
+class AdminLoginLockoutTests(TestCase):
+    """Password guessing against the public admin is cut off."""
+
+    def setUp(self):
+        from django.contrib.auth import get_user_model
+
+        get_user_model().objects.create_superuser("owner", "owner@example.com", "Right-Pass-123")
+
+    def _login(self, password, ip="203.0.113.9"):
+        return self.client.post(
+            "/admin/login/?next=/admin/",
+            {"username": "owner", "password": password},
+            HTTP_CF_CONNECTING_IP=ip,
+        )
+
+    def test_five_failures_lock_the_address_out_even_with_the_right_password(self):
+        for _ in range(5):
+            self._login("wrong")
+        locked = self._login("Right-Pass-123")
+        self.assertEqual(locked.status_code, 429)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_another_address_is_not_locked(self):
+        for _ in range(5):
+            self._login("wrong")
+        ok = self._login("Right-Pass-123", ip="198.51.100.4")
+        self.assertEqual(ok.status_code, 302)
+
+    def test_a_forged_forwarded_for_header_does_not_reset_the_count(self):
+        for i in range(5):
+            self.client.post(
+                "/admin/login/?next=/admin/",
+                {"username": "owner", "password": "wrong"},
+                HTTP_X_FORWARDED_FOR=f"10.0.0.{i}, 203.0.113.50",
+            )
+        locked = self.client.post(
+            "/admin/login/?next=/admin/",
+            {"username": "owner", "password": "Right-Pass-123"},
+            HTTP_X_FORWARDED_FOR="10.9.9.9, 203.0.113.50",
+        )
+        self.assertEqual(locked.status_code, 429)
