@@ -21,6 +21,8 @@ services:
     name: sacc-backend
     runtime: python
     plan: free
+    # Same AWS region as the Neon database (us-west-2), so queries stay local.
+    region: oregon
     rootDir: backend
     buildCommand: ./build.sh
     startCommand: gunicorn config.wsgi:application --workers 2 --timeout 60
