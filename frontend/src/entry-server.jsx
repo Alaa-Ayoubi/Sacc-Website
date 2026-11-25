@@ -13,7 +13,7 @@ export { snapshot as site, allRoutes, pathFor };
 export function render(url) {
   const route = parsePath(url, snapshot);
   const html = renderToString(
-    <SiteProvider url={url}>
+    <SiteProvider content={snapshot} url={url}>
       <App />
     </SiteProvider>,
   );

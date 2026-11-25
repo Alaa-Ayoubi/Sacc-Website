@@ -29,7 +29,13 @@ const preloadFor = {
   ar: font(/^almarai-arabic-400-normal-.*\.woff2$/),
   en: font(/^almarai-latin-400-normal-.*\.woff2$/),
 };
-const preload = (lang) => (preloadFor[lang] ? `<link rel="preload" href="/static/${preloadFor[lang]}" as="font" type="font/woff2" crossorigin>` : '');
+// Each page's own-language content chunk (see main.jsx) is fetched alongside
+// the app instead of after it, so hydration does not wait on a second round trip.
+const chunkFor = { ar: font(/^ar-.*\.js$/), en: font(/^en-.*\.js$/) };
+const preload = (lang) => [
+  preloadFor[lang] && `<link rel="preload" href="/static/${preloadFor[lang]}" as="font" type="font/woff2" crossorigin>`,
+  chunkFor[lang] && `<link rel="modulepreload" crossorigin href="/static/${chunkFor[lang]}">`,
+].filter(Boolean).join('\n    ');
 
 function page(url) {
   const { html, head, lang, dir } = render(url);

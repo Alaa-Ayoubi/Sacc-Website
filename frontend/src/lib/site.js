@@ -34,9 +34,15 @@ export const CAT_SVC = { water: 'Droplets', roads: 'Route', electrical: 'Zap', u
 
 export const svcOf = (s) => SVC[s.icon] || SVC.Settings;
 const slugify = (x) => String(x).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-/** Project slugs come from the English title, so both languages share one URL. */
-export const projSlug = (site, id) => slugify(site.en.projects.items.find((p) => p.id === id)?.title || id);
-export const projSlugs = (site) => site.en.projects.items.map((p) => projSlug(site, p.id));
+/** Project slugs come from the English title, so both languages share one URL.
+ * A page in the browser carries only its own language, so the build hands it
+ * the finished slugs (projectSlugs, see scripts/split-content.mjs); the
+ * prerender has both languages and works them out. */
+export const projSlug = (site, id) => site.projectSlugs?.[id]
+  ?? slugify(site.en.projects.items.find((p) => p.id === id)?.title || id);
+export const projSlugs = (site) => (site.projectSlugs
+  ? Object.values(site.projectSlugs)
+  : site.en.projects.items.map((p) => projSlug(site, p.id)));
 /* The approving bodies, in the order the content lists them, each with its
  * official logo (public/assets/logos/<key>.webp, provenance in its README). Logos come in
  * every proportion, so one height would make a wide wordmark look tiny beside a
