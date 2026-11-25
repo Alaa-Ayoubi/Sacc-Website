@@ -90,6 +90,10 @@ services:
         value: SACC Website <no-reply@saccgroup.net>
       - key: LEAD_NOTIFICATION_RECIPIENTS
         sync: false
+      # Where server errors are emailed (comma-separated). Optional: without
+      # it they go to LEAD_NOTIFICATION_RECIPIENTS.
+      - key: ERROR_EMAIL_RECIPIENTS
+        sync: false
 
       # The static site's deploy hook: every content change in the admin
       # rebuilds the public site from the new content (apps.core.publish).

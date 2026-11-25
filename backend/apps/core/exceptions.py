@@ -17,11 +17,15 @@ def api_exception_handler(exc, context):
     if response is None:
         # Unhandled server error: log it with the stack, and tell the caller
         # nothing that would leak internals.
-        logger.exception("Unhandled API error in %s", context.get("view"))
-        return Response(
+        logger.exception("Unhandled API error in %s", type(context.get("view")).__name__)
+        response = Response(
             {"detail": "An unexpected error occurred.", "errors": {}},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+        # Logged above with its traceback: Django's request log, which would
+        # report the same 500 again (and email it twice), skips it.
+        response._has_been_logged = True
+        return response
 
     data = response.data
     if isinstance(data, dict) and "detail" in data and len(data) == 1:

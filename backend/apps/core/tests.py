@@ -350,3 +350,58 @@ class CorsTests(TestCase):
         )
         self.assertEqual(response["access-control-allow-origin"], "https://sacc-site.onrender.com")
         self.assertNotIn("access-control-allow-credentials", response)
+
+
+@override_settings(
+    DEBUG=False,
+    ADMINS=[("SACC website", "it@saccgroup.net")],
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+)
+class ErrorEmailTests(TestCase):
+    """Errors reach a person by email, once per window."""
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()
+
+    def test_a_logged_error_is_emailed_once_per_window(self):
+        import logging
+
+        from django.core import mail
+
+        log = logging.getLogger("apps.core.notifications")
+        log.error("Failed to send notification: %s", "test")
+        log.error("Failed to send notification: %s", "test")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["it@saccgroup.net"])
+        self.assertIn("Failed to send notification", mail.outbox[0].subject)
+
+    def test_a_different_error_is_reported_too(self):
+        import logging
+
+        from django.core import mail
+
+        logging.getLogger("apps.core.publish").error("Could not request a site rebuild")
+        logging.getLogger("apps.core.notifications").error("Failed to send notification: %s", "x")
+        self.assertEqual(len(mail.outbox), 2)
+
+    def test_a_crashed_request_is_emailed_once(self):
+        from unittest import mock
+
+        from django.core import mail
+
+        client = self.client_class(raise_request_exception=False)
+        with mock.patch("apps.core.views.build_site_bundle", side_effect=RuntimeError("boom")):
+            response = client.get("/api/v1/site/")
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("boom", mail.outbox[0].body)
+
+    def test_warnings_are_not_emailed(self):
+        import logging
+
+        from django.core import mail
+
+        logging.getLogger("apps.core").warning("just a warning")
+        self.assertEqual(len(mail.outbox), 0)

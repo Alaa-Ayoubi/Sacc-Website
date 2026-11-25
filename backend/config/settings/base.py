@@ -230,6 +230,12 @@ EMAIL_FILE_PATH = env("EMAIL_FILE_PATH", default=str(BASE_DIR / "sent-emails"))
 # Staff addresses notified when a quote request or job application arrives.
 LEAD_NOTIFICATION_RECIPIENTS = env("LEAD_NOTIFICATION_RECIPIENTS")
 
+# Error reports: any error the server logs (a crashed request, a notification
+# that could not be sent, a failed rebuild request) is emailed here, at most
+# once per ten minutes per error. Defaults to the enquiry recipients.
+ADMINS = [("SACC website", address) for address in env.list("ERROR_EMAIL_RECIPIENTS", default=LEAD_NOTIFICATION_RECIPIENTS)]
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 # --- app-specific ---------------------------------------------------------
 SITE_BUNDLE_CACHE_SECONDS = env("SITE_BUNDLE_CACHE_SECONDS")
 # The static site's deploy hook (Render > sacc-site > Settings > Deploy Hook).
@@ -247,11 +253,25 @@ LOGGING = {
     "formatters": {
         "verbose": {"format": "[{asctime}] {levelname} {name}: {message}", "style": "{"},
     },
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "once_per_window": {"()": "apps.core.logfilters.OncePerWindow"},
+    },
     "handlers": {
         "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            "filters": ["require_debug_false", "once_per_window"],
+        },
     },
-    "root": {"handlers": ["console"], "level": env("LOG_LEVEL", default="INFO")},
+    "root": {"handlers": ["console", "mail_admins"], "level": env("LOG_LEVEL", default="INFO")},
     "loggers": {
+        # Django's own loggers report through the root, once, instead of also
+        # through Django's default handlers (which would email twice).
+        "django": {"handlers": [], "level": "INFO", "propagate": True},
         "django.db.backends": {"level": "WARNING", "handlers": ["console"], "propagate": False},
+        # Requests for a host the site does not serve are bots, not faults.
+        "django.security.DisallowedHost": {"handlers": ["console"], "propagate": False},
     },
 }
