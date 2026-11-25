@@ -1,6 +1,6 @@
 """Tests for the aggregated site bundle."""
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from apps.careers.models import CareerBenefit, JobOpening
@@ -337,3 +337,16 @@ class AdminLoginLockoutTests(TestCase):
             HTTP_X_FORWARDED_FOR="10.9.9.9, 203.0.113.50",
         )
         self.assertEqual(locked.status_code, 429)
+
+
+class CorsTests(TestCase):
+    @override_settings(CORS_ALLOW_ALL_ORIGINS=False, CORS_ALLOWED_ORIGINS=["https://sacc-site.onrender.com"])
+    def test_the_site_may_call_the_api_but_never_with_credentials(self):
+        response = self.client.options(
+            "/api/v1/leads/quote-requests/",
+            HTTP_ORIGIN="https://sacc-site.onrender.com",
+            HTTP_ACCESS_CONTROL_REQUEST_METHOD="POST",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="content-type",
+        )
+        self.assertEqual(response["access-control-allow-origin"], "https://sacc-site.onrender.com")
+        self.assertNotIn("access-control-allow-credentials", response)

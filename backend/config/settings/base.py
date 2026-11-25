@@ -206,7 +206,9 @@ CACHES = {
 # --- CORS -----------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
 CORS_ALLOW_ALL_ORIGINS = env("CORS_ALLOW_ALL_ORIGINS")
-CORS_ALLOW_CREDENTIALS = True
+# The site's forms send no cookies, and the API holds no session for them, so
+# browsers are not allowed to send credentials across origins at all.
+CORS_ALLOW_CREDENTIALS = False
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 # --- email ----------------------------------------------------------------
