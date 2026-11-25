@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 
 from apps.careers.views import JobApplicationViewSet, JobOpeningViewSet
-from apps.core.views import HealthView, SiteBundleView
+from apps.core.views import HealthView, SiteBundleView, ping
 from apps.leads.views import ProjectTypeViewSet, QuoteRequestViewSet
 from apps.projects.views import ProjectCategoryViewSet, ProjectViewSet
 
@@ -26,6 +26,7 @@ router.register("leads/quote-requests", QuoteRequestViewSet, basename="quote-req
 api_v1 = [
     path("site/", SiteBundleView.as_view(), name="site-bundle"),
     path("health/", HealthView.as_view(), name="health"),
+    path("ping/", ping, name="ping"),
     *router.urls,
 ]
 

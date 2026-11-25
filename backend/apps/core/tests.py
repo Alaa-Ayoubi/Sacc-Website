@@ -271,3 +271,11 @@ class PublishOnContentChangeTests(TestCase):
         self.client.get("/api/v1/site/?lang=ar")
         self.assertIn("ar", cache.get("site-bundle:ar"))
         self.assertNotIn("en", cache.get("site-bundle:ar"))
+
+
+class PingTests(TestCase):
+    def test_ping_answers_without_touching_the_database(self):
+        with self.assertNumQueries(0):
+            response = self.client.get("/api/v1/ping/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "awake"})

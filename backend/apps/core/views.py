@@ -59,3 +59,17 @@ class HealthView(APIView):
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
         return Response({"status": "ok", "database": "ok"})
+
+
+def ping(request):
+    """``GET /api/v1/ping/`` - keeps the free instance awake, nothing else.
+
+    A scheduled job calls this every few minutes so Render never puts the
+    backend to sleep, and the first visitor to send a form does not wait a
+    minute for it to wake. It is a plain Django view that never touches the
+    database, so Neon is left free to suspend and its compute hours are not
+    spent on pings.
+    """
+    from django.http import JsonResponse
+
+    return JsonResponse({"status": "awake"})
