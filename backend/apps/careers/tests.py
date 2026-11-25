@@ -9,7 +9,7 @@ from .models import JobApplication, JobOpening
 
 
 @override_settings(
-    LEAD_NOTIFICATION_RECIPIENTS=["hr@sanasacc.com"],
+    LEAD_NOTIFICATION_RECIPIENTS=["hr@saccgroup.net"],
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
 )
 class JobApplicationTests(TestCase):
@@ -53,7 +53,7 @@ class JobApplicationTests(TestCase):
         self.assertEqual(application.opening, self.opening)
         self.assertEqual(application.status, JobApplication.Status.NEW)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ["hr@sanasacc.com"])
+        self.assertEqual(mail.outbox[0].to, ["hr@saccgroup.net"])
         self.assertEqual(mail.outbox[0].reply_to, ["sara@example.com"])
 
     def test_application_with_an_uploaded_cv_is_accepted(self):

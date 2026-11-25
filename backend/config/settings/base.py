@@ -198,7 +198,12 @@ EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="SACC Website <no-reply@sanasacc.com>")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="SACC Website <no-reply@saccgroup.net>")
+# Notifications are sent while the form waits for its answer. Without a limit a
+# mail server that stops answering would hold the visitor, and one of the two
+# gunicorn workers, until gunicorn's 60-second timeout. The enquiry is already
+# saved by then, and a failed notification is logged, never shown.
+EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=10)
 # Only used by the filebased backend, which is handy for smoke-testing delivery.
 EMAIL_FILE_PATH = env("EMAIL_FILE_PATH", default=str(BASE_DIR / "sent-emails"))
 

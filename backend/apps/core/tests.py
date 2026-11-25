@@ -26,7 +26,7 @@ class SiteBundleTests(TestCase):
     def setUpTestData(cls):
         settings_row = SiteSettings.load()
         settings_row.phone = "+966 14 848 4014"
-        settings_row.email = "contact@sanasacc.com"
+        settings_row.email = "info@saccgroup.net"
         settings_row.commercial_registration = "4650242007"
         settings_row.brand_line_ar = "شركة سنا الأوائل للمقاولات"
         settings_row.brand_line_en = "Sana Al-Awael Contracting"
@@ -279,3 +279,18 @@ class PingTests(TestCase):
             response = self.client.get("/api/v1/ping/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"status": "awake"})
+
+
+class EmailSettingsTests(TestCase):
+    def test_a_silent_mail_server_cannot_hold_a_form_for_long(self):
+        from django.conf import settings
+        from django.core.mail import get_connection
+
+        self.assertEqual(settings.EMAIL_TIMEOUT, 10)
+        connection = get_connection("django.core.mail.backends.smtp.EmailBackend")
+        self.assertEqual(connection.timeout, 10)
+
+    def test_mail_comes_from_the_company_domain(self):
+        from django.conf import settings
+
+        self.assertIn("@saccgroup.net", settings.DEFAULT_FROM_EMAIL)

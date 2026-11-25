@@ -12,7 +12,7 @@ from .models import ProjectType, QuoteRequest
 
 
 @override_settings(
-    LEAD_NOTIFICATION_RECIPIENTS=["sales@sanasacc.com"],
+    LEAD_NOTIFICATION_RECIPIENTS=["sales@saccgroup.net"],
     EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
 )
 class QuoteRequestTests(TestCase):
@@ -58,7 +58,7 @@ class QuoteRequestTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         sent = mail.outbox[0]
         self.assertIn("National Water Company", sent.subject)
-        self.assertEqual(sent.to, ["sales@sanasacc.com"])
+        self.assertEqual(sent.to, ["sales@saccgroup.net"])
         # Reply-To carries the enquirer so staff can answer from the inbox,
         # while From stays on a domain the MTA will actually accept.
         self.assertEqual(sent.reply_to, ["ahmed@example.com"])
