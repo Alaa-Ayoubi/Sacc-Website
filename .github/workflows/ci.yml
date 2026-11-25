@@ -26,9 +26,10 @@ jobs:
     services:
       postgres:
         image: postgres:18
+        # A throwaway database inside the job: no password at all.
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: sacc
         ports: ["5432:5432"]
         options: >-
@@ -38,7 +39,7 @@ jobs:
       run:
         working-directory: backend
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/sacc
+      DATABASE_URL: postgres://postgres@localhost:5432/sacc
       DB_TRANSACTION_POOLING: "False"
     steps:
       - uses: actions/checkout@v4

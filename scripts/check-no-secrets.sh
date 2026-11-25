@@ -34,7 +34,8 @@ SECRET_PATTERNS='(SECRET_KEY|PASSWORD|PASSWD|API_KEY|APIKEY|ACCESS_KEY|SECRET_AC
 TOKEN_PATTERNS='(gh[pousr]_[A-Za-z0-9]{16,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|npg_[A-Za-z0-9]{8,}|postgres(ql)?://[^:/@[:space:]]+:[^@[:space:]]{6,}@[A-Za-z0-9.-]*neon\.tech)'
 
 # Values that are obviously not real credentials.
-PLACEHOLDERS='CHANGE_ME|change-me|changeme|dev-only|your-|YOUR_|example|EXAMPLE|placeholder|xxx|XXX|<[^>]+>|generateValue|get_random_secret_key|sync: false|\$\{|os\.environ|env\(|getenv'
+# A database on localhost is a developer's or CI's own throwaway one.
+PLACEHOLDERS='@localhost|CHANGE_ME|change-me|changeme|dev-only|your-|YOUR_|example|EXAMPLE|placeholder|xxx|XXX|<[^>]+>|generateValue|get_random_secret_key|sync: false|\$\{|os\.environ|env\(|getenv'
 
 if [ "${1:-}" = "--all" ]; then
 	FILES="$(git ls-files)"
