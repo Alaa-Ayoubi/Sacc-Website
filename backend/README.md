@@ -125,18 +125,9 @@ curl -X POST http://localhost:8000/api/v1/leads/quote-requests/ \
 
 ## Connecting the frontend
 
-Replace the `site-data.js` script tag with:
-
-```html
-<script>window.SACC_API = 'http://localhost:8000/api/v1';</script>
-<script src="./backend/frontend/sacc-api.js"></script>
-```
-
-`frontend/sacc-api.js` fetches the bundle, assigns it to `window.SACC_SITE`
-exactly as before, and fires a `sacc:ready` event when the data has arrived. It
-also exposes `window.SACC.submitQuote(...)` and
-`window.SACC.submitApplication(...)`, which replace the `setTimeout` calls in
-`submitQuote` / `submitApp` in `SaccSite.dc.html`.
+The React site in `frontend/` takes its content from `GET /api/v1/site/` when
+it is built (`frontend/scripts/fetch-content.mjs`) and posts the two forms to
+the endpoints below. See *Content is served statically, not from the API*.
 
 ---
 
@@ -275,27 +266,25 @@ quiet spell waits out a cold start of roughly a minute. That is acceptable when
 someone has just clicked *Submit* — they expect a pause. It is not acceptable
 for painting the page.
 
-So the site keeps loading `site-data.js` as a static file, and the API is
-reached only when a form is actually submitted:
+So visitors never ask the API for content. The pages are prerendered from it
+at build time, and the API is reached at run time only when a form is sent:
+
+- Each build of the static site takes the content from `GET /api/v1/site/`
+  (`frontend/scripts/fetch-content.mjs`), retrying while the backend wakes.
+  If it cannot get a whole site, it builds from the committed snapshot,
+  `frontend/src/data/site-content.json`.
+- Every content change saved in the admin calls the static site's deploy hook
+  (`RENDER_DEPLOY_HOOK_URL`, see `apps/core/publish.py`), so the new content
+  is live within minutes with nothing to run or commit.
+
+To refresh the committed snapshot (the fallback), run:
 
 ```bash
 python manage.py export_site_data --frontend   # rewrite frontend/src/data/site-content.json
-git commit ../frontend/src/data/site-content.json
 ```
 
-Edit content in the admin, run the export, commit the result. The React site
-prerenders every page from that snapshot at build time, so the next deploy
-ships the new content as real HTML. If a project was added or renamed, also
-run `npm run routes` in `frontend/` and commit `backend/render.yaml`. Add
-`--check` to exit non-zero when the committed snapshot has drifted from the
-database, which is worth running in CI.
-
-Without `--frontend` the command still writes the legacy `site-data.js` for the
-original static prototype.
-
-If you would rather fetch live — on a paid plan, or behind a CDN that caches the
-bundle — `backend/frontend/sacc-api.js` does that instead; see *Connecting the
-frontend* above.
+If a project was added or renamed, also run `npm run routes` in `frontend/` and
+commit `backend/render.yaml`.
 
 ### Uploaded files
 

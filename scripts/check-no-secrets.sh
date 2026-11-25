@@ -67,7 +67,7 @@ scan_content() {
 	local hits=""
 	for f in $FILES; do
 		case "$f" in
-			*.min.js|_ds/*|templates/vendor/*|*.woff2|*.png|*.jpg|*.webp) continue ;;
+			*.min.js|*.woff2|*.png|*.jpg|*.webp) continue ;;
 		esac
 		[ -f "$f" ] || continue
 		if [ "${1:-}" = "" ]; then :; fi

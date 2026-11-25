@@ -52,7 +52,7 @@ The four strengths below were confirmed together. A neighbouring contractor woul
 
 - **Name:** Sana Al-Awael Contracting Company (SACC) / شركة سنا الأوائل للمقاولات.
 - **Logo:** the official logo is a horizontal lockup of the circular mark plus the SACC wordmark (`frontend/public/assets/logo-full.webp`, `logo.png`). It may only be cropped or resized, never redrawn or recoloured.
-- **Voice:** corporate-formal and plain. It is addressed to procurement officers and government clients, not consumers. "We" means the company and "your" means the client; never "I", except in the chairman's signed quote. Every claim is tied to a verifiable fact: a certificate, a year, a fleet count, or a named client. Numbers carry a label, never an adjective. CTAs start with a verb and are specific, e.g. "Request Certification Documents" or "Enquire About This Project". Full copy rules are in `_ds/sacc-design-system-*/readme.md` under "Content fundamentals".
+- **Voice:** corporate-formal and plain. It is addressed to procurement officers and government clients, not consumers. "We" means the company and "your" means the client; never "I", except in the chairman's signed quote. Every claim is tied to a verifiable fact: a certificate, a year, a delivered project, or a named client. Numbers carry a label, never an adjective. CTAs start with a verb and are specific, e.g. "Request Certification Documents" or "Enquire About This Project".
 
 ## Evidence on Hand
 

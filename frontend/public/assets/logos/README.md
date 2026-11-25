@@ -1,7 +1,7 @@
 # Logos of the approving bodies
 
-The site's copies of the logos in prototype-paper/assets/logos, re-encoded as
-lossless WebP (same pixels, about half the weight). Each is named by its key and
+The approving bodies' official logos, re-encoded from the design prototype's
+copies (removed from `main`, kept in the repository's history) as lossless WebP (same pixels, about half the weight). Each is named by its key and
 listed, with its display size, in `BODIES` in src/lib/site.js.
 
 | Key | Body |
