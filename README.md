@@ -10,9 +10,10 @@ Al Madinah Al Munawwarah, Saudi Arabia.
 | --- | --- |
 | [`frontend/`](frontend/) | The public site — React + Vite, bilingual, every page prerendered to HTML (Arabic at `/`, English at `/en`). See [frontend/README.md](frontend/README.md). |
 | [`backend/`](backend/) | Django + PostgreSQL — owns the content and handles form submissions. See [backend/README.md](backend/README.md). |
-| `SaccSite.dc.html`, `site-data.js` | The original design prototype the frontend was built from. Kept for reference. |
-| `_ds/` | Design system — tokens, fonts, styles. |
-| `assets/`, `templates/` | Images and vendored libraries used by the prototype. |
+| [`.github/workflows/`](.github/workflows/) | Tests on every push and pull request, the nightly encrypted database backup, and the job that keeps the backend awake. |
+
+The design prototypes the site was built from were removed from `main`; they
+remain in the repository's history.
 
 ## What changed
 
@@ -25,13 +26,13 @@ Now the content lives in PostgreSQL and is editable in both languages from the
 Django admin, and both forms persist real submissions, notify staff at
 `info@saccgroup.net`, and accept CV uploads.
 
-The React frontend carries the owner-approved design (brief:
-[`prototype-bento/BRIEF.md`](prototype-bento/BRIEF.md), system: [`DESIGN.md`](DESIGN.md)).
+The React frontend carries the owner-approved design (system: [`DESIGN.md`](DESIGN.md),
+product: [`PRODUCT.md`](PRODUCT.md)).
 Every page has its own address — Arabic at the root, English under `/en` — and
 is prerendered to static HTML with its own title, description, canonical,
-`hreflang` twin, Open Graph and structured data, plus a sitemap. Content comes
-from the bundle maintained in the admin; the browser upgrades to live content
-from `GET /api/v1/site/` when the API answers.
+`hreflang` twin, Open Graph and structured data, plus a sitemap. Content is what the admin holds: each build takes it from
+`GET /api/v1/site/`, and every content change in the admin starts a build.
+The browser never fetches content itself.
 
 ## Quick start
 

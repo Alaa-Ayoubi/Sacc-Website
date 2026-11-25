@@ -3,41 +3,33 @@
  * The language is part of the address (Arabic at the root, English under /en),
  * so switching language is a link to the twin page, not a stored preference.
  *
- * Content starts from the snapshot bundled at build time — the same one the
- * pages were prerendered from, so hydration matches — then quietly upgrades
- * if the API answers.
+ * Content is the snapshot taken at build time, the same one the pages were
+ * prerendered from, so hydration always matches. The browser gets only the
+ * language of the page it is on (see main.jsx); the prerender gets both. The browser never asks the
+ * backend for it: a content change in the admin rebuilds the site instead
+ * (backend apps.core.publish), which keeps visitors from waking the sleeping
+ * backend and the page from changing under them.
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import snapshot from './data/site-content.json';
-import { fetchSite } from './api.js';
 import { UI, parsePath } from './lib/site.js';
 import { pageMeta } from './lib/seo.js';
 
 const SiteContext = createContext(null);
 
-export function SiteProvider({ url, children }) {
-  const [site, setSite] = useState(snapshot);
+export function SiteProvider({ content, url, children }) {
+  const site = content;
   // Every unknown address is served the one prerendered 404 page, which is
   // Arabic. Hydrate that page as it was rendered, then turn to the real address
   // (an English 404 under /en becomes English).
   const [path, setPath] = useState(() => {
     if (url != null) return url;
     if (typeof window === 'undefined') return '/';
-    return parsePath(window.location.pathname, snapshot).notFound ? '/404' : window.location.pathname;
+    return parsePath(window.location.pathname, site).notFound ? '/404' : window.location.pathname;
   });
   useEffect(() => { if (url == null) setPath(window.location.pathname); }, [url]);
   const [prefill, setPrefill] = useState(null);
   const route = useMemo(() => parsePath(path, site), [path, site]);
-
-  // Refresh in the background. A failure is never shown: the snapshot is complete.
-  useEffect(() => {
-    let cancelled = false;
-    fetchSite()
-      .then((data) => { if (!cancelled && data?.en?.services?.items?.length && data?.ar?.services?.items?.length) setSite(data); })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, []);
 
   // Back and forward buttons.
   useEffect(() => {

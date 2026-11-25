@@ -13,6 +13,8 @@ python manage.py collectstatic --no-input
 # transaction mode, which does not keep session state between statements.
 # DB_USE_DIRECT=True makes settings connect over it; without it, nothing changes.
 DB_USE_DIRECT=True python manage.py migrate --no-input
+# The throttle counters' table (see CACHES); a no-op once it exists.
+DB_USE_DIRECT=True python manage.py createcachetable
 
 # Render's Shell and One-Off Jobs are paid features, so on the free plan there
 # is no way to run setup commands after a deploy. bootstrap_site does it here

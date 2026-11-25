@@ -21,6 +21,8 @@ services:
     name: sacc-backend
     runtime: python
     plan: free
+    # Same AWS region as the Neon database (us-west-2), so queries stay local.
+    region: oregon
     rootDir: backend
     buildCommand: ./build.sh
     startCommand: gunicorn config.wsgi:application --workers 2 --timeout 60
@@ -87,6 +89,16 @@ services:
       - key: DEFAULT_FROM_EMAIL
         value: SACC Website <no-reply@saccgroup.net>
       - key: LEAD_NOTIFICATION_RECIPIENTS
+        sync: false
+      # Where server errors are emailed (comma-separated). Optional: without
+      # it they go to LEAD_NOTIFICATION_RECIPIENTS.
+      - key: ERROR_EMAIL_RECIPIENTS
+        sync: false
+
+      # The static site's deploy hook: every content change in the admin
+      # rebuilds the public site from the new content (apps.core.publish).
+      # Copy it from sacc-site > Settings > Deploy Hook. It is a secret.
+      - key: RENDER_DEPLOY_HOOK_URL
         sync: false
 
       # Uploaded CVs must not live on the container filesystem — it is wiped on

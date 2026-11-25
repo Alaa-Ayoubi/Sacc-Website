@@ -274,6 +274,43 @@ class ContentMigrationTests(TestCase):
         migration.backwards(global_apps, None)
         self.assertEqual(Service.objects.exclude(image_url="").count(), 1)  # only the admin's own
 
+    def test_photographs_move_off_the_old_host_and_back(self):
+        from django.apps import apps as global_apps
+
+        from apps.projects.models import Project
+
+        migration = self._migration("0008_photographs_served_by_the_site")
+        old = migration.CDN + "fe90b22a280af627db8dde84d95bb038.jpg"
+        Service.objects.update(image_url=old)
+        project = Project.objects.first()
+        project.image_url = "https://example.com/own.jpg"  # an editor's own address
+        project.save(update_fields=["image_url"])
+
+        migration.forwards(global_apps, None)
+        self.assertEqual(
+            set(Service.objects.values_list("image_url", flat=True)),
+            {"/assets/photos/site/fe90b22a280af627db8dde84d95bb038.webp"},
+        )
+        project.refresh_from_db()
+        self.assertEqual(project.image_url, "https://example.com/own.jpg")
+
+        migration.backwards(global_apps, None)
+        self.assertEqual(set(Service.objects.values_list("image_url", flat=True)), {old})
+
+    def test_every_shipped_photograph_exists(self):
+        from pathlib import Path
+
+        migration = self._migration("0008_photographs_served_by_the_site")
+        public = Path(__file__).resolve().parents[3] / "frontend" / "public"
+        for path in migration.NEW.values():
+            self.assertTrue((public / path.lstrip("/")).is_file(), path)
+
+    def test_seed_no_longer_points_at_the_old_host(self):
+        from pathlib import Path
+
+        seed = (Path(__file__).resolve().parents[2] / "seed" / "site-data.json").read_text()
+        self.assertNotIn("horizons-cdn", seed)
+
     def test_bundle_carries_each_service_photograph(self):
         built = build_site_bundle()
         for lang in ("ar", "en"):

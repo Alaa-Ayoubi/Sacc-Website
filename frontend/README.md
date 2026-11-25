@@ -99,6 +99,6 @@ scripts/
 public/assets/           Logo, favicons, OG image, company photos
 ```
 
-The design system is documented in [`../DESIGN.md`](../DESIGN.md); the brief it
-was built from is [`../prototype-bento/BRIEF.md`](../prototype-bento/BRIEF.md).
+The design system is documented in [`../DESIGN.md`](../DESIGN.md), the product
+in [`../PRODUCT.md`](../PRODUCT.md).
 Accessibility standard: WCAG 2.2 AA.

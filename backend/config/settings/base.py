@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "django_filters",
+    "axes",
     # local
     "apps.core",
     "apps.content",
@@ -61,7 +62,24 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Last, as django-axes asks: it turns a locked-out login into a refusal.
+    "axes.middleware.AxesMiddleware",
 ]
+
+# --- admin login protection -------------------------------------------------
+# The admin is on the public internet, so password guessing is cut off: five
+# failed logins from one address lock that address out for an hour. A good
+# login clears its count. The address is the visitor's real one (client_ip),
+# not a header they can change to start over.
+AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesStandaloneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+AXES_FAILURE_LIMIT = env.int("AXES_FAILURE_LIMIT", default=5)
+AXES_COOLOFF_TIME = 1  # hours
+AXES_LOCKOUT_PARAMETERS = ["ip_address"]
+AXES_RESET_ON_SUCCESS = True
+AXES_CLIENT_IP_CALLABLE = "apps.core.utils.client_ip"
 
 ROOT_URLCONF = "config.urls"
 
@@ -162,7 +180,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 25,
-    "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.ScopedRateThrottle"],
+    "DEFAULT_THROTTLE_CLASSES": ["apps.core.throttling.ClientScopedRateThrottle"],
     # Public write endpoints are the spam surface, so they get their own buckets.
     "DEFAULT_THROTTLE_RATES": {
         "quote_request": env("THROTTLE_QUOTE_REQUEST", default="10/hour"),
@@ -171,10 +189,26 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "apps.core.exceptions.api_exception_handler",
 }
 
+# The header the hosting edge sets to the visitor's address (Cloudflare's, in
+# front of Render). Empty falls back to the last X-Forwarded-For entry.
+CLIENT_IP_HEADER = env("CLIENT_IP_HEADER", default="CF-Connecting-IP")
+
+# Throttle counters live in the database: shared by every gunicorn worker and
+# kept across restarts, unlike the default per-process memory cache. The table
+# is created by `createcachetable` in build.sh.
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "sacc_cache",
+    }
+}
+
 # --- CORS -----------------------------------------------------------------
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
 CORS_ALLOW_ALL_ORIGINS = env("CORS_ALLOW_ALL_ORIGINS")
-CORS_ALLOW_CREDENTIALS = True
+# The site's forms send no cookies, and the API holds no session for them, so
+# browsers are not allowed to send credentials across origins at all.
+CORS_ALLOW_CREDENTIALS = False
 CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 # --- email ----------------------------------------------------------------
@@ -184,15 +218,29 @@ EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="SACC Website <no-reply@sanasacc.com>")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="SACC Website <no-reply@saccgroup.net>")
+# Notifications are sent while the form waits for its answer. Without a limit a
+# mail server that stops answering would hold the visitor, and one of the two
+# gunicorn workers, until gunicorn's 60-second timeout. The enquiry is already
+# saved by then, and a failed notification is logged, never shown.
+EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=10)
 # Only used by the filebased backend, which is handy for smoke-testing delivery.
 EMAIL_FILE_PATH = env("EMAIL_FILE_PATH", default=str(BASE_DIR / "sent-emails"))
 
 # Staff addresses notified when a quote request or job application arrives.
 LEAD_NOTIFICATION_RECIPIENTS = env("LEAD_NOTIFICATION_RECIPIENTS")
 
+# Error reports: any error the server logs (a crashed request, a notification
+# that could not be sent, a failed rebuild request) is emailed here, at most
+# once per ten minutes per error. Defaults to the enquiry recipients.
+ADMINS = [("SACC website", address) for address in env.list("ERROR_EMAIL_RECIPIENTS", default=LEAD_NOTIFICATION_RECIPIENTS)]
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 # --- app-specific ---------------------------------------------------------
 SITE_BUNDLE_CACHE_SECONDS = env("SITE_BUNDLE_CACHE_SECONDS")
+# The static site's deploy hook (Render > sacc-site > Settings > Deploy Hook).
+# A secret: set it in the dashboard. Empty means content changes rebuild nothing.
+RENDER_DEPLOY_HOOK_URL = env("RENDER_DEPLOY_HOOK_URL", default="")
 MAX_CV_UPLOAD_MB = env("MAX_CV_UPLOAD_MB")
 ALLOWED_CV_EXTENSIONS = ["pdf", "doc", "docx"]
 
@@ -205,11 +253,25 @@ LOGGING = {
     "formatters": {
         "verbose": {"format": "[{asctime}] {levelname} {name}: {message}", "style": "{"},
     },
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "once_per_window": {"()": "apps.core.logfilters.OncePerWindow"},
+    },
     "handlers": {
         "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+            "filters": ["require_debug_false", "once_per_window"],
+        },
     },
-    "root": {"handlers": ["console"], "level": env("LOG_LEVEL", default="INFO")},
+    "root": {"handlers": ["console", "mail_admins"], "level": env("LOG_LEVEL", default="INFO")},
     "loggers": {
+        # Django's own loggers report through the root, once, instead of also
+        # through Django's default handlers (which would email twice).
+        "django": {"handlers": [], "level": "INFO", "propagate": True},
         "django.db.backends": {"level": "WARNING", "handlers": ["console"], "propagate": False},
+        # Requests for a host the site does not serve are bots, not faults.
+        "django.security.DisallowedHost": {"handlers": ["console"], "propagate": False},
     },
 }

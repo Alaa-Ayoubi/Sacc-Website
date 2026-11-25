@@ -1,6 +1,6 @@
 """Tests for the aggregated site bundle."""
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from apps.careers.models import CareerBenefit, JobOpening
@@ -26,7 +26,7 @@ class SiteBundleTests(TestCase):
     def setUpTestData(cls):
         settings_row = SiteSettings.load()
         settings_row.phone = "+966 14 848 4014"
-        settings_row.email = "contact@sanasacc.com"
+        settings_row.email = "info@saccgroup.net"
         settings_row.commercial_registration = "4650242007"
         settings_row.brand_line_ar = "شركة سنا الأوائل للمقاولات"
         settings_row.brand_line_en = "Sana Al-Awael Contracting"
@@ -206,3 +206,202 @@ class IndexPageTests(TestCase):
     def test_index_is_not_indexable(self):
         # An internal service should not turn up in search results.
         self.assertContains(self.client.get("/"), "noindex")
+
+
+class PublishOnContentChangeTests(TestCase):
+    """A content change drops the cached bundle and asks for a site rebuild."""
+
+    HOOK = "https://api.render.com/deploy/srv-test?key=test"
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()
+
+    def _change(self, action):
+        from unittest import mock
+
+        with self.settings(RENDER_DEPLOY_HOOK_URL=self.HOOK), \
+                mock.patch("apps.core.publish.threading.Thread") as thread, \
+                self.captureOnCommitCallbacks(execute=True):
+            action()
+        return thread
+
+    def test_a_content_edit_rebuilds_the_site_and_drops_the_cache(self):
+        from django.core.cache import cache
+
+        from apps.content.models import Stat
+
+        cache.set("site-bundle:all", {"stale": True})
+        thread = self._change(lambda: Stat.objects.create(value="2007", label_ar="تأسست", label_en="Founded"))
+        thread.assert_called_once()
+        self.assertEqual(thread.call_args.kwargs["args"], (self.HOOK,))
+        self.assertIsNone(cache.get("site-bundle:all"))
+
+    def test_a_deletion_rebuilds_the_site_too(self):
+        from apps.content.models import Stat
+
+        stat = Stat.objects.create(value="1", label_ar="أ", label_en="a")
+        thread = self._change(stat.delete)
+        thread.assert_called_once()
+
+    def test_an_enquiry_never_rebuilds_the_site(self):
+        from apps.leads.models import QuoteRequest
+
+        thread = self._change(lambda: QuoteRequest.objects.create(
+            full_name="n", company="c", email="e@example.com", phone="1", message="message text"))
+        thread.assert_not_called()
+
+    def test_without_a_hook_nothing_is_called(self):
+        from unittest import mock
+
+        from apps.content.models import Stat
+
+        with self.settings(RENDER_DEPLOY_HOOK_URL=""), \
+                mock.patch("apps.core.publish.threading.Thread") as thread, \
+                self.captureOnCommitCallbacks(execute=True):
+            Stat.objects.create(value="1", label_ar="أ", label_en="a")
+        thread.assert_not_called()
+
+    def test_the_bundle_is_served_from_the_cache_until_content_changes(self):
+        from django.core.cache import cache
+
+        self.client.get("/api/v1/site/")
+        self.assertIsNotNone(cache.get("site-bundle:all"))
+        self.client.get("/api/v1/site/?lang=ar")
+        self.assertIn("ar", cache.get("site-bundle:ar"))
+        self.assertNotIn("en", cache.get("site-bundle:ar"))
+
+
+class PingTests(TestCase):
+    def test_ping_answers_without_touching_the_database(self):
+        with self.assertNumQueries(0):
+            response = self.client.get("/api/v1/ping/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "awake"})
+
+
+class EmailSettingsTests(TestCase):
+    def test_a_silent_mail_server_cannot_hold_a_form_for_long(self):
+        from django.conf import settings
+        from django.core.mail import get_connection
+
+        self.assertEqual(settings.EMAIL_TIMEOUT, 10)
+        connection = get_connection("django.core.mail.backends.smtp.EmailBackend")
+        self.assertEqual(connection.timeout, 10)
+
+    def test_mail_comes_from_the_company_domain(self):
+        from django.conf import settings
+
+        self.assertIn("@saccgroup.net", settings.DEFAULT_FROM_EMAIL)
+
+
+class AdminLoginLockoutTests(TestCase):
+    """Password guessing against the public admin is cut off."""
+
+    def setUp(self):
+        from django.contrib.auth import get_user_model
+
+        get_user_model().objects.create_superuser("owner", "owner@example.com", "Right-Pass-123")
+
+    def _login(self, password, ip="203.0.113.9"):
+        return self.client.post(
+            "/admin/login/?next=/admin/",
+            {"username": "owner", "password": password},
+            HTTP_CF_CONNECTING_IP=ip,
+        )
+
+    def test_five_failures_lock_the_address_out_even_with_the_right_password(self):
+        for _ in range(5):
+            self._login("wrong")
+        locked = self._login("Right-Pass-123")
+        self.assertEqual(locked.status_code, 429)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_another_address_is_not_locked(self):
+        for _ in range(5):
+            self._login("wrong")
+        ok = self._login("Right-Pass-123", ip="198.51.100.4")
+        self.assertEqual(ok.status_code, 302)
+
+    def test_a_forged_forwarded_for_header_does_not_reset_the_count(self):
+        for i in range(5):
+            self.client.post(
+                "/admin/login/?next=/admin/",
+                {"username": "owner", "password": "wrong"},
+                HTTP_X_FORWARDED_FOR=f"10.0.0.{i}, 203.0.113.50",
+            )
+        locked = self.client.post(
+            "/admin/login/?next=/admin/",
+            {"username": "owner", "password": "Right-Pass-123"},
+            HTTP_X_FORWARDED_FOR="10.9.9.9, 203.0.113.50",
+        )
+        self.assertEqual(locked.status_code, 429)
+
+
+class CorsTests(TestCase):
+    @override_settings(CORS_ALLOW_ALL_ORIGINS=False, CORS_ALLOWED_ORIGINS=["https://sacc-site.onrender.com"])
+    def test_the_site_may_call_the_api_but_never_with_credentials(self):
+        response = self.client.options(
+            "/api/v1/leads/quote-requests/",
+            HTTP_ORIGIN="https://sacc-site.onrender.com",
+            HTTP_ACCESS_CONTROL_REQUEST_METHOD="POST",
+            HTTP_ACCESS_CONTROL_REQUEST_HEADERS="content-type",
+        )
+        self.assertEqual(response["access-control-allow-origin"], "https://sacc-site.onrender.com")
+        self.assertNotIn("access-control-allow-credentials", response)
+
+
+@override_settings(
+    DEBUG=False,
+    ADMINS=[("SACC website", "it@saccgroup.net")],
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+)
+class ErrorEmailTests(TestCase):
+    """Errors reach a person by email, once per window."""
+
+    def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()
+
+    def test_a_logged_error_is_emailed_once_per_window(self):
+        import logging
+
+        from django.core import mail
+
+        log = logging.getLogger("apps.core.notifications")
+        log.error("Failed to send notification: %s", "test")
+        log.error("Failed to send notification: %s", "test")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ["it@saccgroup.net"])
+        self.assertIn("Failed to send notification", mail.outbox[0].subject)
+
+    def test_a_different_error_is_reported_too(self):
+        import logging
+
+        from django.core import mail
+
+        logging.getLogger("apps.core.publish").error("Could not request a site rebuild")
+        logging.getLogger("apps.core.notifications").error("Failed to send notification: %s", "x")
+        self.assertEqual(len(mail.outbox), 2)
+
+    def test_a_crashed_request_is_emailed_once(self):
+        from unittest import mock
+
+        from django.core import mail
+
+        client = self.client_class(raise_request_exception=False)
+        with mock.patch("apps.core.views.build_site_bundle", side_effect=RuntimeError("boom")):
+            response = client.get("/api/v1/site/")
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn("boom", mail.outbox[0].body)
+
+    def test_warnings_are_not_emailed(self):
+        import logging
+
+        from django.core import mail
+
+        logging.getLogger("apps.core").warning("just a warning")
+        self.assertEqual(len(mail.outbox), 0)

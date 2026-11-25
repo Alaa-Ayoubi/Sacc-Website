@@ -34,9 +34,15 @@ export const CAT_SVC = { water: 'Droplets', roads: 'Route', electrical: 'Zap', u
 
 export const svcOf = (s) => SVC[s.icon] || SVC.Settings;
 const slugify = (x) => String(x).toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-/** Project slugs come from the English title, so both languages share one URL. */
-export const projSlug = (site, id) => slugify(site.en.projects.items.find((p) => p.id === id)?.title || id);
-export const projSlugs = (site) => site.en.projects.items.map((p) => projSlug(site, p.id));
+/** Project slugs come from the English title, so both languages share one URL.
+ * A page in the browser carries only its own language, so the build hands it
+ * the finished slugs (projectSlugs, see scripts/split-content.mjs); the
+ * prerender has both languages and works them out. */
+export const projSlug = (site, id) => site.projectSlugs?.[id]
+  ?? slugify(site.en.projects.items.find((p) => p.id === id)?.title || id);
+export const projSlugs = (site) => (site.projectSlugs
+  ? Object.values(site.projectSlugs)
+  : site.en.projects.items.map((p) => projSlug(site, p.id)));
 /* The approving bodies, in the order the content lists them, each with its
  * official logo (public/assets/logos/<key>.webp, provenance in its README). Logos come in
  * every proportion, so one height would make a wide wordmark look tiny beside a
@@ -47,11 +53,12 @@ export const BODIES = [
   ['maaden', 127, 46], ['rcjy', 141, 41], ['momah', 93, 63],
 ];
 export const isDone = (p) => /complete|مكتمل|منجز/i.test(p.status);
-/* The design shows only the company's own photographs, from its image server;
- * the stock photographs kept in the repository are not used. Each project and
- * leader carries its own photograph, so a deletion or a new order in the admin
- * never moves a photograph to someone else. */
-const isRemote = (u) => /^https?:/i.test(u || '');
+/* The design shows only the company's own photographs: those shipped with the
+ * site under /assets/photos/site/, or one an editor uploaded (an absolute
+ * address). The older stock photographs in the repository (./assets/photos/...)
+ * are not used. Each project and leader carries its own photograph, so a
+ * deletion or a new order in the admin never moves a photograph to someone else. */
+const isRemote = (u) => /^https?:/i.test(u || '') || /^\/assets\/photos\/site\//.test(u || '');
 /** A project's photograph, or '' when it has none of its own. */
 export const projImage = (site, p) => (isRemote(p.image) ? p.image : '');
 /** A leader's portrait, or ''. */

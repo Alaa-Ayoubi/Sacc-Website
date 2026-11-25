@@ -1,0 +1,72 @@
+# Daily encrypted backup of the production database.
+#
+# Neon's free plan keeps only six hours of history, so a bad edit or a broken
+# migration noticed the next day could not be undone. This takes a full dump
+# every night and keeps each one for 90 days as a workflow artifact.
+#
+# The repository is public and its artifacts can be downloaded by any GitHub
+# user, so the dump is encrypted (AES-256, gpg) before it is uploaded. Only the
+# passphrase opens it: keep it somewhere safe outside GitHub as well. Restoring
+# is described in backend/DATABASE.md, "النسخ الاحتياطي اليومي".
+#
+# Two repository secrets (Settings > Secrets and variables > Actions):
+#   BACKUP_DATABASE_URL   Neon's direct connection string (not the -pooler one)
+#   BACKUP_PASSPHRASE     a long random passphrase
+name: Database backup
+
+on:
+  schedule:
+    - cron: "17 23 * * *" # 02:17 in Saudi Arabia
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check the secrets are set
+        env:
+          DB: ${{ secrets.BACKUP_DATABASE_URL }}
+          PASS: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          if [ -z "$DB" ] || [ -z "$PASS" ]; then
+            echo "::error::Set BACKUP_DATABASE_URL and BACKUP_PASSPHRASE in the repository's Actions secrets."
+            exit 1
+          fi
+
+      # pg_dump must be at least the server's version; Neon runs PostgreSQL 18.
+      - name: Install the PostgreSQL 18 client
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-18
+          /usr/lib/postgresql/18/bin/pg_dump --version
+
+      - name: Dump and encrypt
+        env:
+          DB: ${{ secrets.BACKUP_DATABASE_URL }}
+          PASS: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -o pipefail
+          name="sacc-$(date -u +%Y-%m-%dT%H%MZ).dump.gpg"
+          /usr/lib/postgresql/18/bin/pg_dump --format=custom --no-owner --no-privileges "$DB" \
+            | gpg --batch --yes --symmetric --cipher-algo AES256 --passphrase-fd 3 --output "$name" 3<<<"$PASS"
+          # A dump of the real site is never this small; an empty one means it failed.
+          size=$(stat -c %s "$name")
+          if [ "$size" -lt 20000 ]; then echo "::error::The backup is only $size bytes."; exit 1; fi
+          echo "BACKUP_FILE=$name" >> "$GITHUB_ENV"
+          echo "Backup $name: $size bytes"
+
+      - name: Keep it for 90 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BACKUP_FILE }}
+          path: ${{ env.BACKUP_FILE }}
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
